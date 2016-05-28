@@ -7,10 +7,10 @@ paste("grid",sprintf("%02.0f",1:16),sep="")-> grids
 CellIDS <- 1:256
 cols <- rep(cols,16)
 rows <- rep(rows,each=16)
-grids <- c(rep(rep(grids[1:4],each=4),4),
-           rep(rep(grids[5:8],each=4),4),
-           rep(rep(grids[9:12],each=4),4),
-           rep(rep(grids[13:16],each=4),4))
+grids <- c(rep(rep(rows[1:4],each=4),4),
+           rep(rep(rows[5:8],each=4),4),
+           rep(rep(rows[9:12],each=4),4),
+           rep(rep(rows[13:16],each=4),4))
 
 
 Addresses <- data.frame(rows,cols,grids)
@@ -22,3 +22,16 @@ for (i in 1:16){
     getcol=Addresses[Cell,2]
     }
     }
+################################################################
+
+CellIDS <- 1:256
+
+rownum <- rep(1:16,each=16)
+colnum <- rep(1:16,16)
+gridnum <- c(rep(rep(1:4,each=4),4),
+           rep(rep(5:8,each=4),4),
+           rep(rep(9:12,each=4),4),
+           rep(rep(13:16,each=4),4))
+Addresses2 <- data.frame(rownum,colnum,gridnum)
+
+################################################################
