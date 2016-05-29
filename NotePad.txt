@@ -1,0 +1,48 @@
+
+In this section we try and figure out the minimal number of characters 
+needed for an tractability.
+It may be the case that some additional requirments are needed for a tractable solution.
+
+We will run the experiment 100 times for each initial character set size, and see how many times
+a solution was found.
+
+First we set up an initital allocation method.
+
+####################################################
+
+Randon Selection of Cells
+
+n<-32
+
+InitialCells <- sample(1:256,n)
+CharSet <- c(as.character(1:9),LETTERS[1:7])
+
+InitialCharSet <- sample(Chars,n,replace=T)
+
+CellValues <-rep(NA,256)
+CellValues[InitialCells] <- InitialCharSet
+
+####################################################
+
+ToCell <- function(i=1,j=1){
+	#Row is i
+        #Col is j
+        Cell <- 16*(i-1) + (j)
+	return(Cell)
+        }
+
+
+
+####################################################
+
+CellValues <-rep(NA,256)
+CharSet <- c(as.character(1:9),LETTERS[1:7])
+
+
+for (i in 1:16){
+    for (j in 1:16){
+	CellID <- ToCell(i,j)
+	if (RawGrid[i,j] %in% CharSet){ CellValues[CellID]= RawGrid[i,j]}
+    	}
+    }
+
