@@ -1,13 +1,86 @@
 
-why use "NA"s
 
-Row01 <- c(NA,NA,NA,"4","5")
-Col03 <- c(NA,NA,NA,"1","3","4","5")
 
-union(Row01,Col03)
 
-sort(union(Row01,Col03))
+myMatrix <- matrix(rnorm(256),nrow=16)
 
+for (i in 1:16){
+	for (j in 1:16){
+	if (myMatrix[i,j] =="") myMatrix[i,j] = NA
+	}
+}
+
+
+chars <- c("1", "2", "3", "4", "5", "6", "7", "8", "9",  "A", "B", 
+"C", "D", "E", "F","G")
+
+row01 <- myMatrix[ 1,]
+row02<- myMatrix[ 2,]
+row03<- myMatrix[ 3,]
+row04<- myMatrix[ 4,]
+row05<- myMatrix[ 5,]
+row06<- myMatrix[ 6,]
+row07<- myMatrix[ 7,]
+row08<- myMatrix[ 8,]
+row09<- myMatrix[ 9,]
+row10<- myMatrix[ 10,]
+row11<- myMatrix[ 11,]
+row12<- myMatrix[ 12,]
+row13<- myMatrix[ 13,]
+row14<- myMatrix[ 14,]
+row15<- myMatrix[ 15,]
+row16<- myMatrix[ 16,]
+
+col01<- myMatrix[ ,1]
+col02<- myMatrix[ ,2]
+col03<- myMatrix[ ,3]
+col04<- myMatrix[ ,4]
+col05<- myMatrix[ ,5]
+col06<- myMatrix[ ,6]
+col07<- myMatrix[ ,7]
+col08<- myMatrix[ ,8]
+col09<- myMatrix[ ,9]
+col10<- myMatrix[ ,10]
+col11<- myMatrix[ ,11]
+col12<- myMatrix[ ,12]
+col13<- myMatrix[ ,13]
+col14<- myMatrix[ ,14]
+col15<- myMatrix[ ,15]
+col16<- myMatrix[ ,16]
+
+grid01<-myMatrix[1:4,1:4]
+grid02<-myMatrix[1:4,5:8]
+grid03<-myMatrix[1:4,9:12]
+grid04<-myMatrix[1:4,13:16]
+grid05<-myMatrix[5:8,1:4]
+grid06<-myMatrix[5:8,5:8]
+grid07<-myMatrix[5:8,9:12]
+grid08<-myMatrix[5:8,13:16]
+grid09<-myMatrix[9:12,1:4]
+grid10<-myMatrix[9:12,5:8]
+grid11<-myMatrix[9:12,9:12]
+grid12<-myMatrix[9:12,13:16]
+grid13<-myMatrix[13:16,1:4]
+grid14<-myMatrix[13:16,5:8]
+grid15<-myMatrix[13:16,9:12]
+grid16<-myMatrix[13:16,13:16]
+
+
+
+
+CellIDS <- matrix(1:256,nrow=16,byrow=T)
+
+getCol <- c("col01", "col02", "col03", "col04", "col05", "col06", 
+"col07", "col08", "col09", "col10", "col11", "col12", "col13", 
+"col14", "col15", "col16")
+
+getGrid <-c( "grid01", "grid02", "grid03", "grid04", 
+"grid05", "grid06", "grid07", "grid08", "grid09", "grid10", "grid11", 
+"grid12", "grid13", "grid14", "grid15", "grid16")
+
+getRow<-c( "row01", "row02", "row03", "row04", "row05", "row06", "row07", 
+"row08", "row09", "row10", "row11", "row12", "row13", "row14", 
+"row15", "row16")
 
 #############################################################
 In this section we try and figure out the minimal number of characters 
