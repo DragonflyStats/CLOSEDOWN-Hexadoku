@@ -1,0 +1,8 @@
+why use "NA"s
+
+Row01 <- c(NA,NA,NA,"4","5")
+Col03 <- c(NA,NA,NA,"1","3","4","5")
+
+union(Row01,Col03)
+
+sort(union(Row01,Col03))
