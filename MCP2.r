@@ -1,3 +1,5 @@
+
+
 library(dplyr)
 library(magrittr)
 
@@ -27,6 +29,34 @@ grids <- c(rep(rep(grids[1:4],each=4),4),
 
 
 Addresses <- data.frame(rows,cols,grids)
+
+##################################################
+
+
+for(k in 1:16)
+{
+rowVals <- MakeFrame %>% filter(rows==paste("row",sprintf("%02.0f",k),sep="")) %>% select(CellValues)
+colVals <- MakeFrame %>% filter(cols==paste("col",sprintf("%02.0f",k),sep="")) %>% select(CellValues)
+gridVals <- MakeFrame %>% filter(grids==paste("grid",sprintf("%02.0f",k),sep="")) %>% select(CellValues)
+
+
+
+if (  sum(unique(sort(rowVals$cellValues))) != sum(sort(rowVals$cellValues)) )
+{
+cat(sprintf("%02.0f",k))
+} 
+
+
+if (  sum(unique(sort(colVals$cellValues))) != sum(sort(colVals$cellValues)) )
+{
+cat(sprintf("%02.0f",k))
+} 
+
+
+if (  sum(unique(sort(gridVals$cellValues))) != sum(sort(gridVals$cellValues)) )
+{
+cat(sprintf("%02.0f",k))
+} 
 
 ##################################################
 
@@ -60,6 +90,8 @@ if (sum(is.na(gridVals$cellValues))==1){MakeFrame$CellValues[i]=setdiff(CharSet,
 }
 
 #################################### Part 2
+
+
 
 for(i in 1:256)
 {
