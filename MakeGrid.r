@@ -1,5 +1,5 @@
 
-MakeGrid <- function(X){
-         return(matrix(X,nrow=16,byrow=T)
+MakeGrid <- function(){
+         print(matrix(Addresses$CellValues,16,byrow=T)))
 
          }
