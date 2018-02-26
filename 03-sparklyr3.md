@@ -88,7 +88,8 @@ src_tbls(sc)
 </code></pre>
 
 ### Distributed R
-You can execute arbitrary r code across your cluster using spark_apply. For example, we can apply rgamma over iris as follows:
+You can execute arbitrary r code across your cluster using spark_apply. 
+For example, we can apply ``rgamma`` over iris as follows:
 <pre><code>
 spark_apply(iris_tbl, function(data) {
   data[1:4] + rgamma(1,2)
