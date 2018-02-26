@@ -1,4 +1,5 @@
-Connect to Spark from R. The sparklyr package provides a 
+### Connect to Spark from R. 
+The sparklyr package provides a 
 complete dplyr backend.
 Filter and aggregate Spark datasets then bring them into R for 
 analysis and visualization.
