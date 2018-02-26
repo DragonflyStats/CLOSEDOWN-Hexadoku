@@ -5,12 +5,13 @@ tbl_cache(sc, "batting")
 and unload from memory using:
 
 tbl_uncache(sc, "batting")
-Connection Utilities
+
+### Connection Utilities
 You can view the Spark web console using the spark_web function:
 
 spark_web(sc)
 You can show the log using the spark_log function:
-
+<pre><code>
 spark_log(sc, n = 10)
 ## 17/08/25 12:57:40 INFO ContextCleaner: Cleaned accumulator 4349
 ## 17/08/25 12:57:40 INFO BlockManagerInfo: Removed broadcast_73_piece0 on 127.0.0.1:50036 in memory (size: 10.0 KB, free: 338.3 MB)
@@ -22,16 +23,20 @@ spark_log(sc, n = 10)
 ## 17/08/25 12:57:40 INFO TaskSchedulerImpl: Removed TaskSet 72.0, whose tasks have all completed, from pool 
 ## 17/08/25 12:57:40 INFO DAGScheduler: ResultStage 72 (count at NativeMethodAccessorImpl.java:0) finished in 0.131 s
 ## 17/08/25 12:57:40 INFO DAGScheduler: Job 49 finished: count at NativeMethodAccessorImpl.java:0, took 0.134441 s
+</code></pre>
 Finally, we disconnect from Spark:
-
+<pre><code>
 spark_disconnect(sc)
-RStudio IDE
+</code></pre>
+### RStudio IDE
 The latest RStudio Preview Release of the RStudio IDE includes integrated support for Spark and the sparklyr package, including tools for:
 
-Creating and managing Spark connections
-Browsing the tables and columns of Spark DataFrames
-Previewing the first 1,000 rows of Spark DataFrames
-Once you’ve installed the sparklyr package, you should find a new Spark pane within the IDE. This pane includes a New Connection dialog which can be used to make connections to local or remote Spark instances:
+* Creating and managing Spark connections
+* Browsing the tables and columns of Spark DataFrames
+* Previewing the first 1,000 rows of Spark DataFrames
+
+Once you’ve installed the sparklyr package, you should find a new Spark pane within the IDE. 
+This pane includes a New Connection dialog which can be used to make connections to local or remote Spark instances:
 
 
 
@@ -45,9 +50,10 @@ You can also connect to Spark through Livy through a new connection dialog:
 
 The RStudio IDE features for sparklyr are available now as part of the RStudio Preview Release.
 
-Using H2O
+### Using H2O
 rsparkling is a CRAN package from H2O that extends sparklyr to provide an interface into Sparkling Water. For instance, the following example installs, configures and runs h2o.glm:
 
+<pre><code>
 options(rsparkling.sparklingwater.version = "2.1.0")
 
 library(rsparkling)
@@ -101,7 +107,8 @@ mtcars_glm
 ## Residual D.o.F. :29
 ## AIC :156.2425
 spark_disconnect(sc)
-Connecting through Livy
+</code></pre>
+### Connecting through Livy
 Livy enables remote connections to Apache Spark clusters. Connecting to Spark clusters through Livy is under experimental development in sparklyr. Please post any feedback or questions as a GitHub issue as needed.
 
 Before connecting to Livy, you will need the connection information to an existing service running Livy. Otherwise, to test livy in your local environment, you can install it and run it locally as follows:
