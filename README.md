@@ -1,2 +1,2 @@
-# Hexadoku
-Hexadoku Solver
+# sparklyr
+R is mostly optimized to help you write data analysis code quickly and readably. Apache Spark is designed to analyze huge datasets quickly. The sparklyr package lets you write dplyr R code that runs on a Spark cluster, giving you the best of both worlds. This course teaches you how to manipulate Spark DataFrames using both the dplyr interface and the native interface to Spark, as well as trying machine learning techniques. Throughout the course, you'll explore the Million Song Dataset.
