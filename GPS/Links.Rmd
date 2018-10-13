@@ -1,0 +1,15 @@
+
+ BBC Science Program
+ http://www.dailymail.co.uk/sciencetech/article-2340714/The-Secret-Life-Cat-What-mischievous-moggies-gets-owners-backs.html
+ http://www.rvc.ac.uk/research/research-centres-and-facilities/structure-and-motion/news/rvc-join-forces-with-bbc-for-cat-watch-2014
+ 
+ http://www.gpsbabel.org/
+ http://wiki.openstreetmap.org/wiki/GPSBabel
+ 
+ http://www.r-bloggers.com/stay-on-track-plotting-gps-tracks-with-r/
+ http://www.r-bloggers.com/mapping-gps-tracks-in-r/
+
+ adehabitat
+ http://cran.r-project.org/web/packages/adehabitatLT/vignettes/adehabitatLT.pdf
+
+ 
