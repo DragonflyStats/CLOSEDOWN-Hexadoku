@@ -1,0 +1,85 @@
+
+
+## distance_columns
+Distance matrix columns
+Description
+distance_columns extracts columns from the distance matrix.
+Usage
+distance_columns(distances, column_indices, row_indices = NULL)
+Arguments
+distances
+A distances object.
+column_indices An integer vector with point indices indicating which columns to be extracted.
+row_indices
+If NULL, complete rows will be extracted. If integer vector with point indices,
+only the indicated rows will be extracted.
+Details
+If the complete distance matrix is desired, distance_matrix is faster than distance_columns.
+Value
+Returns a matrix with the requested columns.
+distance_matrix
+Distance matrix
+Description
+distance_matrix makes distance matrices (complete and partial) from distances objects.
+Usage
+distance_matrix(distances, indices = NULL)6
+max_distance_search
+Arguments
+distances A distances object.
+indices If NULL, the complete distance matrix is made. If integer vector with point in-
+dices, a partial matrix including only the indicated data points is made.
+Value
+Returns a distance matrix of class dist.
+Check distances object
+is.distances
+Description
+is.distances checks whether the provided object is a valid instance of the distances class.
+Usage
+is.distances(x)
+Arguments
+x
+object to check.
+Value
+Returns TRUE if x is a valid distances object, otherwise FALSE.
+max_distance_search
+Max distance search
+
+#### Description
+max_distance_search searches for the data point furthest from a set of query points.
+
+#### Usage
+max_distance_search(distances, query_indices = NULL, search_indices = NULL)
+
+#### Arguments
+* distances A distances object.
+* query_indices An integer vector with point indices to query. If NULL, all data points in distances are queried.
+* search_indices An integer vector with point indices to search among. If NULL, all data points in distances are searched over.nearest_neighbor_search
+
+#### Value
+An integer vector with point indices for the data point furthest from each query.
+nearest_neighbor_search
+Nearest neighbor search
+
+#### Description
+nearest_neighbor_search searches for the k nearest neighbors of a set of query points.
+
+#### Usage
+<pre><code>
+nearest_neighbor_search(distances, k, query_indices = NULL,
+search_indices = NULL, radius = NULL)
+</code></pre>
+
+#### Arguments
+distances A distances object.
+k The number of neighbors to search for.
+query_indices An integer vector with point indices to query. If NULL, all data points in distances
+are queried.
+search_indices An integer vector with point indices to search among. If NULL, all data points in
+distances are searched over.
+radius
+Restrict the search to a fixed radius around each query. If fewer than k search
+points exist within this radius, no neighbors are reported (indicated by NA).
+
+#### Value
+A matrix with point indices for the nearest neighbors. Columns in this matrix indicate queries, and
+rows are ordered by distances from the query.
