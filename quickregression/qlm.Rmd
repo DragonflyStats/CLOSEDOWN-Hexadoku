@@ -1,0 +1,98 @@
+Package ‘quickregression’
+July 2, 2017
+Title Quick Linear Regression
+Version 0.2
+Description Helps to perform linear regression analysis by reducing manual effort. Reduces the inde-
+pendent variables based on specified p-value and Variance Inflation Factor (VIF) level.
+Depends R (>= 3.4.0), car (>= 2.1)
+License GPL-3
+Encoding UTF-8
+LazyData true
+RoxygenNote 6.0.1.9000
+NeedsCompilation no
+Author Darshan Maniyar [aut, cre]
+Maintainer Darshan Maniyar <maniyar.darshan@gmail.com>
+Repository CRAN
+Date/Publication 2017-07-02 00:04:40 UTC
+R topics documented:
+qlm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+## Quick Linear Regression
+
+#### Description
+
+Reduces the independent variables based on specified P value and Variance Inflation Factor (VIF)
+level, and reduces following manual efforts.
+1. Checking VIF first then removing number of independent variables based on the VIF level.
+2. Then Checking p-value of remaining independent variables and removing them.
+12
+qlm
+User can select significance level and VIF level as argument.
+Please note: Function reduces above manual efforts, hence I called it as quick regression.
+Also, function uses existing lm() function as is, so it will not improve core lm() function execution.
+User can provide existing arguments of lm functions.
+Especially with small data set it would be very handy tool for Linear Model preparation.
+Usage
+
+<pre><code>
+
+qlm(data, V_dependent, signifi = 0.05, vifl = 5, subset = NULL,
+weights = NULL, na.action = NULL, method = "qr", model = TRUE,
+x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE,
+contrasts = NULL, offset = NULL)
+
+</code></pre>
+
+#### Arguments
+data
+V_dependent
+signifi
+vifl
+subset
+weights
+na.action
+method
+is data set name (e.g. bank)
+is dependent variable name. No need of double quotes.
+is significant level in lm model.(e.g. 0.05,0.01) (default to 0.05)
+is variance-inflation level. (default to 5)
+Existing lm() function argument, an optional vector specifying a subset of ob-
+servations to be used in the fitting process.
+Existing lm() function argument, an optional vector of weights to be used in the
+fitting process. Should be NULL or a numeric vector. If non-NULL, weighted
+least squares is used with weights weights (that is, minimizing sum(w*e^2));
+otherwise ordinary least squares is used.
+Existing lm() function argument, a function which indicates what should happen
+when the data contain NAs. The default is set by the na.action setting of options,
+and is na.fail if that is unset. The ‘factory-fresh’ default is na.omit. Another
+possible value is NULL, no action. Value na.exclude can be useful.
+Existing lm() function argument, the method to be used; for fitting, currently
+only method = "qr" is supported; method = "model.frame" returns the model
+frame (the same as with model = TRUE).
+model, x, y, qr
+singular.ok
+contrasts
+offset
+Existing lm() function argument, logicals. If TRUE the corresponding com-
+ponents of the fit (the model frame, the model matrix, the response, the QR
+decomposition) are returned.
+Existing lm() function argument, logical. If FALSE (the default in S but not in
+R) a singular fit is an error.
+Existing lm() function argument, an optional list.
+Existing lm() function argument, this can be used to specify an a priori known
+component to be included in the linear predictor during fitting. This should be
+NULL or a numeric vector of length equal to the number of cases. One or more
+offset terms can be included in the formula instead or as well, and if more than
+one are specified their sum is used.qlm
+3
+Examples
+```{r}
+a<-mtcars[,c(1,3,4,5,6,7)]
+b<-qlm(a,mpg)
+summary(b)
+b<-qlm(a,mpg,signifi =0.20)
+summary(b)
+b<-qlm(a,mpg,signifi =0.20,vifl=20)
+summary(b)
+```
