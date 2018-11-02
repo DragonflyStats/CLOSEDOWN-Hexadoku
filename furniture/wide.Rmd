@@ -1,0 +1,18 @@
+wide
+Long to Wide Data Reshaping
+
+#### Description
+
+wide() is a wrapper of stats::reshape() that takes the data from a long format to a wide format.
+Usage
+wide(data, v.names, timevar, id = NULL)
+Arguments
+data the data.frame containing the wide format data
+v.names the variable names in quotes of the measures to be separated into multiple
+columns based on the time variable
+timevar the variable name in quotes of the time variable
+id the ID variable name in quotes
+Author(s)
+Tyson S. Barrett
+See Also
+stats::reshape(), tidyr::spread()18
