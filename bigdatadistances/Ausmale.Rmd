@@ -1,0 +1,20 @@
+Ausmale
+11
+Australian Male Mortality Rates
+
+
+#### Description 
+
+
+The data consist of set of measurements across years of male mortality rates in Australia from
+package fds.
+
+#### Usage
+Ausmale
+
+#### Format
+A list with years in the first component and a 101 times 103 matrix, years in rows and cohorts in
+columns, in the second component.
+
+#### Source
+fds
