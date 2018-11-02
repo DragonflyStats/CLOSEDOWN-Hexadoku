@@ -1,0 +1,40 @@
+
+nhanes_2010
+NHANES 2009-2010
+
+#### Description
+
+A dataset containing information on health, healthcare, and demographics of adolescents aged 18 -
+30 in the United States from 2009 to 2010. This is a cleaned dataset which is only a subset of the
+2009-2010 data release of the National Health and Nutrition Examination Survey (NHANES).
+Usage
+nhanes_2010nhanes_2010
+Format
+A data frame with 1417 rows and 24 variables:
+id individual ID
+gen_health general health indicator with five levels
+mod_active minutes of moderate activity
+vig_active minutes of vigorous activity
+home_meals number of home meals a week
+gender gender of the individual (factor with "male" or "female")
+age age of the individual in years
+marijuana whether the individual has used marijuana
+illicit whether the individual has used illicit drugs
+rehab whether the individual has been to rehab for their drug usage
+asthma whether the individual has asthma
+overweight whether the individual is overweight
+cancer whether the individual has cancer
+low_int rating of whether the individual has low interest in things
+down rating of whether the individual has felt down
+sleeping rating of whether the individual has had trouble sleeping
+low_energy rating of whether the individual has low energy
+appetite rating of whether the individual has lost appetite
+feel_bad rating of whether the individual has felt bad
+no_con rating of whether the individual has felt no confidence
+speak_move rating of whether the individual has trouble speaking/moving
+dead rating of whether the individual has wished he/she was dead
+difficulty rating of whether the individual has felt difficulty from the previous conditions
+active minutes of vigorous or moderate activity
+Source
+https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2009
+78
