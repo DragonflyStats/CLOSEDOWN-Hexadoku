@@ -1,0 +1,29 @@
+to_latex
+From Table 1 to Latex 2
+
+#### Description
+
+Internal table1() and tableC() function for providing output = "latex2"
+Usage
+to_latex(tab, caption, align, len, splitby, float, booktabs, label,
+cor_type = NULL)
+Arguments
+tab
+caption
+align
+len
+splitby
+float
+booktabs
+label
+cor_type
+washer
+the table1 object
+caption character vector
+align character vector
+the number of levels of the grouping factor
+the name of the grouping factor
+argument for latex formatting
+add booktabs to latex table
+latex label option
+optional argument regarding the correlation type (for tableC)
