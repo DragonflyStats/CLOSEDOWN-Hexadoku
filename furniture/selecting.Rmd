@@ -1,0 +1,14 @@
+selecting
+Selecting Function
+
+#### Description
+
+For internal use in table1() and tableC() to extract the right data. Can also be used much like
+dplyr::select(), although I’d recommend one to use dplyr::select() in general.
+Usage
+selecting(d_, ...)
+Arguments
+d_ the data.frame
+... the variables
+Value
+The data.frame with the selected variables
