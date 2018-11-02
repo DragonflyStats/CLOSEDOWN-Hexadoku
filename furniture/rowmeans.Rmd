@@ -1,0 +1,31 @@
+rowmeans
+rowmeans
+Get Row Means
+
+#### Description
+
+Does what rowMeans() does but without having to cbind the variables. Makes it easier to use with
+the tidyverse
+Usage
+rowmeans(..., na.rm = FALSE)
+Arguments
+... the variables (unquoted) to be included in the row means
+na.rm should the missing values be ignored? default is FALSE
+Value
+the row means
+Examples
+## Not run:
+library(furniture)
+library(tidyverse)
+data <- data.frame(
+x = sample(c(1,2,3,4), 100, replace=TRUE),
+y = rnorm(100),
+z = rnorm(100)
+)
+data2 <- data %>%
+mutate(y_z_mean = rowmeans(y, z))
+data2 <- data %>%
+mutate(y_z_mean = rowmeans(y, z, na.rm=TRUE))
+## End(Not run) 
+
+``` 
