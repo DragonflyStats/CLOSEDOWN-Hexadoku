@@ -1,0 +1,126 @@
+
+table1
+Table 1 for Simple and Stratified Descriptive Statistics
+
+#### Description
+
+Produces a descriptive table, stratified by an optional categorical variable, providing means/frequencies
+and standard deviations/percentages. It is well-formatted for easy transition to academic article or
+report. Can be used within the piping framework [see library(magrittr)].
+Usage
+table1(.data, ..., splitby = NULL, FUN = NULL, FUN2 = NULL,
+second = NULL, row_wise = FALSE, test = FALSE,
+header_labels = NULL, type = "pvalues", output = "text",
+rounding_perc = 1, digits = 1, var_names = NULL,
+format_number = FALSE, NAkeep = NULL, na.rm = TRUE,
+booktabs = TRUE, caption = NULL, align = NULL, float = "ht",
+export = NULL, label = NULL)table1
+11
+Arguments
+.data the data.frame that is to be summarized
+... variables in the data set that are to be summarized; unquoted names separated
+by commas (e.g. age, gender, race) or indices. If indices, it needs to be a single
+vector (e.g. c(1:5, 8, 9:20) instead of 1:5, 8, 9:20). As it is currently, it CANNOT
+handle both indices and unquoted names simultaneously. Finally, any empty
+rows (where the row is NA for each variable selected) will be removed for an
+accurate n count.
+splitby the categorical variable to stratify (in formula form splitby = ~gender),
+quoted splitby = "gender", or bare splitby = gender); instead, dplyr::group_by(...)
+can be used
+FUN the function to be applied to summarize the numeric data; default is to report the
+means and standard deviations
+FUN2 a secondary function to be applied to summarize the numeric data; default is to
+report the medians and 25% and 75% quartiles
+second a vector or list of quoted continuous variables for which the FUN2 should be
+applied
+row_wise how to calculate percentages for factor variables when splitby != NULL: if
+FALSE calculates percentages by variable within groups; if TRUE calculates per-
+centages across groups for one level of the factor variable.
+test logical; if set to TRUE then the appropriate bivariate tests of significance are
+performed if splitby has more than 1 level
+header_labels a character vector that renames the header labels (e.g., the blank above the vari-
+ables, the p-value label, and test value label).
+type what is displayed in the table; a string or a vector of strings. Two main sections
+can be inputted: 1. if test = TRUE, can write "pvalues", "full", or "stars" and 2.
+can state "simple" and/or "condense". These are discussed in more depth in the
+details section below.
+output how the table is output; can be "text" or "text2" for regular console output or any
+of kable()’s options from knitr (e.g., "latex", "markdown", "pandoc"). A new
+option, 'latex2', although more limited, allows the variable name to show and
+has an overall better appearance.
+rounding_perc the number of digits after the decimal for percentages; default is 1
+digits the number of significant digits for the numerical variables (if using default func-
+tions); default is 1.
+var_names custom variable names to be printed in the table. Variable names can be applied
+directly in the list of variables.
+format_number default is FALSE; if TRUE, then the numbers are formatted with commas (e.g.,
+20,000 instead of 20000)
+NAkeep when set to TRUE it also shows how many missing values are in the data for each
+categorical variable being summarized (deprecated; use na.rm)
+na.rm when set to FALSE it also shows how many missing values are in the data for
+each categorical variable being summarized12
+table1
+booktabs when output != "text"; option is passed to knitr::kable
+caption when output != "text"; option is passed to knitr::kable
+align when output != "text"; option is passed to knitr::kable
+float the float applied to the table in Latex when output is latex2, default is "ht".
+export character; when given, it exports the table to a CSV file to folder named "table1"
+in the working directory with the name of the given string (e.g., "myfile" will
+save to "myfile.csv")
+label for output == "latex2", this provides a table reference label for latex
+
+#### Details 
+
+In defining type, 1. options are "pvalues" that display the p-values of the tests, "full" which also
+shows the test statistics, or "stars" which only displays stars to highlight significance with *** <
+.001 ** .01 * .05; and 2. "simple" then only percentages are shown for categorical variable and
+"condense" then continuous variables’ means and SD’s will be on the same line as the variable
+name and dichotomous variables only show counts and percentages for the reference category.
+Value
+A table with the number of observations, means/frequencies and standard deviations/percentages is
+returned. The object is a table1 class object with a print method. Can be printed in LaTex form.
+Examples
+## Not run:
+## Ficticious Data ##
+library(furniture)
+library(tidyverse)
+x
+y
+z
+a
+df
+<-
+<-
+<-
+<-
+<-
+runif(1000)
+rnorm(1000)
+factor(sample(c(0,1), 1000, replace=TRUE))
+factor(sample(c(1,2), 1000, replace=TRUE))
+data.frame(x, y, z, a)
+## Simple
+table1(df, x, y, z, a)
+## Stratified
+## all three below are the same
+table1(df, x, y, z,
+splitby = ~ a)
+table1(df, x, y, z,
+splitby = "a")
+table1(df, x, y, z,
+splitby = a)
+## With Piping
+df %>%tableC
+13
+table1(x, y, z,
+splitby = ~a) %>%
+summarise(count = n())
+df %>%
+group_by(a) %>%
+table1(x, y, z)
+## Adjust variables within function and assign name
+table1(df,
+x2 = ifelse(x > 0, 1, 0), z = z)
+## End(Not run) 
+
+``` 
