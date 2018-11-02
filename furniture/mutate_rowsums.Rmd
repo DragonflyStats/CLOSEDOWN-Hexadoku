@@ -1,0 +1,32 @@
+mutate_rowsums
+Get Row Sums within a Pipe
+
+#### Description
+
+Does what rowSums() does can be used one its own without dplyr::mutate() within a pipe.
+Usage
+mutate_rowsums(data, new_var, ..., na.rm = FALSE)6
+nhanes_2010
+Arguments
+data the dataframe that contains the variables to get the row means from
+new_var the name of the new variable for which you’ll put the row means in quotes
+... the variables (unquoted) to be included in the row means
+na.rm should the missing values be ignored? default is FALSE
+Value
+the row means included within the data.frame
+Examples
+## Not run:
+library(furniture)
+library(tidyverse)
+data <- data.frame(
+x = sample(c(1,2,3,4), 100, replace=TRUE),
+y = rnorm(100),
+z = rnorm(100)
+)
+data2 <- data %>%
+mutate_rowsums("y_z_sums", y, z))
+data2 <- data %>%
+mutate_rowsums("y_z_sums", y, z, na.rm=TRUE))
+## End(Not run) 
+
+``` 
