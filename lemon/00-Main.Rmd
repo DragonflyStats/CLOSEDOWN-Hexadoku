@@ -1,0 +1,524 @@
+Package ‘lemon’
+October 30, 2018
+Type Package
+Title Freshing Up your 'ggplot2' Plots
+URL https://github.com/stefanedwards/lemon
+BugReports https://github.com/stefanedwards/lemon/issues
+Version 0.4.2
+Date 2018-10-30
+Description Functions for working with legends and axis lines of 'ggplot2',
+facets that repeat axis lines on all panels, and some 'knitr' extensions.
+Depends R (>= 3.1.0)
+Imports ggplot2 (>= 2.2.0), plyr, grid, gridExtra, gtable, knitr (>=
+1.12), lattice, scales
+License GPL-3
+Encoding UTF-8
+LazyData true
+RoxygenNote 6.1.0.9000
+Collate 'ggplot2.r' 'lemon-plot.r' 'axis-annotation.r' 'brackets.R'
+'coord-flex.r' 'coord-capped.r' 'dot.r' 'facet-rep-lab.r'
+'facet-wrap.r' 'geom-pointline.r' 'lemon_print.r'
+'geom-siderange.r' 'grob_utils.r' 'gtable_show-.r'
+'guides-axis.r' 'legends.r' 'lemon.r' 'scale-symmetric.r'
+Suggests rmarkdown, stringr, dplyr, testthat
+VignetteBuilder knitr
+NeedsCompilation no
+Author Stefan McKinnon Edwards [aut, ctb, cre]
+(<https://orcid.org/0000-0002-4628-8148>),
+Baptiste Auguie [ctb] (For g_legend and grid_arrange_shared_legend),
+Shaun Jackman [ctb] (For grid_arrange_shared_legend),
+Hadley Wickham [ctb] (ggplot2 functions),
+Winston Chang [ctb] (ggplot2 functions)
+Maintainer Stefan McKinnon Edwards <sme@iysik.com>
+12
+.dot
+Repository CRAN
+Date/Publication 2018-10-30 20:50:03 UTC
+R topics documented:
+.dot . . . . . . . . . . . . .
+annotate_y_axis . . . . . . .
+brackets_horizontal . . . . .
+coord_capped_cart . . . . .
+coord_flex_cart . . . . . . .
+element_render . . . . . . .
+facet_rep_grid . . . . . . . .
+geom_pointpath . . . . . . .
+geom_siderange . . . . . . .
+get_panel_range . . . . . . .
+grid_arrange_shared_legend
+gtable_show_grill . . . . . .
+guidebox_as_column . . . .
+g_legend . . . . . . . . . . .
+is.small . . . . . . . . . . .
+lemon . . . . . . . . . . . .
+lemon_print . . . . . . . . .
+remove_labels_from_axis . .
+reposition_legend . . . . . .
+scale_x_symmetric . . . . 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+.
+.
+Index
+.dot
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+.
+2
+3
+5
+6
+7
+9
+10
+10
+13
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+27
+
+
+
+
+
+
+
+g_legend
+Extract ggplot legends
+Description
+Extracts the legend (’guide-box’) from a ggplot2 object.
+Usage
+g_legend(a.gplot)
+Arguments
+a.gplot
+ggplot2 or gtable object.
+Details
+The extraction is applied after the plot is trained and themes are applied. Modifying the legend is
+easiest by applying themes etc. to the ggplot2 object, before calling g_legend.
+An alternative method for extracting the legend is using gtable::gtable_filter:
+gtable_filter(ggplotGrob(a.ggplot.obj), 'guide-box')
+This method however returns a gtable object which encapsulates the entire legend. The legend
+itself may be a collection of gtable. We have only noticed a problem with this extra layer when
+using the returned legend with arrangeGrob (see examples).
+Value
+gtable (grob) object. Draw with grid.draw.
+Author(s)
+Baptiste Auguié
+See Also
+grid_arrange_shared_legend, reposition_legend, gtable_filter20
+is.small
+Examples
+library(ggplot2)
+library(gtable)
+library(grid)
+library(gridExtra)
+library(gtable)
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+(d <- ggplot(dsamp, aes(carat, price)) +
+geom_point(aes(colour = clarity)) +
+theme(legend.position='bottom'))
+legend <- g_legend(d)
+grid.newpage()
+grid.draw(legend)
+(d2 <- ggplot(dsamp, aes(x=carat, fill=clarity)) +
+geom_histogram(binwidth=0.1) +
+theme(legend.position='bottom'))
+grid.arrange(d + theme(legend.position='hidden'),
+d2 + theme(legend.position='hidden'),
+bottom=legend$grobs[[1]])
+# Above fails with more than one guide
+legend2 <- gtable_filter(ggplotGrob(d), 'guide-box')
+grid.arrange(d + theme(legend.position='hidden'),
+d2 + theme(legend.position='hidden'),
+bottom=legend2$grobs[[1]]$grobs[[1]])
+# Above fails with more than one guide
+is.small
+Is a given unit ’small’?
+Description
+Uses a holistic approach to determine whether a unit is ’small’, i.e. less than 1 cm, 1 line, 10 pt, or
+0.4 in.
+Usage
+is.small(x)
+Arguments
+x
+A unit.lemon
+21
+Details
+Based on arbitraily chosen definitions of ’small’, this function can return TRUE or FALSE if a unit is
+’small’.
+So far, less than 1 cm, 1 line, 10 pt, or 0.4 inches is defined as being ’small’. Unresolved sizes,
+suchs as ’grobheight’, ’grobwidth’, or ’null’ are not small. Units based on arithmetic, such as sum
+of multiple units, are also not small. NAs are returned for undecided sizes.
+Value
+Logical or NA.
+lemon
+Freshing up your ggplots
+Description
+Collection of misc. functions for changing subtle aspects of ggplots. Works mostly on gtables
+produced prior to printing.
+Functions for axis
+See coord_capped_cart and coord_flex_cart. The latter is a shorthand version of the former. It
+automatically uses capped_horizontal and capped_vertical, but both accepts these as well as
+brackets_horizontal and brackets_vertical.
+Legends
+Extract legend g_legend
+Many plots, one legend grid_arrange_shared_legend
+Place legend exactly on plot reposition_legend
+Facets
+facet_rep_grid and facet_rep_wrap are extensions to the wellknown facet_grid and facet_wrap
+where axis lines and labels are drawn on all panels.
+Extending knitr
+We automatically load knitr’s knit_print for data frames and dplyr tables to provide automatic
+pretty printing of data frame using kable.
+See lemon_print or vignette('lemon_print', 'lemon').
+Relative paths safe from hanging directory: .dot.22
+lemon_print
+Author(s)
+Stefan McKinnon Edwards <sme@iysik.com>
+Contributions from Baptiste Auguié on g_legend and grid_arrange_shared_legend.
+Contributions from Shaun Jackman on grid_arrange_shared_legend.
+Source
+https://github.com/stefanedwards/lemon
+See Also
+Useful links:
+• https://github.com/stefanedwards/lemon
+• Report bugs at https://github.com/stefanedwards/lemon/issues
+lemon_print
+knitr extension: Always use ‘kable‘ for data frames.
+Description
+Convenience function for working with R Notebooks that ensures data frames (and dplyr tables) are
+printed with kable while allowing RStudio to render the data frame dynamically for inline display.
+Usage
+lemon_print(x, options, ...)
+## S3 method for class 'data.frame'
+lemon_print(x, options, ...)
+## S3 method for class 'table'
+lemon_print(x, options, ...)
+Arguments
+x an data frame or dplyr table object to be printed
+options Current chunk options are passed through this argument.
+... Ignored for now.
+Details
+These functions divert data frame and summary output to kable for nicely printing the output.
+For options to kable, they can be given directly as chunk-options (see arguments to kable), or
+though as a list to a special chunk-option kable.opts.
+For more examples, see vignette('lemon_print', package='lemon').remove_labels_from_axis
+23
+Knitr usage
+To use for a single chunk, do
+```{r render=lemon_print,caption='My data frame'}
+data.frame
+```
+Note: We are not calling the function, but instead refering to it.
+An alternate route for specifying kable arguments is as:
+```{r render=lemon_print,kable.opts=list(align='l')}
+data.frame
+```
+The option kable.opts takes precendence over arguments given directly as chunk-options.
+To enable as default printing method for all chunks, include
+knit_print.data.frame <- lemon_print
+knit_print.table <- lemon_print
+knit_print.grouped_df <- lemon_print # enableds dplyr results
+knit_print.tibble <- lemon_print
+knit_print.tbl <- lemon_print
+Note: We are not calling the function, but instead assigning the knit_print functions for some
+classes.
+To disable, temporarily, specify chunk option:
+```{r render=normal_print}`
+data.frame
+```
+See Also
+knit_print, kable
+remove_labels_from_axis
+Removes labels from axis grobs.
+Description
+Called from FacetGridRepeatLabels.
+Usage
+remove_labels_from_axis(axisgrob)24
+reposition_legend
+Arguments
+axisgrob
+reposition_legend
+Grob with an axis.
+Reposition a legend onto a panel
+Description
+Repositions a legend onto a panel, by either taking it from the same ggplot, or by using another.
+Works on both ggplot2 and gtable objects, and can accept any grob as legend.
+Usage
+reposition_legend(aplot, position = NULL, legend = NULL,
+panel = "panel", x = NULL, y = NULL, just = NULL,
+name = "guide-box", clip = "on", offset = c(0, 0), z = Inf,
+plot = TRUE)
+Arguments
+aplot a ggplot2 or gtable object.
+position Where to place the legend in the panel. Overrules just argument.
+legend The legend to place, if NULL (default), it is extracted from aplot if this is a
+ggplot2 object.
+panel Name of panel in gtable. See description.
+x horisontal coordinate of legend, with 0 at left.
+y vertical coordiante of legend, with 0 at bottom.
+just ’Anchor point’ of legend; it is this point of the legend that is placed at the x and
+y coordinates.
+name, clip, z Parameters forwarded to gtable_add_grob.
+offset Numeric vector, sets distance from edge of panel. First element for horisontal
+distance, second for vertical. Not used by arguments x and y.
+plot Logical, when TRUE (default), draws plot with legend repositioned on a new
+page.
+Details
+To modify the look of the legend, use themes and the natural ggplot functions found in guide_legend.
+Positioning is done by argument position which places the panel relative in panel (see below).
+position resolves to three variables, x, y, and just. x and y is the coordinate in panel, where the
+anchorpoint of the legend (set via just) is placed. In other words, just='bottom right' places
+the bottom right corner of the legend at coordinates (x,y).scale_x_symmetric
+25
+The positioning can be set by argument position alone, which can be further nudged by setting
+position, x, and y. Alternatively, manually positioning can be obtained by setting arguments. x,
+y, and just.
+Panel name is by default panel, but when using facets it typically takes the form panel-{col}-{row},
+but not for wrapped facets. Either print result from ggplotGrob or use gtable_show_names to dis-
+play all the names of the gtable object.
+panel takes multiple names, and will then use these components’ extremes for placing the legend.
+If panel is an integer vector of length 2 or 4, these elements are used directly for top-left and
+bottom-right coordinates.
+Value
+gtable object, invisibly, with legend repositioned. Can be drawn with grid.draw.
+Author(s)
+Stefan McKinnon Edwards <sme@iysik.com>
+See Also
+g_legend, grid_arrange_shared_legend
+Examples
+library(ggplot2)
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+(d <- ggplot(dsamp, aes(carat, price)) +
+geom_point(aes(colour = clarity)))
+reposition_legend(d + theme(legend.position='bottom'), 'bottom right')
+# To change the orientation of the legend, use theme's descriptors.
+reposition_legend(d + theme(legend.position='bottom'), 'top left')
+# Use odd specifications, here offset the legend with half its height from the bottom.
+reposition_legend(d + theme(legend.position='bottom'), x=0.3, y=0, just=c(0, -0.5))
+# For using with facets:
+reposition_legend(d + facet_grid(.~cut), 'top left', panel = 'panel-3-1')
+scale_x_symmetric
+Symmetrix position scale for continuous x and y
+Description
+scale_x_symmetric and scale_y_symmetric are like the default scales for continuous x and y,
+but ensures that the resulting scale is centered around mid. Does not work when setting limits on
+the scale.26
+scale_x_symmetric
+Usage
+scale_x_symmetric(mid = 0, ...)
+scale_y_symmetric(mid = 0, ...)
+Arguments
+mid Value to center the scale around.
+... Values passed on to scale_continuous.
+Examples
+library(ggplot2)
+df <- expand.grid(a=c(-1,0,1), b=c(-1,0,1))
+rnorm2 <- function(x,y,n,sdx,sdy) {
+if (missing(sdy))
+sdy <- sdx
+data.frame(a=x,b=y,x=rnorm(n,x,sdx), y=rnorm(n,y,sdy))
+}
+df <- mapply(rnorm2,df$a, df$b, MoreArgs=list(n=30,sdx=1),SIMPLIFY=FALSE)
+df <- do.call(rbind, df)
+(p <- ggplot(df, aes(x=x,y=y)) + geom_point() +
+facet_grid(a~b, scales='free_x')
+)
+p + scale_x_symmetric(mid=0)Index
+g_legend, 16, 18, 19, 21, 22, 25
+geom_path, 10
+geom_point, 10
+geom_pointline (geom_pointpath), 10
+geom_pointpath, 10
+geom_pointrangeline (geom_pointpath), 10
+geom_rug, 15
+geom_siderange, 13
+get_panel_params (get_panel_range), 15
+get_panel_range, 15
+get_panel_x_range (get_panel_range), 15
+get_panel_y_range (get_panel_range), 15
+ggplotGrob, 17, 18, 25
+gpar, 9, 17
+grid.draw, 16, 19, 25
+grid.grob, 9
+grid_arrange_shared_legend, 16, 19, 21,
+22, 25
+gtable, 18
+gtable_add_grob, 24
+gtable_filter, 19
+gtable_show_grill, 17
+gtable_show_layout, 17
+gtable_show_names, 25
+gtable_show_names (gtable_show_grill),
+17
+guide_legend, 24
+guidebox_as_column, 18
+∗Topic interal
+remove_labels_from_axis, 23
+.dot, 2, 21
+.dot2 (.dot), 2
+absoluteGrob, 8
+aes, 11, 13
+aes_, 11, 13
+annotate_x_axis (annotate_y_axis), 3
+annotate_y_axis, 3
+arrangeGrob, 16, 19
+arrow, 12, 14
+brackets_horisontal
+(brackets_horizontal), 5
+brackets_horizontal, 5, 6–8, 21
+brackets_vertical, 21
+brackets_vertical
+(brackets_horizontal), 5
+capped_horisontal (coord_capped_cart), 6
+capped_horizontal, 6–8, 21
+capped_horizontal (coord_capped_cart), 6
+capped_vertical, 21
+capped_vertical (coord_capped_cart), 6
+coord_capped_cart, 5, 6, 21
+coord_capped_flip (coord_capped_cart), 6
+coord_cartesian, 6
+coord_flex_cart, 5, 7, 7, 21
+coord_flex_fixed (coord_flex_cart), 7
+coord_flex_flip, 7
+coord_flex_flip (coord_flex_cart), 7
+coord_flip, 6
+is.small, 20
+kable, 21–23
+knit_print, 21, 23
+element_render, 9
+layer, 12, 14
+lemon, 21
+lemon-package (lemon), 21
+lemon_print, 21, 22
+facet_grid, 10, 21
+facet_rep_grid, 10, 21
+facet_rep_wrap, 21
+facet_rep_wrap (facet_rep_grid), 10
+facet_wrap, 10, 21
+plotmath, 4
+2728
+points, 14
+position_jitter, 11, 14
+remove_labels_from_axis, 23
+render_gpar (element_render), 9
+reposition_legend, 16, 19, 21, 24
+scale_continuous, 26
+scale_x_symmetric, 25
+scale_y_symmetric (scale_x_symmetric),
+25
+theme, 5, 9, 10
+unit, 5, 11
+INDEX
