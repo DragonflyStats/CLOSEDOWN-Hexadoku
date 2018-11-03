@@ -1,0 +1,35 @@
+## ``guidebox_as_column``:  Guidebox as a column
+
+#### Description
+Takes a plot or legend and returns a single guide-box in a single column, for embedding in e.g.
+tables.
+
+#### Usage
+
+<pre><code>
+guidebox_as_column(legend, which.legend = 1, add.title = FALSE)
+</code></pre>
+
+#### Arguments
+* legend A ggplot2 plot or the legend extracted with g_legend. Do not provide a ggplotGrob
+as it is indistinguisble from a legend.
+* which.legend Integer, a legend can contain multiple guide-boxes (or vice versa?). Use this
+argument to select which to use.
+* add.title Does nothing yet.
+
+#### Value
+A gtable with keys and labels reordered into a single column and each pair of keys and labels in
+the same cell.
+See Also
+g_legend
+
+#### Examples
+
+```{r}
+library(ggplot2)
+library(dplyr)
+p <- ggplot(diamonds, aes(x=x, y=y, colour=cut)) + geom_point()
+guidebox_as_column(p)
+p <- p + guides(colour=guide_legend(ncol=2, byrow=TRUE))
+guidebox_as_column(p)
+```
