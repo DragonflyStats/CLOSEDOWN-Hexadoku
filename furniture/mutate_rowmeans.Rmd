@@ -4,29 +4,37 @@ Get Row Means within a Pipe
 #### Description
 
 Does what rowMeans() does can be used one its own without dplyr::mutate() within a pipe.mutate_rowsums
-5
-Usage
+
+#### Usage
+<pre><code>
 mutate_rowmeans(data, new_var, ..., na.rm = FALSE)
-Arguments
-data the dataframe that contains the variables to get the row means from
-new_var the name of the new variable for which you’ll put the row means in quotes
-... the variables (unquoted) to be included in the row means
-na.rm should the missing values be ignored? default is FALSE
-Value
+</code></pre>
+
+#### Arguments
+* ``data``: the dataframe that contains the variables to get the row means from
+* ``new_var``: the name of the new variable for which you’ll put the row means in quotes
+* ``...``: the variables (unquoted) to be included in the row means
+* ``na.rm``: should the missing values be ignored? default is FALSE
+
+#### Value
 the row means included within the data.frame
-Examples
-## Not run:
+
+#### Examples
+```{r}
 library(furniture)
 library(tidyverse)
+
 data <- data.frame(
-x = sample(c(1,2,3,4), 100, replace=TRUE),
-y = rnorm(100),
-z = rnorm(100)
-)
+  x = sample(c(1,2,3,4), 100, replace=TRUE),
+  y = rnorm(100),
+  z = rnorm(100)
+  )
+
 data2 <- data %>%
-mutate_rowmeans("y_z_mean", y, z))
+ mutate_rowmeans("y_z_mean", y, z))
+
 data2 <- data %>%
-mutate_rowmeans("y_z_mean", y, z, na.rm=TRUE))
-## End(Not run) 
+ mutate_rowmeans("y_z_mean", y, z, na.rm=TRUE))
+ 
 
 ``` 
