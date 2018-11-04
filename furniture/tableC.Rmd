@@ -5,11 +5,16 @@ Correlation Table
 #### Description
 
 Correlations printed in a nicely formatted table.
-Usage
+
+#### Usage
+
+<pre><code>
 tableC(.data, ..., cor_type = "pearson", na.rm = FALSE, rounding = 3,
 output = "text", booktabs = TRUE, caption = NULL, align = NULL,
 float = "htb")
-Arguments
+</code></pre>
+
+#### Arguments
 .data
 ...
 cor_type
