@@ -12,12 +12,12 @@ format_number = FALSE)
 </code></pre>
 
 #### Arguments
-* .data the data frame containing the variables
-* x1 the first bare (not quoted) variable found in .data
-* x2 the second bare (not quoted) variable found in .data
-* type the summarized output type; can be "count", "cell_perc", "row_perc", or "col_perc"
-* na.rm logical; whether missing values should be removed
-* format_number default is FALSE; if TRUE, then the numbers are formatted with commas (e.g., 20,000 instead of 20000)
+* ``.data``: the data frame containing the variables
+* ``x1``: the first bare (not quoted) variable found in .data
+* ``x2``: the second bare (not quoted) variable found in .data
+* ``type``: the summarized output type; can be "count", "cell_perc", "row_perc", or "col_perc"
+* ``na.rm``: logical; whether missing values should be removed
+* ``format_number``: default is FALSE; if TRUE, then the numbers are formatted with commas (e.g., 20,000 instead of 20000)
 
 #### Examples
 ```{r}
