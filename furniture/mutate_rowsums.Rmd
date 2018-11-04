@@ -4,17 +4,23 @@ Get Row Sums within a Pipe
 #### Description
 
 Does what rowSums() does can be used one its own without dplyr::mutate() within a pipe.
-Usage
-mutate_rowsums(data, new_var, ..., na.rm = FALSE)6
-nhanes_2010
-Arguments
-data the dataframe that contains the variables to get the row means from
-new_var the name of the new variable for which you’ll put the row means in quotes
-... the variables (unquoted) to be included in the row means
-na.rm should the missing values be ignored? default is FALSE
-Value
+
+#### Usage
+<pre><code>
+mutate_rowsums(data, new_var, ..., na.rm = FALSE)
+</code></pre>
+
+#### Arguments
+* data the dataframe that contains the variables to get the row means from
+* new_var the name of the new variable for which you’ll put the row means in quotes
+* ... the variables (unquoted) to be included in the row means
+* na.rm should the missing values be ignored? default is FALSE
+
+#### Value
 the row means included within the data.frame
-Examples
+
+### Examples
+```{r}
 ## Not run:
 library(furniture)
 library(tidyverse)
