@@ -1,16 +1,22 @@
-%xt%
+## ``%xt%``
 %xt%
 Simple Crosstabs Operator
 
 #### Description
 
 This operator takes two variables and computes a simple cross tab.
-Usage
+
+#### Usage
+<pre><code>
 lhs %xt% rhs
-Arguments
-lhs the left hand side of the operator, a vector
-rhs the right hand side of the operator, a vector
-Examples
+</code></pre>
+
+#### Arguments
+* ``lhs``: the left hand side of the operator, a vector
+* ``rhs``: the right hand side of the operator, a vector
+
+#### Examples
+```{r}
 b
 x
 y
@@ -24,3 +30,4 @@ c(1,2,3,2,3,3,1,0,0,0)
 rnorm(10)
 c("Yes", "No", "Yes", "No", "No", "Yes", "No", "No", "Yes", "No")
 factor(x) %xt% factor(b)Index
+```
