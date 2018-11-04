@@ -4,16 +4,23 @@ Get Row Means
 
 #### Description
 
-Does what rowMeans() does but without having to cbind the variables. Makes it easier to use with
-the tidyverse
-Usage
+* Does what ``rowMeans()`` does but without having to cbind the variables. 
+* Makes it easier to use with the tidyverse.
+
+#### Usage
+<pre><code>
 rowmeans(..., na.rm = FALSE)
-Arguments
-... the variables (unquoted) to be included in the row means
-na.rm should the missing values be ignored? default is FALSE
-Value
+</code></pre>
+
+#### Arguments
+* ``...``: the variables (unquoted) to be included in the row means.
+* ``na.rm``: should the missing values be ignored? default is FALSE.
+
+#### Value
 the row means
-Examples
+
+#### Examples
+```{r}
 ## Not run:
 library(furniture)
 library(tidyverse)
