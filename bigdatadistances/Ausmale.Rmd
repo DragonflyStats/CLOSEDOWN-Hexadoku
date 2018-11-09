@@ -1,6 +1,5 @@
-Ausmale
-11
-Australian Male Mortality Rates
+
+## Australian Male Mortality Rates
 
 
 #### Description 
