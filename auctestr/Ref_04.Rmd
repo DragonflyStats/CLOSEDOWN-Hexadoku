@@ -1,0 +1,51 @@
+
+se_auc Compute standard error of AUC score, using its equivalence to the
+Wilcoxon statistic.
+Description
+Compute standard error of AUC score, using its equivalence to the Wilcoxon statistic.
+Usage
+se_auc(auc, n_p, n_n)
+Arguments
+auc value of A’ statistic (or AUC, or Area Under the Receiver operating characteristic
+curve) (numeric).
+n_p number of positive cases (integer).
+n_n number of negative cases (integer).
+References
+Hanley and McNeil, The meaning and use of the area under a receiver operating characteristic
+(ROC) curve. Radiology (1982) 43 (1) pp. 29-36.
+Fogarty, Baker and Hudson, Case Studies in the use of ROC Curve Analysis for Sensor-Based
+Estimates in Human Computer Interaction, Proceedings of Graphics Interface (2005) pp. 129-136.
+See Also
+Other fbh method: auc_compare, fbh_test
+Examples
+se_auc(0.75, 20, 200)
+## standard error decreases when data become more balanced over
+## positive/negative outcome class, holding sample size fixed
+se_auc(0.75, 110, 110)
+## standard error increases when sample size shrinks
+se_auc(0.75, 20, 20)
+stouffer_z 7
+stouffer_z Compute aggregate z-score using Stouffer’s method.
+Description
+Compute aggregate z-score using Stouffer’s method.
+Usage
+stouffer_z(z_vec, ignore.na = TRUE)
+Arguments
+z_vec vector of z-scores (numeric).
+ignore.na should NA values be ignored? defaults to TRUE.
+Value
+numeric, Z-score using Stouffer’s method aggregated over z_vec.
+References
+Stouffer, S.A.; Suchman, E.A.; DeVinney, L.C.; Star, S.A.; Williams, R.M. Jr. The American
+Soldier, Vol.1: Adjustment during Army Life (1949).
+Index
+Topic datasets
+sample_experiment_data, 5
+auc_compare, 2, 4, 6
+auctestr, 2
+auctestr-package (auctestr), 2
+fbh_test, 3, 4, 6
+sample_experiment_data, 5
+se_auc, 3, 4, 6
+stouffer_z, 7
+8
