@@ -1,0 +1,127 @@
+
+colsum Give Row sums of a Matrix-like Object, Based on a Grouping Variable
+Description
+Compute Row sums across columns of a numeric matrix-like object for each level of a grouping
+variable.
+Usage
+colsum(M, group = colnames(M), reord = FALSE, na_rm = FALSE,
+big = TRUE, ...)
+Arguments
+M a matrix, data frame or vector of numeric data. Missing values are allowed. A
+numeric vector will be treated as a column vector.
+group a vector or factor giving the grouping, with one element per row of M. Default:
+rownames of M.
+reord if TRUE, then the result will be in order of sort(unique(group)), if FALSE (the
+default), it will be in the order that groups were encountered.
+na_rm logical (TRUE or FALSE). Should NA (including NaN) values be discarded?
+big is your object big and integer overflow is likely? If TRUE, then M is multiplied
+by 1.0 to ensure values are of type double (perhaps taking more RAM).
+... other arguments to be passed to or from methods.
+4 Minstress
+Details
+This function is a wrapper for base function rowsum and is its "column" version.
+Value
+A matrix-like object containing the sums by group. There will be one row per unique value of
+group.
+Author(s)
+Albert Dorador
+See Also
+rowsum
+Examples
+A <- matrix(1:8, ncol = 4)
+colnames(A) <- c("A", "B", "A", "B")
+colsum(A)
+Minstress Better Starting Configuration For Non-Metric MDS
+Description
+Minstress is a heuristic to find better non-metric MDS solutions, by finding better starting configurations,
+instead of just using a random one.
+Usage
+Minstress(x, p, s, k, iter = 5, pb = F, m = "euclidean")
+Arguments
+x a data frame containing numeric values only
+p the size of the population of seeds (any positive integer)
+s the number of seeds we sample (any positive integer)
+k the number of dimensions wanted (any positive integer)
+iter a positive integer specifying the number of iterations.
+pb a Boolean variable declaring if one wants to display a pogress bar (default:
+False)
+m a string specifying the distance method (default: ’euclidean’)
+na.cleaner 5
+Details
+This function performs several iterations, each using a different starting seed, and in turn each one of
+those iterations performs non-metric MDS many times (typically, thousands or more) in an attempt
+to find the best seed (which induces a particular initial configuration) of them all.
+Value
+A list informing about dimensionality, minimum STRESS level found, and best seed found. One
+can then use the best seed found to perform non-metric MDS with a better initial configuration
+(generally).
+Author(s)
+Albert Dorador
+Examples
+require(MASS)
+swiss.x <- as.data.frame(swiss[, -1])
+Minstress(swiss.x, 1e5, 50, 2, iter = 3)
+# Comparing without using Minstress (for such a low value of s, difference is minimal)
+swiss.x <- as.matrix(swiss[, -1])
+swiss.dist <- dist(swiss.x)
+swiss.mds <- isoMDS(swiss.dist)
+na.cleaner Missing Value Imputation
+Description
+Missing value imputation based on different methods. Can handle continuous and categorical variables.
+Usage
+na.cleaner(dataset, t1 = 0.5, t2 = 0.5, auto = TRUE, maxDel1 = 0.2,
+maxDel2 = 0.3, Mode = "mean", neigh = 3:7)
+Arguments
+dataset a matrix or data frame. May have continuous and/or categorical variables.
+t1 the threshold value in interval 0-1 beyond which a record is deemed as having a
+high % of NAs. Default: 0.5.
+6 na.cleaner
+t2 the threshold value in interval 0-1 beyond which a variable is deemed as having
+a high % of NAs. Default: 0.5.
+auto If TRUE (the default), it will eliminate those records and/or variables deemed as
+having a high % of NAs. If FALSE, one handpicks which records/variables will
+be deleted.
+maxDel1 the proportion in interval 0-1 of records that can at most be deleted. Default:
+0.2.
+maxDel2 the proportion in interval 0-1 of variables that can at most be deleted. Default:
+0.3.
+Mode a string specifying the imputation method to be used, among "mean" (default),
+"median", "mean&lm", "median&lm", "knn".
+neigh the neighbours to be used in knn, both for continuous and categorical variables.
+Default: interval 3-7. For each value in neigh, knn is run, and then in the case
+of continuous variables, the outcome of those runs are averaged out. In the case
+of categorical variables, the imputed value is the most common imputed value
+across runs.
+Details
+Each of the available methods in this function may be the best choice for a particular dataset, but
+since it is impossible to know which one it is in each particular case, Mode "all" might be a good,
+robust choice. For categorical variables, the only mode implemented is knn, so argument Mode
+really refers only to the continuous variables.
+Value
+the original dataset with imputed missing values.
+Author(s)
+Albert Dorador
+See Also
+kNN rowmean
+Examples
+mtcars_mod <- mtcars
+set.seed(1)
+mtcars_mod <- as.data.frame(lapply(mtcars_mod, function(cc) cc[ sample(c(TRUE, NA),
+prob = c(0.6, 0.4), size = length(cc), replace = TRUE) ]))
+rownames(mtcars_mod) <- rownames(mtcars)
+# Compare methods
+kNN_dt <- na.cleaner(dataset = mtcars_mod, Mode = "kNN")
+mean_lm_dt <- na.cleaner(dataset = mtcars_mod, Mode = "mean&lm")
+median_dt <- na.cleaner(dataset = mtcars_mod, Mode = "median")
+offliers 7
+all_dt <- na.cleaner(dataset = mtcars_mod, Mode = "all")
+dev_kNN <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(kNN_dt))
+dev_m_ml <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(mean_lm_dt))
+dev_md <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(median_dt))
+dev_all <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(all_dt))
+iris_mod <- iris
+set.seed(5)
+iris_mod <- as.data.frame(lapply(iris_mod, function(cc) cc[ sample(c(TRUE, NA),
+prob = c(0.6, 0.4), size = length(cc), replace = TRUE) ]))
+rownames(iris_mod) <- rownames(iris)
+na.cleaner(dataset = iris_mod, neigh = 1, Mode = "all")
