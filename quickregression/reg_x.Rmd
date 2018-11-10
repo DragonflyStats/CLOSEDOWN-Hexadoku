@@ -1,0 +1,36 @@
+## reg_x
+Build regression models only one dependent variable
+
+#### Description
+Build general linear model, generalized linear model, cox regression model with only one dependent
+variables.
+
+#### Usage
+<pre><code>
+reg_x(data = NULL, x = NULL, y = NULL, cov = NULL, factors = NULL,
+  model = NULL, time = NULL, cov_show = FALSE, detail_show = FALSE,
+  confint_glm = "default", save_to_file = NULL)
+</code></pre>
+
+#### Arguments
+* data A data.frame to build the regression model.
+* x Integer column indices or names of the variables to be included in univariate analysis. If NULL, the default columns are all the variables except ‘y‘, ‘time‘ and ‘cov‘.
+* y Integer column indice or name of dependent variable, only one integer or character
+* cov Integer column indices or name of covariate variables
+* factors Integer column indices or names of variables to be treated as factor model regression model, see lm, glm, coxph for more details
+* time Integer column indices or name of survival time, used in cox regression, (see coxph for more details).
+* cov_show A logical, whether to create covariates result, default FALSE
+* detail_show A logical, whether to create each regression result, default FALSE. If TRUE, with many regressions, the return result could be very large.
+* confint_glm A character, ’default’ or ’profile’. The default method for ’glm’ class to compute confidence intervals assumes asymptotic normality confint, you can also use profile likelihood method confint.glm, but it is pretty slow. In this case you could specify ’default’ for speed.
+* save_to_file A character, containing file name or path
+
+#### Value
+If detail_show is TRUE, the return result is a list including two components, the first part is a detailed analysis result, the second part is a concentrated result in a data.frame. Otherwise, only return concentrated result in a data.frame.
+
+#### Examples
+reg_glm<-reg_x(data = diabetes, x = c(1:4, 6), y = 5, factors = c(1, 3, 4), model = 'glm')
+## other methods
+fit<-reg_x(data = diabetes, x = c(1, 3:6), y = "age", factors = c(1, 3, 4), model = 'lm')
+
+fit<-reg_x(data = diabetes, x = c( "sex","education","BMI"), y = "diabetes", 
+         time ="age", factors = c("sex","smoking","education"), model = 'coxph')
