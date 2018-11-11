@@ -1,5 +1,17 @@
-rowsums
-Get Row Sums
+---
+title: "``rowsums``: Get Row Sums"
+author: "Kevin O'Brien"
+date: "11 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+```
+
+
+
 
 #### Description
 
@@ -19,19 +31,27 @@ rowsums(..., na.rm = FALSE)
 the row sums
 
 #### Examples
-```{r}
+```{r,include=FALSE,echo=FALSE}
 ## Not run:
 library(furniture)
 library(tidyverse)
+
+```
+
+```{r}
 data <- data.frame(
   x = sample(c(1,2,3,4), 100, replace=TRUE),
   y = rnorm(100),
   z = rnorm(100)
  )
-data2 <- data %>%
+data1 <- data %>%
 mutate(y_z_sum = rowsums(y, z))
-data2 <- data %>%
-mutate(y_z_sum = rowsums(y, z, na.rm=TRUE))
-## End(Not run) 
+data1 %>% head()
 
 ``` 
+
+```{r}
+data2 <- data %>%
+mutate(y_z_sum = rowsums(y, z, na.rm=TRUE))
+data2
+```

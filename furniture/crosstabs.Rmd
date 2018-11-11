@@ -1,6 +1,15 @@
-## ``%xt%``
-%xt%
-Simple Crosstabs Operator
+---
+title: "``%xt%``: Simple Crosstabs Operator"
+author: "Kevin O'Brien"
+date: "11 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
 
 #### Description
 
@@ -17,17 +26,7 @@ lhs %xt% rhs
 
 #### Examples
 ```{r}
-b
-x
-y
-z
-=
-=
-=
-=
-c(1,0,0,1,1,0,1,1,1,0)
-c(1,2,3,2,3,3,1,0,0,0)
-rnorm(10)
-c("Yes", "No", "Yes", "No", "No", "Yes", "No", "No", "Yes", "No")
-factor(x) %xt% factor(b)Index
+data(diamonds)
+
+diamonds$color %xt% diamonds$clarity
 ```
