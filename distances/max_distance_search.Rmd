@@ -1,42 +1,33 @@
-max_distance_search
-Max distance search
+---
+title: "``max_distance_search``: Max distance search"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(distances)
+```
+
 
 #### Description
 max_distance_search searches for the data point furthest from a set of query points.
 
 #### Usage
-max_distance_search(distances, query_indices = NULL, search_indices = NULL)
-
-#### Arguments
-* distances A distances object.
-* query_indices An integer vector with point indices to query. If NULL, all data points in distances are queried.
-* search_indices An integer vector with point indices to search among. If NULL, all data points in distances are searched over.nearest_neighbor_search
-
-#### Value
-An integer vector with point indices for the data point furthest from each query.
-nearest_neighbor_search
-Nearest neighbor search
-
-#### Description
-nearest_neighbor_search searches for the k nearest neighbors of a set of query points.
-
-#### Usage
 <pre><code>
-nearest_neighbor_search(distances, k, query_indices = NULL,
-search_indices = NULL, radius = NULL)
+max_distance_search(distances, query_indices = NULL, search_indices = NULL)
 </code></pre>
 
 #### Arguments
-distances A distances object.
-k The number of neighbors to search for.
-query_indices An integer vector with point indices to query. If NULL, all data points in distances
-are queried.
-search_indices An integer vector with point indices to search among. If NULL, all data points in
-distances are searched over.
-radius
-Restrict the search to a fixed radius around each query. If fewer than k search
-points exist within this radius, no neighbors are reported (indicated by NA).
+* ``distances``: A distances object.
+* ``query_indices``: An integer vector with point indices to query. If NULL, all data points in distances are queried.
+* ``search_indices``: An integer vector with point indices to search among. If NULL, all data points in distances are searched over.
 
 #### Value
-A matrix with point indices for the nearest neighbors. Columns in this matrix indicate queries, and
-rows are ordered by distances from the query.
+
+An integer vector with point indices for the data point furthest from each query.
+nearest_neighbor_search
+
+
+```{r}
+#max_neighbor_search(distances(iris[1:10,1:4]))
+```
