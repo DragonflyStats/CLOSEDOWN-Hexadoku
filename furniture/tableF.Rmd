@@ -1,20 +1,27 @@
-tableF
-tableF
+## tableF tableF
+
 Frequency Table
 
 #### Description
 
 Provides in-depth frequency counts and percentages.
-Usage
+
+#### Usage
+<pre><code>
 tableF(.data, x, n = 20, splitby = NULL)
-Arguments
-.data the data frame containing the variable
-x the bare variable name (not quoted)
-n the number of values shown int he table
-splitby the stratifying variable
-Value
+</code></pre>
+
+#### Arguments
+* ``.data``: the data frame containing the variable
+* ``x``: the bare variable name (not quoted)
+* ``n``: the number of values shown int he table
+* ``splitby``: the stratifying variable
+
+#### Value
 a list of class tableF containing the frequency table(s)
-Examples
+
+#### Examples
+````{r}
 ## Not run:
 library(furniture)
 data <- data.frame(

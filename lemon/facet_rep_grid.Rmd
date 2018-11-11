@@ -1,21 +1,23 @@
 
-facet_rep_grid
+## facet_rep_grid
 Repeat axis lines and labels across all facet panels
-Description
+
+#### Description
 facet_grid and facet_wrap, but with axis lines and labels preserved on all panels.
-Usage
+
+#### Usage
+<pre><code>
 facet_rep_grid(..., repeat.tick.labels = FALSE)
 facet_rep_wrap(..., scales = "fixed", repeat.tick.labels = FALSE)
-Arguments
-...
-Arguments used for facet_grid or facet_wrap.
-repeat.tick.labels
-When FALSE (default), axes on inner panels have their tick labels (i.e. the num-
-bers) removed. Set this to TRUE to keep all labels, or any combination of top,
-bottom, left, right to keep only those specified. Also acceps ’x’ and ’y’.
-scales
-As for facet_grid, but alters behaviour of repeat.tick.labels.
-Details
+</code></pre>
+
+#### Arguments
+...: Arguments used for facet_grid or facet_wrap.
+repeat.tick.labels: When FALSE (default), axes on inner panels have their tick labels (i.e. the num-
+bers) removed. Set this to TRUE to keep all labels, or any combination of top, bottom, left, right to keep only those specified. Also acceps ’x’ and ’y’.
+scales: As for facet_grid, but alters behaviour of repeat.tick.labels.
+
+#### Details
 These two functions are extensions to facet_grid and facet_wrap that keeps axis lines, ticks, and
 optionally tick labels across all panels.
 Examples are given in the vignette "Repeat axis lines on facet panels" vignette.

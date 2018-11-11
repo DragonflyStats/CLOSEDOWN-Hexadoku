@@ -10,21 +10,23 @@ point and the end of line. geom_pointline combines geom_point and geom_path.
 <pre><code>
 geom_pointpath(mapping = NULL, data = NULL, stat = "identity",
 position = "identity", na.rm = FALSE, show.legend = NA,
-inherit.aes = TRUE, distance = unit(3, "pt"), shorten = 0.5,
-threshold = 0.1, lineend = "butt", linejoin = "round",
-linemitre = 1, linesize = 0.5, linecolour = waiver(),
-linecolor = waiver(), arrow = NULL, ...)
+ inherit.aes = TRUE, distance = unit(3, "pt"), shorten = 0.5,
+ threshold = 0.1, lineend = "butt", linejoin = "round",
+ linemitre = 1, linesize = 0.5, linecolour = waiver(),
+ linecolor = waiver(), arrow = NULL, ...)
+
 geom_pointline(mapping = NULL, data = NULL, stat = "identity",
-position = "identity", na.rm = FALSE, show.legend = NA,
-inherit.aes = TRUE, distance = unit(3, "pt"), shorten = 0.5,
-threshold = 0.1, lineend = "butt", linejoin = "round",
-linemitre = 1, linesize = 0.5, linecolour = waiver(),
-linecolor = waiver(), arrow = NULL, ...)
+ position = "identity", na.rm = FALSE, show.legend = NA,
+ inherit.aes = TRUE, distance = unit(3, "pt"), shorten = 0.5,
+ threshold = 0.1, lineend = "butt", linejoin = "round",
+ linemitre = 1, linesize = 0.5, linecolour = waiver(),
+ linecolor = waiver(), arrow = NULL, ...)
+
 geom_pointrangeline(mapping = NULL, data = NULL, stat = "identity",
-position = "identity", na.rm = FALSE, show.legend = NA,
-inherit.aes = TRUE, distance = unit(3, "pt"), lineend = "butt",
-linejoin = "round", linemitre = 1, linesize = 0.5,
-linecolour = waiver(), linecolor = waiver(), arrow = NULL, ...)
+ position = "identity", na.rm = FALSE, show.legend = NA,
+ inherit.aes = TRUE, distance = unit(3, "pt"), lineend = "butt",
+ linejoin = "round", linemitre = 1, linesize = 0.5,
+ linecolour = waiver(), linecolor = waiver(), arrow = NULL, ...)
 </code></pre>
 
 #### Arguments
@@ -74,24 +76,27 @@ p + geom_pointpath()
 
 ```{r}
 # Add aesthetic mappings
-p + geom_pointline(aes(colour = factor(cyl)))geom_siderange
-13
+p + geom_pointline(aes(colour = factor(cyl)))
 # Using linecolour preserved groups.
 p + geom_pointline(aes(colour = factor(cyl)), linecolour='brown')
 ## If you want to combine the pretty lines of pointline that do *not* respect
 ## grouping (or order), combine several layers with geom_point on top:
 p + geom_pointline() + geom_point(aes(colour=factor(cyl)))
 #
-p
-p
-p
-Change scales
-+ geom_pointline(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-+ geom_pointline(aes(colour = cyl), linecolour='black') + scale_colour_gradient(low = "blue")
-+ geom_pointline(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
-# For shapes that have a border (like 21), you can colour the inside and
-# outside separately. Use the stroke aesthetic to modify the width of the
-# border
+```
+```{r}
+# Change scales
+p + geom_pointline(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
+p + geom_pointline(aes(colour = cyl), linecolour='black') + scale_colour_gradient(low = "blue")
+p + geom_pointline(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
+```
+
+ For shapes that have a border (like 21), you can colour the inside and
+ outside separately. Use the stroke aesthetic to modify the width of the
+ border
+ 
+```{r}
+
 ggplot(mtcars, aes(wt, mpg)) +
 geom_pointline(shape = 21, colour = "black", fill = "white",
 size = 5, stroke = 5, distance = unit(10, 'pt'))

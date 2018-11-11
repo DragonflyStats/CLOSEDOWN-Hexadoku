@@ -1,20 +1,29 @@
 element_render
 Render a ggplot2 grob or retrieve its gpar object.
-Description
-Helps add the ggplot2-theme’s look-and-feel to grid’s grob objects. render_gpar returns a gpar-
+
+#### Description
+Helps add the ggplot2-theme's look-and-feel to grid's grob objects. render_gpar returns a gpar-
 object, element_render returns a grid.grob-object.
-Usage
+
+
+#### Usage
+<pre><code>
 element_render(theme, element, ..., name = NULL)
 render_gpar(theme, element, ...)
-Arguments
-theme A ggplot2 theme
-element The name of an element in the theme, e.g. "axis.text".
-... Additional arguments sent to grobs (e.g. x or y).
-name Returned grob’s name..
-Value
+</code></pre>
+
+#### Arguments
+* theme A ggplot2 theme
+* element The name of an element in the theme, e.g. "axis.text".
+* ... Additional arguments sent to grobs (e.g. x or y).
+* name Returned grob's name..
+
+#### Value
 A grid.grob or gpar object.
+
 Author(s)
 element_render is from ggplot2 source.10
 geom_pointpath
-See Also
+
+### See Also
 theme
