@@ -1,6 +1,17 @@
-## washer
+---
+title: "``washer``: Wash Your Data"
+author: "Kevin O'Brien"
+date: "11 November 2018"
+output: html_document
+---
 
-Wash Your Data
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+
+
 
 #### Description
 
@@ -9,20 +20,17 @@ replacing values such as 777’s or 999’s that represent missing values in sur
 perform many useful functions on factors (e.g., removing a level, replacing a level, etc.)
 
 #### Usage
+
+<pre><code>
 washer(x, ..., value = NA)
+</code></pre>
 
 #### Arguments
-x
-...
-value
-the variable to have values adjusted
-the values in the variable that are to be replaced by either NA’s or the value set
-by the user. Can be a function (or multiple functions) to specify values to change
-(e.g., is.nan(), is.na()).
-(optional) if specified, the values in ... will be replaced by this value (must be a
-single value)wide
-the original vector (although if the original was a factor, it was changed to a character) with the
-values changed where indicated.
+
+* ``x`` : the variable to have values adjusted
+* ``...`` : the values in the variable that are to be replaced by either NAs or the value set by the user. Can be a function (or multiple functions) to specify values to change (e.g., is.nan(), is.na()).
+* ``values``: (optional) if specified, the values in ... will be replaced by this value (must be a single value)wide
+the original vector (although if the original was a factor, it was changed to a character) with the values changed where indicated.
 
 #### Examples
 
