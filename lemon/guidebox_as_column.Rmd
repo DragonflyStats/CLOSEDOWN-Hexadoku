@@ -1,4 +1,15 @@
-## ``guidebox_as_column``:  Guidebox as a column
+---
+title: "``guidebox_as_column``:  Guidebox as a column"
+author: "Kevin O'Brien"
+date: "11 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lemon)
+library(ggplot2)
+```
 
 #### Description
 Takes a plot or legend and returns a single guide-box in a single column, for embedding in e.g.

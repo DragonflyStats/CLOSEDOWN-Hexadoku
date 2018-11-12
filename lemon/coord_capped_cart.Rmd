@@ -1,47 +1,50 @@
+---
+title: "``coord_capped_cart``: Cartesian coordinates with capped axis lines."
+author: "Kevin O'Brien"
+date: "11 November 2018"
+output: html_document
+---
 
-### coord_capped_cart
-Cartesian coordinates with capped axis lines.
-Description
-Caps the axis lines to the outer ticks to e.g. indicate range of values. Methods correspond to
-coord_cartesian and coord_flip
-Usage
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lemon)
+library(ggplot2)
+```
+
+Caps the axis lines to the outer ticks to e.g. indicate range of values. 
+Methods correspond to coord_cartesian and coord_flip
+
+### Usage
 <pre><code>
 coord_capped_cart(xlim = NULL, ylim = NULL, expand = TRUE,
-top = waiver(), left = waiver(), bottom = waiver(),
-right = waiver(), gap = 0.01)
+  top = waiver(), left = waiver(), bottom = waiver(),
+  right = waiver(), gap = 0.01)
+
 coord_capped_flip(xlim = NULL, ylim = NULL, expand = TRUE,
-top = waiver(), left = waiver(), bottom = waiver(),
-right = waiver(), gap = 0.01)
-capped_horizontal(capped = c("both", "left", "right", "none"),
-gap = 0.01)
-capped_vertical(capped = c("top", "bottom", "both", "none"),
-gap = 0.01)
+  top = waiver(), left = waiver(), bottom = waiver(), 
+  right = waiver(), gap = 0.01)
+
+capped_horizontal(capped = c("both", "left", "right", "none"), gap = 0.01)
+capped_vertical(capped = c("top", "bottom", "both", "none"),gap = 0.01)
 </code></pre>
 
 #### Arguments
-xlim, ylim
-Limits for the x and y axes.
-expand
-If TRUE, the default, adds a small expansion factor to the limits to ensure that
-data and axes don’t overlap. If FALSE, limits are taken exactly from the data or
-xlim/ylim.
-top, left, bottom, right
-Either a function returned from capped_horizontal or brackets_horizontal.
-If string, it is assumed to be shorthand for capped_horizontal(capped) or
-similar for vertical.
-gap Both ends are always capped by this proportion. Usually a value between 0 and
-1.
-capped Which end to cap the line. Can be one of (where relevant): both, none, left,
-right, top, bottom.
+* xlim, ylim: Limits for the x and y axes.
+* expand: If TRUE, the default, adds a small expansion factor to the limits to ensure that data and axes don't overlap. If FALSE, limits are taken exactly from the data or xlim/ylim.
+* top, left, bottom, right: Either a function returned from capped_horizontal or brackets_horizontal.
+If string, it is assumed to be shorthand for capped_horizontal(capped) or similar for vertical.
+* gap Both ends are always capped by this proportion. Usually a value between 0 and 1.
+* capped Which end to cap the line. Can be one of (where relevant): both, none, left, right, top, bottom.
 
 #### Details
 
-This function is a simple override of coord_flex_cart and coord_flex_flip, which allows short-
-hand specification of what to cap.
-NB! A panel-border is typically drawn on top such that it covers tick marks, grid lines, and axis
+This function is a simple override of ``coord_flex_cart`` and ``coord_flex_flip``, which allows short-hand specification of what to cap.
+
+A panel-border is typically drawn on top such that it covers tick marks, grid lines, and axis
 lines. Many themes also do not draw axis lines. To ensure the modified axis lines are visible, use
 theme(panel.border=element_blank(), axis.lines=element_line()).
-Examples
+
+####Examples
 ```{r}
 library(ggplot2)
 # Notice how the axis lines of the following plot meet in the lower-left corner.
@@ -64,9 +67,11 @@ define its capping.
 p+ coord_capped_cart(left='both')
 # It it also works on the flipped.
 p + coord_capped_flip(bottom='both')
+```
+
+```{r}
 # And on secondary axis, in conjuction with brackets:
-p +
-scale_y_continuous(sec.axis = sec_axis(~.*100)) +
+p + scale_y_continuous(sec.axis = sec_axis(~.*100)) +
 scale_x_continuous(sec.axis = sec_axis(~1/., name='Madness scale')) +
 coord_capped_cart(bottom='none', left='none', right='both', top=brackets_horizontal())
 # Although we cannot recommend the above madness.
