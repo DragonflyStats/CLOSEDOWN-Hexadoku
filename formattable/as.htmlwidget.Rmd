@@ -1,0 +1,62 @@
+
+as.htmlwidget Generic function to create an htmlwidget
+Description
+This function is a generic function to create an htmlwidget to allow HTML/JS from R in multiple
+contexts.
+Usage
+as.htmlwidget(x, ...)
+Arguments
+x an object.
+... arguments to be passed to methods.
+Value
+a htmlwidget object
+as.htmlwidget.formattable
+Convert formattable to an htmlwidget
+Description
+formattable was originally designed to work in rmarkdown environments. Conversion of a formattable
+to a htmlwidget will allow use in other contexts such as console, RStudio Viewer, and Shiny.
+Usage
+## S3 method for class 'formattable'
+as.htmlwidget(x, width = "100%", height = NULL, ...)
+Arguments
+x a formattable object to convert
+width a valid CSS width
+height a valid CSS height
+... reserved for more parameters
+color_bar 7
+Value
+a htmlwidget object
+Examples
+## Not run:
+library(formattable)
+# mtcars (mpg background in gradient: the higher, the redder)
+as.htmlwidget(
+formattable(mtcars, list(mpg = formatter("span",
+style = x ~ style(display = "block",
+"border-radius" = "4px",
+"padding-right" = "4px",
+color = "white",
+"background-color" = rgb(x/max(x), 0, 0))))
+)
+)
+# since an htmlwidget, composes well with other tags
+library(htmltools)
+browsable(
+tagList(
+tags$div( class="jumbotron"
+,tags$h1( class = "text-center"
+,tags$span(class = "glyphicon glyphicon-fire")
+,"experimental as.htmlwidget at work"
+)
+)
+,tags$div( class = "row"
+,tags$div( class = "col-sm-2"
+,tags$p(class="bg-primary", "Hi, I am formattable htmlwidget.")
+)
+,tags$div( class = "col-sm-6"
+,as.htmlwidget( formattable( mtcars ) )
+)
+)
+)
+)
+## End(Not run)
