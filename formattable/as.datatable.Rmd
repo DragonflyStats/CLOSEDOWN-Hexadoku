@@ -1,0 +1,27 @@
+
+as.datatable Generic function to create an htmlwidget
+Description
+This function is a generic function to create an htmlwidget to allow HTML/JS from R in multiple
+contexts.
+Usage
+as.datatable(x, ...)
+Arguments
+x an object.
+... arguments to be passed to datatable
+Value
+a datatable object
+as.datatable.formattable
+Convert formattable to a datatable htmlwidget
+Description
+Convert formattable to a datatable htmlwidget
+Usage
+## S3 method for class 'formattable'
+as.datatable(x, escape = FALSE, ...)
+Arguments
+x a formattable object to convert
+escape logical to escape HTML. The default is FALSE since it is expected that formatters
+from formattable will produce HTML tags.
+... additional arguments passed to to datatable
+6 as.htmlwidget.formattable
+Value
+a datatable object
