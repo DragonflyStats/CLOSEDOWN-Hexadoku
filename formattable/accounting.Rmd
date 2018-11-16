@@ -1,0 +1,24 @@
+
+accounting Numeric vector with accounting format
+Description
+Numeric vector with accounting format
+Usage
+accounting(x, digits = 2L, format = "f", big.mark = ",", ...)
+## Default S3 method:
+accounting(x, digits = 2L, format = "f", big.mark = ",",
+...)
+## S3 method for class 'character'
+accounting(x, digits = max(get_digits(x)), format = "f",
+big.mark = ",", ...)
+4 area
+Arguments
+x a numeric vector.
+digits an integer to indicate the number of digits of the percentage string.
+format format type passed to formatC.
+big.mark thousands separator
+... additional parameters passed to formattable.
+Examples
+accounting(15320)
+accounting(-12500)
+accounting(c(1200, -3500, 2600), format = "d")
+accounting(c("123,23.50", "(123.243)"))
