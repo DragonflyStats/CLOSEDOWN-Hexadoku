@@ -1,0 +1,29 @@
+
+currency Numeric vector with currency format
+Description
+Numeric vector with currency format
+digits 11
+Usage
+currency(x, symbol, digits, format = "f", big.mark = ",", ...)
+## Default S3 method:
+currency(x, symbol = "$", digits = 2L, format = "f",
+big.mark = ",", ..., sep = "")
+## S3 method for class 'character'
+currency(x, symbol = get_currency_symbol(x),
+digits = max(get_digits(x)), format = "f", big.mark = ",", ...)
+Arguments
+x a numeric vector.
+symbol currency symbol
+digits an integer to indicate the number of digits of the percentage string.
+format format type passed to formatC.
+big.mark thousands separator
+... additional parameters passed to formattable.
+sep separator between symbol and value
+Examples
+currency(200000)
+currency(200000, "\U20AC")
+currency(1200000, "USD", sep = " ")
+currency(1200000, "USD", format = "d", sep = " ")
+currency("$ 120,250.50")
+currency("HK$ 120,250.50", symbol = "HK$")
+currency("HK$ 120, 250.50")
