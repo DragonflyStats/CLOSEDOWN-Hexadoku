@@ -1,0 +1,26 @@
+
+color_bar Create a color-bar formatter
+Description
+Create a color-bar formatter
+8 color_text
+Usage
+color_bar(color = "lightgray", fun = "proportion", ...)
+Arguments
+color the background color of the bars
+fun the transform function that maps the input vector to values from 0 to 1. Uses
+proportion by default.
+... additional parameters passed to fun
+See Also
+normalize_bar, proportion_bar
+Examples
+formattable(mtcars, list(mpg = color_bar("lightgray", proportion)))
+color_text Create a color-text formatter
+Description
+Create a color-text formatter
+Usage
+color_text(...)
+Arguments
+... parameters passed to gradient.
+Examples
+formattable(mtcars, list(mpg = color_text("black", "red")))
+color_tile 9
