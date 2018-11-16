@@ -1,0 +1,17 @@
+
+csscolor Generate CSS-compatible color strings
+Description
+Generate CSS-compatible color strings
+Usage
+csscolor(x, format = c("auto", "hex", "rgb", "rgba"), use.names = TRUE)
+Arguments
+x color input
+format the output format of color strings
+use.names logical of whether to preserve the names of input
+Value
+a character vector of CSS-compatible color strings
+Examples
+csscolor(rgb(0, 0.5, 0.5))
+csscolor(c(rgb(0, 0.2, 0.2), rgb(0, 0.5, 0.2)))
+csscolor(rgb(0, 0.5, 0.5, 0.2))
+csscolor(gradient(c(1,2,3,4,5), "white", "red"))
