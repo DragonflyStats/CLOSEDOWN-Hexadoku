@@ -1,0 +1,37 @@
+
+formatter Create a formatter function making HTML elements
+Description
+Create a formatter function making HTML elements
+Usage
+formatter(.tag, ...)
+Arguments
+.tag HTML tag name. Uses span by default.
+... functions to create attributes of HTML element from data colums. The unnamed
+element will serve as the function to produce the inner text of the element. If no
+unnamed element is provided, identity function will be used to preserve the
+string representation of the colum values. Function and formula are accepted.
+See details for how different forms of formula will behave differently.
+Details
+This function creates a formatter object which is essentially a closure taking a value and optionally
+the dataset behind.
+The formatter produces a character vector of HTML elements represented as strings. The tag name
+of the elements are specified by .tag, and its attributes are calculated with the given functions or
+formulas specified in ... given the input vector and/or dataset in behind.
+Formula like x ~ expr will behave like function(x) expr. Formula like ~expr will be evaluated
+in different manner: expr will be evaluated in the data frame with the enclosing environment being
+the formula environment. If a column is formatted according to multiple other columns, ~expr
+should be used and the column names can directly appear in expr.
+Value
+a function that transforms a column of data (usually an atomic vector) to formatted data represented
+in HTML and CSS.
+format_table 21
+Examples
+top10red <- formatter("span",
+style = x ~ ifelse(rank(-x) <= 10, "color:red", NA))
+yesno <- function(x) ifelse(x, "yes", "no")
+formattable(mtcars, list(mpg = top10red, qsec = top10red, am = yesno))
+# format one column by other two columns
+# make cyl red for records with both mpg and disp rank <= 20
+f1 <- formatter("span",
+style = ~ ifelse(rank(-mpg) <= 20 & rank(-disp) <= 20, "color:red", NA))
+formattable(mtcars, list(cyl = f1))
