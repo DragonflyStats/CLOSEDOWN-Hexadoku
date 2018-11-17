@@ -1,5 +1,4 @@
-
-sample_experiment_data
+## sample_experiment_data
 Performance of several predictive models over three different datasets, using multiple cutoff points for time within each dataset.
 
 #### Description
@@ -19,16 +18,12 @@ A data frame with 180 rows and 10 variables:
 * precision Precision for this model configuration.
 * accuracy Accuracy for this model configuration.
 * n Number of observations in this dataset.
-* n_n Number of negative observations (i.e., outcome == 0) in this dataset (required for standard
-error estimation of AUC statistic).
-* n_p Number of positive observations (i.e., outcome == 1) in this dataset (required for standard
-error estimation of AUC statistic).
+* n_n Number of negative observations (i.e., outcome == 0) in this dataset (required for standard error estimation of AUC statistic).
+* n_p Number of positive observations (i.e., outcome == 1) in this dataset (required for standard error estimation of AUC statistic).
 * dataset indicator for different datasets.
 time indicator for different time points used to build each dataset; these represent dependent observations
 of model performance.
 model_id Indicator for the statistical algorithm used (this could be ’Logistic Regression’, ’SVM’,
 etc.).
-* model_variant Indicator for different variants of each model which are not equivalent and should
-be used individually (model should not be averaged over these, and instead should be held
-fixed when comparing to other model). Example of this could be various hyperparameter
+* model_variant Indicator for different variants of each model which are not equivalent and should be used individually (model should not be averaged over these, and instead should be held fixed when comparing to other model). Example of this could be various hyperparameter
 settings for a given model (i.e., cost for an SVM).
