@@ -1,0 +1,16 @@
+normalize Normalize a vector to fit zero-to-one scale
+
+#### Description
+Normalize a vector to fit zero-to-one scale
+
+#### Usage
+normalize(x, min = 0, max = 1, na.rm = FALSE)
+
+#### Arguments
+* x a numeric vector
+* min numeric value. The lower bound of the interval to normalize x.
+* max numeric value. The upper bound of the interval to normalize x.
+* na.rm a logical indicating whether missing values should be removed
+
+#### Examples
+normalize(mtcars$mpg)
