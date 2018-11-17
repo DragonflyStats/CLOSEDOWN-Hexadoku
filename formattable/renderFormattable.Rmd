@@ -1,0 +1,11 @@
+renderFormattable Widget render function for use in Shiny
+Description
+Widget render function for use in Shiny
+Usage
+renderFormattable(expr, env = parent.frame(), quoted = FALSE)
+
+####  Arguments
+expr an expression that generates a valid formattable object
+env the environment in which to evaluate expr.
+quoted is expr a quoted expression (with quote())? This is useful if you want to save an
+expression in a variable.
