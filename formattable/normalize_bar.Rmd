@@ -1,0 +1,13 @@
+26 percent
+normalize_bar Create a color-bar formatter using normalize
+Description
+Create a color-bar formatter using normalize
+Usage
+normalize_bar(color = "lightgray", ...)
+Arguments
+color the background color of the bars
+... additional parameters passed to normalize
+See Also
+color_bar, normalize
+Examples
+formattable(mtcars, list(mpg = normalize_bar()))
