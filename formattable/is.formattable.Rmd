@@ -1,0 +1,13 @@
+is.formattable 25
+is.formattable Test for objects of ’formattable’ class
+Description
+Test for objects of ’formattable’ class
+Usage
+is.formattable(x)
+Arguments
+x an object
+Value
+TRUE if x has class ’formattable’; FALSE otherwise.
+Examples
+is.formattable(10)
+is.formattable(formattable(10))
