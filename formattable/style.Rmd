@@ -1,0 +1,40 @@
+
+style Create a string-representation of CSS style
+
+#### Description
+Most HTML elements can be stylized by a set of CSS style properties. This function helps build
+CSS strings using conventional argument-passing in R.
+
+#### Usage
+<pre><code>
+style(...)
+</code></pre>
+
+#### Arguments
+... style attributes in form of name = value. Many CSS properties contains '-' in
+the middle of their names. In this case, use "the-name" = value instead. NA
+will cancel the attribute.
+
+#### Details
+The general usage of CSS styling is
+<span style = "color: red; border: 1px">Text</span>
+The text color can be specified by ‘color‘, the border of element by ‘border‘, and etc.
+Basic styles like color, border, background work properly and mostly consistently in modern
+web browsers. However, some style properties may not work consistently in different browsers.
+
+#### Value
+a string-representation of css styles
+
+#### See Also
+List of CSS properties, CSS Reference
+
+#### Examples
+```{r}
+style(color = "red")
+style(color = "red", "font-weight" = "bold")
+style("background-color" = "gray", "border-radius" = "4px")
+style("padding-right" = "2px")
+formattable(mtcars, list(
+mpg = formatter("span",
+style = x ~ style(color = ifelse(x > median(x), "red", NA)))))
+```
