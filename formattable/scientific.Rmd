@@ -1,0 +1,20 @@
+
+
+scientific Numeric vector with scientific format
+
+#### Description
+Numeric vector with scientific format
+Usage
+scientific(x, format = c("e", "E"), ...)
+
+#### Arguments
+x a numeric vector.
+format format type passed to formatC.
+... additional parameter passed to formattable.
+
+#### Examples
+```{r}
+scientific(1250000)
+scientific(1253421, digits = 8)
+scientific(1253421, digits = 8, format = "E")
+```
