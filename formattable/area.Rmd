@@ -1,25 +1,31 @@
 
 area Create an area to apply formatter
-Description
+
+#### Description
 Create an representation of two-dimenstional area to apply formatter function. The area can be one
 or more columns, one or more rows, or an area of rows and columns.
-Usage
+
+#### Usage
+<pre><code>
 area(row, col)
-Arguments
-row an expression of row range. If missing, TRUE is used instead.
-col an expression of column range. If missing, TRUE is used instead.
-Details
+</code></pre>
+
+#### Arguments
+* row an expression of row range. If missing, TRUE is used instead.
+* col an expression of column range. If missing, TRUE is used instead.
+
+#### Details
 The function creates an area object to store the representation of row and column selector expressions.
 When the function is called, the expressions and environment of row and column
-are captured for format_table to evaluate within the context of the input data.frame, that is,
-rownames and colnames are defined in the context to be the indices of rows and columns, respectively.
-Therefore, the row names and column names are avaiable symbols when row and
-col are evaluated, respectively, which makes it easier to specify range with names, for example,
-area(row = row1:row10, col = col1:col5).
+
+are captured for format_table to evaluate within the context of the input data.frame, that is, rownames and colnames are defined in the context to be the indices of rows and columns, respectively. Therefore, the row names and column names are avaiable symbols when row and
+col are evaluated, respectively, which makes it easier to specify range with names, for example, area(row = row1:row10, col = col1:col5).
+
 See Also
 format_table, formattable.data.frame
 as.datatable 5
-Examples
+
+#### Examples
 area(col = c("mpg", "cyl"))
 area(col = mpg:cyl)
 area(row = 1)
