@@ -1,0 +1,25 @@
+prefix Formattable object with prefix
+
+#### Description
+Formattable object with prefix
+
+#### Usage
+<pre><code>
+prefix(x, prefix = "", sep = "", ..., na.text = NULL)
+</code></pre>
+
+#### Arguments
+* x an object
+* prefix a character vector put in front of each non-missing value in x as being formatted.
+* sep separator
+* ... additional parameter passed to formattable.
+* na.text text for missing values in x.
+
+#### Examples
+```{r}
+prefix(1:10, "A")
+prefix(1:10, "Choice", sep = " ")
+prefix(c(1:10, NA), prefix = "A", na.text = "(missing)")
+prefix(rnorm(10, 10), "*", format = "d")
+prefix(percent(c(0.1,0.25)), ">")
+````
