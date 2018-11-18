@@ -1,8 +1,11 @@
-get_panel_range
+## get_panel_range
+
 Version safe(r) method to get the y- and x-range from trained scales.
-Description
+
+#### Description
 The names of the internal layout objects from ggplot_build changed slightly.
-Usage
+
+#### Usage
 <pre><code>
 get_panel_y_range(layout, index = 1)
 get_panel_x_range(layout, index = 1)
