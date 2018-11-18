@@ -1,25 +1,41 @@
 
-brackets_horizontal
-Axis brackets instead of axis ticks and lines
-Description
+## ``brackets_horizontal```:  Axis brackets instead of axis ticks and lines
+
+#### Description
 To be used with coord_flex_cart, coord_capped_cart, etc. for displaying brackets instead of
 the axis ticks and lines.
-Usage
+
+#### Usage
 <pre><code>
-brackets_horizontal(direction = c("up", "down"), length = unit(0.05,
-"npc"), tick.length = waiver())
-brackets_vertical(direction = c("left", "right"), length = unit(0.05,
-"npc"), tick.length = waiver())
+brackets_horizontal(direction = c("up", "down"), length = unit(0.05, "npc"), tick.length = waiver())
+brackets_vertical(direction = c("left", "right"), length = unit(0.05, "npc"), tick.length = waiver())
 </code></pre>
 
 #### Arguments
+* ``direction``: Which way should the opening side of the brackets point? up, down, left, or right?
+* ``length``: Length of the unit, parallel with axis line.
+* ``tick.length``: Height (width) of x-axis (y-axis) bracket. If waiver() (default), use axis.ticks.length from theme.
 
-direction Which way should the opening side of the brackets point? up, down, left, or
-right?
-length Length of the unit, parallel with axis line.
-tick.length Height (width) of x-axis (y-axis) bracket. If waiver() (default), use axis.ticks.length
-from theme.
 
+#### Examples
+```{r}
+library(ggplot2)
+p <- ggplot(mpg, aes(as.factor(cyl), hwy, colour=class)) +
+geom_point(position=position_jitter(width=0.3)) +
+theme_bw() +
+theme(panel.border = element_blank(), axis.line = element_line())
+p
+```
+
+```{r}
+p <- p + coord_flex_cart(bottom=brackets_horizontal(length=unit(0.08, 'npc')))6
+coord_capped_cart
+p
+# However getting the correct width is a matter of tweaking either length or
+# position_jitter...
+# A further adjustment,
+p + theme(panel.grid.major.x = element_blank())
+```
 #### Details
 The looks of the brackets are taken from theme(axis.ticks), or theme(axis.ticks.x) and
 theme(axis.ticks.y), respectively.
@@ -29,19 +45,3 @@ Both length and tick.length accepts a numeric scalar instead of a unit object th
 as an "npc" unit.
 See Also
 unit
-Examples
-```{r}
-library(ggplot2)
-p <- ggplot(mpg, aes(as.factor(cyl), hwy, colour=class)) +
-geom_point(position=position_jitter(width=0.3)) +
-theme_bw() +
-theme(panel.border = element_blank(), axis.line = element_line())
-p
-p <- p + coord_flex_cart(bottom=brackets_horizontal(length=unit(0.08, 'npc')))6
-coord_capped_cart
-p
-# However getting the correct width is a matter of tweaking either length or
-# position_jitter...
-# A further adjustment,
-p + theme(panel.grid.major.x = element_blank())
-```
