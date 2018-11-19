@@ -1,0 +1,19 @@
+
+ggcortest Plot test for association between paired samples
+#### Description
+Visualise test for association between paired samples, using Pearson’s product moment correlation
+coefficient.
+#### Usage
+ggcortest(t, colaccept="lightskyblue1", colreject="grey94", colstat="navy")
+#### Arguments
+* t a list result of cor.test of "htest" class
+* ``colaccept``:  color the acceptance area of the test
+* ``colreject``:   color for the rejection area of the test
+* `` colstat``: color for the test statistic vline
+
+#### Examples
+```{r}
+corr_test <- cor.test(iris$Sepal.Length, iris$Sepal.Width)
+corr_test
+ggcortest(corr_test)
+```
