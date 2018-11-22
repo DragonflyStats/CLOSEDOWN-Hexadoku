@@ -1,0 +1,23 @@
+``tidyselector`` tidyselector
+
+#### Description
+Select columns using tidy eval
+
+#### Usage
+<pre><code>
+tidyselector(data, ...)
+</code></pre>
+
+#### Arguments
+* data data frame
+* ... vars to select
+
+#### Value
+Data with selected columns.
+Examples
+```{r}`
+## data with row names
+d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
+## select only x
+tidyselector(d, x)
+```
