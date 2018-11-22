@@ -1,0 +1,25 @@
+test_rast_day02 
+
+
+ 
+Raster Data for fwiRaster function 
+
+#### Description 
+
+
+ 
+Daily fire weather inputs obtained from the Global Environmental Multiscale Model (GEM) in  northern Alberta 
+
+#### Usage 
+
+<pre><code>
+ 
+test_rast_day02 
+</code></pre>
+
+ 
+#### Format 
+
+
+ 
+A raster (tif) file. 
