@@ -1,0 +1,17 @@
+
+
+``repos_front`` move vars to front
+Description
+move vars to front
+#### Usage
+repos_front(data, ...)
+Arguments
+data data frame
+... columns to move to front
+Value
+Reordered data frame.
+Examples
+## data with row names
+d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
+## move y to front
+repos_front(d, y)
