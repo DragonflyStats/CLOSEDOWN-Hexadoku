@@ -1,0 +1,36 @@
+ 
+test_rast_hour02 
+
+
+ 
+Raster Data for ffmcRaster function 
+
+
+ 
+Description 
+
+
+ 
+Hourly fire weather inputs obtained from the Global Environmental Multiscale Model (GEM) in 
+
+
+ 
+northern Alberta 
+
+
+ 
+Usage 
+
+
+ 
+test_rast_hour02 
+
+
+ 
+Format 
+
+
+ 
+A raster (tif) file.test_sdmc 
+
+
