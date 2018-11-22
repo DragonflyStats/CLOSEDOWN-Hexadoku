@@ -1,0 +1,29 @@
+tabsort tabsort
+Description
+Returns a sorted (descending) frequency tbl
+#### Usage
+tabsort(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE)
+ntbl(.data, ...)
+tidyselector 5
+Arguments
+.data Data
+... Unquoted column names of variables to include in table. Default is to use all
+columns.
+prop Logical indicating whether to include a proportion of total obs column.
+na_omit Logical indicating whether to exclude missing. If all responses are missing, a
+missing value is used as the single category.
+sort Logical indicating whether to sort the returned object.
+Value
+Frequency tbl
+Examples
+## generate example data
+x <- sample(letters[1:4], 200, replace = TRUE)
+y <- sample(letters[5:8], 200, replace = TRUE)
+## count and sort frequencies for each vector
+tabsort(x)
+tabsort(y)
+## combine x and y into data frame
+dat <- data.frame(x, y)
+## select columns and create freq table
+tabsort(dat, x)
+tabsort(dat, x, y)
