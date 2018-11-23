@@ -1,4 +1,14 @@
-## offliers: Takes Outliers Off
+---
+title: "``offliers``:  Takes Outliers Off"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+##
 
 #### Description
 
@@ -12,8 +22,7 @@ pctg = 100, intersection = TRUE)
 </code></pre>
 
 #### Arguments
-* ``dataset``: an object containing the data used in the linear regression model, typically a data
-frame.
+* ``dataset``: an object containing the data used in the linear regression model, typically a data frame.
 * ``mod``: an object of class "lm" (the model fitted by the user).
 * ``CD``: a Boolean variable, indicating whether the Cook’s Distance criterion is to be used.
 * ``DFB``: a Boolean variable, indicating whether the DFBetas criterion is to be used.
@@ -38,6 +47,7 @@ group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
 weight <- c(ctl, trt)
 lm.D9 <- lm(weight ~ group)
 db <- data.frame(weight, group)
+
 offliers(db,lm.D9)
 offliers(db,lm.D9, CD = FALSE, DFB = TRUE, COVR = TRUE)
 offliers(db,lm.D9, CD = TRUE, DFB = TRUE, COVR = TRUE, intersection = FALSE)
@@ -45,10 +55,8 @@ offliers(db,lm.D9, CD = TRUE, DFB = TRUE, COVR = TRUE, pctg = 10, intersection =
 ```
 
 #### Details
-Criteria available: Cook’s Distance, DFBetas, and COVRATIO. DFFits has not been included because
-it is conceptually equivalent to Cook’s Distance; in fact there’s a closed-form formula to
-convert one value to the other. See references. The user can select any combination of those, and
-take off the outliers in the intersection (default) or union.
+Criteria available: Cook’s Distance, DFBetas, and COVRATIO. DFFits has not been included because it is conceptually equivalent to Cook’s Distance; in fact there’s a closed-form formula to
+convert one value to the other. See references. The user can select any combination of those, and take off the outliers in the intersection (default) or union.
 
 
 #### Author(s)
@@ -56,3 +64,4 @@ Albert Dorador
 
 #### References
 `* Cook & Weisberg 1982, "Residuals and Influence in Regression". http://conservancy.umn.edu/handle/11299/37076
+
