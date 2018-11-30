@@ -1,0 +1,40 @@
+
+describe.factor #### Description of factor variables
+#### Description
+Describes a factor variable.
+Usage
+describe.factor(x,varname="",horizontal=FALSE,decr.order=TRUE)
+#### Arguments 
+x A factor.
+varname A name for the variable. ‘describe’ always passes the name.
+horizontal Whether to display the results across the page (TRUE) or down the page (FALSE).
+decr.order Whether to order the rows by decreasing frequency.
+Details
+‘describe.factor’ displays the name of the factor, a table of its values, the modal value of the
+factor and the number of valid (not NA) values.
+Value
+nil
+Author(s)
+Jim Lemon
+16 describe.logical
+See Also
+Mode, valid.n, table
+describe.logical #### Description of logical variables
+#### Description
+Describes a logical variable.
+Usage
+describe.logical(x,varname="")
+#### Arguments 
+x A logical.
+varname An optional name for the variable. ‘describe’ always passes the name of the
+variable.
+Details
+‘describe.logical’ displays the name of the logical, a table of counts of its two values (TRUE,
+FALSE) and the percentage of TRUE values.
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+table
+describe.numeric 17
