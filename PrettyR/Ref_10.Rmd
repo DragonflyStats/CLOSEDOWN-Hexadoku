@@ -1,0 +1,164 @@
+
+print.freq Display frequency table(s)
+#### Description
+Displays one or more frequency tables produced by ‘freq’.
+Usage
+## S3 method for class 'freq'
+print(x,show.pc=TRUE,cum.pc=FALSE,show.total=FALSE,...)
+#### Arguments 
+x a frequency table produced by ‘\link{freq}’
+show.pc Whether to display percentages as well as counts.
+cum.pc Whether to display cumulative percentages.
+show.total Whether to display the total count of observations.
+... additional #### Arguments  passed to ‘print’.
+Details
+‘print.freq’ displays frequency tables produced by ‘freq’. If ‘show.pc’ is TRUE and there is
+a value in the frequency table with the label "NA", an additional set of percentages ignoring that
+value will also be displayed. If ‘show.total’ is TRUE, the total number of observations will be
+displayed.
+print.xtab 25
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+freq
+#### Examples 
+test.df<-data.frame(A=c(sample(1:10,99,TRUE),NA),C=sample(LETTERS,100,TRUE))
+test.freq<-freq(test.df)
+print(test.freq,show.total=TRUE)
+print.xtab Display a 2D crosstabulation
+#### Description
+Displays a 2D crosstabulation with optional chi-squared test, odds ratio/relative risk and phi coefficient.
+Usage
+## S3 method for class 'xtab'
+print(x,col.width=7,or=TRUE,chisq=FALSE,phi=FALSE,
+rowname.width=NA,html=FALSE,bgcol="lightgray",...)
+#### Arguments 
+x The list returned by ‘calculate.xtab’.
+col.width Width of the columns in the display.
+or whether to calculate the odds ratio and relative risk (only for 2x2 tables).
+chisq Whether to call ‘chisq.test’ and display the result.
+phi Whether to calculate and display the phi coefficient (only for 2x2 tables).
+rowname.width Optional width for the rownames. Mostly useful for truncating very long rownames.
+html Whether to format the table with HTML tags.
+bgcol Background color for the table.
+... additional #### Arguments  passed to ‘chisq.test’.
+26 R2html
+Details
+‘print.xtab’ displays a crosstabulation in a fairly conventional style with row, column and marginal
+percentages. If ‘html’ is TRUE, the formatting will use HTML tags and will only be useful if
+viewed in an HTML browser.
+If ‘or’ is ‘TRUE’ and the resulting table is 2x2, the odds ratio will be displayed below the table. If
+the function ‘logical.names’ within ‘print.xtab’ finds that the column margin names are one of
+FALSE/TRUE, 0/1 or NO/YES in those orders, the risk of the column variable for the second level
+of the row variable relative to the first row variable will be displayed as well.
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+calculate.xtab, xtab
+R2html Read an R script and write HTML output
+#### Description
+Produces HTML output from an R script.
+Usage
+R2html(Rfile,HTMLfile,echo=TRUE,split=FALSE,browse=TRUE,
+title="R listing",bgcolor="#dddddd",...)
+#### Arguments 
+Rfile The R script file from which to read the commands.
+HTMLfile The name for the HTML index file (see Details).
+echo Whether to include ("echo") the commands in the listing.
+split Whether to split the output (see ‘\link{sink}’).
+browse Whether to automatically open the HTML output in the default browser when
+finished.
+title The title of the HTML page and the headings for the frames.
+bgcolor The background color for the frames.
+... Additional #### Arguments  - currently ignored.
+R2html 27
+Details
+‘R2html’ allows the user to produce an HTML listing from an existing R script. The script must
+already run correctly and, if there is any graphic output, contain the necessary comments at the
+end of each graphic command to set up the graphic devices. The graphic files will be linked to the
+HTML listing page so that they should be interleaved with text output and commands.
+Three files will be output. The first will be named ‘HTMLfile’ which must be a valid filename
+with the extension ‘.html’. This file is the "index" file that sets up the HTML frameset. The
+second file will be named by concatenating ‘HTMLfile’ without its extension and ‘_nav.html’.
+Its contents will be dispayed at the left side of the HTML output as a "navigation" list using the
+commands as names. The third file is named by concatentating ‘HTMLfile’ without its extension
+and ‘_list.html’. This contains the program listing. All three files will be written in whatever
+directory is specified by the path to ‘HTMLfile’. If this is missing, everything will be written in the
+current R directory.
+Commands that create or alter connections, such as ‘sink’ are "forbidden", not evaluated and
+marked as comments in the listing. This prevents such commands from altering the connections
+necessary to write the HTML files.
+To include graphic output in the HTML file, place a comment at the end of any function that produces
+a graphic like this ‘#--FIG:filename.png--’ and the appropriate graphic device is automatically
+set up. The filename may be left out, in which case a name will be generated.
+Value
+nil
+Author(s)
+Philippe Grosjean
+#### Examples 
+rcon<-file("testR2html.R","w")
+cat("test.df<-data.frame(a=factor(sample(LETTERS[1:4],100,TRUE)),\n",
+file=rcon)
+cat(" b=sample(1:4,100,TRUE),c=rnorm(100),d=rnorm(100))\n",file=rcon)
+cat("describe(test.df)\n",file=rcon)
+cat("print(freq(test.df$a))\n",file=rcon)
+cat("xtab(a~b,test.df)\n",file=rcon)
+cat("brkdn(c~b,test.df)\n",file=rcon)
+cat("hist(test.df$b)#--FIG:hista.png--\n",file=rcon)
+cat("plot(test.df$c,test.df$d)#--FIG:plotcd.png--\n",file=rcon)
+close(rcon)
+# R2html("testR2html.R", "testR2html.html")
+# if you want to see the output, use the following line
+# system(paste(options("browser")," file:",getwd(),"/testR2html.html",sep="",collapse=""))
+# to clean up, use the following line
+# system("rm testR2html.R testR2html.html testR2html_nav.html")
+# system("rm testR2html_list.html hista.png plotcd.png")
+28 rep_n_stack
+rep_n_stack Replicate and stack columns of a data frame
+#### Description
+Reshape a data frame by stacking two or more columns into one and adding a factor, while replicating
+the remaining columns and stacking them to match the number of rows
+Usage
+rep_n_stack(data,to.stack,stack.names=NULL)
+#### Arguments 
+data A data frame.
+to.stack Which columns are to be stacked together (see Details).
+stack.names Names for the new factor and stacked column.
+Details
+‘rep_n_stack’ takes two or more specified columns in a data frame and "stacks" them into a single
+column. It also creates a new factor composed of the replicated names of the columns that identifies
+from which column each value came. The remaining columns in the data frame are replicated to
+match the new number of rows.
+If ‘to.stack’ is a matrix of names or column numbers, ‘rep_n_stack’ will stack each row into
+two new columns, allowing multiple related sets of values to be stacked in one operation.
+A matrix or data frame of values can now be stacked so that the values can be displayed by a
+function like ‘barNest’ in the plotrix package.
+Value
+The reshaped data frame.
+Note
+‘rep_n_stack’ only does what other reshaping functions can do, but may be more easy to understand.
+Author(s)
+Jim Lemon
+See Also
+reshape
+skew 29
+#### Examples 
+wide.data<-data.frame(ID=1:10,Glup=sample(c("Montic","Subtic"),10,TRUE),
+Flimit1=runif(10,1,2),Flimit2=runif(10,1.5,2.5),Flimit3=runif(10,1.2,3),
+Glimit1=rnorm(10,mean=5),Glimit2=rnorm(10,mean=4),Glimit3=rnorm(10,mean=4.5))
+# first just stack one set of related measures
+rep_n_stack(wide.data[,1:5],to.stack=c("Flimit1","Flimit2","Flimit3"))
+# now stack two sets of related measures and pass names for the stacks
+rep_n_stack(wide.data,to.stack=matrix(3:8,nrow=2,byrow=TRUE),
+stack.names=c("Limit_F","Value_F","Limit_G","Value_G"))
+# finally stack a matrix of means into a single column with the
+# row and column names becoming "factor" variables
+meanmat<-matrix(runif(16,10,20),nrow=4)
+rownames(meanmat)<-c("Plunderers","Storers","Refusers","Jokers")
+colnames(meanmat)<-c("Week1","Week2","Week3","Week4")
+rep_n_stack(meanmat,to.stack=1:4,
+stack.names=c("Returns","Occasion","Strategy"))
