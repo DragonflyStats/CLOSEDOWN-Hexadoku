@@ -1,0 +1,40 @@
+
+delim.xtab Format a crosstabulation
+#### Description
+Format a 2D crosstabulation from xtab
+delim.xtab 13
+Usage
+delim.xtab(x,pct=c("row","column","cell"),coltot=TRUE,rowtot=TRUE,
+ndec=1,delim="\t",interdigitate=TRUE,label=deparse(substitute(x)))
+#### Arguments 
+x An object of class ‘xtab’.
+pct Whether and how to calculate percentages.
+coltot,rowtot Whether to add the marginal totals.
+ndec The number of decimal places for percentages.
+delim The delimiter to use between columns. Defaults to TAB.
+interdigitate Whether to place each column of percentages next to its row of counts.
+label A label to be displayed before the table.
+Details
+‘delim.xtab’ formats a crosstabulation in a manner similar to those produced by commercial
+spreadsheets, with a column of counts followed by a column of percentages. If ‘interdigitate’
+is FALSE, the percentages will be displayed separately.
+‘delim.xtab’ will only process one 2D xtab object at a time.
+To format only the counts, set ‘pct’ to NA.
+The intended use of ‘delim.xtab’ is producing tables that can be imported into most word processors.
+If a table is output to an HTML or text document formatted with TAB characters, the output
+can be copied and pasted into the word processor document and then converted to a table.
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+xtab
+#### Examples 
+alpha1<-sample(LETTERS[1:3],50,TRUE)
+alpha2<-sample(LETTERS[1:2],50,TRUE)
+alphas<-data.frame(alpha1,alpha2)
+alphatab<-xtab(alpha1~alpha2,alphas)
+delim.xtab(alphatab,pct="row",interdigitate=TRUE)
+delim.xtab(alphatab,pct="column",interdigitate=TRUE)
+delim.xtab(alphatab,pct="cell",interdigitate=TRUE)
+14 describe
