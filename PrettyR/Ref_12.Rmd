@@ -1,0 +1,95 @@
+add.value.labels Add value labels
+#### Description
+Adds value labels to a variable.
+Usage
+add.value.labels(x,value.labels)
+#### Arguments 
+x The variable to add the labels.
+value.labels The labels.
+Details
+‘add.value.labels’ adds value labels like those from an SPSS .sav file. It makes it a bit easier to
+stick on value labels that have been lost or were not there in the first place.
+Value
+The variable with the labels added.
+Author(s)
+Jim Lemon
+AddNav 3
+#### Examples 
+fgh<-data.frame(sex=sample(1:2,20,TRUE),viviality=sample(1:3,20,TRUE))
+fgh$sex<-add.value.labels(fgh$sex,c("Female","Male"))
+fgh$viviality<-add.value.labels(fgh$viviality,c("Alive","Dead","Zombie"))
+AddNav Add a navigation item (R2html).
+#### Description
+Add an item to the HTML navigation file.
+Usage
+AddNav(navcon,Rcommand,listname)
+#### Arguments 
+navcon The connection for writing to the navigation file.
+Rcommand The current R command in the script file.
+listname The name of the listing file.
+Details
+‘AddNav’ adds an entry to the navigation file, generates a name tag for that entry and returns it to
+be inserted into the listing file. If the R command is longer than 20 characters, it is truncated to 18
+characters and an ellipsis appended.
+Value
+The name tag to link the listing to the navigation entry.
+Author(s)
+Philippe Grosjean
+4 addxtabs
+AddNavItem Add a navigation item (htmlize).
+#### Description
+Add an item to the HTML navigation file.
+Usage
+AddNavItem(Rcommand,navcon,listname,navindex)
+#### Arguments 
+Rcommand The current R command in the script file.
+navcon The connection for writing to the navigation file.
+listname The name of the listing file.
+navindex The number used to generate the name tag.
+Details
+‘AddNavItem’ adds an entry to the navigation file, generates a name tag for that entry and returns it
+to be inserted into the listing file. If the R command is longer than 20 characters, it is truncated to
+18 characters and an ellipsis appended.
+Value
+The name tag to link the listing to the navigation entry.
+Author(s)
+Jim Lemon
+addxtabs Add the cells of two or more xtab objects
+#### Description
+Adds the counts in corresponding cells of xtab objects
+Usage
+addxtabs(x)
+#### Arguments 
+x A list containing two or more return values from ‘xtab’.
+BeginNav 5
+Details
+‘addxtabs’ adds the counts in the cells of two or more ‘xtab’ objects by matching the row and
+column names. All of the ‘xtab’ objects in the list will usually contain counts of the same response
+options, although some options may be missing in some tables. This often occurs when respondents
+do not have to complete all of the responses (e.g. "for up to three occasions ...").
+This function facilitates calculating the total counts in crosstabulations that arise from multiple
+responses for the options. See the example.
+Value
+The number of valid values or the length of the object.
+Author(s)
+Jim Lemon
+See Also
+xtab
+#### Examples 
+# Assume that respondents are asked to record the location and quantity for
+# three occasions of drinking, and for each occasion the fields are named
+# "drinks" and "loc"
+drinkloc<-data.frame(drinks1=sample(c("1-2","3-5","6+"),100,TRUE),
+loc1=sample(c("Meal at home","Restaurant","Party","Pub"),100,TRUE),
+drinks2=sample(c("1-2","3-5","6+"),100,TRUE),
+loc2=sample(c("Meal at home","Restaurant","Party","Pub"),100,TRUE),
+drinks3=sample(c("1-2","3-5"),100,TRUE),
+loc3=sample(c("Meal at home","Restaurant","Party"),100,TRUE))
+# notice how two options have been left out in drink3 and loc3
+# create the list of xtab objects
+dltablist<-list()
+dltablist[[1]]<-xtab(loc1~drinks1,drinkloc)
+dltablist[[2]]<-xtab(loc2~drinks2,drinkloc)
+dltablist[[3]]<-xtab(loc3~drinks3,drinkloc)
+# now sum the corresponding cells
+addxtabs(dltablist)
