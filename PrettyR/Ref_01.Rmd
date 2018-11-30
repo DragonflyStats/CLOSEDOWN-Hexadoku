@@ -1,0 +1,133 @@
+BeginNav Write the header for the HTML navigation file (htmlize).
+#### Description
+Initiate the navigation file for an R listing in HTML format.
+6 brkdn
+Usage
+BeginNav(navcon,bgcolor="#dddddd")
+#### Arguments 
+navcon The connection for writing to the navigation file.
+bgcolor The background color for the navigation frame.
+Details
+‘BeginNav’ sets up the file with the navigation frame information for the HTML listing for the
+‘htmlize’ function.
+Value
+nil
+Author(s)
+Jim Lemon
+brkdn Breakdown of a numeric variable by grouping variable(s)
+#### Description
+Calculates means, variances and ns for subgroups of numeric observations and displays the results.
+Usage
+brkdn(formula,data,maxlevels=10,num.desc=c("mean","var","valid.n"),
+width=10,round.n=2)
+#### Arguments 
+formula a formula with the variable to be broken down on the left and the names of one
+or more variables defining subgroups on the right
+data the data frame from which to select the variables
+maxlevels the maximum number of levels in any subgroup
+num.desc names of the summary functions to apply to the variable on the left side of the
+formula
+width The number of characters to allow for each column in the summary output.
+round.n The number of decimal places to round the output.
+calculate.xtab 7
+Details
+‘brkdn’ will accept a formula referring to columns in a data frame. It calls ‘describe.numeric’
+for the calculations and displays a table of results.
+Value
+The results of ‘describe.numeric’, or a multi-level list if more than one grouping variable is
+specified.
+Author(s)
+Jim Lemon
+See Also
+describe.numeric
+#### Examples 
+test.df<-data.frame(Age=rnorm(100)+3*10,Sex=sample(c("M","F"),100,TRUE),
+Employ=sample(c("FT","PT","NO"),100,TRUE))
+# add value labels for Employ in alphabetical order so they match
+attr(test.df$Employ,"value.labels")<-c("Full time","None","Part time")
+brkdn(Age~Sex+Employ,test.df)
+calculate.xtab Calculate a crosstabulation
+#### Description
+Calculates the marginal totals and names for a crosstabulation.
+Usage
+calculate.xtab(v1,v2,varnames=NULL)
+#### Arguments 
+v1,v2 The variables to be crosstabulated.
+varnames Labels for the variables (defaults to ‘names(data))’
+Details
+‘calculate.xtab’ calls ‘table’ for the base table, calculates the marginal totals and returns a list
+with these and the names of the variables that will be used by ‘print.xtab’.
+Value
+A list containing the value of ‘table’, the row and column marginals and the names of the variables.
+8 CreateIndexFile
+Author(s)
+Jim Lemon
+See Also
+table, print.xtab
+CreateIndexFile Write an index file for the current output (htmlize).
+#### Description
+Write an index file for the current HTML output.
+Usage
+CreateIndexFile(HTMLbase,HTMLdir,title="R listing")
+#### Arguments 
+HTMLbase The base name for the HTML files.
+HTMLdir The directory in which to write the HTML files.
+title The title for the listing.
+Details
+‘CreateIndexFile’ opens a new HTML index file. If there is another file with the same name, it
+will be overwritten. This is intentional, as the user may want to run ‘htmlize’ repeatedly without
+generating multiple sets of files. It then writes the frameset definition into the file and closes it.
+Value
+nil
+Author(s)
+Jim Lemon
+createIndxFile 9
+createIndxFile Write an index file for the current output (R2html).
+#### Description
+Write an index file for the current R2html output.
+Usage
+createIndxFile(HTMLfile,navfile,listfile,title="R listing")
+#### Arguments 
+HTMLfile The file name for the HTML files.
+navfile The name for the HTML navigation frame file.
+listfile The name for the HTML listing file.
+title The title for the listing.
+Details
+‘createIndxFile’ opens a new HTML index file. If there is another file with the same name, it
+will be overwritten. This is intentional, as the user may want to run ‘R2html’ repeatedly without
+generating multiple sets of files. It then writes the frameset definition into the file and closes it.
+Value
+nil
+Author(s)
+Philippe Grosjean
+decimal.align Turn numbers into strings with aligned decimal points
+#### Description
+Formats decimal numbers as strings with aligned decimal points.
+Usage
+decimal.align(x,dechar=".",nint=NA,ndec=NA,pad.left=TRUE)
+10 delim.table
+#### Arguments 
+x One or more decimal numbers.
+dechar The character used to separate the decimal part of a number.
+nint The number of characters to which the integer part of the numbers should be
+padded.
+ndec The number of characters to which the decimal part of the numbers should be
+padded.
+pad.left Whether the left (integer) side of the numbers should be padded as well as the
+right.
+Details
+‘decimal.align’ splits the incoming numbers at the decimal point and pads the decimal part and
+optionally the integer part so that when the numbers are displayed in a monospaced font the decimal
+points will be aligned. Note that if an integer or a decimal part without an integer is passed, the
+function will insert a zero for the missing part.
+This is useful for displaying or storing aligned columns of decimal numbers when the user does not
+want to pad the decimal part with zeros as in the ‘format’ function.
+Value
+The original numbers as strings, padded with spaces.
+Author(s)
+Jim Lemon
+See Also
+sprintf
+#### Examples 
+x<-c(1,2.3,44.55,666.777)
+decimal.align(x)
