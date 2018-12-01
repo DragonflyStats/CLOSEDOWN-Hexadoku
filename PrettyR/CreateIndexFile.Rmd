@@ -1,0 +1,23 @@
+
+CreateIndexFile Write an index file for the current output (htmlize).
+#### Description
+Write an index file for the current HTML output.
+
+#### Usage
+<pre><code>
+CreateIndexFile(HTMLbase,HTMLdir,title="R listing")
+</code></pre>
+
+#### Arguments 
+* HTMLbase The base name for the HTML files.
+* HTMLdir The directory in which to write the HTML files.
+* title The title for the listing.
+
+#### Details
+‘CreateIndexFile’ opens a new HTML index file. If there is another file with the same name, it
+will be overwritten. This is intentional, as the user may want to run ‘htmlize’ repeatedly without
+generating multiple sets of files. It then writes the frameset definition into the file and closes it.
+Value
+nil
+Author(s)
+Jim Lemon
