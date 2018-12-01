@@ -85,48 +85,24 @@ cffdrs-package
 11
 17
 20
-24
-27
-30
-33
-36
-38
-40
-42
-43
-43
-44
-44
-44
-45
-45
-46
-46
-46
-47
-47
+
 48
 48
 51
-Canadian Forest Fire Danger Rating System
-Description
-The cffdrs package allows R users to calculate the outputs of the two main components of the Cana-
-dian Forest Fire Danger Rating System (CFFDRS; http://cwfis.cfs.nrcan.gc.ca/background/
+
+## Canadian Forest Fire Danger Rating System
+
+#### Description
+
+The cffdrs package allows R users to calculate the outputs of the two main components of the Cana- dian Forest Fire Danger Rating System (CFFDRS; http://cwfis.cfs.nrcan.gc.ca/background/
 summary/fdr): the Fire Weather Index (FWI) System (http://cwfis.cfs.nrcan.gc.ca/background/
 summary/fwi) and the Fire Behaviour Prediction (FBP) System (http://cwfis.cfs.nrcan.gc.
-ca/background/summary/fbp) along with additional methods created and used Canadian fire mod-
-elling. These systems are widely used internationally to assess fire danger (FWI System) and quan-
-tify fire behavior (FBP System).
-The FWI System (Van Wagner 1987) is based on the moisture content and the effect of wind of
-three classes of forest fuels on fire behavior. It consists of six components: three fuel moisture
-codes (Fire Fuel Moisture Code, Duff Moisture Code, Drought Code), and three fire behavior in-
-dexes representing rate of spread (Initial Spread Index), fuel consumption (Buildup Index), and firecffdrs-package
+ca/background/summary/fbp) along with additional methods created and used Canadian fire modelling. These systems are widely used internationally to assess fire danger (FWI System) and quantify fire behavior (FBP System).
+The FWI System (Van Wagner 1987) is based on the moisture content and the effect of wind of three classes of forest fuels on fire behavior. It consists of six components: three fuel moisture codes (Fire Fuel Moisture Code, Duff Moisture Code, Drought Code), and three fire behavior indexes representing rate of spread (Initial Spread Index), fuel consumption (Buildup Index), and firecffdrs-package
 3
 intensity (Fire Weather Index). The FWI System outputs are determined from daily noon weather
 observations: temperature, relative humidity, wind speed, and 24-hour rainfall.
-The FBP System (Forestry Canada Fire Danger Group 1992; Hirsch 1996) provides a set of primary
-and secondary measures of fire behavior. The primary outputs consist of estimates of fire spread
-rate, fuel consumption, fire intensity, and fire description (i.e., surface, intermittent, or crown fire).
+The FBP System (Forestry Canada Fire Danger Group 1992; Hirsch 1996) provides a set of primary and secondary measures of fire behavior. The primary outputs consist of estimates of fire spread rate, fuel consumption, fire intensity, and fire description (i.e., surface, intermittent, or crown fire).
 The secondary outputs, which are not used nearly as often, give estimates of fire area, perimeter,
 perimeter growth rate, and flank and back fire behavior based on a simple elliptical fire growth
 model. Unlike the FWI System, which is weather based, the FBP System also requires information
@@ -184,7 +160,9 @@ Prometheus: the Canadian wildland fire growth simulation Model. Nat. Resour. Can
 Serv., North. For. Cent., Edmonton, AB. Inf. Rep. NOR-X-417.
 See Also
 fbp, fireSeason, fwi, fwiRaster, gfmc, hffmc, hffmcRaster, lros, pros, sdmc, wDC
-Examples
+
+
+#### Examples
 #Calculating daily FWI with wintering DC
 #This exercise demonstrates how to calculate daily FWI System variables given a chronical two years
 # daily fire weather observations from one weather station. In the example, we showed first how to
@@ -208,8 +186,7 @@ fs <- fireSeason(input)
 fs <- with(fs,fs[order(yr,mon,day),])
 #Create same Date format as weather dataset for comparison
 fs$date <- as.Date(as.POSIXlt(paste(fs$yr,"-",fs$mon,"-",fs$day,sep="")))
-theyears <- unique(fs$yr)fbp
-5
+theyears <- unique(fs$yr)
 for(curYr.row in 1:length(theyears)){
 #curYr.row <- 2
 curYr <- theyears[curYr.row]

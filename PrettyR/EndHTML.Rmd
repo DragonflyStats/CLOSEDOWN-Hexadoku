@@ -1,0 +1,14 @@
+EndHTML End an HTML file (htmlize).
+#### Description
+Append an ending to an HTML file.
+Usage
+EndHTML(con,ending=NULL)
+#### Arguments 
+con The connection for writing to the HTML file.
+ending Any "trailer" information to be added to the file before closing it.
+Details
+‘EndHTML’ appends a brief ending to an HTML file.
+Value
+nil
+Author(s)
+Jim Lemon

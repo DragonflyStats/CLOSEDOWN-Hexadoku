@@ -1,0 +1,29 @@
+print.desc Display descriptive stats output
+#### Description
+Displays a list of descriptive statistics produced by ‘describe’.
+
+#### Usage
+<pre><code>
+## S3 method for class 'desc'
+print(x,ndec=2,...)
+</code></pre>
+
+#### Arguments 
+* x a list of descriptive statistics produced by ‘describe’
+* ndec The number of decimal places to display.
+* ... additional arguments  passed to ‘print’
+
+#### Details
+‘print.desc’ displays the list of descriptive statistics produced by the ‘describe’ function.
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+describe
+#### Examples 
+```{r}
+test.df<-data.frame(A=c(sample(1:10,99,TRUE),NA),C=sample(LETTERS,100,TRUE))
+test.desc<-describe(test.df)
+print(test.desc)
+```

@@ -1,31 +1,29 @@
 
 annotate_y_axis
 Annotations in the axis
-Description
+#### Description
 Annotations in the axis
-Usage
+
+#### Usage
+<pre><code>
 annotate_y_axis(label, y, side = waiver(), print_label = TRUE,
 print_value = TRUE, print_both = TRUE, parsed = FALSE, ...)
 annotate_x_axis(label, x, side = waiver(), print_label = TRUE,
-print_value = TRUE, print_both = TRUE, parsed = FALSE, ...)4
-annotate_y_axis
-Arguments
-label Text to print
-y, x Position of the annotation.
-side
-left or right, or top or bottom side to print annotation
-print_label, print_value, print_both
-Logical; what to show on annotation. Label and/or value. print_both is short-
-cut for setting both print_label and print_value. When both is TRUE, uses
-argument sep to separate the label and value.
-parsed Logical (default FALSE), when TRUE, uses mathplot for outputting expressions.
-See section "Showing values".
-... Style settings for label and tick: colour, hjust, vjust, size, fontface, family, rot.
-When waiver() (default), the relevant theme element is used.
-Showing values: See plotmath for using mathematical expressions. The function uses a simple
-replacement strategy where the literal strings .(y) and .(val) are replaced by the value after round
-of to a number of digits, as given by argument digits.
-Examples
+print_value = TRUE, print_both = TRUE, parsed = FALSE, ...)
+</code></pre>
+
+#### Arguments
+* label Text to print
+* y, x Position of the annotation.
+* side left or right, or top or bottom side to print annotation
+* print_label, print_value, print_both Logical; what to show on annotation. Label and/or value. print_both is short-
+cut for setting both print_label and print_value. When both is TRUE, uses argument sep to separate the label and value.
+* parsed Logical (default FALSE), when TRUE, uses mathplot for outputting expressions. See section "Showing values".
+* ... Style settings for label and tick: colour, hjust, vjust, size, fontface, family, rot. When waiver() (default), the relevant theme element is used.
+* Showing values: See plotmath for using mathematical expressions. The function uses a simple replacement strategy where the literal strings .(y) and .(val) are replaced by the value after round of to a number of digits, as given by argument digits.
+
+#### Examples
+```{r}
 library(ggplot2)
 p <- ggplot(mtcars, aes(mpg, hp, colour=disp)) + geom_point()
 l <- p + annotate_y_axis('mark at', y=200, tick=TRUE)
@@ -38,12 +36,13 @@ l + annotate_y_axis("bar(x) == .(y)", y = mean(mtcars$hp), parsed=TRUE, tick=FAL
 l + annotate_y_axis('this is midway', y=sum(range(mtcars$hp))/2, print_value = FALSE, side='left')
 # work around if an axis only contains parsed expressions
 p + annotate_y_axis("bar(x) == .(y)", y = mean(mtcars$hp), parsed=TRUE, tick=FALSE) +
-annotate_y_axis("some long string", y=100, tick=FALSE, print_value=FALSE, colour=NA)
+   annotate_y_axis("some long string", y=100, tick=FALSE, print_value=FALSE, colour=NA)
 # Works together with other functions
 p <- p + theme_light() + theme(panel.border=element_blank(),
 axis.line = element_line(),
 axis.ticks = element_line(colour='black'))
 p + coord_capped_cart(bottom='right') +
 annotate_y_axis('More than I\ncan afford', y=125,
-print_value=FALSE, tick=TRUE)brackets_horizontal
-5
+print_value=FALSE, tick=TRUE)brackets_horizontal5
+
+```
