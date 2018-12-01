@@ -1,0 +1,61 @@
+---
+title: "xtab Crosstabulate variables"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(PrettyR)
+```
+
+
+#### Description
+Crosstabulates variables with small numbers of unique values.
+Usage
+xtab(formula,data,varnames=NULL,or=TRUE,chisq=FALSE,phi=FALSE,html=FALSE,
+bgcol="lightgray")
+xtab 35
+#### Arguments 
+* formula a formula containing the variables to be crosstabulated
+* data the data frame from which to select the variables
+* varnames optional labels for the variables (defaults to ‘names(data))’ or whether to calculate the odds ratio (only for 2x2 tables).
+* chisq logical - whether to display chi squared test(s) of the table(s)
+* phi whether to calculate and display the phi coefficient of association - only for 2x2 tables
+* html whether to format the resulting table with HTML tags. 
+* bgcol background color for the table if html=TRUE.
+
+
+#### Examples 
+```{r}
+test.df<-data.frame(sex=sample(c("MALE","FEMALE"),1000,TRUE),
+suburb=sample(1:4,1000,TRUE),social.type=sample(LETTERS[1:4],1000,TRUE))
+xtab(sex~suburb+social.type,test.df,chisq=TRUE)
+# now add some value labels
+attr(test.df$suburb,"value.labels")<-1:4
+names(attr(test.df$suburb,"value.labels"))<-
+c("Upper","Middle","Working","Slum")
+attr(test.df$social.type,"value.labels")<-LETTERS[1:4]
+names(attr(test.df$social.type,"value.labels"))<-
+c("Gregarious","Mixer","Aloof","Hermit")
+xtab(sex~suburb+social.type,test.df)
+```
+
+now have some fun with ridiculously long factor labels
+
+```{r}
+testxtab<-data.frame(firstbit=sample(c("Ecomaniacs","Redneck rogues"),50,TRUE),
+secondbit=sample(c("Macho bungy jumpers","Wimpy quiche munchers"),50,TRUE))
+# and format the table in HTML and add some tests
+xtab(secondbit~firstbit,testxtab,html=TRUE,chisq=TRUE,phi=TRUE)
+```
+
+#### Details
+‘xtab’ will accept a formula referring to columns in a data frame or two explicit variable names. It
+calls ‘calculate.xtab’ for the calculations and displays one or more tables of results by calling
+‘print.xtab’. If ‘html’ is TRUE, the resulting table will be formatted with HTML tags.
+Value
+The result of ‘calculate.xtab’ if there is only one table to display, otherwise a nested list of tables.
+Author(s)
+Jim Lemon
+See Also
+table, calculate.xtab, print.xtab
