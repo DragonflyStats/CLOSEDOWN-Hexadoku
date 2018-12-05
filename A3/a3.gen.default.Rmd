@@ -1,0 +1,56 @@
+---
+title: "A3"
+author: "Kevin O'Brien"
+date: "5 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+a3.gen.default Stochastic Data Generators
+#### Description
+The stochastic data generators generate stochastic noise with (if specified correctly) the same properties
+as the observed data. By replicating the stochastic properties of the original data, we are able
+to obtain the exact calculation of p values.
+#### Usage 
+<pre><code>
+a3.gen.default(x, n.reps)
+</code></pre>
+
+#### Arguments 
+x the original (observed) data series.
+n.reps the number of stochastic repetitions to generate.
+
+#### Details
+Generally these will not be called directly but will instead be passed to the data.generating.fn
+argument of a3.base.
+
+Value
+A list of of length n.reps of vectors of stochastic noise. There are a number of different methods
+of generating noise:
+a3.gen.default The default data generator. Uses a3.gen.bootstrap.
+a3.gen.resample
+Reorders the original data series.
+a3.gen.bootstrap
+Resamples the original data series with replacement.
+a3.gen.normal Calculates the mean and standard deviation of the original series and generates
+a new series with that distribution.
+a3.gen.autocor Assumesa first order autocorrelation of the original series and generates a new
+series with the same properties.
+
+#### Examples 
+```{r}
+# Calculate the A3 results assuming an auto-correlated set of observations.
+# In usage p.acc should be <=0.01 in order to obtain more accurate p values.
+a3.lm(rating ~ ., attitude, p.acc = 0.1,
+data.generating.fn = replicate(ncol(attitude), a3.gen.autocor))
+## A general illustration:
+# Take x as a sample set of observations for a feature
+x <- c(0.349, 1.845, 2.287, 1.921, 0.803, 0.855, 2.368, 3.023, 2.102, 4.648)
+# Generate three stochastic data series with the same autocorrelation properties as x
+rand.x <- a3.gen.autocor(x, 3)
+plot(x, type="l")
+for(i in 1:3) lines(rand.x[[i]], lwd = 0.2)
+```

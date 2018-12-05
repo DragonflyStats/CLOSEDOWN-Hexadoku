@@ -1,0 +1,31 @@
+---
+title: "``plot.A3``: Plot A3 Results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+
+#### Description
+Plots an 'A3' object results. Displays predicted versus observed values for each observation along with the distribution of slopes measured for each feature.
+
+#### Usage 
+
+<pre><code>
+## S3 method for class 'A3'
+plot(x, ...)
+
+</code></pre>
+
+#### Arguments 
+x an A3 object.
+... additional options provided to plotPredictions, plotSlopes and plot functions.
+
+#### Examples 
+```{r}
+data(housing)
+res <- a3.lm(MED.VALUE ~ NOX + ROOMS + AGE + HIGHWAY + PUPIL.TEACHER, housing, p.acc = NULL)
+plot(res)
+```

@@ -1,0 +1,30 @@
+---
+title: "A3"
+author: "Kevin O'Brien"
+date: "5 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+
+
+xtable.A3 Nicely Formatted Fit Results
+#### Description
+Creates a LaTeX table of results. Depends on the xtable package.
+#### Usage 
+<pre><code>
+## S3 method for class 'A3'
+xtable(x, ...)
+
+ </code></pre>
+#### Arguments 
+x an A3 object.
+... additional arguments  passed to the print.xtable function.
+#### Examples 
+```{r}
+x <- a3.lm(rating ~ ., attitude, p.acc = NULL)
+xtable(x)
+```

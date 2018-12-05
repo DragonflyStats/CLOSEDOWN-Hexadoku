@@ -1,0 +1,54 @@
+---
+title: "A3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+a3.base Base A3 Results Calculation
+#### Description
+This function calculates the A3 results. Generally this function is not called directly. It is simpler
+to use a3 (for arbitrary models) or a3.lm (specifically for linear regressions).
+#### Usage 
+<pre><code>
+a3.base(formula, data, model.fn, simulate.fn, n.folds = 10,
+data.generating.fn = replicate(ncol(x), a3.gen.default), p.acc = 0.01,
+features = TRUE, slope.sample = NULL, slope.displacement = 1)
+</code></pre>
+  
+#### Arguments 
+formula the regression formula.
+data a data frame containing the data to be used in the model fit.
+model.fn function used to generate a model.
+simulate.fn function used to create the model and generate predictions.
+n.folds the number of folds used for cross-validation. Set to 0 to use Leave One Out
+Cross Validation.
+data.generating.fn
+the function used to generate stochastic noise for calculation of exact p values.
+p.acc the desired accuracy for the calculation of exact p values. The entire calculation
+process will be repeated 1=p:acc times so this can have a dramatic affect on time
+required. Set to NULL to disable the calculation of p values.
+features whether to calculate the average slopes, added R2 and p values for each of the
+features in addition to the overall model.
+slope.sample if not NULL the sample size for use to calculate the average slopes (useful for
+very large data sets).
+slope.displacement
+the amount of displacement to take in calculating the slopes. May be a single
+number in which case the same slope is applied to all features. May also be a
+named vector where there is a name for each feature.
+
+#### Value
+S3 A3 object containing:
+model.R2 The cross validated R2 for the entire model.
+feature.R2 The cross validated R2's for the features (if calculated).
+model.p The p value for the entire model (if calculated).
+feature.p The p value for the features (if calculated).
+all.R2 The R2's for the model features, and any stochastic simulations for calculating
+exact p values.
+observed The observed response for each observation.
+predicted The predicted response for each observation.
+slopes Average slopes for each of the features (if calculated).
+all.slopes Slopes for each of the observations for each of the features (if calculated).
+table The A3 results table.

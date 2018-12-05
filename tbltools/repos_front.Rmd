@@ -24,6 +24,7 @@ repos_front(data, ...)
 Reordered data frame.
 
 #### Examples
+
 ```{r}
 ## data with row names
 d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
