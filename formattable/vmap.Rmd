@@ -1,0 +1,33 @@
+---
+title: "vmap Vectorized map from element to case by index or string value"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+
+
+#### Description
+This function is a vectorized version of switch, that is, for each element of input vector, switch is
+evaluated and the results are combined.
+
+#### Usage
+<pre><code>
+vmap(EXPR, ..., SIMPLIFY = TRUE)
+</code></pre>
+
+#### Arguments
+* ``EXPR``: an expression evaluated to be character or numeric vector/list.
+* ``...``: The list of alternatives for each switch.
+* ``SIMPLIFY``: TRUE to simplify the resulted list to vector, matrix or array if possible.
+
+#### Examples
+```{r}
+x <- c("normal","normal","error","unknown","unknown")
+vmap(x, normal = 0, error = -1, unknown = -2)
+x <- c(1,1,2,1,2,2,1,1,2)
+vmap(x, "type-A", "type-B")
+``

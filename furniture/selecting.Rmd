@@ -1,9 +1,19 @@
-## ``selecting``: Selecting Function
+---
+title: "``selecting``: Selecting Function"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+
 
 #### Description
 
 For internal use in ``table1()`` and ``tableC()`` to extract the right data. Can also be used much like
-``dplyr::select()``, although I’d recommend one to use ``dplyr::select()`` in general.
+``dplyr::select()``, although I'd recommend one to use ``dplyr::select()`` in general.
 
 #### Usage
 <pre><code>
@@ -11,8 +21,8 @@ selecting(d_, ...)
 </code></pre>
 
 #### Arguments
-* d_ the data.frame
-* ... the variables
+* ``d_`` the data.frame
+* ``...`` the variables
 
 #### Value
 The data.frame with the selected variables

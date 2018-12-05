@@ -1,34 +1,46 @@
-gradient 23
+---
+title: "``gradient`` Create a matrix from vector to represent colors in gradient"
+output: html_document
+---
 
-gradient Create a matrix from vector to represent colors in gradient
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 
-Description
+#### Description
 
 Create a matrix from vector to represent colors in gradient
 
 #### Usage
 <pre><code>
-gradient(x, min.color, max.color, alpha = NULL, use.names = TRUE,
-
-na.rm = TRUE)
+gradient(x, min.color, max.color, alpha = NULL, use.names = TRUE,na.rm = TRUE)
 </code></pre>
 
 #### Arguments
-
-x a numeric vector.
-
-min.color color of minimum value.
-
-max.color color of maximum value.
-
-alpha logical of whether to include alpha channel. NULL to let the function decide by 
+* ``x``: a numeric vector.
+* ``min.color``: color of minimum value.
+* ``max.color``: color of maximum value.
+* ``alpha``: logical of whether to include alpha channel. NULL to let the function decide by 
 input.
+* ``use.names``: logical of whether to preserve names of input vector.
+* ``na.rm``: logical indicating whether to ignore missing values as x is normalized. (default is TRUE)
 
-use.names logical of whether to preserve names of input vector.
 
-na.rm logical indicating whether to ignore missing values as x is normalized. (default is TRUE)
+####  Examples
 
-Value
+```{r}
+gradient(c(1,2,3,4,5), "white", "red")
+
+gradient(c(5,4,3,2,1), "white", "red")
+
+gradient(c(1,3,2,4,5), "white", "red")
+
+gradient(c(1,3,2,4,5), rgb(0,0,0,0.5), rgb(0,0,0,1), alpha = TRUE)
+```
+
+
+#### Value
 
 a matrix with rgba columns in which each row corresponds to the rgba value (0-255) of each element
 
@@ -39,15 +51,3 @@ browsers.
 See Also
 
 csscolor
-
-Examples
-
-gradient(c(1,2,3,4,5), "white", "red")
-
-gradient(c(5,4,3,2,1), "white", "red")
-
-gradient(c(1,3,2,4,5), "white", "red")
-
-gradient(c(1,3,2,4,5), rgb(0,0,0,0.5), rgb(0,0,0,1), alpha = TRUE)
-
-24 icontext

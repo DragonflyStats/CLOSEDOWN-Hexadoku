@@ -1,6 +1,16 @@
-## tableF tableF
 
-Frequency Table
+---
+title: "``tableF``: Frequency Table"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+
+
 
 #### Description
 

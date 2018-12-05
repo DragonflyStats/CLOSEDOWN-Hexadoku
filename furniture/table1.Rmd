@@ -1,49 +1,53 @@
 
-table1
-Table 1 for Simple and Stratified Descriptive Statistics
+---
+title: "``table1``:  Table 1 for Simple and Stratified Descriptive Statistics"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+
+
+
 
 #### Description
 
 Produces a descriptive table, stratified by an optional categorical variable, providing means/frequencies
 and standard deviations/percentages. It is well-formatted for easy transition to academic article or
 report. Can be used within the piping framework [see library(magrittr)].
-Usage
+
+#### Usage
+<pre><code>
 table1(.data, ..., splitby = NULL, FUN = NULL, FUN2 = NULL,
 second = NULL, row_wise = FALSE, test = FALSE,
 header_labels = NULL, type = "pvalues", output = "text",
 rounding_perc = 1, digits = 1, var_names = NULL,
 format_number = FALSE, NAkeep = NULL, na.rm = TRUE,
 booktabs = TRUE, caption = NULL, align = NULL, float = "ht",
-export = NULL, label = NULL)table1
-11
-Arguments
-.data the data.frame that is to be summarized
-... variables in the data set that are to be summarized; unquoted names separated
-by commas (e.g. age, gender, race) or indices. If indices, it needs to be a single
-vector (e.g. c(1:5, 8, 9:20) instead of 1:5, 8, 9:20). As it is currently, it CANNOT
+export = NULL, label = NULL)
+</code></pre>
+
+#### Arguments
+* .data the data.frame that is to be summarized
+* ... variables in the data set that are to be summarized; unquoted names separated by commas (e.g. age, gender, race) or indices. If indices, it needs to be a single vector (e.g. c(1:5, 8, 9:20) instead of 1:5, 8, 9:20). As it is currently, it CANNOT
 handle both indices and unquoted names simultaneously. Finally, any empty
-rows (where the row is NA for each variable selected) will be removed for an
-accurate n count.
+rows (where the row is NA for each variable selected) will be removed for an accurate n count.
 splitby the categorical variable to stratify (in formula form splitby = ~gender),
 quoted splitby = "gender", or bare splitby = gender); instead, dplyr::group_by(...)
 can be used
-FUN the function to be applied to summarize the numeric data; default is to report the
-means and standard deviations
-FUN2 a secondary function to be applied to summarize the numeric data; default is to
-report the medians and 25% and 75% quartiles
-second a vector or list of quoted continuous variables for which the FUN2 should be
-applied
-row_wise how to calculate percentages for factor variables when splitby != NULL: if
-FALSE calculates percentages by variable within groups; if TRUE calculates per-
-centages across groups for one level of the factor variable.
-test logical; if set to TRUE then the appropriate bivariate tests of significance are
+* FUN the function to be applied to summarize the numeric data; default is to report the means and standard deviations
+* FUN2 a secondary function to be applied to summarize the numeric data; default is to report the medians and 25% and 75% quartiles
+* second a vector or list of quoted continuous variables for which the FUN2 should be applied row_wise how to calculate percentages for factor variables when splitby != NULL: if
+FALSE calculates percentages by variable within groups; if TRUE calculates percentages across groups for one level of the factor variable.
+* test logical; if set to TRUE then the appropriate bivariate tests of significance are
 performed if splitby has more than 1 level
-header_labels a character vector that renames the header labels (e.g., the blank above the vari-
-ables, the p-value label, and test value label).
-type what is displayed in the table; a string or a vector of strings. Two main sections
+* header_labels a character vector that renames the header labels (e.g., the blank above the varables, the p-value label, and test value label).
+* type what is displayed in the table; a string or a vector of strings. Two main sections
 can be inputted: 1. if test = TRUE, can write "pvalues", "full", or "stars" and 2.
-can state "simple" and/or "condense". These are discussed in more depth in the
-details section below.
+can state "simple" and/or "condense". These are discussed in more depth in the details section below.
 output how the table is output; can be "text" or "text2" for regular console output or any
 of kable()’s options from knitr (e.g., "latex", "markdown", "pandoc"). A new
 option, 'latex2', although more limited, allows the variable name to show and

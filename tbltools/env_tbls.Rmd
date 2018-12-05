@@ -1,18 +1,32 @@
-env_tbls Convert all data frames in environment into tibbles
-Description
+---
+title: "``env_tbls``: Convert all data frames in environment into tibbles"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tbltools)
+```
+
+
+#### Description
 Converts data frames found in a given environment into tibbles (tbl_df)
+
 #### Usage
+
+<pre><code>
 env_tbls(env = globalenv(), row_names = TRUE)
-Arguments
-env Name of environment from which data frames should be converted to tibbles.
-Defaults to global environment.
-row_names Logical indicating whether to create a row_names variable if non-auto row names
-are found.
+</code></pre>
+
+#### Arguments
+* ``env``: Name of environment from which data frames should be converted to tibbles. Defaults to global environment.
+* ``row_names``: Logical indicating whether to create a row_names variable if non-auto row names are found.
 
 #### Value
-The function will print messages when converting occurs and it will print a final completion message,
-but otherwise returns nothing.
-Examples
+
+The function will print messages when converting occurs and it will print a final completion message, but otherwise returns nothing.
+
+#### Examples
 ```{r}
 ## data with row names
 d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])

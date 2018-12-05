@@ -1,0 +1,32 @@
+---
+title: "``as_tbl``: tbltools"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tbltools)
+```
+
+
+#### Usage
+<pre><code>
+as_tbl(x, row_names = FALSE)
+</code></pre>
+
+#### Arguments
+* ``x``: Data
+* ``row_names``: Logical indicating whether to convert non-null row names into the first column.
+
+#### Examples
+```{r}
+## data with row names
+d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
+## convert to tibble
+as_tbl(d)
+## convert to tibble and create row_names variable
+as_tbl(d, row_names = TRUE)
+
+```
+#### Details
+See ``tibble::as_tibble`` for details.

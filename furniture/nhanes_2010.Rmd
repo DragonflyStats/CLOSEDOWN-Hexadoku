@@ -1,6 +1,14 @@
-## nhanes_2010
+---
+title: "``nhanes_2010``: NHANES 2009-2010"
+output: html_document
+---
 
-NHANES 2009-2010
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+
 
 #### Description
 
@@ -14,7 +22,9 @@ nhanes_2010
 </code></pre>
 
 #### Format
+
 A data frame with 1417 rows and 24 variables:
+
 * id individual ID
 * gen_health: general health indicator with five levels
 * mod_active: minutes of moderate activity

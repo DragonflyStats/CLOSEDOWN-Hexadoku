@@ -1,8 +1,20 @@
-## to_latex :From Table 1 to Latex 2
+
+---
+title: "``to_latex``: From Table 1 to Latex 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+
+
 
 #### Description
 
-Internal table1() and tableC() function for providing output = "latex2"
+Internal ``table1()`` and ``tableC()`` function for providing output = "latex2"
 
 #### Usage
 <pre><code>

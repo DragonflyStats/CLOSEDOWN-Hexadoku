@@ -1,18 +1,25 @@
+---
+title: "``color_tile`` Create a color-tile formattert"
+output: html_document
+---
 
-color_tile Create a color-tile formatter
-Description
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+#### Description
 Create a color-tile formatter
-Usage
+
+#### Usage
+<pre><code>
 color_tile(...)
-Arguments
-... parameters passed to gradient.
-Examples
+</code></pre>
+
+#### Arguments
+* ``...``: parameters passed to gradient.
+
+#### Examples
+```{r}
 formattable(mtcars, list(mpg = color_tile("white", "pink")))
-comma Numeric vector with thousands separators
-Description
-Numeric vector with thousands separators
-Usage
-comma(x, digits, format = "f", big.mark = ",", ...)
-## Default S3 method:
-comma(x, digits = 2L, format = "f", big.mark = ",", ...)
-## S3 method for class 'character'
+```

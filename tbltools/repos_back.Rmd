@@ -1,5 +1,5 @@
 ---
-title: "``repos_front`` move vars to front"
+title: "``repos_back`` move vars to back"
 output: html_document
 ---
 
@@ -8,17 +8,18 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tbltools)
 ```
 
+
 #### Description
-move vars to front
+move vars to back
 
 #### Usage
 <pre><code>
-repos_front(data, ...)
+repos_back(data, ...)
 </code></pre>
 
 #### Arguments
-* data data frame
-* ... columns to move to front
+* ``data``: data frame
+* ``...``: columns to move to back
 
 #### Value
 Reordered data frame.
@@ -27,6 +28,6 @@ Reordered data frame.
 ```{r}
 ## data with row names
 d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
-## move y to front
-repos_front(d, y)
+## move x to back
+repos_back(d, x)
 ```

@@ -1,4 +1,14 @@
-``tidyselector`` tidyselector
+---
+title: "``tidyselector`` tidyselector"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tbltools)
+```
+
+
 
 #### Description
 Select columns using tidy eval
@@ -9,12 +19,13 @@ tidyselector(data, ...)
 </code></pre>
 
 #### Arguments
-* data data frame
-* ... vars to select
+* ``data``: data frame
+* ``...``: vars to select
 
 #### Value
 Data with selected columns.
-Examples
+
+#### Examples
 ```{r}`
 ## data with row names
 d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])

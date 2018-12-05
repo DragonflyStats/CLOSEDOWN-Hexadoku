@@ -1,9 +1,23 @@
-mutate_rowsums
-Get Row Sums within a Pipe
+---
+title: "``mutate_rowsums``: Get Row Sums within a Pipe"
+author: "Kevin O'Brien"
+date: "11 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+```
+
+
+
+
+
 
 #### Description
 
-Does what rowSums() does can be used one its own without dplyr::mutate() within a pipe.
+Does what ``rowSums()`` does can be used one its own without ``dplyr::mutate()`` within a pipe.
 
 #### Usage
 <pre><code>
@@ -11,10 +25,10 @@ mutate_rowsums(data, new_var, ..., na.rm = FALSE)
 </code></pre>
 
 #### Arguments
-* data the dataframe that contains the variables to get the row means from
-* new_var the name of the new variable for which you’ll put the row means in quotes
-* ... the variables (unquoted) to be included in the row means
-* na.rm should the missing values be ignored? default is FALSE
+* ``data``: the dataframe that contains the variables to get the row means from
+* ``new_var``: the name of the new variable for which you’ll put the row means in quotes
+* ``...``: the variables (unquoted) to be included in the row means
+* ``na.rm``: should the missing values be ignored? default is FALSE
 
 #### Value
 the row means included within the data.frame
@@ -30,9 +44,10 @@ y = rnorm(100),
 z = rnorm(100)
 )
 data2 <- data %>%
-mutate_rowsums("y_z_sums", y, z))
+mutate_rowsums("y_z_sums", y, z)
+
 data2 <- data %>%
-mutate_rowsums("y_z_sums", y, z, na.rm=TRUE))
+mutate_rowsums("y_z_sums", y, z, na.rm=TRUE)
 ## End(Not run) 
 
 ``` 
