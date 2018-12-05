@@ -1,19 +1,19 @@
 
-createIndxFile Write an index file for the current output (R2html).
+createIndxFile:  Write an index file for the current output (R2html).
 #### Description
 Write an index file for the current R2html output.
-Usage
+
+#### Usage
+<pre><code>
 createIndxFile(HTMLfile,navfile,listfile,title="R listing")
+</code></pre>
+
 #### Arguments 
-HTMLfile The file name for the HTML files.
-navfile The name for the HTML navigation frame file.
-listfile The name for the HTML listing file.
-title The title for the listing.
-Details
-‘createIndxFile’ opens a new HTML index file. If there is another file with the same name, it
-will be overwritten. This is intentional, as the user may want to run ‘R2html’ repeatedly without
-generating multiple sets of files. It then writes the frameset definition into the file and closes it.
-Value
-nil
-Author(s)
-Philippe Grosjean
+* HTMLfile The file name for the HTML files.
+* navfile The name for the HTML navigation frame file.
+* listfile The name for the HTML listing file.
+* title The title for the listing.
+
+#### Details
+‘createIndxFile’ opens a new HTML index file. If there is another file with the same name, it will be overwritten. This is intentional, as the user may want to run ‘R2html’ repeatedly without generating multiple sets of files. It then writes the frameset definition into the file and closes it.
+
