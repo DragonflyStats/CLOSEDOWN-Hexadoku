@@ -1,0 +1,19 @@
+
+AddNavItem Add a navigation item (htmlize).
+#### Description
+Add an item to the HTML navigation file.
+Usage
+AddNavItem(Rcommand,navcon,listname,navindex)
+#### Arguments 
+Rcommand The current R command in the script file.
+navcon The connection for writing to the navigation file.
+listname The name of the listing file.
+navindex The number used to generate the name tag.
+Details
+‘AddNavItem’ adds an entry to the navigation file, generates a name tag for that entry and returns it
+to be inserted into the listing file. If the R command is longer than 20 characters, it is truncated to
+18 characters and an ellipsis appended.
+Value
+The name tag to link the listing to the navigation entry.
+Author(s)
+Jim Lemon
