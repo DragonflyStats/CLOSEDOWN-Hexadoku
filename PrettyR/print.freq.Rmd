@@ -1,0 +1,29 @@
+
+print.freq Display frequency table(s)
+#### Description
+Displays one or more frequency tables produced by ‘freq’.
+Usage
+## S3 method for class 'freq'
+print(x,show.pc=TRUE,cum.pc=FALSE,show.total=FALSE,...)
+#### Arguments 
+x a frequency table produced by ‘\link{freq}’
+show.pc Whether to display percentages as well as counts.
+cum.pc Whether to display cumulative percentages.
+show.total Whether to display the total count of observations.
+... additional #### Arguments  passed to ‘print’.
+Details
+‘print.freq’ displays frequency tables produced by ‘freq’. If ‘show.pc’ is TRUE and there is
+a value in the frequency table with the label "NA", an additional set of percentages ignoring that
+value will also be displayed. If ‘show.total’ is TRUE, the total number of observations will be
+displayed.
+print.xtab 25
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+freq
+#### Examples 
+test.df<-data.frame(A=c(sample(1:10,99,TRUE),NA),C=sample(LETTERS,100,TRUE))
+test.freq<-freq(test.df)
+print(test.freq,show.total=TRUE)
