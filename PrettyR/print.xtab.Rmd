@@ -1,0 +1,32 @@
+print.xtab Display a 2D crosstabulation
+#### Description
+Displays a 2D crosstabulation with optional chi-squared test, odds ratio/relative risk and phi coefficient.
+Usage
+## S3 method for class 'xtab'
+print(x,col.width=7,or=TRUE,chisq=FALSE,phi=FALSE,
+rowname.width=NA,html=FALSE,bgcol="lightgray",...)
+#### Arguments 
+x The list returned by ‘calculate.xtab’.
+col.width Width of the columns in the display.
+or whether to calculate the odds ratio and relative risk (only for 2x2 tables).
+chisq Whether to call ‘chisq.test’ and display the result.
+phi Whether to calculate and display the phi coefficient (only for 2x2 tables).
+rowname.width Optional width for the rownames. Mostly useful for truncating very long rownames.
+html Whether to format the table with HTML tags.
+bgcol Background color for the table.
+... additional #### Arguments  passed to ‘chisq.test’.
+26 R2html
+Details
+‘print.xtab’ displays a crosstabulation in a fairly conventional style with row, column and marginal
+percentages. If ‘html’ is TRUE, the formatting will use HTML tags and will only be useful if
+viewed in an HTML browser.
+If ‘or’ is ‘TRUE’ and the resulting table is 2x2, the odds ratio will be displayed below the table. If
+the function ‘logical.names’ within ‘print.xtab’ finds that the column margin names are one of
+FALSE/TRUE, 0/1 or NO/YES in those orders, the risk of the column variable for the second level
+of the row variable relative to the first row variable will be displayed as well.
+Value
+nil
+Author(s)
+Jim Lemon
+See Also
+calculate.xtab, xtab
