@@ -1,0 +1,17 @@
+
+var_types Attach the variable type information with the dataset
+#### Description 
+
+In order to analyze variables in the most appropriate way using this ezsummary package, you'd better let the computer know what types of data (quantitative or categorical) you are asking it to compute. This function will attach a list of types you entered with the datasets so functions down
+the stream line can read these information and analyze based on that. The information is stored in the attributes of the dataset
+
+#### Usage 
+<pre><code>
+
+var_types(tbl, types)
+
+</code></pre>
+#### Arguments
+
+* ``tbl``: A data.frame
+* ``types``:  Character vector of length equal to the number of variables in the dataset. Use "q" and "c" to denote quantitative and categorical variables.
