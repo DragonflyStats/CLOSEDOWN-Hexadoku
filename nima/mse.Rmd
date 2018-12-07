@@ -1,0 +1,28 @@
+mse Mean Squared Error (MSE)
+
+#### Description
+
+Easily compute the mean squared error for continuous predictions
+
+#### Usage
+<pre><code>
+
+mse(prediction, outcome)
+
+</code></pre>
+
+#### Arguments 
+* ``prediction``: A numeric vector of predictions.
+* ``outcome``: A numeric vector of outcomes actually observed.
+
+
+#### Examples
+```{r}
+x <- rnorm(100)
+y <- x^2
+test_x <- rnorm(100)
+test_y <- test_x^2
+mod <- glm(y ~ x)
+pred <- predict(mod, newx = as.data.frame(test_x))
+error <- mse(prediction = pred, outcome = test_y)
+```
