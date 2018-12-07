@@ -1,0 +1,45 @@
+
+ezsummary_categorical Easily summarize categorical data
+#### Description 
+
+ezsummary_categorical() summarizes categorical data.
+Shorthand for ezsummary_categorical
+
+
+#### Usage 
+<pre><code>
+
+ezsummary_categorical(tbl, n = FALSE, count = TRUE, p = TRUE, p_type = c("decimal", "percent"), digits = 3, rounding_type = c("round", "signif", "ceiling", "floor"), P = FALSE, round.N = 3, flavor = c("long", "wide"), fill = 0, unit_markup = NULL)
+
+ezsummary_c(tbl, n = FALSE, count = TRUE, p = TRUE, p_type = c("decimal", "percent"), digits = 3, rounding_type = c("round", "signif", "ceiling", "floor"), P = FALSE, round.N = 3, flavor = c("long", "wide"), fill = 0, unit_markup = NULL)
+
+</code></pre>
+#### Arguments
+
+* ``tbl`` A vector, a data.frame or a dplyr tbl.
+* ``n`` A T/F value; total counts of records. Default is FALSE.
+* ``count`` A T/F value; count of records in each category. Default is TRUE.
+* ``p`` A T/F value; proportion or percentage of records in each category. Default is TRUE.
+* ``p_type`` A character string determining the output format of p; possible values are decimal and percent. Default value is decimal.
+* ``digits`` A numeric value determining the rounding digits; Replacement for round.N. Default setting is to read from getOption().
+* ``rounding_type`` A character string determining the rounding method; possible values are round,
+signif, ceiling and floor. When ceiling or floor is selected, digits would not have any effect.
+* ``P`` Deprecated; Will change the value of p_type if used in this version.
+* ``round.N`` Deprecated; Will change the value of rounding_type if used in this version.
+* ``flavor`` A character string with two possible inputs: "long" and "wide". "Long" is the default setting which will put grouping information on the left side of the table. It is more machine readable and is good to be passed into the next analytical stage if needed. "Wide" is more print ready (except for column names, which you can fix in the next step, or fix in LaTex or packages like htmlTable). In the "wide" mode, the analyzed variable will be the only "ID" variable and all the stats values will be presented ogranized by the grouping variables (if any). If there is no grouping, the outputs of "wide" and "long" will be the same.
+* ``fill`` If set, missing values created by the "wide" flavor will be replaced with this value. Please check spread for details. Default value is 0 
+* ``unit_markup`` When unit_markup is not NULL, it will call the ezmarkup function and perform
+* ``column``: combination here. To make everyone's life easier, I'm using the term "unit" here. Each unit mean each group of statistical summary results. If you want to know mean and stand deviation, these two values are your units so you can put something like "[. (.)]" there #' @param P Deprecated; Will change the value of p_type if used in this version.
+ezsummary_quantitative 5
+
+#### Examples
+```{r}
+library(dplyr)
+mtcars %>%
+group_by(am) %>%
+select(cyl, gear, carb) %>%
+ezsummary_categorical()
+mtcars %>%
+select(cyl, gear, carb) %>%
+ezsummary_categorical(n=TRUE, round.N = 2)
+```
