@@ -1,0 +1,35 @@
+---
+title: "Nima Hejazi's R Toolbox"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(nima)
+```
+
+discrete_by_quantile Discretize a vector
+
+#### Description
+
+Discretizes a non-factor input vector and returns the result as numeric.
+
+#### Usage
+<pre><code>
+
+discrete_by_quantile(x)
+
+</code></pre>
+#### Arguments 
+
+x A vector containing arbitrary data.
+
+#### Value
+
+A numeric vector with the data re-coded to based on the quantiles.
+
+#### Examples
+```{r}
+x <- rnorm(1000)
+discrete_by_quantile(x)
+```
