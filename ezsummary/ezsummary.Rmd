@@ -1,0 +1,21 @@
+
+ezsummary Quick and Easy summarise function
+#### Description 
+
+Quick and Easy summarise function
+#### Usage 
+<pre><code>
+
+ezsummary(tbl, ..., mode = c("ez", "details"))
+
+</code></pre>
+#### Arguments
+
+* ``tbl``: A vector, a data.frame or a dplyr tbl.
+* ``...``: arguments that can be passed to ezsummary_q() and ezsummary_c()
+* ``mode``: A character value that can be either "ez" or "details". "ez" is the default mode that will try to fits quantitative and categorical results into one table. If these two have different number of analyses or if set manually, mode "details" is enabled. In this mode, quantitative and categorical variables are displayed separately and the result is stored in a list
+
+#### Details
+
+For detailed options, please check the help document for ezsummary_q and ezsummary_c. You may
+also check out the package vignette for details.
