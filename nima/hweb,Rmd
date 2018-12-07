@@ -1,0 +1,34 @@
+---
+title: "Nima Hejazi's R Toolbox"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(nima)
+```
+
+hweb View HTML Version of Help Files
+
+#### Description
+
+View the HTML version of a help file while running R from the terminal.
+
+#### Usage
+<pre><code>
+
+hweb(...)
+
+</code></pre>
+#### Arguments 
+
+... Help topics.
+Details
+Calls function help using argument htmlhelp=TRUE.
+See Also
+help, help.start
+
+#### Examples
+```{r}
+hweb(read.table)
+```
