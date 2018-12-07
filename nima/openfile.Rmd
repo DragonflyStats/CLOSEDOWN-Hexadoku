@@ -1,0 +1,23 @@
+openfile Open a File
+
+#### Description
+
+Open a file using system and open.
+
+#### Usage
+<pre><code>
+
+openfile(file)
+
+</code></pre>
+#### Arguments 
+
+file File name (as character string).
+
+#### Details
+Open files from R by using the default operating system program.
+
+#### Examples
+<pre><code>
+openfile("myplot.pdf")
+</code></pre>
