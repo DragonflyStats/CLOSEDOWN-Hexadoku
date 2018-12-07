@@ -1,0 +1,338 @@
+---
+title: "Nima Hejazi's R Toolbox"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(nima)
+```
+
+Package 'nima'
+May 23, 2018
+Title Nima Hejazi's R Toolbox
+Version 0.5.0
+
+#### Description
+ Miscellaneous R functions developed over the course of statistical
+research and scientific computing. These include, for example, utilities
+that supplement existing idiosyncrasies of the R language, extend existing
+plotting functionality and aesthetics, provide alternative presentations of
+matrix decompositions, and extend access to command line tools and
+systems-level information.
+Maintainer Nima Hejazi <nh@nimahejazi.org>
+Depends R (>= 3.2.3)
+Imports utils, stats, gtools, survival, gridExtra, assertthat,
+ProjectTemplate, devtools, ggthemes, ggplot2, scales, plyr,
+grid
+Suggests knitr, roxygen2, testthat
+License MIT + file LICENSE
+URL https://github.com/nhejazi/nima
+BugReports https://github.com/nhejazi/nima/issues
+Encoding UTF-8
+LazyData true
+RoxygenNote 6.0.1.9000
+NeedsCompilation no
+Author Nima Hejazi [aut, cre, cph] (<https://orcid.org/0000-0002-7127-2789>)
+Repository CRAN
+Date/Publication 2018-05-21 17:13:08
+R topics documented:
+absma     . . . . 2
+attrname     . . . 3
+clea     . . . . . . 3
+1
+2 absmax
+comma     . . . . 4
+compFu     . . . 4
+discrete_by_quantil    . . . . . 5
+exi     . . . . . . 6
+factornu     . . . 6
+hwe     . . . . . . 7
+lmPlots_g     . . 7
+miss_in     . . . . 8
+ms     . . . . . . 8
+openfil     . . . . 9
+qqPlot_g     . . . 9
+qr     . . . . . . 10
+scale_color_nim    1
+scale_fill_nim     11
+theme_jetblac     11
+theme_nim     . . 12
+uniqle     . . . . 13
+Index 14
+absmax Maximum of Absolute 
+#### Value
+s of Vector
+
+#### Description
+
+Take the maximum of the absolute 
+#### Value
+s of an input vector.
+
+#### Usage
+<pre><code>
+
+absmax(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+
+x A numeric vector or array.
+na.rm A logical indicating whether missing 
+#### Value
+s should be removed.
+
+#### Value
+
+The maximum of the absolute 
+#### Value
+s of elements of the input vector.
+
+#### Examples
+```{r}
+
+x <- c(5, 3, -9, -100, 3.14159, 7.5)
+absmax(x)
+```
+
+attrnames Get Names of Attributes
+
+#### Description
+
+Get the names of the attributes of an input object.
+
+#### Usage
+<pre><code>
+
+attrnames(obj)
+
+</code></pre>
+#### Arguments 
+
+obj Any object.
+
+#### Value
+
+Vector of character strings with the names of the attributes.
+
+#### Examples
+```{r}
+x <- matrix(1:100, ncol=5)
+colnames(x) <- LETTERS[1:5]
+```
+attrnames(x)
+clear Clear the Current Screen/Buffer
+
+#### Description
+
+Clear the screen with a call to system and clear.
+
+#### Usage
+<pre><code>
+
+clear()
+Details
+This function is merely a call to system("clear")
+
+#### Examples
+```{r}
+
+system("clear")
+```
+
+exit Exit R Without Saving
+
+#### Description
+
+Exit R without saving workspace, using the ubiquitous UNIX syntax.
+
+#### Usage
+<pre><code>
+
+exit()
+Details
+This function is merely a call to q("no").
+
+
+
+
+
+
+data)
+```
+
+
+
+
+
+
+qqPlot_gg(x)
+qrD The QR decomposition of a matrix
+
+#### Description
+
+Computes the QR decomposition of a matrix.
+
+#### Usage
+<pre><code>
+
+qrD(x, tol = 1e-07)
+
+</code></pre>
+#### Arguments 
+
+x A matrix whose QR decomposition is to be computed.
+tol The tolerance for finding linear dependence in columns of x.
+Details
+Calls function qr and returns more understandable output.
+
+#### Value
+
+A list of two matrices: Q and R.
+See Also
+qr
+
+#### Examples
+```{r}
+
+hilbert <- function(n) { i <- 1:n; 1/outer(i-1,i,"+") }
+h5 <- hilbert(5);
+qrD(h5)
+```
+
+scale_color_nima Nima's ggplot2 theme - supplement: scale_color
+
+#### Description
+
+Nima's ggplot2 theme scale_color supplement: colors optimized via ColorBrewer
+
+#### Usage
+<pre><code>
+
+scale_color_nima(...)
+
+</code></pre>
+#### Arguments 
+
+... Passed to ggplot
+scale_fill_nima Nima's ggplot2 theme - supplement: scale_fill
+
+#### Description
+
+Nima's ggplot2 theme scale_fill supplement: colors optimized via ColorBrewer
+
+#### Usage
+<pre><code>
+
+scale_fill_nima(...)
+
+</code></pre>
+#### Arguments 
+
+... Passed to ggplot
+theme_jetblack A jet black ggplot2 theme with inverted colors
+
+#### Description
+
+A jet black ggplot2 theme with inverted colors
+
+#### Usage
+<pre><code>
+
+theme_jetblack(base_size = 12, base_family = "")
+12 theme_nima
+
+</code></pre>
+#### Arguments 
+
+base_size Base font size
+base_family Base font family
+... Passed to theme
+
+#### Value
+
+An object as returned by theme
+See Also
+theme
+
+#### Examples
+```{r}
+
+library(ggplot2)
+p <- ggplot(mtcars, aes(y = mpg, x = disp, color = factor(cyl)))
+p <- p + geom_point() + theme_jetblack()
+p
+```
+
+
+theme_nima Nima's ggplot2 theme
+
+#### Description
+
+Nima's ggplot2 theme: white background, colors optimized
+
+#### Usage
+<pre><code>
+
+theme_nima(base_size = 14, base_family = "Helvetica")
+nima_theme(base_size = 14, base_family = "Helvetica")
+
+</code></pre>
+#### Arguments 
+
+base_size Base font size
+base_family Base font family
+... Passed to theme
+
+#### Value
+
+An object as returned by theme
+See Also
+theme
+
+
+#### Examples
+```{r}
+
+library(ggplot2)
+p <- ggplot(mtcars, aes(y = mpg, x = disp, color = factor(cyl)))
+p <- p + geom_point() + scale_fill_nima() + scale_color_nima() + theme_nima()
+p
+```
+uniqlen Find Number of Unique 
+#### Value
+s
+
+#### Description
+
+Get the number of unique 
+#### Value
+s in an input vector.
+
+#### Usage
+<pre><code>
+
+uniqlen(vec, na.rm = TRUE)
+
+</code></pre>
+#### Arguments 
+
+vec A vector of any type.
+na.rm If TRUE, remove missing 
+#### Value
+s.
+
+#### Value
+
+Number of unique 
+#### Value
+s.
+
+#### Examples
+```{r}
+
+x <- c(1, 3, 1, 1, NA, 2, 2, 3, NA, NA, 1, 3, 1)
+uniqlen(x)
+uniqlen(x, na.rm = FALSE)
+```
