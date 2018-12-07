@@ -1,0 +1,22 @@
+lmPlots_gg Linear Model Diagnostic Plots with ggplot2
+
+#### Description
+
+Produce standard diagnostic plots for linear models using ggplot2.
+
+#### Usage
+<pre><code>
+
+lmPlots_gg(model)
+
+</code></pre>
+#### Arguments 
+
+model A linear model object produced by lm().
+
+#### Examples
+```{r}
+n <- 100; x1 <- rnorm(n); y1 <- rnorm(n);
+linmod <- lm(y1 ~ x1)
+lmPlots_gg(linmod)
+```
