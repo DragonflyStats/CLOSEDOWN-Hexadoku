@@ -1,0 +1,48 @@
+---
+title: "Nima Hejazi's R Toolbox"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(nima)
+```
+
+compFun Compare Two Similar Objects including Missing Data Patterns.
+
+#### Description
+
+Check whether two objects are the same, including patterns of NAs.
+
+#### Usage
+<pre><code>
+
+compFun(a, b)
+
+</code></pre>
+#### Arguments 
+
+a An object of a given type.
+b An object similar in type to that given above.
+
+#### Value
+
+Boolean object with TRUE indicating an element is the same.
+discrete_by_quantile 5
+
+#### Examples
+```{r}
+x <- c(5, 8, 9, NA, 3, NA)
+y <- c(5, 2, 9, 4, NA, NA)
+compFun(x,y)
+x <- matrix(rnorm(1000), ncol = 20)
+x[sample(seq(along = x), 100)] <- NA
+all(compFun(x,x))
+dim(compFun(x,x))
+x <- as.list(c(5, 8, 9, NA, 3, NA))
+y <- as.list(y)
+sapply(compFun(x,y), function(a) sum(!a))
+x <- as.data.frame(x)
+y <- as.data.frame(y)
+sum(!compFun(x,y))
+```
