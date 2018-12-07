@@ -1,0 +1,33 @@
+---
+title: "Nima Hejazi's R Toolbox"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(nima)
+```
+commas Add Commas to a Large Number
+
+#### Description
+
+Convert a number to a string, with commas inserted at every 3rd digit.
+
+#### Usage
+<pre><code>
+
+commas(numbers)
+
+</code></pre>
+#### Arguments 
+
+numbers Vector of non-negative numbers (will be rounded to integers)
+
+#### Value
+
+Character string with numbers written like "5,771,009".
+
+#### Examples
+```{r}
+commas(c(2300, 9000, 21456, 987654890, 1256787, 345765, 1432))
+```
