@@ -2,13 +2,19 @@
 skew Calculate the skew of a distribution.
 #### Description
 Calculates the skew of a distribution using a simple formula.
-Usage
+
+#### Usage
+<pre><code>
 skew(x)
+</code></pre>
+
 #### Arguments 
-x A vector of numeric values, supposedly drawn from a particular distribution.
-Details
+* x A vector of numeric values, supposedly drawn from a particular distribution.
+
+#### Details
 ‘skew’ calculates the asymmetry of the distribution of the values.
-Value
+
+#### Value
 The value calculated.
 Author(s)
 Jim Lemon
@@ -18,30 +24,37 @@ sd
 StartList Write the header for the HTML listing file (htmlize).
 #### Description
 Initiate the listing file for an R listing in HTML format.
-Usage
+
+#### Usage
+<pre><code>
 StartList(listcon,title="R listing",bgcolor="#dddddd",useCSS=NULL)
+</code></pre>
+
 #### Arguments 
-listcon The connection for writing to the listing file.
-title The title and heading for the listing frame.
-bgcolor The background color for the listing frame.
-useCSS Path and filename of a CSS stylesheet.
-Details
+* listcon The connection for writing to the listing file.
+* title The title and heading for the listing frame.
+* bgcolor The background color for the listing frame.
+* useCSS Path and filename of a CSS stylesheet.
+
+#### Details
 ‘StartList’ sets up the file with the listing frame information for the HTML listing.
 Value
 nil
 Author(s)
 Jim Lemon
+
 StartNav Write the header for the HTML navigation file (R2html).
 #### Description
 Initiate the navigation file for an R listing in HTML format.
 Usage
 StartNav(navcon,title="R listing",bgcolor="#dddddd")
 #### Arguments 
-navcon The connection for writing to the navigation file.
-title Title for the navigation window.
-bgcolor The background color for the navigation frame.
-stretch_df 31
-Details
+* navcon The connection for writing to the navigation file.
+* title Title for the navigation window.
+* bgcolor The background color for the navigation frame.
+
+
+#### Details
 ‘StartNav’ sets up the file with the navigation frame information for the HTML listing for ‘R2html’.
 Value
 nil
@@ -61,11 +74,9 @@ to.stretch Which variables are to be stretched out in the single row.
 ordervar Variable that gives the order of the stretched variables.
 include.ordervar
 Include the ordering variable in the output.
-Details
-‘stretch_df’ takes a data frame in which at least some instances have multiple rows and reshapes
-it into a "wide" format with one row per instance. The variable passed as ‘idvar’ distinguishes the
-instances, and will be the first column in the new data frame. All other variables in the data frame
-except those named in ‘to.stretch’ and ‘ordervar’ will follow ‘idvar’. The variables named in
+
+#### Details
+‘stretch_df’ takes a data frame in which at least some instances have multiple rows and reshapes it into a "wide" format with one row per instance. The variable passed as ‘idvar’ distinguishes the instances, and will be the first column in the new data frame. All other variables in the data frame except those named in ‘to.stretch’ and ‘ordervar’ will follow ‘idvar’. The variables named in
 ‘to.stretch’ will follow the variables that are not repeated in the initial data frame, along with the
 order variable if ‘include.ordervar’ is TRUE.
 Value
@@ -85,18 +96,26 @@ name=c(rep("Joe",3),rep("Bob",4),rep("Sue",6),rep("Bea",3)),
 score1=sample(1:10,16,TRUE),score2=sample(0:100,16),
 scoreorder=c(1,2,3,4,3,2,1,4,6,3,5,1,2,1,2,3))
 stretch_df(longdf,"ID",c("score1","score2"),"scoreorder")
+
+
 toNA Set specified values in an object to NA
 #### Description
 Sets all specified values in an object to NA.
-Usage
+
+#### Usage
+<pre><code>
 toNA(x,values=NA)
+</code></pre>
+
 #### Arguments 
-x A vector, matrix or data frame (max 2D).
-values One or more values that are to be set to NA.
-Details
+* x A vector, matrix or data frame (max 2D).
+* values One or more values that are to be set to NA.
+
+#### Details
 ‘toNA’ sets all entries in an object in values to NA. Useful for converting various missing value
 samps to NA.
-Value
+
+#### Value
 The object with NAs replacing all specified values.
 Author(s)
 Jim Lemon
@@ -108,15 +127,18 @@ truncString Truncate strings and add ellipses if a string is truncated.
 Truncates one or more strings to a specified length, adding an ellipsis (...) to those strings that have
 been truncated. The justification of the strings can be controlled by the ‘justify’ argument as in
 format, which does the padding and justification.
-Usage
+
+#### Usage
 truncString(x,maxlen=20,justify="left")
 #### Arguments 
 x A vector of strings.
 maxlen The maximum length of the returned strings.
 justify Justification for the new strings.
-Value
+
+#### Value
 The string(s) passed as ‘x’ now with a maximum length of ‘maxlen’.
-Author(s)
+
+#### Author(s)
 Jim Lemon
 See Also
 substr
