@@ -1,9 +1,15 @@
-## get_panel_range
+---
+title: "``get_panel_range``:Version safe(r) method to get the y- and x-range from trained scales."
+output: html_document
+---
 
-Version safe(r) method to get the y- and x-range from trained scales.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lemon)
+```
 
 #### Description
-The names of the internal layout objects from ggplot_build changed slightly.
+The names of the internal layout objects from ``ggplot_build`` changed slightly.
 
 #### Usage
 <pre><code>
@@ -13,5 +19,5 @@ get_panel_params(layout, index = 1)
 </code></pre>
 
 ##### Arguments
-* layout layout part from ggplot_build
-* index Could be panel number?
+* ``layout``: layout part from ``ggplot_build``
+* ``index``: Could be panel number?
