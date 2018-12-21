@@ -1,0 +1,19 @@
+l_graphswitch_get Return a Graph as a loongraph Object
+
+#### Description 
+
+Graphs can be extracted from the graphswitch widget as loongraph objects.
+
+#### Usage
+<pre><code>
+
+l_graphswitch_get(widget, id)
+
+</code></pre>
+#### Arguments 
+
+widget graphswitch widget handle (or widget path)
+id of the graph
+See Also
+l_graphswitch, loongraph
+l_graphswitch_getLabel 87
