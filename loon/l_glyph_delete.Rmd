@@ -1,0 +1,18 @@
+l_glyph_delete Delete a Glyph
+
+#### Description 
+
+Delete a glyph from the plot.
+
+#### Usage
+<pre><code>
+
+l_glyph_delete(widget, id)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ``id ``:   glyph id
+See Also
+l_glyph_add
