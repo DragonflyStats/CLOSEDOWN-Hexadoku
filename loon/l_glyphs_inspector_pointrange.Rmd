@@ -1,0 +1,30 @@
+
+l_glyphs_inspector_pointrange
+Create a Pointrange Glyph Inspector
+
+#### Description 
+
+Inpectors provide graphical user interfaces to oversee and modify plot states
+
+#### Usage
+<pre><code>
+
+l_glyphs_inspector_pointrange(parent = NULL, ...)
+
+</code></pre>
+#### Arguments 
+
+* ``parent ``:  parent widget path
+... state 
+</code></pre>
+#### Arguments 
+
+Value
+widget handle
+See Also
+l_create_handle
+
+#### Examples 
+```{r}
+i <- l_glyphs_inspector_pointrange()
+```
