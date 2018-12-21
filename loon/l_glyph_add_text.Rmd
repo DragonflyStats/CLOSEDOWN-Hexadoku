@@ -1,0 +1,32 @@
+
+l_glyph_add_text Add a Text Glyph
+
+#### Description 
+
+Each text glyph can be a multiline string.
+
+#### Usage
+<pre><code>
+
+l_glyph_add_text(widget, text, label = "", ...)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+text the text strings for each observartion. If the object is a factor then the labels get
+extracted with as.character.
+* ``label``:  label of a glyph (currently shown only in the glyph inspector)
+... state 
+</code></pre>
+#### Arguments 
+
+See Also
+l_glyph_add
+
+#### Examples 
+```{r}
+p <- l_plot(iris, color = iris$Species)
+g <- l_glyph_add_text(p, iris$Species, "test_label")
+p['glyph'] <- g
+```
