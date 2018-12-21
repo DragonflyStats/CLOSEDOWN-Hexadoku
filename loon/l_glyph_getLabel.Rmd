@@ -1,0 +1,19 @@
+
+l_glyph_getLabel Get Glyph Label
+
+#### Description 
+
+Returns the label of a glyph
+
+#### Usage
+<pre><code>
+
+l_glyph_getLabel(widget, id)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ``id ``:   glyph id
+See Also
+l_glyph_add, l_glyph_ids, l_glyph_relabel
