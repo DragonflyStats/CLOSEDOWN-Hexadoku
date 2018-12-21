@@ -1,0 +1,80 @@
+
+loon loon: A Toolkit for Interactive Data Visualization and Exploration
+
+#### Description 
+
+Loon is a toolkit for highly interactive data visualization. Interactions with plots are provided with
+mouse and keyboard gestures as well as via command line control and with inspectors that provide
+graphical user interfaces (GUIs) for modifying and overseeing plots.
+
+#### Details 
+
+Currently, loon implements the following statistical graphs: histogram, scatterplot, serialaxes plot
+(star glyphs, parallel coordinates) and a graph display for creating navigation graphs.
+Some of the implemented scatterplot features, for example, are zooming, panning, selection and
+moving of points, dynamic linking of plots, layering of visual information such as maps and regression
+lines, custom point glyphs (images, text, star glyphs), and event bindings. Event bindings
+provide hooks to evaluate custom code at specific plot state changes or mouse and keyboard interactions.
+Hence, event bindings can be used to add to or modify the default behavior of the plot
+widgets.
+Loon's capabilities are very useful for statistical analysis tasks such as interactive exploratory data
+analysis, sensitivity analysis, animation, teaching, and creating new graphical user interfaces.
+To get started using loon read the package vigniettes or visit the loon website at http://waddella.
+github.io/loon/learn_R_intro.html.
+Author(s)
+Maintainer: Adrian Waddell <adrian@waddell.ch>
+Authors:
+. R. Wayne Oldford <rwoldford@uwaterloo.ca>
+Other contributors:
+. Zehao Xu <z267xu@uwaterloo.ca> [contributor]
+loongraph 17
+See Also
+Useful links:
+. http://waddella.github.io/loon/
+. Report bugs at https://github.com/waddella/loon/issues
+loongraph Create a graph object of class loongraph
+
+#### Description 
+
+The loongraph class provides a simple alternative to the graph class to create common graphs that
+are useful for use as navigation graphs.
+
+#### Usage
+<pre><code>
+
+loongraph(nodes, from = character(0), to = character(0),
+isDirected = FALSE)
+
+</code></pre>
+#### Arguments 
+
+nodes a character vector with node names, each element defines a node hence the elements
+need to be unique
+from a character vector with node names, each element defines an edge
+to a character vector with node names, each element defines an edge
+isDirected boolean scalar, defines whether from and to define directed edges
+
+#### Details 
+
+loongraph objects can be converted to graph objects (i.e. objects of class graph which is defined in
+the graph package) with the as.graph function.
+For more information run: l_help("learn_R_display_graph.html.html#graph-utilities")
+Value
+graph object of class loongraph
+See Also
+completegraph, linegraph, complement, as.graph
+18 loonGrob
+
+#### Examples 
+```{r}
+g <- loongraph(
+nodes = c("A", "B", "C", "D"),
+from = c("A", "A", "B", "B", "C"),
+to = c("B", "C", "C", "D", "D")
+)
+## Not run:
+# create a loon graph plot
+p <- l_graph(g)
+## End(Not run)
+lg <- linegraph(g)
+```
