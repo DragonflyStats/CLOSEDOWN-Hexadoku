@@ -1,0 +1,30 @@
+l_graphswitch_add.graph
+Add a graph to the graphswitch widget using a graph object
+
+#### Description 
+
+Graph objects are defined in the graph R package.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'graph'
+l_graphswitch_add(widget, graph, label = "",
+index = "end", ...)
+
+</code></pre>
+#### Arguments 
+
+widget graphswitch widget handle (or widget path)
+graph a graph object created with the functions in the graph R package.
+label string with label for graph
+index position of graph in the graph list
+... additional 
+</code></pre>
+#### Arguments 
+ are not used for this methiod
+Value
+id for graph in the graphswitch widget
+l_graphswitch_add.loongraph 85
+See Also
+l_graphswitch
