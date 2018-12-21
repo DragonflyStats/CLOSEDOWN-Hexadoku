@@ -1,0 +1,25 @@
+
+linegraph 15
+linegraph Create a linegraph
+
+#### Description 
+
+The line graph of G, here denoted L(G), is the graph whose nodes correspond to the edges of G
+and whose edges correspond to nodes of G such that nodes of L(G) are joined if and only if the
+corresponding edges of G are adjacent in G.
+
+#### Usage
+<pre><code>
+
+linegraph(x, ...)
+
+</code></pre>
+#### Arguments 
+
+x graph of class graph or loongraph
+... 
+</code></pre>
+#### Arguments 
+ passed on to method
+Value
+graph object
