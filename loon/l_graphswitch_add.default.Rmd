@@ -1,0 +1,38 @@
+l_graphswitch_add.default
+Add a graph that is defined by node names and a from-to edges list
+
+#### Description 
+
+This default method uses the loongraph display states as 
+</code></pre>
+#### Arguments 
+ to add a graph to the graphswitch
+widget.
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+l_graphswitch_add(widget, graph, from, to, isDirected,
+label = "", index = "end", ...)
+84 l_graphswitch_add.graph
+
+</code></pre>
+#### Arguments 
+
+widget graphswitch widget handle (or widget path)
+graph a vector with the node names, i.e. this argument gets passed on as the nodes
+argument to creat a loongraph like object
+from vector with node names of the from-to pairs for edges
+to vector with node names of the from-to pairs for edges
+isDirected boolean to indicate whether the from-to-list defines directed or undirected edges
+label string with label for graph
+index position of graph in the graph list
+... additional 
+</code></pre>
+#### Arguments 
+ are not used for this methiod
+Value
+id for graph in the graphswitch widget
+See Also
+l_graphswitch
