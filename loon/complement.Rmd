@@ -1,0 +1,40 @@
+complement Create the Complement Graph of a Graph
+
+#### Description 
+
+Creates a complement graph of a graph
+
+#### Usage
+<pre><code>
+
+complement(x)
+
+</code></pre>
+#### Arguments 
+
+x graph or loongraph object
+Value
+graph object
+complement.loongraph Create the Complement Graph of a loon Graph
+
+#### Description 
+
+Creates a complement graph of a graph
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'loongraph'
+complement(x)
+completegraph 11
+
+</code></pre>
+#### Arguments 
+
+x loongraph object
+
+#### Details 
+
+This method is currently only implemented for undirected graphs.
+Value
+graph object of class loongraph
