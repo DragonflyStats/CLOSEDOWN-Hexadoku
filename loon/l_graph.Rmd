@@ -1,0 +1,25 @@
+l_graph Generic funtction to create an interactive graph display
+
+#### Description 
+
+Interactive graphs in loon are currently most often used for navigation graphs.
+
+#### Usage
+<pre><code>
+
+l_graph(nodes = NULL, ...)
+
+</code></pre>
+#### Arguments 
+
+nodes object for method dispatch
+... Arguments 
+ passed on to methods
+
+#### Details 
+
+For more information run: l_help("learn_R_display_graph.html#graph")
+Value
+graph handle
+See Also
+l_graph.graph, l_graph.loongraph, l_graph.default
