@@ -1,0 +1,28 @@
+
+l_glyph_relabel Relabel Glyph
+
+#### Description 
+
+Change the label of a glyph. Note that the label is only displayed in the glyph inspector.
+
+#### Usage
+<pre><code>
+
+l_glyph_relabel(widget, id, label)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ``id ``:   glyph id
+label new label
+See Also
+l_glyph_add, l_glyph_ids, l_glyph_getLabel
+
+#### Examples 
+```{r}
+p <- l_plot(iris, color = iris$Species)
+g <- l_glyph_add_text(p, iris$Species, "test_label")
+p['glyph'] <- g
+l_glyph_relabel(p, g, "Species")
+```
