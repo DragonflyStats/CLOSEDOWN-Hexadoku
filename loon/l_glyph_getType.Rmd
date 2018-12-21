@@ -1,0 +1,19 @@
+
+l_glyph_getType Get Glyph Type
+
+#### Description 
+
+Query the type of a glyph
+
+#### Usage
+<pre><code>
+
+l_glyph_getType(widget, id)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ``id ``:   glyph id
+See Also
+l_glyph_add
