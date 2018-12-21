@@ -1,0 +1,68 @@
+myGrob
+graphreduce Make each space in a node apprear only once
+
+#### Description 
+
+Reduce a graph to have unique node names
+
+#### Usage
+<pre><code>
+
+graphreduce(graph, separator)
+grid.loon 13
+
+</code></pre>
+#### Arguments 
+
+graph graph of class loongraph
+separator one character that separates the spaces in node names
+
+#### Details 
+
+Note this is a string based operation. Node names must not contain the separator character!
+Value
+graph object of class loongraph
+
+#### Examples 
+```{r}
+G <- completegraph(nodes=LETTERS[1:4])
+LG <- linegraph(G)
+LLG <- linegraph(LG)
+graphreduce(LLG)
+if (requireNamespace("Rgraphviz", quietly = TRUE)) {
+plot(graphreduce(LLG))
+}
+grid.loon Create and optionally draw a grid grob from a loon widget handle
+
+#### Description 
+
+Create and optionally draw a grid grob from a loon widget handle
+
+#### Usage
+<pre><code>
+
+grid.loon(target, name = NULL, gp = gpar(), draw = TRUE, vp = NULL)
+
+</code></pre>
+#### Arguments 
+
+target either an object of class loon or a vector that specifies the widget, layer, glyph,
+navigator or context completely. The widget is specified by the widget path
+name (e.g. '.l0.plot'), the remaining objects by their ids.
+name a character identifier for the grob, or NULL. Used to find the grob on the display
+list and/or as a child of another grob.
+gp a gpar object, or NULL, typically the output from a call to the function gpar.
+This is basically a list of graphical parameter settings.
+draw a logical value indicating whether graphics output should be produced.
+vp a grid viewport object (or NULL).
+14 hex12tohex6
+Value
+a grid grob of the loon plot
+See Also
+loonGrob, plot.loon
+
+#### Examples 
+```{r}
+library(grid)
+widget <- with(iris, l_plot(Sepal.Length, Sepal.Width))
+grid.loon(widget)
