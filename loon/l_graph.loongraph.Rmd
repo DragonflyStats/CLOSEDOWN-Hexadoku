@@ -1,0 +1,29 @@
+l_graph.loongraph Create a graph display based on a loongraph object
+
+#### Description 
+
+Loongraphs can be created with the loongraph function.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'loongraph'
+l_graph(nodes, ...)
+
+</code></pre>
+#### Arguments 
+
+nodes a loongraph object created with the loongraph function.
+... 
+</code></pre>
+#### Arguments 
+ to modify the graph display state
+82 l_graphswitch
+
+#### Details 
+
+For more information run: l_help("learn_R_display_graph.html#graph")
+Value
+graph handle
+See Also
+loongraph, l_graph, l_info_states, l_graph.graph
