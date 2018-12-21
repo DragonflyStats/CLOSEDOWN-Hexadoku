@@ -1,0 +1,383 @@
+
+measures2d Closure of Two Dimensional Measures
+
+#### Description 
+
+Function creates a 2d measures object that can be used with l_ng_plots and l_ng_ranges.
+
+#### Usage
+<pre><code>
+
+measures2d(data, ...)
+
+</code></pre>
+#### Arguments 
+
+* ``data``:   a data.frame with the data used to calculate the measures
+... named arguments , name is the function name and argument is the function to
+calculate the measure for each variable.
+
+#### Details 
+
+For more information run: l_help("learn_R_display_graph.html#measures")
+Value
+a measures object
+See Also
+l_ng_plots, l_ng_ranges, measures2d
+
+#### Examples 
+```{r}
+m <- measures2d(oliveAcids, separator='*', cov=cov, cor=cor)
+m
+m()
+m(keep=olive$palmitic>1360)
+m('data')
+m('grid')
+m('measures')
+```
+
+
+
+minority Canadian Visible Minority Data 2006
+
+#### Description 
+
+This data contains information about the visible minority populations distributed across major census
+metropolitan areas of Canada. These data are from the 2006 Canadian census, publicly available
+from Statistics Canada Statistics Canada (2006). For each of the 33 Canadian census metropolitan
+areas, we have the total population and the population Implemen- tation of all its "visible
+minorities". These self-declared visible minorities are: "Arab", "Black", "Chinese", "Filipino",
+"Japanese", "Korean", "Latin American", "Multiple visible minority", "South Asian", "Southeast
+Asian", "Visible minority (not included elsewhere)", and "West Asian". For each metropolitan
+area, we also obtained the approximate latitude and longitude coordinates using the Google Maps
+Geocoding API and added them to the data set.
+
+#### Usage
+<pre><code>
+
+minority
+
+#### Format 
+
+A data frame with 33 rows and 18 variates
+Source
+http://www.statcan.gc.ca
+names.loon Get State Names of Loon Object
+
+#### Description 
+
+States of loon objects can be accessed `[` and l_cget and modified with l_configure.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'loon'
+names(x)
+
+</code></pre>
+#### Arguments 
+
+* ``x``:   loon object
+Value
+state names
+
+
+ndtransitiongraph Create a n-d transition graph
+
+#### Description 
+
+A n-d transition graph has k-d nodes and all edges that connect two nodes that from a n-d subspace
+
+#### Usage
+<pre><code>
+
+ndtransitiongraph(nodes, n, separator = ":")
+
+</code></pre>
+#### Arguments 
+
+* ``nodes``: node names of graph
+* ``n``: integer, dimension an edge should represent
+* ``separator``: character that separates spaces in node names
+
+#### Details 
+
+For more information run: l_help("learn_R_display_graph.html.html#graph-utilities")
+
+#### Value
+graph object of class loongraph
+
+#### Examples 
+```{r}
+g <- ndtransitiongraph(nodes=c('A:B', 'A:F', 'B:C', 'B:F'), n=3, separator=':')
+```
+olive Fatty Acid Composition of Italian Olive Oils
+
+#### Description 
+
+This data set records the percentage composition of 8 fatty acids (palmitic, palmitoleic, stearic,
+oleic, linoleic, linolenic, arachidic, eicosenoic) found in the lipid fraction of 572 Italian olive oils.
+The oils are samples taken from three Italian regions varying number of areas within each region.
+The regions and their areas are recorded as shown in the following table:
+Region Area
+North North-Apulia, South-Apulia, Calabria, Sicily
+South East-Liguria, West-Liguria, Umbria
+Sardinia Coastal-Sardinia, Inland-Sardinia
+oliveAcids 207
+
+#### Usage
+<pre><code>
+olive
+</code></pre>
+
+#### Format 
+
+A data frame containing 572 cases and 10 variates.
+References
+Forina, M., Armanino, C., Lanteri, S., and Tiscornia, E. (1983) "Classification of Olive Oils from
+their Fatty Acid Composition", in Food Research and Data Analysis (Martens, H., Russwurm, H.,
+eds.), p. 189, Applied Science Publ., Barking.
+oliveAcids Fatty Acid Composition of Italian Olive Oils
+
+#### Description 
+
+This is the olive data set minus the Region and Area variables.
+
+#### Usage
+<pre><code>
+
+oliveAcids
+
+#### Format 
+
+A data frame containing 572 cases and 8 variates.
+See Also
+olive
+
+
+plot.loon Plot the current view of any loon plot in the current device.
+
+#### Description 
+
+This is a wrapper for ``grid.loon()`` to simplify the plotting of loon plots on any device. Frequent
+users are recommended to use ``grid.loon()`` for more control.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'loon'
+plot(x, y = NULL, ...)
+
+</code></pre>
+#### Arguments 
+
+* x the loon plot to be plotted on the current device
+* y NULL, will be ignored.
+* ... parameters passed to loonGrob
+
+#### Value
+invisible()
+See Also
+loonGrob, grid.loon
+
+#### Examples 
+```{r}
+loonPlot <- with(iris, l_plot(Sepal.Length, Sepal.Width))
+loonPlot['color'] <- iris$Species
+loonPlot['selected'] <- iris$Species == "versicolor"
+l_scaleto_selected(loonPlot)
+loonPlot['showGuides'] <- TRUE
+plot(loonPlot)
+```
+
+plot.loongraph Plot a loon graph object with base R graphics
+
+#### Description 
+
+This function converts the loongraph object to one of class graph and the plots it with its respective
+plot method.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'loongraph'
+plot(x, ...)
+
+</code></pre>
+#### Arguments 
+
+x object of class loongraph
+... 
+</code></pre>
+#### Arguments 
+ forwarded to method
+
+#### Examples 
+```{r}
+if (requireNamespace("Rgraphviz", quietly = TRUE)) {
+g <- loongraph(letters[1:4], letters[1:3], letters[2:4], FALSE)
+plot(g)
+}
+```
+
+print.l_layer Print a summary of a loon layer object
+
+#### Description 
+
+Prints the layer label and layer type
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'l_layer'
+print(x, ...)
+
+</code></pre>
+#### Arguments 
+
+x an l_layer object
+... additional Arguments 
+ are not used for this methiod
+See Also
+l_layer
+
+print.measures1d Print function names from measure1d object
+
+#### Description 
+
+Prints the function names of a measure1d object using print.default.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'measures1d'
+print(x, ...)
+
+</code></pre>
+#### Arguments 
+
+
+...  passed on to print.default
+
+print.measures2d Print function names from measure2d object
+
+#### Description 
+
+Prints the function names of a measure2d object using print.default.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'measures2d'
+print(x, ...)
+
+</code></pre>
+#### Arguments 
+
+x measures2d object
+... Arguments 
+ passed on to print.default
+scagnostics2d Closure of Two Dimensional Scagnostic Measures
+
+#### Description 
+
+Function creates a 2d measures object that can be used with l_ng_plots and l_ng_ranges.
+
+#### Usage
+<pre><code>
+
+scagnostics2d(data, scagnostics = c("Clumpy", "Monotonic", "Convex",
+"Stringy", "Skinny", "Outlying", "Sparse", "Striated", "Skewed"),
+separator = ":")
+
+</code></pre>
+#### Arguments 
+
+* ``data``:   a data.frame with the data used to calculate the measures
+* scagnostics vector with valid scanostics meausure names, i.e "Clumpy", "Monotonic", "Convex",
+"Stringy", "Skinny", "Outlying", "Sparse", "Striated", "Skewed". Also the
+* prefix "Not" can be added to each measure which equals 1-measure.
+separator string the separates variable names in 2d graph nodes
+
+#### Details 
+
+For more information run: l_help("learn_R_display_graph.html#measures")
+Value
+a measures object
+
+See Also
+l_ng_plots, l_ng_ranges, measures2d
+
+#### Examples 
+```{r}
+## Not run:
+m <- scagnostics2d(oliveAcids, separator='**')
+m
+m()
+m(olive$palmitoleic > 80)
+m('data')
+m('grid')
+m('measures')
+## End(Not run)
+```
+
+tkcolors List the valid Tk color names
+
+#### Description 
+
+The core of Loon is implemented in Tcl and Tk. Hence, when defining colors using color names,
+Loon uses the Tcl color representation and not those of R. The colors are taken from the Tk sources:
+doc/colors.n.
+If you want to make sure that the color names are represented exactly as they are in R then you can
+convert the color names to hexencoded color strings, see the examples 
+```{r} below.
+
+#### Usage
+<pre><code>
+
+tkcolors()
+</code></pre>
+  
+#### Examples 
+```{r}
+# check if R colors names and TK color names are the same
+setdiff(tolower(colors()), tolower(tkcolors()))
+setdiff(tolower(tkcolors()), tolower(colors()))
+# hence there are currently more valid color names in Tk than there are in R
+# Lets compare the colors of the R color names in R and Tk
+tohex <- function(x) {
+sapply(x, function(xi) {
+crgb <- as.vector(col2rgb(xi))
+rgb(crgb[1], crgb[2], crgb[3], maxColorValue = 255)
+})
+}
+df <- data.frame(
+R_col = tohex(colors()),
+
+Tcl_col = hex12tohex6(l_hexcolor(colors())),
+row.names = colors(),
+stringsAsFactors = FALSE
+)
+df_diff <- df[df$R_col != df$Tcl_col,]
+if (requireNamespace("grid", quietly = TRUE)) {
+grid::grid.newpage()
+grid::pushViewport(grid::plotViewport())
+x_col <- grid::unit(0, "npc")
+x_R <- grid::unit(6, "lines")
+x_Tcl <- grid::unit(10, "lines")
+grid::grid.text('color', x=x_col, y=grid::unit(1, "npc"),
+just='left', gp=grid::gpar(fontface='bold'))
+grid::grid.text('R', x=x_R, y=grid::unit(1, "npc"), just='center',
+gp=grid::gpar(fontface='bold'))
+grid::grid.text('Tcl', x=x_Tcl, y=grid::unit(1, "npc"), just='center',
+gp=grid::gpar(fontface='bold'))
+for (i in 1:nrow(df_diff)) {
+y <- grid::unit(1, "npc") - grid::unit(i*1.2, "lines")
+grid::grid.text(rownames(df_diff)[i], x=x_col, y=y, just='left')
+grid::grid.rect(x=x_R, y=y, width=grid::unit(3, "line"),
+height=grid::unit(1, "line"), gp=grid::gpar(fill=df_diff[i,1]))
+grid::grid.rect(x=x_Tcl, y=y, width=grid::unit(3, "line"),
+height=grid::unit(1, "line"), gp=grid::gpar(fill=df_diff[i,2]))
+}
+}
+```
