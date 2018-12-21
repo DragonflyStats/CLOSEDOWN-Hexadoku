@@ -1,0 +1,20 @@
+l_glyph_add.default Default method for adding non-primitive glyphs
+
+#### Description 
+
+Generic function to write new glyph types using loon's primitive glyphs
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+l_glyph_add(widget, type, label = "", ...)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+type loon-native non-primitive glyph type, one of 'text', 'serialaxes', 'image',
+'[polygon', or 'pointrange'
+* ``label``:  label of a glyph (currently shown only in the glyph inspector)
+... state arguments
