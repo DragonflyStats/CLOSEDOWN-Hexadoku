@@ -1,0 +1,19 @@
+
+l_glyph_ids List glyphs ids
+
+#### Description 
+
+List all the non-primitive glyph ids attached to display.
+
+#### Usage
+<pre><code>
+
+l_glyph_ids(widget)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+See Also
+l_glyph_add
+l_glyph_relabel 79
