@@ -1,0 +1,30 @@
+hex12tohex6 Convert 12 hexadecimal digit color representations to 6 hexidecimal
+digit color representations
+
+#### Description 
+
+Tk colors must be in 6 hexadecimal format with two hexadecimal digits for each of the red, green,
+and blue components. Twelve hexadecimal digit colors have 4 hexadecimal digits for each. This
+function converts the 12 digit format to the 6 provided the color is preserved.
+
+#### Usage
+<pre><code>
+
+hex12tohex6(x)
+
+</code></pre>
+#### Arguments 
+
+x a vector with 12 digit hexcolors
+
+#### Details 
+
+Function throws a warning if the conversion loses information. The l_hexcolor function converts
+any Tcl color specification to a 12 digit hexadecimal color representation.
+
+#### Examples 
+```{r}
+x <- l_hexcolor(c("red", "green", "blue", "orange"))
+x
+hex12tohex6(x)
+```
