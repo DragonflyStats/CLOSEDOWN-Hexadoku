@@ -1,0 +1,33 @@
+
+l_glyph_add_pointrange
+Add a Pointrange Glyph
+
+#### Description 
+
+Pointrange glyphs show a filled circle at the x-y location and also a y-range.
+
+#### Usage
+<pre><code>
+
+l_glyph_add_pointrange(widget, ymin, ymax, linewidth = 1, label = "",
+...)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ``ymin ``:   vector with lower y-yalue of the point range.
+ymax vector with upper y-yalue of the point range.
+linewidth line with in pixel.
+* ``label``:  label of a glyph (currently shown only in the glyph inspector)
+... state arguments 
+
+See Also
+l_glyph_add
+
+#### Examples 
+```{r}
+p <- l_plot(x = 1:3, color = c('red', 'blue', 'green'), showScales=TRUE)
+g <- l_glyph_add_pointrange(p, ymin=(1:3)-(1:3)/5, ymax=(1:3)+(1:3)/5)
+p['glyph'] <- g
+```
