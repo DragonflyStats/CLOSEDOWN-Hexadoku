@@ -1,16 +1,29 @@
-BeginNav Write the header for the HTML navigation file (htmlize).
+---
+title: "``BeginNav``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(PrettyR)
+```
+
+Write the header for the HTML navigation file (htmlize).
+
 #### Description
 Initiate the navigation file for an R listing in HTML format.
-6 brkdn
-Usage
+
+#### Usage
 BeginNav(navcon,bgcolor="#dddddd")
+
 #### Arguments 
-navcon The connection for writing to the navigation file.
-bgcolor The background color for the navigation frame.
-Details
-‘BeginNav’ sets up the file with the navigation frame information for the HTML listing for the
-‘htmlize’ function.
-Value
+* navcon The connection for writing to the navigation file.
+* bgcolor The background color for the navigation frame.
+
+#### Details
+‘BeginNav’ sets up the file with the navigation frame information for the HTML listing for the ‘htmlize’ function.
+
+#### Value
 nil
 Author(s)
 Jim Lemon
