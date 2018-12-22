@@ -1,5 +1,16 @@
+---
+title: "``describe``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(PrettyR)
+```
 
-describe description of variables
+
+
+ description of variables
 #### Description
 Describes a vector or the columns in a matrix or data frame.
 
@@ -33,17 +44,20 @@ describe(sample.df$income,num.desc="roughness",xname="income")
 ```
 
 ##### Details
-‘describe’ displays a table of descriptive statistics for numeric, factor and logical variables in the object ‘x’. The summary measures for numeric variables can easily be altered with the argument ‘num.desc’. Pass a character vector with the names of the desired summary measures and these will be displayed at the top of the numeric block with their results beneath them. If quantiles are
-desired, the user will have to write wrapper functions that call ‘quantile’ with the appropriate type or probabilities and use the names of the wrapper functions in ‘num.desc’. Remember that any function called by ‘describe’ must have an ‘na.rm’ argument.
+‘describe’ displays a table of descriptive statistics for numeric, factor and logical variables in the object ‘x’. The summary measures for numeric variables can easily be altered with the argument ‘num.desc’. Pass a character vector with the names of the desired summary measures and these will be displayed at the top of the numeric block with their results beneath them. 
+
+If quantiles are desired, the user will have to write wrapper functions that call ‘quantile’ with the appropriate type or probabilities and use the names of the wrapper functions in ‘num.desc’. Remember that any function called by ‘describe’ must have an ‘na.rm’ argument.
 Percentages are now always displayed and returned in the tables for factor and logical variables.
 
 #### Value
 A list with three components:
-Numeric A list of the values returned from ‘describe.numeric’ for each column described.
-Factor A list of the tables for each column described.
-Logical A list of the tables for each column described.
-Author(s)
+* Numeric A list of the values returned from ‘describe.numeric’ for each column described.
+* Factor A list of the tables for each column described.
+* Logical A list of the tables for each column described.
+
+#### Author(s)
 Jim Lemon
 describe.factor 15
-See Also
+
+#### See Also
 Mode, valid.n, describe.numeric, describe.factor
