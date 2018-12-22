@@ -1,0 +1,56 @@
+
+---
+title: "``l_bind_canvas_get``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
+l_bind_canvas_get Get the event pattern and callback Tcl code of a canvas binding
+
+#### Description 
+
+This function returns the registered event pattern and the Tcl callback code that the Tcl interpreter
+evaluates after a event occurs that machtches the event pattern.
+
+#### Usage
+<pre><code>
+
+l_bind_canvas_get(widget, id)
+28 l_bind_canvas_ids
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ``id``: canvas binding id
+
+#### Details 
+
+Bindings, callbacks, and binding substitutions are described in detail in loon's documentation webpage,
+i.e. run l_help("learn_R_bind")
+
+#### Value
+Character vector of length two. First element is the event pattern, the second element is the Tcl
+callback code.
+
+#### See Also
+l_bind_canvas, l_bind_canvas_ids, l_bind_canvas_delete, l_bind_canvas_reorder
+
+#### Examples 
+```{r}
+# binding for when plot is resized
+p <- l_plot(iris[,1:2], color=iris$Species)
+printSize <- function(p) {
+  size <- l_size(p)
+  cat(paste('Size of widget ', p, ' is: ',
+            size[1], 'x', size[2], ' pixels\n', sep=''))
+}
+l_bind_canvas(p, event='<Configure>', function(W) {printSize(W)})
+id <- l_bind_canvas_ids(p)
+id
+```
