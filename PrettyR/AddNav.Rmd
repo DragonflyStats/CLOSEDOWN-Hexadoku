@@ -1,19 +1,33 @@
+---
+title: "``AddNav``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(PrettyR)
+```
 
-AddNav Add a navigation item (R2html).
 #### Description
-Add an item to the HTML navigation file.
-Usage
+Add an navigation item (R2html). to the HTML navigation file.
+
+#### Usage
+<pre><code>
 AddNav(navcon,Rcommand,listname)
+</code></pre>
+
 #### Arguments 
-navcon The connection for writing to the navigation file.
-Rcommand The current R command in the script file.
-listname The name of the listing file.
-Details
+* navcon The connection for writing to the navigation file.
+* Rcommand The current R command in the script file.
+* listname The name of the listing file.
+
+#### Details
 ‘AddNav’ adds an entry to the navigation file, generates a name tag for that entry and returns it to
 be inserted into the listing file. If the R command is longer than 20 characters, it is truncated to 18
 characters and an ellipsis appended.
-Value
+
+#### Value
 The name tag to link the listing to the navigation entry.
-Author(s)
+
+#### Author(s)
 Philippe Grosjean
-4 addxtabs
