@@ -1,4 +1,16 @@
-l_graphswitch Create a graphswitch widget
+---
+title: "``l_graphswitch``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
+
+ Create a graphswitch widget
 
 #### Description 
 
@@ -6,20 +18,19 @@ The graphswitch provides a graphical user interface for changing the graph in a 
 
 #### Usage
 <pre><code>
-
 l_graphswitch(activewidget = "", parent = NULL, ...)
-
 </code></pre>
-#### Arguments 
 
-activewidget widget handle of a graph display
+#### Arguments 
+* activewidget: widget handle of a graph display
 * ``parent ``:  parent widget path
-... widget states
+* ...: widget states
 
 #### Details 
 
 For more information run: l_help("learn_R_display_graph.html#graph-switch-widget")
-See Also
+
+##### See Also
 l_graphswitch_add, l_graphswitch_ids, l_graphswitch_delete, l_graphswitch_relabel,
 l_graphswitch_getLabel, l_graphswitch_move, l_graphswitch_reorder, l_graphswitch_set,
 l_graphswitch_get
