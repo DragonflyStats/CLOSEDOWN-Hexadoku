@@ -1,3 +1,22 @@
+---
+
+title: "``freq``"
+
+output: html_document
+
+---
+
+  
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(PrettyR)
+
+```
+
+
 
 freq Calculate a frequency table
 #### Description
