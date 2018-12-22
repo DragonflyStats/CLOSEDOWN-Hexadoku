@@ -1,0 +1,29 @@
+
+l_bind_canvas_reorder Reorder the canvas binding evaluation sequence
+
+#### Description 
+
+The order the canvas bindings defines how they get evaluated once an event matches event patterns of multiple canvas bindings.
+
+#### Usage
+<pre><code>
+l_bind_canvas_reorder(widget, ids)
+</code></pre>
+
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* ids new canvas binding id evaluation order, this must be a rearrangement of the elements returned by the l_bind_canvas_ids function.
+
+#### Details 
+
+Bindings, callbacks, and binding substitutions are described in detail in loon's documentation webpage,
+i.e. run l_help("learn_R_bind")
+
+#### Value
+vector with binding id evaluation order (same as the id argument)
+
+#### See Also
+l_bind_canvas, l_bind_canvas_ids, l_bind_canvas_get, l_bind_canvas_delete
+
+
