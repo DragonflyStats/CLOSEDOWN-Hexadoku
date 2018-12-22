@@ -1,4 +1,14 @@
-describe.logical: Description of logical variables
+---
+title: "``describe.logical``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rockchalk)
+```
+Description of logical variables
+
 #### Description
 Describes a logical variable.
 
@@ -12,8 +22,7 @@ describe.logical(x,varname="")
 * varname An optional name for the variable. ‘describe’ always passes the name of the variable.
 
 #### Details
-‘describe.logical’ displays the name of the logical, a table of counts of its two values (TRUE,
-FALSE) and the percentage of TRUE values.
+‘describe.logical’ displays the name of the logical, a table of counts of its two values (TRUE, FALSE) and the percentage of TRUE values.
 
 #### Value
 nil
@@ -23,4 +32,3 @@ Jim Lemon
 
 #### See Also
 table
-describe.numeric 17
