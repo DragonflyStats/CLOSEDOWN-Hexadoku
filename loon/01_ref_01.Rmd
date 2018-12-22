@@ -578,6 +578,10 @@ l_bind_canvas_ids, l_bind_canvas_get, l_bind_canvas_delete, l_bind_canvas_reorde
 ```{r}
 # binding for when plot is resized
 p <- l_plot(iris[,1:2], color=iris$Species)
+
+
+
+
 printSize <- function(p) {
 size <- l_size(p)
 cat(paste('Size of widget ', p, ' is: ',
@@ -588,149 +592,6 @@ l_bind_canvas(p, event='<Configure>', function(W) {printSize(W)})
 id <- l_bind_canvas_ids(p)
 id
 l_bind_canvas_get(p, id)
-l_bind_canvas_delete Delete a canvas binding
-
-#### Description 
-
-Remove a canvas binding
-
-#### Usage
-<pre><code>
-
-l_bind_canvas_delete(widget, id)
-
-</code></pre>
-#### Arguments 
-
-* ``widget``: widget path as a string or as an object handle
-* ``id``: canvas binding id
-
-#### Details 
-
-Bindings, callbacks, and binding substitutions are described in detail in loon's documentation webpage,
-i.e. run l_help("learn_R_bind")
-See Also
-l_bind_canvas, l_bind_canvas_ids, l_bind_canvas_get, l_bind_canvas_reorder
-l_bind_canvas_get Get the event pattern and callback Tcl code of a canvas binding
-
-#### Description 
-
-This function returns the registered event pattern and the Tcl callback code that the Tcl interpreter
-evaluates after a event occurs that machtches the event pattern.
-
-#### Usage
-<pre><code>
-
-l_bind_canvas_get(widget, id)
-28 l_bind_canvas_ids
-
-</code></pre>
-#### Arguments 
-
-* ``widget``: widget path as a string or as an object handle
-* ``id``: canvas binding id
-
-#### Details 
-
-Bindings, callbacks, and binding substitutions are described in detail in loon's documentation webpage,
-i.e. run l_help("learn_R_bind")
-
-#### Value
-Character vector of length two. First element is the event pattern, the second element is the Tcl
-callback code.
-
-#### See Also
-l_bind_canvas, l_bind_canvas_ids, l_bind_canvas_delete, l_bind_canvas_reorder
-
-#### Examples 
-```{r}
-# binding for when plot is resized
-p <- l_plot(iris[,1:2], color=iris$Species)
-printSize <- function(p) {
-size <- l_size(p)
-cat(paste('Size of widget ', p, ' is: ',
-size[1], 'x', size[2], ' pixels\n', sep=''))
-}
-l_bind_canvas(p, event='<Configure>', function(W) {printSize(W)})
-id <- l_bind_canvas_ids(p)
-id
-```
-
-l_bind_canvas_get(p, id)
-l_bind_canvas_ids List canvas binding ids
-
-#### Description 
-
-List all user added canvas binding ids
-
-#### Usage
-<pre><code>
-
-l_bind_canvas_ids(widget)
-
-
-</code></pre>
-#### Arguments 
-
-* ``widget``: widget path as a string or as an object handle
-
-#### Details 
-
-Bindings, callbacks, and binding substitutions are described in detail in loon's documentation webpage,
-i.e. run l_help("learn_R_bind")
-
-##### Value
-vector with canvas binding ids
-See Also
-l_bind_canvas, l_bind_canvas_get, l_bind_canvas_delete, l_bind_canvas_reorder
-
-#### Examples 
-```{r}
-# binding for when plot is resized
-p <- l_plot(iris[,1:2], color=iris$Species)
-printSize <- function(p) {
-size <- l_size(p)
-cat(paste('Size of widget ', p, ' is: ',
-size[1], 'x', size[2], ' pixels\n', sep=''))
-}
-l_bind_canvas(p, event='<Configure>', function(W) {printSize(W)})
-id <- l_bind_canvas_ids(p)
-id
-
-```
-
-l_bind_canvas_get(p, id)
-l_bind_canvas_reorder Reorder the canvas binding evaluation sequence
-
-#### Description 
-
-The order the canvas bindings defines how they get evaluated once an event matches event patterns
-of multiple canvas bindings.
-
-#### Usage
-<pre><code>
-
-l_bind_canvas_reorder(widget, ids)
-</code></pre>
-
-#### Arguments 
-
-* ``widget``: widget path as a string or as an object handle
-ids new canvas binding id evaluation order, this must be a rearrangement of the
-elements returned by the l_bind_canvas_ids function.
-
-#### Details 
-
-Bindings, callbacks, and binding substitutions are described in detail in loon's documentation webpage,
-i.e. run l_help("learn_R_bind")
-
-#### Value
-vector with binding id evaluation order (same as the id argument)
-
-#### See Also
-l_bind_canvas, l_bind_canvas_ids, l_bind_canvas_get, l_bind_canvas_delete
-
-
 l_bind_context Add a context binding
 
 #### Description 
@@ -747,14 +608,9 @@ l_bind_context(widget, event, callback)
 #### Arguments 
 
 * ``widget``: widget path as a string or as an object handle
-event a vector with one or more of the following evnets: 'add', 'delete', 'relabel'
-callback callback function is an R function which is called by the Tcl interpreter if the
-event of interest happens. Note that in loon the callback functions support different
-optional 
-</code></pre>
-#### Arguments 
- depending on the binding type, read the 
-#### Details 
+* event a vector with one or more of the following evnets: 'add', 'delete', 'relabel'
+* callback callback function is an R function which is called by the Tcl interpreter if the event of interest happens. Note that in loon the callback functions support different optional Arguments 
+ depending on the binding type, read the Details 
  for
 more information
 
@@ -767,6 +623,10 @@ context binding id
 l_bind_context_delete 31
 See Also
 l_bind_context_ids, l_bind_context_get, l_bind_context_delete, l_bind_context_reorder
+
+
+
+
 l_bind_context_delete Delete a context binding
 
 #### Description 
@@ -2847,7 +2707,8 @@ paths vector with paths to image files that are supported
 
 For more information run: l_help("learn_R_display_plot.html#load-images")
 98 l_info_states
-Value
+
+#### Value
 vector of image object names
 See Also
 l_image_import_array, l_imageviewer
@@ -2860,9 +2721,7 @@ plots, layers, navigators, contexts. This is a generic function.
 
 #### Usage
 <pre><code>
-
 l_info_states(target, states = "all")
-
 </code></pre>
 #### Arguments 
 
@@ -2871,10 +2730,10 @@ navigator or context completely. The widget is specified by the widget path
 name (e.g. '.l0.plot'), the remaining objects by their ids.
 states vector with names of states. 'all' is treated as a keyword and results in returning
 information on all plot states
-Value
+
+### Value
 a named nested list with one element per state. The list elements are also named lists with type,
-dimension, defaultvalue, and 
-#### Description 
+dimension, defaultvalue, and Description 
  elements containing the respective information.
 
 #### Examples 
