@@ -1,0 +1,38 @@
+---
+title: "``l_loon_inspector``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+### Create a loon inspector
+
+#### Description 
+
+The loon inspector is a singleton widget that provids an overview to view and modify the active
+plot.
+
+#### Usage
+<pre><code>
+
+l_loon_inspector(parent = NULL, ...)
+
+</code></pre>
+#### Arguments 
+
+* ``parent ``:  parent widget path
+... state Arguments, see l_info_states.
+
+#### Details 
+
+For more information run: l_help("learn_R_display_inspectors")
+Value
+widget handle
+
+#### Examples 
+```{r}
+i <- l_loon_inspector()
+```

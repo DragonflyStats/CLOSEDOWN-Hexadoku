@@ -1,0 +1,65 @@
+---
+title: "l_layer_contourLines"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+l_layer_contourLines Layer Contour Lines
+
+#### Description 
+
+This function is a wrapper around contourLines that adds the countourlines to a loon plot which
+is based on the cartesian coordinate system.
+
+
+#### Usage
+<pre><code>
+
+l_layer_contourLines(widget, x = seq(0, 1, length.out = nrow(z)),
+y = seq(0, 1, length.out = ncol(z)), z, nlevels = 10,
+levels = pretty(range(z, na.rm = TRUE), nlevels),
+asSingleLayer = TRUE, parent = "root", index = "end", ...)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path as a string or as an object handle
+* x locations of grid lines at which the values in z are measured. These must be in ascending order. By default, equally spaced values from 0 to 1 are used. If x is a list, its components x$x and x$y are used for x and y, respectively. If the list has component z this is used for z.
+* y see description for the x argument
+* z a matrix containing the values to be plotted (NAs are allowed). Note that x can be used instead of z for convenience.
+*``nlevels  ``: number of contour levels desired iff levels is not supplied.
+* * ``levels``: numeric vector of levels at which to draw contour lines.
+* * ``asSingleLayer ``:   If TRUE a lines layer is used for the line, otherwise if FALSE a group with nested
+* line layers for each line is created
+* ``parent ``:  parent widget path
+* index position among its siblings. valid values are 0, 1, 2, ..., 'end'
+* ... argumnets forwarded to l_layer_line
+
+#### Details 
+
+For more information run: l_help("learn_R_layer.html#countourlines-heatimage-rasterimage")
+Value
+layer id of group or lines layer
+
+#### Examples 
+```{r}
+p <- l_plot()
+x <- 10*1:nrow(volcano)
+y <- 10*1:ncol(volcano)
+lcl <- l_layer_contourLines(p, x, y, volcano)
+l_scaleto_world(p)
+if (requireNamespace("MASS", quietly = TRUE)) {
+p1 <- with(iris, l_plot(Sepal.Length~Sepal.Width, color=Species))
+lcl <- with(iris, l_layer_contourLines(p1, MASS::kde2d(Sepal.Width,Sepal.Length)))
+p2 <- with(iris, l_plot(Sepal.Length~Sepal.Width, color=Species))
+layers <- sapply(split(cbind(iris, color=p2['color']), iris$Species), function(dat) {
+
+kest <- with(dat, MASS::kde2d(Sepal.Width,Sepal.Length))
+l_layer_contourLines(p2, kest, color=as.character(dat$color[1]), linewidth=2,
+label=paste0(as.character(dat$Species[1]), " contours"))
+})
+}
+```

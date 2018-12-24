@@ -1,0 +1,39 @@
+---
+title: "``l_layer_bbox``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+###  Get the bounding box of a layer.
+
+#### Description 
+
+The bounding box of a layer returns the coordinates of the smallest rectangle that encloses all the
+elements of the layer.
+
+#### Usage
+<pre><code>
+
+l_layer_bbox(widget, layer = "root")
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path or layer object of class 'l_layer'
+* ``layer``:   layer id. If the widget argument is of class 'l_layer' then the layer argument
+is not used
+
+#### Value
+Numeric vector of length 4 with (xmin, ymin, xmax, ymax) of the bounding box
+
+#### Examples 
+```{r}
+p <- with(iris, l_plot(Sepal.Length ~ Sepal.Width, color=Species))
+l_layer_bbox(p, layer='model')
+l <- l_layer_rectangle(p, x=0:1, y=30:31)
+l_layer_bbox(p, l)
+l_layer_bbox(p, 'root')
+```

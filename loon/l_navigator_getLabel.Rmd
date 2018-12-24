@@ -1,0 +1,29 @@
+---
+title: "``l_navigator_getLabel``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+### Query the Label of a Navigator
+
+#### Description 
+
+Returns the label of a navigator
+
+#### Usage
+<pre><code>
+
+l_navigator_getLabel(widget, id)
+
+</code></pre>
+
+#### Arguments 
+* widget graph widget handle
+* id navigator id
+
+#### See Also
+l_navigator_add

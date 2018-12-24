@@ -1,0 +1,30 @@
+---
+title: "loon"
+author: "Kevin O'Brien"
+date: "24 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+l_navigator_delete Delete a Navigator
+
+#### Description 
+
+Removes a navigator from a graph widget
+
+#### Usage
+<pre><code>
+
+l_navigator_delete(widget, id)
+
+</code></pre>
+#### Arguments 
+
+widget graph widget
+id navigator handle or navigator id
+160 l_navigator_getPath
+See Also
+l_navigator_add

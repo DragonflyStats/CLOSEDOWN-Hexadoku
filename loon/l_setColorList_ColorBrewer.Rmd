@@ -1,0 +1,49 @@
+---
+title: "``l_setColorList_ColorBrewer``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(loon)
+```
+
+
+Set loon's color mapping list to the colors from ColorBrewer
+
+#### Description 
+
+Loon's color list is used to map nominal values to colors. See the documentation for l_setColorList.
+
+#### Usage
+<pre><code>
+
+l_setColorList_ColorBrewer(palette = c("Set1", "Set2", "Set3", "Pastel1",
+"Pastel2", "Paired", "Dark2", "Accent"))
+
+
+</code></pre>
+#### Arguments 
+
+palette one of the following RColorBrewer palette name: Set1, Set2, Set3, Pastel1,
+Pastel2, Paired, Dark2, or Accent
+
+#### Details 
+
+Only the following palettes in ColorBrewer are available: Set1, Set2, Set3, Pastel1, Pastel2, Paired,
+Dark2, and Accent. See the Examples  below.
+See Also
+l_setColorList, l_setColorList_loon, l_setColorList_ColorBrewer, l_setColorList_hcl,
+l_setColorList_baseR, l_setColorList_ggplot2
+
+#### Examples 
+```{r}
+## Not run:
+if (requireNamespace("RColorBrewer", quietly = TRUE)) {
+RColorBrewer::display.brewer.all()
+}
+## End(Not run)
+l_setColorList_ColorBrewer("Set1")
+p <- l_plot(iris)
+```

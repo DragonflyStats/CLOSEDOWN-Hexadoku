@@ -1,0 +1,55 @@
+---
+title: "``l_layer_text``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+l_layer_text Layer a text
+
+#### Description 
+
+Loon's displays that are based on Cartesian coordinates (i.e. scatterplot, histogram and graph display)
+allow for layering visual information including polygons, text and rectangles.
+layer a single character string
+
+#### Usage
+<pre><code>
+
+l_layer_text(widget, x, y, text, color = "gray60", size = 6,
+angle = 0, label = "text", parent = "root", index = 0, ...)
+
+</code></pre>
+#### Arguments 
+
+* ``widget``: widget path name as a string
+x coordinate
+y coordinate
+text character string
+color color of text
+size size of the font
+angle rotation of text
+* ``label``:  label used in the layers inspector
+parent group layer
+index of the newly added layer in its parent group
+... additional state initialization Arguments 
+, see l_info_states
+
+#### Details 
+
+As a side effect of Tcl's text-based design, it is best to use l_layer_text if one would like to layer
+a single character string (and not l_layer_texts with n=1).
+For more information run: l_help("learn_R_layer")
+Value
+layer object handle, layer id
+See Also
+l_layer, l_info_states
+
+#### Examples 
+```{r}
+p <- l_plot()
+l <- l_layer_text(p, 0, 0, "Hello World")
+```

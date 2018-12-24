@@ -1,3 +1,13 @@
+---
+title: "``l_glyph_getLabel``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
 
 l_glyph_getLabel Get Glyph Label
 

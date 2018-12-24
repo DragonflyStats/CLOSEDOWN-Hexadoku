@@ -1,0 +1,60 @@
+---
+title: "``l_layer.SpatialPolygons``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
+
+Layer polygons in SpatialPolygons object
+
+#### Description 
+
+Methods to plot map data defined in the sp package
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'SpatialPolygons'
+l_layer(widget, x, asSingleLayer = TRUE, ...)
+
+</code></pre>
+#### Arguments 
+
+widget * ``widget``: widget path as a string or as an object handle
+* ``x ``:  an object defined in the class sp
+* ``asSingleLayer ``:   If TRUE then prefer a single layer over groups with nested 1-dimensinal layers
+... Arguments 
+ forwarded to the relative l_layer function
+
+#### Examples 
+```{r}
+if (requireNamespace("rworldmap", quietly = TRUE)) {
+world <- rworldmap::getMap(resolution = "coarse")
+p <- l_plot()
+lmap <- l_layer(p, world, asSingleLayer=TRUE)
+l_scaleto_world(p)
+attr(lmap,'hole')
+attr(lmap,'NAME')
+}
+
+```
+
+
+#### Details 
+
+Note that currently loon does neither support holes and ring directions.
+
+
+#### Value
+layer id
+References
+Applied Spatial Data Analysis with R by Bivand, Roger S. and Pebesma, Edzer and Gomez-Rubio
+and Virgilio http://www.springer.com/us/book/9781461476177
+See Also
+sp, l_layer
+

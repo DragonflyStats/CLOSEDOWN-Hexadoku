@@ -1,3 +1,12 @@
+---
+title: "``l_glyph_getType``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
 
 l_glyph_getType Get Glyph Type
 
@@ -15,5 +24,6 @@ l_glyph_getType(widget, id)
 
 * ``widget``: widget path as a string or as an object handle
 * ``id ``:   glyph id
-See Also
+
+#### See Also
 l_glyph_add

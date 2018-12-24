@@ -1,0 +1,37 @@
+---
+title: "l_graph_inspector_analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+l_graph_inspector_analysis
+Create a Graph Analysis Inspector
+
+#### Description 
+
+Inpectors provide graphical user interfaces to oversee and modify plot states
+
+#### Usage
+<pre><code>
+
+l_graph_inspector_analysis(parent = NULL, ...)
+
+</code></pre>
+#### Arguments 
+
+* ``parent ``:  parent widget path
+... state  Arguments 
+
+l_graph_inspector_navigators 91
+Value
+widget handle
+See Also
+l_create_handle
+
+#### Examples 
+```{r}
+i <- l_graph_inspector_analysis()
+```
