@@ -7,8 +7,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(loon)
 ```
-l_graph_inspector_analysis
-Create a Graph Analysis Inspector
+
+### Create a Graph Analysis Inspector
 
 #### Description 
 
@@ -25,13 +25,15 @@ l_graph_inspector_analysis(parent = NULL, ...)
 * ``parent ``:  parent widget path
 ... state  Arguments 
 
-l_graph_inspector_navigators 91
-Value
-widget handle
-See Also
-l_create_handle
+
 
 #### Examples 
 ```{r}
 i <- l_graph_inspector_analysis()
 ```
+
+#### Value
+widget handle
+
+#### See Also
+l_create_handle

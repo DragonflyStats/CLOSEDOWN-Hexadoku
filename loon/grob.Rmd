@@ -1,5 +1,14 @@
+---
+title: "condGrob "
+output: html_document
+---
 
-condGrob Create a named grob or a template grob depending on a test
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+Create a named grob or a template grob depending on a test
 
 #### Description 
 
@@ -15,24 +24,12 @@ condGrob(test = TRUE, grobFun = grob, name = "grob name", ...)
 </code></pre>
 #### Arguments 
 
-test Either 'TRUE' or 'FALSE' to indicate whether 'grobFun' is to be used (default
+* test Either 'TRUE' or 'FALSE' to indicate whether 'grobFun' is to be used (default
 'TRUE') or not.
-grobFun The function to be used to create the grob when 'test = TRUE' (e.g. 'textGrob',
-'polygonGrob', etc.).
-name The name to be used for the returned grob.
-... The 
-</code></pre>
-#### Arguments 
- to be given to the 'grobFun' (or to 'grob()' when 'test = FALSE').
-Value
-A grob as produced by either the 'grobFun' given or by 'grob()' using the remaining 
-</code></pre>
-#### Arguments 
-. If
-'test = FALSE' then the name is suffixed by ": 'grobFun name' 
-</code></pre>
-#### Arguments 
-".
+* grobFun The function to be used to create the grob when 'test = TRUE' (e.g. 'textGrob','polygonGrob', etc.).
+* name The name to be used for the returned grob.
+* ... The Arguments  to be given to the 'grobFun' (or to 'grob()' when 'test = FALSE').
+
 
 #### Examples 
 ```{r}
@@ -41,3 +38,7 @@ grobFun = textGrob,
 name = "my label",
 label = "Some random text")
 ```
+#### Value
+A grob as produced by either the 'grobFun' given or by 'grob()' using the remaining Arguments 
+. If
+'test = FALSE' then the name is suffixed by ": 'grobFun name' arguments ".

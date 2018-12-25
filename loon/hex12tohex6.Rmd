@@ -1,4 +1,14 @@
-hex12tohex6 Convert 12 hexadecimal digit color representations to 6 hexidecimal
+---
+title: "hex12tohex6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+ Convert 12 hexadecimal digit color representations to 6 hexidecimal
 digit color representations
 
 #### Description 

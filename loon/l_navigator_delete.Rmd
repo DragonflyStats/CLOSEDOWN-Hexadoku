@@ -25,6 +25,6 @@ l_navigator_delete(widget, id)
 
 widget graph widget
 id navigator handle or navigator id
-160 l_navigator_getPath
-See Also
+
+#### See Also
 l_navigator_add

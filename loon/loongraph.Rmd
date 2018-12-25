@@ -1,0 +1,56 @@
+---
+title: "loongraph"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+loongraph Create a graph object of class loongraph
+
+#### Description 
+
+The loongraph class provides a simple alternative to the graph class to create common graphs that
+are useful for use as navigation graphs.
+
+#### Usage
+<pre><code>
+
+loongraph(nodes, from = character(0), to = character(0),
+isDirected = FALSE)
+</code></pre>
+
+#### Arguments 
+
+* nodes a character vector with node names, each element defines a node hence the elements need to be unique
+* from a character vector with node names, each element defines an edge
+* to a character vector with node names, each element defines an edge
+* isDirected boolean scalar, defines whether from and to define directed edges
+
+
+#### Examples 
+```{r}
+g <- loongraph(
+nodes = c("A", "B", "C", "D"),
+from = c("A", "A", "B", "B", "C"),
+to = c("B", "C", "C", "D", "D")
+)
+## Not run:
+# create a loon graph plot
+p <- l_graph(g)
+## End(Not run)
+lg <- linegraph(g)
+```
+
+#### Details 
+
+loongraph objects can be converted to graph objects (i.e. objects of class graph which is defined in
+the graph package) with the as.graph function.
+For more information run: l_help("learn_R_display_graph.html.html#graph-utilities")
+
+#### Value
+graph object of class loongraph
+See Also
+completegraph, linegraph, complement, as.graph
+18 loonGrob

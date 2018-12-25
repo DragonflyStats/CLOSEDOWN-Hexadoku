@@ -1,11 +1,18 @@
+---
+title: "``l_graph.default``"
+output: html_document
+---
 
-l_graph.default Create a graph display based on node names and from-to edges list
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+ Create a graph display based on node names and from-to edges list
 
 #### Description 
 
-This default method uses the loongraph display states as 
-</code></pre>
-#### Arguments 
+This default method uses the loongraph display states as arguments 
  to create a graph display.
 
 #### Usage
@@ -16,16 +23,16 @@ l_graph(nodes = "", from = "", to = "",
 parent = NULL, ...)
 
 </code></pre>
+
 #### Arguments 
 
 nodes vector with nodenames
 from vector with node names of the from-to pairs for edges
 to vector with node names of the from-to pairs for edges
 parent parent widget of graph display
-... 
-</code></pre>
-#### Arguments 
+...  Arguments 
  to modify the graph display state
+
 
 #### Details 
 

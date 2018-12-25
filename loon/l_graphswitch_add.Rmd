@@ -1,5 +1,15 @@
+---
+title: "``l_graphswitch_add``"
+output: html_document
+---
 
-l_graphswitch_add Add a graph to a graphswitch widget
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
+ Add a graph to a graphswitch widget
 
 #### Description 
 
