@@ -1,4 +1,14 @@
-l_graphswitch_get Return a Graph as a loongraph Object
+---
+title: "``l_graphswitch_get``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+ Return a Graph as a loongraph Object
 
 #### Description 
 

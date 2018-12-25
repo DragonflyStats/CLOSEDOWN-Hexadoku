@@ -1,5 +1,14 @@
+---
+title: "``l_glyphs_inspector_serialaxes``"
+output: html_document
+---
 
-l_glyphs_inspector_serialaxes
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
 Create a Serialaxes Glyph Inspector
 
 #### Description 
@@ -15,16 +24,16 @@ l_glyphs_inspector_serialaxes(parent = NULL, ...)
 #### Arguments 
 
 * ``parent ``:  parent widget path
-... state 
-</code></pre>
-#### Arguments 
+* ``...``: state Arguments 
 
-Value
-widget handle
-See Also
-l_create_handle
+
 
 #### Examples 
 ```{r}
 i <- l_glyphs_inspector_serialaxes()
 ```
+
+Value
+widget handle
+See Also
+l_create_handle

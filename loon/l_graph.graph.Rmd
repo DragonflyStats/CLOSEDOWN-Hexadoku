@@ -1,5 +1,15 @@
+---
+title: "``l_graph.graph``"
+output: html_document
+---
 
-l_graph.graph Create a graph display based on a graph object
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
+ Create a graph display based on a graph object
 
 #### Description 
 
@@ -12,12 +22,11 @@ Graph objects are defined in the graph R package.
 l_graph(nodes, ...)
 
 </code></pre>
+
 #### Arguments 
 
 nodes a graph object created with the functions in the graph R package.
-... 
-</code></pre>
-#### Arguments 
+...  Arguments 
  to modify the graph display state
 
 #### Details 

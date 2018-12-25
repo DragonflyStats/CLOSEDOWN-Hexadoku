@@ -1,15 +1,14 @@
 ---
-title: "loon"
-author: "Kevin O'Brien"
-date: "24 December 2018"
+title: "``l_navigator_delete``"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(loon)
 ```
 
-l_navigator_delete Delete a Navigator
+### Delete a Navigator
 
 #### Description 
 
@@ -23,8 +22,8 @@ l_navigator_delete(widget, id)
 </code></pre>
 #### Arguments 
 
-widget graph widget
-id navigator handle or navigator id
+* widget graph widget
+* id navigator handle or navigator id
 
 #### See Also
-l_navigator_add
+``l_navigator_add``

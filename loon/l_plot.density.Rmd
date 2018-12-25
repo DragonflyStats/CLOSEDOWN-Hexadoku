@@ -1,19 +1,17 @@
 ---
 title: "``l_plot.density ``"
-author: "Kevin O'Brien"
-date: "24 December 2018"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(loon)
 ```
 Loon methods for Kernel Density Estimation
 
 #### Description 
 
 The loon plot method for density objects.
-178 l_plot.map
 
 #### Usage
 <pre><code>
@@ -24,23 +22,15 @@ title = NULL, linewidth = 2, color = NULL, size = 0.5, ...)
 
 </code></pre>
 #### Arguments 
-
-x a density object
-y NULL . This argument is ignored.
-ylabel the graphical parameter ylabel labelling the y axis of the plot. If NULL (the default),
-an ylabel is created based on the combination of data name and "density".
-xlabel the graphical parameter xlabel labelling the x axis of the plot. If NULL (the default),
-an xlabel is created based on the information available from the density
-objects.
-title providing a title for the plot. If NULL (the default), the title will be the call which
-produced the result.
-linewidth line width, default value is 2.
-color line colour. If NULL (the default) colour will be taken from l_getOption("foreground").
-size points size, default value is 0.5
-... named 
-</code></pre>
-#### Arguments 
- being states passed to l_plot()
+* x a density object
+* y NULL . This argument is ignored.
+* ylabel the graphical parameter ylabel labelling the y axis of the plot. If NULL (the default), an ylabel is created based on the combination of data name and "density".
+* xlabel the graphical parameter xlabel labelling the x axis of the plot. If NULL (the default), an xlabel is created based on the information available from the density objects.
+* title providing a title for the plot. If NULL (the default), the title will be the call which produced the result.
+* linewidth line width, default value is 2.
+* color line colour. If NULL (the default) colour will be taken from l_getOption("foreground").
+* size points size, default value is 0.5
+... named arguments  being states passed to ``l_plot()``.
 
 #### Examples 
 ```{r}

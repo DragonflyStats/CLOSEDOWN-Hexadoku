@@ -1,5 +1,14 @@
+---
+title: "``completegraph ``"
+output: html_document
+---
 
-completegraph Create a complete graph or digraph with a set of nodes
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+Create a complete graph or digraph with a set of nodes
 
 #### Description 
 
@@ -13,22 +22,23 @@ of distinct vertices is connected by a pair of unique edges (one in each directi
 completegraph(nodes, isDirected = FALSE)
 
 </code></pre>
+
 #### Arguments 
 
-nodes a character vector with node names, each element defines a node hence the elements
-need to be unique
-isDirected a boolean scalar to indicate wheter the returned object is a complete graph (undirected)
-or a complete digraph (directed).
+* nodes a character vector with node names, each element defines a node hence the elements need to be unique
+* isDirected a boolean scalar to indicate wheter the returned object is a complete graph (undirected) or a complete digraph (directed).
+
+#### Examples 
+
+```{r}
+g <- loon::completegraph(letters[1:5])
+```
 
 #### Details 
 
 Note that this function masks the completegraph function of the graph package. Hence it is a good
 idead to specify the package namespace with ::, i.e. loon::completegraph and graph::completegraph.
 For more information run: l_help("learn_R_display_graph.html.html#graph-utilities")
-Value
-graph object of class loongraph
 
-#### Examples 
-```{r}
-g <- loon::completegraph(letters[1:5])
-```
+#### Value
+graph object of class loongraph

@@ -8,13 +8,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-l_navigator_add Add a Navigator to a Graph
+### Add a Navigator to a Graph
 
 #### Description 
 
 To turn a graph into a navigation graph you need to add one or more navigators. Navigator have
 their own set of states that can be queried and modified.
-l_navigator_delete 159
 
 #### Usage
 <pre><code>
@@ -23,26 +22,22 @@ l_navigator_add(widget, from = "", to = "", proportion = 0,
 color = "orange", ...)
 
 </code></pre>
+
 #### Arguments 
 
-widget graph widget
-from The position of the navigator on the graph is defined by the states from, to and
-proportion. The states from and to hold vectors of node names of the graph.
-The proportion state is a number between and including 0 and 1 and defines
-how far the navigator is between the last element of from and the first element
-of to. The to state can also be an empty string '' if there is no further node to
-go to. Hence, the concatenation of from and to define a path on the graph.
+* widget graph widget
+* from The position of the navigator on the graph is defined by the states from, to and proportion. The states from and to hold vectors of node names of the graph. The proportion state is a number between and including 0 and 1 and defines
+how far the navigator is between the last element of from and the first element of to. The to state can also be an empty string '' if there is no further node to go to. Hence, the concatenation of from and to define a path on the graph.
 to see descriptoin above for from
-proportion see descriptoin above for from
-color of navigator
-... named Arguments 
- passed on to modify navigator states
+* proportion see descriptoin above for from color of navigator
+* ... named Arguments  passed on to modify navigator states
 
 #### Details 
 
 For more information run: l_help("learn_R_display_graph.html#navigators")
 Value
 navigator handle with navigator id
-See Also
+
+#### See Also
 l_navigator_delete, l_navigator_ids, l_navigator_walk_path, l_navigator_walk_forward,
 l_navigator_walk_backward, l_navigator_relabel, l_navigator_getLabel

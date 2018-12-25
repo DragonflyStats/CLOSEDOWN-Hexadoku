@@ -13,7 +13,7 @@ Create a named grob or a template grob depending on a test
 #### Description 
 
 Creates and returns a grid object using the function given by 'grobFun' when 'test' is 'TRUE'
-Otherwise a simple 'grob()' is produced with the same parameters. All grob parameters are given
+Otherwise a simple '``grob()``' is produced with the same parameters. All grob parameters are given
 in '...'.
 
 #### Usage
