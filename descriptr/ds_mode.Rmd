@@ -1,0 +1,35 @@
+
+ds_mode Mode
+
+#### Description 
+ 
+Compute the sample mode
+
+#### Usage 
+<pre><code>
+
+ds_mode(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose mode is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+#### Details
+Any NA values are stripped from x before computation takes place.
+Value
+Mode of x
+
+#### Deprecated Function
+‘stat_mode()‘ has been deprecated. Instead use ‘ds_mode()‘.
+See Also
+mean median
+
+#### Examples 
+```{r}
+
+ds_mode(mtcars$mpg)
+ds_mode(mtcars$cyl)
+```
