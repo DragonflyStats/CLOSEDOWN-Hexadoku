@@ -1,0 +1,33 @@
+
+ds_rindex Index Values
+
+#### Description 
+ 
+Returns index of values.
+
+#### Usage 
+<pre><code>
+
+ds_rindex(data, values)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data``: a numeric vector
+values a numeric vector containing the values whose index is returned
+
+#### Details
+Any NA values are stripped from data and values before computation takes place.
+
+#### Value
+Index of the values in data. In case, data does not contain index, NULL is returned.
+
+#### Deprecated Function
+rindex() has been deprecated. Instead use ds_rindex().
+
+#### Examples 
+```{r}
+
+ds_rindex(mtcars$mpg, 21)
+ds_rindex(mtcars$mpg, 22)
+```
