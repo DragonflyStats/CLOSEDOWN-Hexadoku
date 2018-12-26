@@ -1,0 +1,31 @@
+
+ds_range Range
+
+#### Description 
+ 
+Compute the range of a numeric vector
+
+#### Usage 
+<pre><code>
+
+ds_range(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation proceeds.
+Value
+Range of x
+
+#### Deprecated Function
+stat_range() has been deprecated. Instead use ds_range().
+24 ds_rindex
+See Also
+range
+
+#### Examples 
+```{r}
+
+ds_range(mtcars$mpg)
+```
