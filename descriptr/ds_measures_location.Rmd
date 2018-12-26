@@ -1,0 +1,23 @@
+
+ds_measures_location Measures of location
+
+#### Description 
+ 
+Returns the measures of location such as mean, median & mode.
+
+#### Usage 
+<pre><code>
+
+ds_measures_location(data, column, trim = 0.05)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`` : A data.frame or tibble.
+* ``column`` :  Column in data.
+* ``trim``: The fraction of values to be trimmed before computing the mean.
+
+#### Examples 
+```{r}
+ds_measures_location(mtcarz, mpg)
+```
