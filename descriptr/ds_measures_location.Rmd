@@ -1,5 +1,16 @@
+---
+title: "``ds_measures_location``:   Measures of location"
+output: html_document
+---
 
-ds_measures_location Measures of location
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+
+
 
 #### Description 
  

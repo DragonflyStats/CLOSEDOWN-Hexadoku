@@ -1,5 +1,14 @@
+---
+title: "``ds_range Range``"
+output: html_document
+---
 
-ds_range Range
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
 
 #### Description 
  

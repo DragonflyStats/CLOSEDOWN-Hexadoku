@@ -1,5 +1,15 @@
+---
+title: "``ds_multi_stats  ``"
+output: html_document
+---
 
-ds_multi_stats Multiple variable statistics
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+Multiple variable statistics
 
 #### Description 
  

@@ -1,6 +1,12 @@
+---
+title: "``ds_measures_symmetry``:   Measures of symmetry"
+output: html_document
+---
 
-
-ds_measures_symmetry Measures of symmetry
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
 
 #### Description 
  

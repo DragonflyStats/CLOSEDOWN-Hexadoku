@@ -1,5 +1,14 @@
+---
+title: "``ds_cvar``:  Coefficient of Variation"
+output: html_document
+---
 
-ds_cvar Coefficient of Variation
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
 
 #### Description 
  

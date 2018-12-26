@@ -1,5 +1,15 @@
+---
+title: "``ds_percentiles``: Percentiles"
+output: html_document
+---
 
-ds_percentiles Percentiles
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+
 
 #### Description 
  

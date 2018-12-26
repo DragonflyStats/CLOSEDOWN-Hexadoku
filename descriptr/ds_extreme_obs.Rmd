@@ -1,5 +1,14 @@
+---
+title: "``ds_extreme_obs``"
+output: html_document
+---
 
-ds_extreme_obs Extreme observations
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+### Extreme observations
 
 #### Description 
  
