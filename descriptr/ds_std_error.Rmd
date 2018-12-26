@@ -1,0 +1,22 @@
+
+ds_std_error Standard error of mean
+
+#### Description 
+ 
+Returns the standard error of mean.
+
+#### Usage 
+<pre><code>
+
+ds_std_error(x)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector.
+
+#### Examples 
+```{r}
+
+ds_std_error(mtcars$mpg)
+```
