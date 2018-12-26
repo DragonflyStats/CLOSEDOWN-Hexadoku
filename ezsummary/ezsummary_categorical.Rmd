@@ -1,8 +1,17 @@
+---
+title: "``ezsummary_categorical``"
+output: html_document
+---
 
-ezsummary_categorical Easily summarize categorical data
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ezsummary)
+```
+ Easily summarize categorical data
 #### Description 
 
 ezsummary_categorical() summarizes categorical data.
+
 Shorthand for ezsummary_categorical
 
 
@@ -29,16 +38,18 @@ signif, ceiling and floor. When ceiling or floor is selected, digits would not h
 * ``flavor`` A character string with two possible inputs: "long" and "wide". "Long" is the default setting which will put grouping information on the left side of the table. It is more machine readable and is good to be passed into the next analytical stage if needed. "Wide" is more print ready (except for column names, which you can fix in the next step, or fix in LaTex or packages like htmlTable). In the "wide" mode, the analyzed variable will be the only "ID" variable and all the stats values will be presented ogranized by the grouping variables (if any). If there is no grouping, the outputs of "wide" and "long" will be the same.
 * ``fill`` If set, missing values created by the "wide" flavor will be replaced with this value. Please check spread for details. Default value is 0 
 * ``unit_markup`` When unit_markup is not NULL, it will call the ezmarkup function and perform
-* ``column``: combination here. To make everyone's life easier, I'm using the term "unit" here. Each unit mean each group of statistical summary results. If you want to know mean and stand deviation, these two values are your units so you can put something like "[. (.)]" there #' @param P Deprecated; Will change the value of p_type if used in this version.
-ezsummary_quantitative 5
+* ``column``: combination here. To make everyone's life easier, I'm using the term "unit" here. Each unit mean each group of statistical summary results. If you want to know mean and stand deviation, these two values are your units so you can put something like "[. (.)]" there #' @param P Deprecated; Will change the value of ``p_type`` if used in this version.
+
 
 #### Examples
 ```{r}
 library(dplyr)
 mtcars %>%
+
 group_by(am) %>%
 select(cyl, gear, carb) %>%
 ezsummary_categorical()
+
 mtcars %>%
 select(cyl, gear, carb) %>%
 ezsummary_categorical(n=TRUE, round.N = 2)

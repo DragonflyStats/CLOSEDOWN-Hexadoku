@@ -1,4 +1,13 @@
-ezsummary_quantitative() Easily summarize quantitative data
+---
+title: "``ezsummary_quantitative()``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ezsummary)
+```
+ Easily summarize quantitative data
 #### Description 
 
 ezsummary_quantitative() summarizes quantitative data.

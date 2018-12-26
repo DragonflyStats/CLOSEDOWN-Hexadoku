@@ -1,9 +1,19 @@
-element_render
+---
+title: "``element_render``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+librayr(lemon)
+```
+
+
 Render a ggplot2 grob or retrieve its gpar object.
 
 #### Description
-Helps add the ggplot2-theme's look-and-feel to grid's grob objects. render_gpar returns a gpar-
-object, element_render returns a grid.grob-object.
+* Helps add the ggplot2-theme's look-and-feel to grid's grob objects.
+* ``render_gpar`` returns a gpar-object, ``element_render`` returns a grid.grob-object.
 
 
 #### Usage
@@ -13,17 +23,16 @@ render_gpar(theme, element, ...)
 </code></pre>
 
 #### Arguments
-* theme A ggplot2 theme
-* element The name of an element in the theme, e.g. "axis.text".
-* ... Additional arguments sent to grobs (e.g. x or y).
-* name Returned grob's name..
+* ``theme``: A ggplot2 theme
+* ``element``: The name of an element in the theme, e.g. "axis.text".
+* ``...``: Additional arguments sent to grobs (e.g. x or y).
+* ``name``: Returned grob's name..
 
 #### Value
 A grid.grob or gpar object.
 
-Author(s)
-element_render is from ggplot2 source.10
-geom_pointpath
+#### Author(s)
+element_render is from ggplot2 source.
 
 ### See Also
 theme

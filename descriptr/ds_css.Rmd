@@ -1,0 +1,46 @@
+---
+title: "``ds_css ``"
+author: "Kevin O'Brien"
+date: "26 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+Corrected Sum of Squares
+
+#### Description 
+ 
+Compute the corrected sum of squares
+
+#### Usage 
+<pre><code>
+
+ds_css(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose mode is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+#### Details
+Any NA values are stripped from x before computation takes place.
+
+#### Value
+Corrected sum of squares of x
+
+#### Deprecated Function
+stat_css() has been deprecated. Instead use ds_css().
+References
+NIST/SEMATECH e-Handbook of Statistical Methods
+
+#### Examples 
+```{r}
+
+ds_css(mtcars$mpg)
+```
