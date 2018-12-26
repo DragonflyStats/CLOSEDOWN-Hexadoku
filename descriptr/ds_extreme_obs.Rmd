@@ -1,0 +1,23 @@
+
+ds_extreme_obs Extreme observations
+
+#### Description 
+ 
+Returns the most extreme observations.
+
+#### Usage 
+<pre><code>
+
+ds_extreme_obs(data, column)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`` : A data.frame or tibble.
+* ``column`` :  Column in data.
+
+#### Examples 
+```{r}
+
+ds_extreme_obs(mtcarz, mpg)
+```
