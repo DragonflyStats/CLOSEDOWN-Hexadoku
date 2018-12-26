@@ -1,0 +1,52 @@
+---
+title: "ds_cross_table "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+##  Two way table
+
+#### Description 
+ 
+Creates two way tables of categorical variables. The tables created can be visualized as barplots
+and mosaicplots.
+
+#### Usage 
+<pre><code>
+
+ds_cross_table(data, var1, var2)
+## S3 method for class 'ds_cross_table'
+plot(x, stacked = FALSE, proportional = FALSE, ...)
+ds_twoway_table(data, var1, var2)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`data.frame or a tibble.
+* ``var1``:  First categorical variable.
+var2 Second categorical variable.
+* ``x`` : An object of class cross_table.
+* stacked If FALSE, the columns of height are portrayed as stacked bars, and if TRUE the
+columns are portrayed as juxtaposed bars.
+* proportional If TRUE, the height of the bars is proportional.
+... Further Arguments to be passed to or from methods.
+
+#### Deprecated function
+ds_cross_table() has been deprecated. Instead use ds_cross_table().
+
+#### Examples 
+```{r}
+
+k <- ds_cross_table(mtcarz, cyl, gear)
+k
+# bar plots
+plot(k)
+plot(k, stacked = TRUE)
+plot(k, proportional = TRUE)
+# alternate
+ds_twoway_table(mtcarz, cyl, gear)
+```

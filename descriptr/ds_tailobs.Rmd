@@ -9,7 +9,7 @@ library(descriptr)
 ```
 
 
- Tail Observations
+### Tail Observations
 
 #### Description 
  
@@ -24,8 +24,8 @@ ds_tailobs(data, n, type = c("low", "high"))
 #### Arguments 
  
 * ``data``: a numeric vector
-n number of observations to be returned
-type if low, the n lowest observations are returned, else the highest n obervations are
+* n number of observations to be returned
+* type if low, the n lowest observations are returned, else the highest n obervations are
 returned
 
 

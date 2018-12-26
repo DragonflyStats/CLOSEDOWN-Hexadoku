@@ -1,0 +1,54 @@
+---
+title: "``ds_freq_table ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+Frequency table
+
+#### Description 
+ 
+* Frequency table for factor data and returns the frequency, cumulative frequency, frequency percent and cumulative frequency percent. 
+* ``barplot.ds_freq_table()`` creates bar plot for the frequency table created using ``ds_freq_table()``.
+
+#### Usage 
+<pre><code>
+
+ds_freq_table(data, variable)
+## S3 method for class 'ds_freq_table'
+plot(x, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`data.frame or a tibble.
+* ``variable`` :   Column in data.
+* ``x`` : An object of class ds_freq_table.
+* ... Further Arguments to be passed to or from methods.
+
+
+
+#### Examples 
+```{r}
+
+# frequency table
+ds_freq_table(mtcarz, cyl)
+# barplot
+k <- ds_freq_table(mtcarz, cyl)
+plot(k)
+```
+
+#### Value
+ds_freq_table returns an object of class "ds_freq_table". An object of class "ds_freq_table"
+is a list containing the following components:
+ftable Frequency table.
+
+#### Deprecated function
+freq_table() has been deprecated. Instead use ds_freq_table().
+
+#### See Also
+ds_freq_cont ds_cross_table
