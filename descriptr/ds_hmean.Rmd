@@ -1,0 +1,42 @@
+---
+title: "``ds_hmean ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+ds_hmean Harmonic Mean
+
+#### Description 
+ 
+Compute the harmonic mean
+
+#### Usage 
+<pre><code>
+
+ds_hmean(x, na.rm = FALSE, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose harmonic mean is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation proceeds.
+... further arguments   passed to or from other methods #'@details Any NA values are stripped from x before computation takes place.
+
+#### Value
+Returns the harmonic mean of x
+
+#### Deprecated function
+hmean() has been deprecated. Instead use ds_hmean().
+
+#### See Also
+ds_gmean mean
+
+#### Examples 
+```{r}
+
+ds_hmean(mtcars$mpg)
+```

@@ -1,5 +1,15 @@
+---
+title: "``ds_screener``"
+output: html_document
+---
 
-ds_screener Screen data
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+ Screen data
 
 #### Description 
  

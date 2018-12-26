@@ -1,0 +1,48 @@
+---
+title: "``ds_mdev ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+### Mean Absolute Deviation
+
+#### Description 
+ 
+Compute the mean absolute deviation about the mean
+
+#### Usage 
+
+<pre><code>
+
+ds_mdev(x, na.rm = FALSE)
+
+</code></pre>
+
+#### Arguments 
+ 
+* ``x``: a numeric vector
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+
+
+#### Examples 
+```{r}
+
+ds_mdev(mtcars$mpg)
+```
+#### Details
+The stat_mdev function computes the mean absolute deviation about the mean. It is different from
+mad in stats package as the statistic used to compute the deviations is not median but mean. Any
+NA values are stripped from x before computation takes place
+Value
+Mean absolute deviation of x
+
+#### Deprecated Function
+stat_mdev() has been deprecated. Instead use ds_mdev().
+See Also
+mad

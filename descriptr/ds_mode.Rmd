@@ -1,5 +1,13 @@
+---
+title: "``ds_mode ``Mode"
+output: html_document
+---
 
-ds_mode Mode
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
 
 #### Description 
  

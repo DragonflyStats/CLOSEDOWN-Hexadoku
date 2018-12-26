@@ -1,0 +1,33 @@
+---
+title: "ds_launch_shiny_app"
+author: "Kevin O'Brien"
+date: "26 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ Launch Shiny App
+
+#### Description 
+ 
+Launches shiny app
+
+#### Usage 
+<pre><code>
+ds_launch_shiny_app()
+</code></pre>
+
+#### Deprecated Function
+launch_descriptr() has been deprecated. Instead use ds_launch_shiny_app().
+
+
+#### Examples 
+```{r}
+
+## Not run:
+ds_launch_shiny_app()
+## End(Not run)
+```

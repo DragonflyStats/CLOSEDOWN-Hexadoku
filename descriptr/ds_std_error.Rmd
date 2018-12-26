@@ -1,5 +1,14 @@
+---
+title: "``ds_std_error``"
+output: html_document
+---
 
-ds_std_error Standard error of mean
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+ Standard error of mean
 
 #### Description 
  

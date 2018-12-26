@@ -1,0 +1,50 @@
+---
+title: "ds_kurtosis Kurtosis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+#### Description 
+ 
+Compute the kurtosis of a probability distribution.
+
+#### Usage 
+<pre><code>
+
+ds_kurtosis(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose kurtosis is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+
+
+#### Examples 
+```{r}
+
+ds_kurtosis(mtcars$mpg)
+```
+
+Details
+Any NA values are stripped from x before computation takes place.
+Value
+Kurtosis of x
+
+
+#### Deprecated Function
+kurtosis() has been deprecated. Instead use ds_kurtosis().
+
+#### References
+Sheskin, D.J. (2000) Handbook of Parametric and Nonparametric Statistical Procedures, Second
+Edition. Boca Raton, Florida: Chapman & Hall/CRC.
+
+#### See Also
+ds_skewness

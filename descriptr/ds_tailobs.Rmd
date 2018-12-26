@@ -1,0 +1,46 @@
+---
+title: "``ds_tailobs``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+ Tail Observations
+
+#### Description 
+ 
+Returns the n highest/lowest observations from a numeric vector.
+
+#### Usage 
+<pre><code>
+
+ds_tailobs(data, n, type = c("low", "high"))
+
+</code></pre>
+#### Arguments 
+ 
+* ``data``: a numeric vector
+n number of observations to be returned
+type if low, the n lowest observations are returned, else the highest n obervations are
+returned
+
+
+#### Examples 
+```{r}
+
+ds_tailobs(mtcarz$mpg, 5)
+ds_tailobs(mtcarz$mpg, 5, type = "high")
+```
+
+Details
+Any NA values are stripped from data before computation takes place.
+Value
+n highest/lowest observations from data
+Deprecated function
+tailobs() has been deprecated. Instead use ds_tailobs().
+See Also
+top_n

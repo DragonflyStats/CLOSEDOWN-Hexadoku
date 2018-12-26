@@ -1,0 +1,44 @@
+---
+title: "``ds_gmean``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
+
+ Geometric Mean
+
+#### Description 
+ 
+Compute the geometric mean
+
+#### Usage 
+<pre><code>
+
+ds_gmean(x, na.rm = FALSE, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose geometric mean is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+... further Arguments   passed to or from other methods #' @details Any NA values
+are stripped from x before computation takes place.
+
+#### Value
+Returns the geometric mean of x
+
+#### Deprecated function
+gmean() has been deprecated. Instead use ds_gmean().
+See Also
+ds_hmean mean
+
+#### Examples 
+```{r}
+
+ds_gmean(mtcars$mpg)
+```

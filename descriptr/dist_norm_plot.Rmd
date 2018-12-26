@@ -1,4 +1,13 @@
-dist_norm_plot
+---
+title: "``dist_norm_plot``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(descriptr)
+```
+
 
 Visualize normal distribution
 
