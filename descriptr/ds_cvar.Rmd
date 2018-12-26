@@ -1,0 +1,29 @@
+
+ds_cvar Coefficient of Variation
+
+#### Description 
+ 
+Compute the coefficient of variation
+
+#### Usage 
+<pre><code>
+
+ds_cvar(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose mode is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+#### Details
+Any NA values are stripped from x before computation takes place.
+
+#### Deprecated Function
+stat_cvar() has been deprecated. Instead use ds_cvar().
+
+#### Examples 
+```{r}
+ds_cvar(mtcars$mpg)
+```
