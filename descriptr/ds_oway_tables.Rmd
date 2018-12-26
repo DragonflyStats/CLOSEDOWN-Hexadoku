@@ -1,0 +1,37 @@
+
+ds_oway_tables Multiple One & Two Way Tables
+
+#### Description 
+ 
+ds_oway_tables creates multiple one way tables by creating a frequency table for each categorical variable in a data frame. ds_tway_tables creates multiple two way tables by creating a cross table for each unique pair of categorical variables in a data frame.
+
+#### Usage 
+<pre><code>
+
+ds_oway_tables(data)
+ds_tway_tables(data)
+
+</code></pre>
+#### Arguments 
+ 
+data a data frame
+
+#### Details
+* ds_oway_tables is a extension of the ds_freq_table function. It creates a frequency table for
+each categorical variable in the dataframe. 
+* ds_tway_tables is a extension of the ds_cross_table
+function. It creates a two way table for each unique pair of categorical variables in the dataframe.
+Deprecated Functions
+oway_tables() and tway_tables() have been deprecated. Instead use ds_oway_tables() and
+ds_tway_tables().
+See Also
+link{ds_freq_table} link{ds_cross_table}
+
+#### Examples 
+```{r}
+
+# multiple one way tables
+ds_oway_tables(mtcarz)
+# multiple two way tables
+ds_tway_tables(mtcarz)
+```
