@@ -1,0 +1,29 @@
+
+ds_summary_stats Descriptive statistics
+
+#### Description 
+ 
+Range of descriptive statistics for continuous data.
+
+#### Usage 
+<pre><code>
+
+ds_summary_stats(data, variable)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`` : A data.frame or tibble.
+* ``variable`` :   Column in data.
+
+#### Deprecated function
+summary_stats() has been deprecated. Instead use ds_summary_stats().
+
+#### See Also
+summary ds_freq_cont ds_freq_table ds_cross_table
+
+#### Examples 
+```{r}
+
+ds_summary_stats(mtcarz, mpg)
+```
