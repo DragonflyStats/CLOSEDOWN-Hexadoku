@@ -1,4 +1,16 @@
-l_graph.loongraph Create a graph display based on a loongraph object
+---
+title: "``l_graph.loongraph``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
+
+ Create a graph display based on a loongraph object
 
 #### Description 
 

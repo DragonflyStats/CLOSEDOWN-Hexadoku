@@ -1,0 +1,39 @@
+---
+title: "``plot.loongraph``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+ Plot a loon graph object with base R graphics
+
+#### Description 
+
+This function converts the loongraph object to one of class graph and the plots it with its respective
+plot method.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'loongraph'
+plot(x, ...)
+
+</code></pre>
+#### Arguments 
+
+x object of class loongraph
+... 
+</code></pre>
+#### Arguments 
+ forwarded to method
+
+#### Examples 
+```{r}
+if (requireNamespace("Rgraphviz", quietly = TRUE)) {
+g <- loongraph(letters[1:4], letters[1:3], letters[2:4], FALSE)
+plot(g)
+}
+```

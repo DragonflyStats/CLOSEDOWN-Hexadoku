@@ -1,5 +1,14 @@
+---
+title: "``l_glyphs_inspector_text``"
+output: html_document
+---
 
-l_glyphs_inspector_text
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+
 Create a Text Glyph Inspector
 
 #### Description 
@@ -15,15 +24,16 @@ l_glyphs_inspector_text(parent = NULL, ...)
 #### Arguments 
 
 * ``parent ``:  parent widget path
-... state arguments 
+* ``...``: state arguments 
 
-70 l_glyph_add
-Value
-widget handle
-See Also
-l_create_handle
 
 #### Examples 
 ```{r}
 i <- l_glyphs_inspector_text()
 ```
+
+
+#### Value
+widget handle
+See Also
+l_create_handle

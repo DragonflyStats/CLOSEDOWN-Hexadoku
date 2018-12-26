@@ -1,0 +1,31 @@
+---
+title: "print.l_layer"
+author: "Kevin O'Brien"
+date: "26 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ Print a summary of a loon layer object
+
+#### Description 
+
+Prints the layer label and layer type
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'l_layer'
+print(x, ...)
+
+</code></pre>
+#### Arguments 
+
+x an l_layer object
+... additional Arguments 
+ are not used for this methiod
+See Also
+l_layer

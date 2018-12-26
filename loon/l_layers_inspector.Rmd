@@ -1,5 +1,5 @@
 ---
-title: "loon"
+title: "``l_layers_inspector``"
 output: html_document
 ---
 
@@ -7,7 +7,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(loon)
 ```
-l_layers_inspector Create a Layers Inspector
+### l_layers_inspector Create a Layers Inspector
+
 
 #### Description 
 

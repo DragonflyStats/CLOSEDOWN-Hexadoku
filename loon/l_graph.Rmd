@@ -1,4 +1,14 @@
-l_graph Generic funtction to create an interactive graph display
+---
+title: "``l_graph``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+ Generic funtction to create an interactive graph display
 
 #### Description 
 

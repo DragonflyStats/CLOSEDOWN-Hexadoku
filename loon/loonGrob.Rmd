@@ -1,5 +1,14 @@
+---
+title: "``loonGrob``"
+output: html_document
+---
 
-loonGrob Create a grid grob from a loon widget handle
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+
+Create a grid grob from a loon widget handle
 
 #### Description 
 
@@ -10,45 +19,40 @@ Grid grobs are useful to create publication quality graphics.
 
 loonGrob(target, name = NULL, gp = NULL, vp = NULL)
 ## S3 method for class 'l_compound'
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+loonGrob(target, name = NULL, gp = NULL, vp = NULL)
 ## S3 method for class 'l_layer_graph'
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+
+loonGrob(target, name = NULL, gp = NULL,vp = NULL)
+
 ## S3 method for class 'l_layer_histogram'
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+loonGrob(target, name = NULL, gp = NULL,vp = NULL)
+
 ## S3 method for class 'l_layer_scatterplot'
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+loonGrob(target, name = NULL, gp = NULL, vp = NULL)
+
 ## S3 method for class 'l_navgraph'
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+loonGrob(target, name = NULL, gp = NULL,vp = NULL)
 ## S3 method for class 'l_navigator'
-loonGrob 19
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+
+loonGrob(target, name = NULL, gp = NULL,vp = NULL)
 ## S3 method for class 'l_serialaxes'
-loonGrob(target, name = NULL, gp = NULL,
-vp = NULL)
+loonGrob(target, name = NULL, gp = NULL,vp = NULL)
+
 ## S3 method for class 'l_ts'
 loonGrob(target, name = NULL, gp = NULL, vp = NULL)
 
 </code></pre>
 #### Arguments 
 
-target either an object of class loon or a vector that specifies the widget, layer, glyph,
+*target either an object of class loon or a vector that specifies the widget, layer, glyph,
 navigator or context completely. The widget is specified by the widget path
 name (e.g. '.l0.plot'), the remaining objects by their ids.
-name a character identifier for the grob, or NULL. Used to find the grob on the display
+* name a character identifier for the grob, or NULL. Used to find the grob on the display
 list and/or as a child of another grob.
-gp a gpar object, or NULL, typically the output from a call to the function gpar.
+* gp a gpar object, or NULL, typically the output from a call to the function gpar.
 This is basically a list of graphical parameter settings.
-vp a grid viewport object (or NULL).
-Value
-a grid grob
-See Also
-grid.loon
+* vp a grid viewport object (or NULL).
+
 
 #### Examples 
 ```{r}
@@ -57,28 +61,33 @@ lgrob <- loonGrob(widget)
 library(grid)
 grid.ls(lgrob, viewports=TRUE, fullNames=TRUE)
 grid.newpage(); grid.draw(lgrob)
-## Not run:
+
+```
+
+```{r}
 p <- demo("l_layers", ask = FALSE)$value
 lgrob <- loonGrob(p)
 grid.newpage(); grid.draw(lgrob)
 p <- demo("l_glyph_sizes", ask = FALSE)$value
 lgrob <- loonGrob(p)
 grid.newpage()
-20 loonGrob
+
 grid.draw(lgrob)
 ## End(Not run)
-## Not run:
+```
+
+```{r}
 library(grid)
 ## l_pairs (scatterplot matrix) 
 #### Examples 
-```{r}
+
 p <- l_pairs(iris[,-5], color=iris$Species)
 lgrob <- loonGrob(p)
 grid.newpage()
 grid.draw(lgrob)
 ## Time series decomposition 
 #### Examples 
-```{r}
+
 decompose <- decompose(co2)
 # or decompose <- stl(co2, "per")
 p <- l_plot(decompose, title = "Atmospheric carbon dioxide over Mauna Loa")
@@ -122,9 +131,13 @@ grid.newpage(); grid.draw(lgrob)
 ## Not run:
 ## histogram 
 #### Examples 
-```{r}
+
 h <- l_hist(iris$Sepal.Length, color=iris$Species)
 g <- loonGrob(h)
+```
+
+
+```{r}
 library(grid)
 grid.newpage(); grid.draw(g)
 h['showStackedColors'] <- TRUE
@@ -138,14 +151,20 @@ h['colorStackingOrder'] <- rev(h['colorStackingOrder'])
 plot(h)
 # or
 grid.loon(h)
-## End(Not run)
+```
+
+
+```{r}
 ## l_plot scatterplot 
 #### Examples 
 ```{r}
 p <- l_plot(x = c(0,1), y = c(0,1))
 l_layer_rectangle(p, x = c(0,1), y = c(0,1))
 g <- loonGrob(p)
-22 loonGrob
+```
+
+
+```{r}
 library(grid)
 grid.newpage(); grid.draw(g)
 p['glyph'] <- "ctriangle"
@@ -154,10 +173,13 @@ p['size'] <- c(10, 20)
 p['selected'] <- c(TRUE, FALSE)
 g <- loonGrob(p)
 grid.newpage(); grid.draw(g)
-## Not run:
+```
+
+
+```{r}
 ## navgraph 
 #### Examples 
-```{r}
+
 ng <- l_navgraph(oliveAcids, separator='-', color=olive$Area)
 # To print directly use either
 plot(ng)
@@ -168,10 +190,13 @@ lgrob <- loonGrob(ng)
 library(grid)
 grid.newpage()
 grid.draw(lgrob)
-## End(Not run)
+```
+
+
+```{r}
 ## Serial axes (radial and parallel coordinate) 
 #### Examples 
-```{r}
+
 s <- l_serialaxes(data=oliveAcids, color=olive$Area, title="olive data")
 sGrob_radial <- loonGrob(s)
 library(grid)
@@ -179,7 +204,10 @@ grid.newpage(); grid.draw(sGrob_radial)
 s['axesLayout'] <- 'parallel'
 sGrob_parallel <- loonGrob(s)
 grid.newpage(); grid.draw(sGrob_parallel)
-## Not run:
+```
+
+
+```{r}
 ## Time series decomposition 
 #### Examples 
 ```{r}
@@ -195,4 +223,6 @@ loonGrob_layoutType 23
 lgrob <- loonGrob(p)
 grid.newpage()
 grid.draw(lgrob)
-## End(Not run)
+```
+
+

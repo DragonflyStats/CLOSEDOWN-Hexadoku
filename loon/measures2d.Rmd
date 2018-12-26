@@ -1,0 +1,45 @@
+---
+title: "``measures2d``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(loon)
+```
+measures2d Closure of Two Dimensional Measures
+
+#### Description 
+
+Function creates a 2d measures object that can be used with l_ng_plots and l_ng_ranges.
+
+#### Usage
+<pre><code>
+
+measures2d(data, ...)
+
+</code></pre>
+#### Arguments 
+
+* ``data``:   a data.frame with the data used to calculate the measures
+... named arguments , name is the function name and argument is the function to
+calculate the measure for each variable.
+
+#### Details 
+
+For more information run: l_help("learn_R_display_graph.html#measures")
+Value
+a measures object
+See Also
+l_ng_plots, l_ng_ranges, measures2d
+
+#### Examples 
+```{r}
+m <- measures2d(oliveAcids, separator='*', cov=cov, cor=cor)
+m
+m()
+m(keep=olive$palmitic>1360)
+m('data')
+m('grid')
+m('measures')
+```
