@@ -1,0 +1,29 @@
+
+ds_multi_stats Multiple variable statistics
+
+#### Description 
+ 
+Descriptive statistics for multiple variables.
+
+#### Usage 
+<pre><code>
+
+ds_multi_stats(x, ...)
+
+</code></pre>
+#### Arguments 
+ 
+x A tibble or a data.frame.
+... Columns in x.
+
+### Value
+A tibble.
+
+#### Deprecated function
+multistats() has been deprecated. Instead use ds_multi_stats()
+
+#### Examples 
+```{r}
+
+ds_multi_stats(mtcarz, mpg, disp, hp)
+```
