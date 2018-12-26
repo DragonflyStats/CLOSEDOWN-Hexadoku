@@ -1,0 +1,730 @@
+---
+title: "descriptr"
+author: "Kevin O'Brien"
+date: "26 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Package ‘descriptr’
+March 20, 2018
+Type Package
+Title Generate Descriptive Statistics & Explore Statistical
+Distributions
+Version 0.4.1
+
+#### Description 
+  Generate descriptive statistics such as measures of location,
+dispersion, frequency tables, cross tables, group summaries and multiple
+one/two way tables. Visualize and compute percentiles/probabilities of
+normal, t, f, chi square and binomial distributions.
+Depends R(>= 3.2.4)
+Imports dplyr, forcats, ggplot2, graphics, magrittr, rlang, scales,
+shiny, tibble, tidyr
+Suggests covr, haven, jsonlite, knitr, lubridate, readr, readxl,
+rmarkdown, shinyBS, shinythemes, stringr, testthat, tools,
+vdiffr
+License MIT + file LICENSE
+URL https://descriptr.rsquaredacademy.com/,
+https://github.com/rsquaredacademy/descriptr
+BugReports https://github.com/rsquaredacademy/descriptr/issues
+Encoding UTF-8
+LazyData true
+VignetteBuilder knitr
+RoxygenNote 6.0.1
+NeedsCompilation no
+Author Aravind Hebbali [aut, cre]
+Maintainer Aravind Hebbali <hebbali.aravind@gmail.com>
+Repository CRAN
+Date/Publication 2018-03-20 09:41:04 UTC
+1
+2 descriptr
+R topics documented:
+descript2
+dist_binom_plo3
+dist_chi_plo. 4
+dist_f_plo. . . 5
+dist_norm_plo6
+dist_. 7
+ds_cross_tabl. 9
+ds_cs. 10
+ds_cva11
+ds_extreme_ob11
+ds_freq_con. 12
+ds_freq_tabl. 13
+ds_gmea. . . 14
+ds_group_summar. . 14
+ds_hmea. . . 16
+ds_kurtosi. . 16
+ds_launch_shiny_ap. 17
+ds_mde18
+ds_measures_locatio. 19
+ds_measures_symmetr19
+ds_measures_variatio20
+ds_mod20
+ds_multi_stat. 21
+ds_oway_table22
+ds_percentile. 23
+ds_rang23
+ds_rinde. . . 24
+ds_screene. . 25
+ds_skewnes. . 26
+ds_std_erro. . 27
+ds_summary_stat. . . 27
+ds_tailob. . . 28
+hs. . . 29
+mtcar. 29
+Index 30
+descriptr descriptr package
+
+#### Description 
+ 
+Generate descriptive statistics and explore statistical distributions
+dist_binom_plot 3
+dist_binom_plot Visualize binomial distribution
+
+#### Description 
+ 
+Visualize how changes in number of trials and the probability of success affect the shape of the
+binomial distribution. Compute & visualize probability from a given quantile and quantiles out of
+given probability.
+
+#### Usage 
+<pre><code>
+
+dist_binom_plot(n, p)
+dist_binom_prob(n, p, s, type = c("lower", "upper", "exact", "interval"))
+dist_binom_perc(n, p, tp, type = c("lower", "upper"))
+
+</code></pre>
+#### Arguments 
+ 
+n Number of trials.
+p Aggregate probability.
+s Number of success.
+type Lower/upper/exact/interval.
+tp Probability of success in a trial.
+Value
+A list containing the following components:
+avg Mean of the binomial distribution,
+stdev Standard deviation of the binomial distribution.
+prob Probability of success.
+Deprecated functions
+binom_plot(), binom_prob(), binom_perc() have been deprecated. Instead use dist_binom_plot(),
+dist_binom_prob() and dist_binom_perc().
+See Also
+Binomial
+4 dist_chi_plot
+
+#### Examples 
+```{r}
+
+# visualize binomial distribution
+dist_binom_plot(10, 0.3)
+# visualize probability from a given quantile
+dist_binom_prob(10, 0.3, 4, type = 'exact')
+dist_binom_prob(10, 0.3, 4, type = 'lower')
+dist_binom_prob(10, 0.3, 4, type = 'upper')
+dist_binom_prob(10, 0.3, c(4, 6), type = 'interval')
+# visualize quantiles out of given probability
+dist_binom_perc(10, 0.5, 0.05)
+dist_binom_perc(10, 0.5, 0.05, "upper")
+dist_chi_plot Visualize chi square distribution
+
+#### Description 
+ 
+Visualize how changes in degrees of freedom affect the shape of the chi square distribution. Compute
+& visualize quantiles out of given probability and probability from a given quantile.
+
+#### Usage 
+<pre><code>
+
+dist_chi_plot(df = 3, normal = FALSE)
+dist_chi_perc(probs = 0.95, df = 3, type = c("lower", "upper"))
+dist_chi_prob(perc, df, type = c("lower", "upper"))
+
+</code></pre>
+#### Arguments 
+ 
+* ``df`` :  Degrees of freedom.
+normal If TRUE, normal curve with same mean and sd as the chi square distribution is
+drawn.
+* ``probs ``: Probability value.
+type Lower tail or upper tail.
+perc Quantile value.
+Value
+Percentile for the probs based on df and type or probability value for perc based on df and type.
+Deprecated functions
+chi_plot(), chi_prob() and chi_per() have been deprecated. Instead use dist_chi_plot(),
+dist_chi_prob() and dist_chi_perc().
+dist_f_plot 5
+See Also
+Chisquare
+
+#### Examples 
+```{r}
+
+# visualize chi square distribution
+dist_chi_plot()
+dist_chi_plot(df = 5)
+dist_chi_plot(df = 5, normal = TRUE)
+# visualize quantiles out of given probability
+dist_chi_perc(0.165, 8, 'upper')
+dist_chi_perc(0.22, 13, 'upper')
+# visualize probability from a given quantile.
+dist_chi_prob(13.58, 11, 'lower')
+dist_chi_prob(15.72, 13, 'upper')
+dist_f_plot Visualize f distribution
+
+#### Description 
+ 
+Visualize how changes in degrees of freedom affect the shape of the F distribution. Compute &
+visualize quantiles out of given probability and probability from a given quantile.
+
+#### Usage 
+<pre><code>
+
+dist_f_plot(num_df = 4, den_df = 30, normal = FALSE)
+dist_f_perc(probs = 0.95, num_df = 3, den_df = 30, type = c("lower",
+"upper"))
+dist_f_prob(perc, num_df, den_df, type = c("lower", "upper"))
+
+</code></pre>
+#### Arguments 
+ 
+num_* ``df`` :  Degrees of freedom.associated with the numerator of f statistic.
+den_* ``df`` :  Degrees of freedom.associated with the denominator of f statistic.
+normal If TRUE, normal curve with same mean and sd as the F distribution is drawn.
+* ``probs ``: Probability value.
+type Lower tail or upper tail.
+perc Quantile value.
+6 dist_norm_plot
+Value
+Percentile for the probs based on num_df, den_df and type or probability value for perc based on
+num_df, den_df and type.
+Deprecated functions
+f_plot(), f_prob() and f_per() have been deprecated. Instead use dist_f_plot(), dist_f_prob()
+and dist_f_perc().
+See Also
+FDist
+
+#### Examples 
+```{r}
+
+# visualize F distribution
+dist_f_plot()
+dist_f_plot(6, 10, normal = TRUE)
+# visualize probability from a given quantile
+dist_f_perc(0.95, 3, 30, 'lower')
+dist_f_perc(0.125, 9, 35, 'upper')
+# visualize quantiles out of given probability
+dist_f_prob(2.35, 5, 32)
+dist_f_prob(1.5222, 9, 35, type = "upper")
+```
+
+
+dist_t Visualize t distribution
+
+#### Description 
+ 
+Visualize how degrees of freedom affect the shape of t-distribution, visualize quantiles out of given probability and probability from a given quantile.
+
+#### Usage 
+<pre><code>
+
+dist_t_plot(df = 3)
+dist_t_perc(probs = 0.95, df = 4, type = c("lower", "upper", "both"))
+dist_t_prob(perc, df, type = c("lower", "upper", "interval", "both"))
+
+</code></pre>
+#### Arguments 
+ 
+* ``df`` :  Degrees of freedom.
+* ``probs ``: Probability value.
+* ``type``: Lower tail, upper tail, interval or both.
+perc Quantile value.
+
+#### Value
+Percentile for the probs based on df and type or probability value for the perc based on df and
+type.
+Deprecated functions
+t_plot(), t_prob() and t_per() have been deprecated. Instead use dist_t_plot(), dist_t_prob()
+and dist_t_perc().
+See Also
+TDist
+
+#### Examples 
+```{r}
+
+# visualize t distribution
+dist_t_plot()
+dist_t_plot(6)
+dist_t_plot(df = 8)
+# visualize quantiles out of given probability
+dist_t_perc(probs = 0.95, df = 4, type = 'lower')
+dist_t_perc(probs = 0.35, df = 4, type = 'upper')
+dist_t_perc(probs = 0.69, df = 7, type = 'both')
+# visualize probability from a given quantile
+dist_t_prob(2.045, 7, 'lower')
+dist_t_prob(0.945, 7, 'upper')
+dist_t_prob(1.445, 7, 'interval')
+dist_t_prob(1.6, 7, 'both')
+ds_cross_table 9
+ds_cross_table Two way table
+
+#### Description 
+ 
+Creates two way tables of categorical variables. The tables created can be visualized as barplots
+and mosaicplots.
+
+#### Usage 
+<pre><code>
+
+ds_cross_table(data, var1, var2)
+## S3 method for class 'ds_cross_table'
+plot(x, stacked = FALSE, proportional = FALSE, ...)
+ds_twoway_table(data, var1, var2)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`data.frame or a tibble.
+* ``var1``:  First categorical variable.
+var2 Second categorical variable.
+* ``x`` : An object of class cross_table.
+stacked If FALSE, the columns of height are portrayed as stacked bars, and if TRUE the
+columns are portrayed as juxtaposed bars.
+proportional If TRUE, the height of the bars is proportional.
+... Further Arguments 
+  to be passed to or from methods.
+
+#### Deprecated function
+ds_cross_table() has been deprecated. Instead use ds_cross_table().
+
+#### Examples 
+```{r}
+
+k <- ds_cross_table(mtcarz, cyl, gear)
+k
+# bar plots
+plot(k)
+plot(k, stacked = TRUE)
+plot(k, proportional = TRUE)
+# alternate
+ds_twoway_table(mtcarz, cyl, gear)
+10 ds_css
+ds_css Corrected Sum of Squares
+
+#### Description 
+ 
+Compute the corrected sum of squares
+
+#### Usage 
+<pre><code>
+
+ds_css(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose mode is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+#### Details
+Any NA values are stripped from x before computation takes place.
+
+#### Value
+Corrected sum of squares of x
+
+#### Deprecated Function
+stat_css() has been deprecated. Instead use ds_css().
+References
+NIST/SEMATECH e-Handbook of Statistical Methods
+
+#### Examples 
+```{r}
+
+ds_css(mtcars$mpg)
+```
+
+
+
+ds_freq_cont Frequency distribution of continuous data
+
+#### Description 
+ 
+Frequency distribution of continuous data by splitting into equidistant intervals created based on the
+number of bins specified. hist.ds_freq_cont() creates histogram for the frequency table created
+using ds_freq_cont().
+
+#### Usage 
+<pre><code>
+
+ds_freq_cont(data, variable, bins = 5)
+## S3 method for class 'ds_freq_cont'
+plot(x, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`data.frame or a tibble.
+* ``variable`` :   Column in data.
+* ``bins``: Number of intervals into which the data must be split.
+* ``x`` : An object of class ds_freq_cont.
+... Further Arguments 
+  to be passed to or from methods.
+
+#### Value
+A tibble.
+
+#### Deprecated functions
+freq_cont() has been deprecated. Instead use ds_freq_cont().
+
+#### See Also
+ds_freq_table ds_cross_table
+
+#### Examples 
+```{r}
+
+# frequency table
+ds_freq_cont(mtcarz, mpg, 4)
+# histogram
+k <- ds_freq_cont(mtcarz, mpg, 4)
+plot(k)
+```
+
+ds_freq_table Frequency table
+
+#### Description 
+ 
+Frequency table for factor data and returns the frequency, cumulative frequency, frequency percent and cumulative frequency percent. barplot.ds_freq_table() creates bar plot for the frequency table created using ds_freq_table().
+
+#### Usage 
+<pre><code>
+
+ds_freq_table(data, variable)
+## S3 method for class 'ds_freq_table'
+plot(x, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`data.frame or a tibble.
+* ``variable`` :   Column in data.
+* ``x`` : An object of class ds_freq_table.
+* ... Further Arguments to be passed to or from methods.
+
+#### Value
+ds_freq_table returns an object of class "ds_freq_table". An object of class "ds_freq_table"
+is a list containing the following components:
+ftable Frequency table.
+
+#### Deprecated function
+freq_table() has been deprecated. Instead use ds_freq_table().
+
+#### See Also
+ds_freq_cont ds_cross_table
+
+#### Examples 
+```{r}
+
+# frequency table
+ds_freq_table(mtcarz, cyl)
+# barplot
+k <- ds_freq_table(mtcarz, cyl)
+plot(k)
+```
+
+ds_gmean Geometric Mean
+
+#### Description 
+ 
+Compute the geometric mean
+
+#### Usage 
+<pre><code>
+
+ds_gmean(x, na.rm = FALSE, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose geometric mean is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+... further Arguments   passed to or from other methods #’ @details Any NA values
+are stripped from x before computation takes place.
+
+#### Value
+Returns the geometric mean of x
+
+#### Deprecated function
+gmean() has been deprecated. Instead use ds_gmean().
+See Also
+ds_hmean mean
+
+#### Examples 
+```{r}
+
+ds_gmean(mtcars$mpg)
+```
+
+ds_group_summary Groupwise descriptive statistics
+
+#### Description 
+ 
+Descriptive statistics of a continuous variable for the different levels of a categorical variable.
+boxplot.group_summary() creates boxplots of the continuous variable for the different levels of
+the categorical variable.
+
+#### Usage 
+<pre><code>
+
+ds_group_summary(data, gvar, cvar)
+## S3 method for class 'ds_group_summary'
+plot(x, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``data`data.frame or a tibble.
+* gvar Column in data.
+* cvar Column in data.
+* x An object of the class ds_group_summary.
+* ... Further Arguments to be passed to or from methods.
+
+#### Value
+ds_group_summary() returns an object of class "ds_group_summary". An object of class "ds_group_summary"
+is a list containing the following components:
+stats A data frame containing descriptive statistics for the different levels of the factor
+variable.
+tidy_stats A tibble containing descriptive statistics for the different levels of the factor
+variable.
+plotdata Data for boxplot method.
+Deprecated function
+ds_group_summary() has been deprecated. Instead use ds_group_summary().
+See Also
+ds_summary_stats
+
+#### Examples 
+```{r}
+
+# ds_group summary
+ds_group_summary(mtcarz, cyl, mpg)
+# boxplot
+k <- ds_group_summary(mtcarz, cyl, mpg)
+plot(k)
+# tibble
+k$tidy_stats
+```
+
+ds_hmean Harmonic Mean
+
+#### Description 
+ 
+Compute the harmonic mean
+
+#### Usage 
+<pre><code>
+
+ds_hmean(x, na.rm = FALSE, ...)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose harmonic mean is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation proceeds.
+... further arguments   passed to or from other methods #’@details Any NA values are stripped from x before computation takes place.
+
+#### Value
+Returns the harmonic mean of x
+
+#### Deprecated function
+hmean() has been deprecated. Instead use ds_hmean().
+
+#### See Also
+ds_gmean mean
+
+#### Examples 
+```{r}
+
+ds_hmean(mtcars$mpg)
+```
+
+ds_kurtosis Kurtosis
+
+#### Description 
+ 
+Compute the kurtosis of a probability distribution.
+
+#### Usage 
+<pre><code>
+
+ds_kurtosis(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector containing the values whose kurtosis is to be computed
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+Details
+Any NA values are stripped from x before computation takes place.
+Value
+Kurtosis of x
+
+#### Deprecated Function
+kurtosis() has been deprecated. Instead use ds_kurtosis().
+
+#### References
+Sheskin, D.J. (2000) Handbook of Parametric and Nonparametric Statistical Procedures, Second
+Edition. Boca Raton, Florida: Chapman & Hall/CRC.
+
+#### See Also
+ds_skewness
+
+#### Examples 
+```{r}
+
+ds_kurtosis(mtcars$mpg)
+```
+ds_launch_shiny_app Launch Shiny App
+
+#### Description 
+ 
+Launches shiny app
+
+#### Usage 
+<pre><code>
+ds_launch_shiny_app()
+</code></pre>
+
+#### Deprecated Function
+launch_descriptr() has been deprecated. Instead use ds_launch_shiny_app().
+
+
+#### Examples 
+```{r}
+
+## Not run:
+ds_launch_shiny_app()
+## End(Not run)
+```
+
+ds_mdev Mean Absolute Deviation
+
+#### Description 
+ 
+Compute the mean absolute deviation about the mean
+
+#### Usage 
+<pre><code>
+
+ds_mdev(x, na.rm = FALSE)
+
+</code></pre>
+#### Arguments 
+ 
+* ``x``: a numeric vector
+* ``na.rm`` : a logical value indicating whether NA values should be stripped before the computation
+proceeds.
+
+#### Details
+The stat_mdev function computes the mean absolute deviation about the mean. It is different from
+mad in stats package as the statistic used to compute the deviations is not median but mean. Any
+NA values are stripped from x before computation takes place
+Value
+Mean absolute deviation of x
+
+#### Deprecated Function
+stat_mdev() has been deprecated. Instead use ds_mdev().
+See Also
+mad
+
+#### Examples 
+```{r}
+
+ds_mdev(mtcars$mpg)
+```
+
+
+
+
+
+
+
+ds_tailobs Tail Observations
+
+#### Description 
+ 
+Returns the n highest/lowest observations from a numeric vector.
+
+#### Usage 
+<pre><code>
+
+ds_tailobs(data, n, type = c("low", "high"))
+
+</code></pre>
+#### Arguments 
+ 
+* ``data``: a numeric vector
+n number of observations to be returned
+type if low, the n lowest observations are returned, else the highest n obervations are
+returned
+Details
+Any NA values are stripped from data before computation takes place.
+Value
+n highest/lowest observations from data
+Deprecated function
+tailobs() has been deprecated. Instead use ds_tailobs().
+See Also
+top_n
+
+#### Examples 
+```{r}
+
+ds_tailobs(mtcarz$mpg, 5)
+ds_tailobs(mtcarz$mpg, 5, type = "high")
+hsb 29
+hsb High School and Beyond Data Set
+
+#### Description 
+ 
+A dataset containing demographic information and standardized test scores of high school students.
+
+#### Usage 
+<pre><code>
+
+hsb
+Format
+A data frame with 200 rows and 10 variables:
+id id of the student
+female gender of the student
+race ethnic background of the student
+ses socio-economic status of the student
+schtyp school type
+prog program type
+read scores from test of reading
+write scores from test of writing
+math scores from test of math
+science scores from test of science
+socst scores from test of social studies
+Source
+http://www.ats.ucla.edu/stat/spss/whatstat/whatstat.htm
+mtcarz mtcarz
+
+#### Description 
+ 
+Copy of mtcars data set with modified variable types
+
+#### Usage 
+<pre><code>
+mtcarz
+</code></pre>
+
+#### Format
+An object of class data.frame with 32 rows and 11 columns.
