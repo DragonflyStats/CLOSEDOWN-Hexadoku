@@ -1,0 +1,28 @@
+
+mar_table Table with Marginal Sums
+
+#### Desription
+
+Adds row and column sums to a two-way table.
+
+#### Usage
+<pre><code>
+
+mar_table(x)
+
+</code></pre>
+#### Arguments
+
+x a two-way table.
+Value
+A table with row and column totals added.
+
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### Examples
+```{r}
+
+data("SexualFun")
+mar_table(SexualFun)
+```
