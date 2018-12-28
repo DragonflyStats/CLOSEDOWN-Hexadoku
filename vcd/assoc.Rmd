@@ -1,3 +1,11 @@
+---
+title: "assoc"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
 
 assoc Extended Association Plots
 
@@ -25,14 +33,13 @@ assoc(formula, data = NULL, ..., subset = NULL, na.action = NULL, main = NULL, s
 * ``x``: a contingency table in array form with optional category labels specified in the
 dimnames(x) attribute, or an object inheriting from the "ftable" class (such as
 "structable" objects).
-row_vars a vector of integers giving the indices, or a character vector giving the names of
+* row_vars a vector of integers giving the indices, or a character vector giving the names of
 the variables to be used for the rows of the association plot.
-col_vars a vector of integers giving the indices, or a character vector giving the names of
+* col_vars a vector of integers giving the indices, or a character vector giving the names of
 the variables to be used for the columns of the association plot.
-compress logical; if FALSE, the space between the rows (columns) are chosen such that
-the total heights (widths) of the rows (columns) are all equal. If TRUE, the space
-between rows and columns is fixed and hence the plot is more “compressed”.
-xli k matrix of doubles, k number of total columns of the plot. The columns
+* compress logical; if FALSE, the space between the rows (columns) are chosen such that
+the total heights (widths) of the rows (columns) are all equal. If TRUE, the space between rows and columns is fixed and hence the plot is more “compressed”.
+* xli k matrix of doubles, k number of total columns of the plot. The columns
 of xlim correspond to the columns of the association plot, the rows describe
 the column ranges (minimums in the first row, maximums in the second row).
 If xlim is NULL, the ranges are determined from the residuals according to
@@ -44,29 +51,23 @@ ranges (minimums in the first row, maximums in the second row). If ylim
 is NULL, the ranges are determined from the residuals according to compress (if
 TRUE: widest range from each row, if FALSE: from the whole association plot
 matrix).
-8 assoc
 spacing a spacing object, a spacing function, or a corresponding generating function
-(see strucplot for more in
-</code></pre>
-#### Format 
+(see strucplot for more inFormat 
 ion). The default is the spacing-generating
 function spacing_conditional that is (by default) called with the argument
 list spacing_args (see spacings for more details).
-spacing_args list of 
-</code></pre>
-#### Arguments
+spacing_args list of Arguments
  for the spacing-generating function, if specified (see strucplot
-for more in
-</code></pre>
-#### Format 
+for more inFormat 
 ion).
 split_vertical vector of logicals of length k, where k is the number of margins of x (default:
 FALSE). 
-#### Value 
+Value 
  are recycled as needed. A TRUE component indicates that the
 corresponding dimension is folded into the columns, FALSE folds the dimension
 into the rows.
-keep_aspect_ratio
+
+* keep_aspect_ratio
 logical indicating whether the aspect ratio should be fixed or not.
 residuals_type a character string indicating the type of residuals to be computed. Currently,
 only Pearson residuals are supported.
@@ -76,7 +77,7 @@ yspace object of class "unit" specifying additional space separating the rows.
 * `` gp_axis`` :   object of class "gpar" specifying the visual aspects of the tiles’ baseline.
 formula a formula object with possibly both left and right hand sides specifying the column
 and row variables of the flat table.
-data a data frame, list or environment containing the variables to be cross-tabulated,
+* data a data frame, list or environment containing the variables to be cross-tabulated,
 or an object inheriting from class table.
 subset an optional vector specifying a subset of observations to be used. Ignored if
 data is a contingency table.
@@ -85,7 +86,8 @@ NAs. Ignored if data is a contingency table.
 main, sub either a logical, or a character string used for plotting the main (sub) title. If
 logical and TRUE, the name of the data object is used.
 ... other parameters passed to strucplot
-Details
+
+#### Details
 Association plots have been suggested by Cohen (1980) and extended by Friendly (1992) and provide
 a means for visualizing the residuals of an independence model for a contingency table.
 assoc is a generic function and currently has a default method and a formula interface. Both are
