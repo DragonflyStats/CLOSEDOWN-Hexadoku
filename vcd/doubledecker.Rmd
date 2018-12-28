@@ -1,5 +1,13 @@
+---
+title: "doubledecker "
+output: html_document
+---
 
-doubledecker Doubledecker Plot
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+ Doubledecker Plot
 
 #### Desription
 
