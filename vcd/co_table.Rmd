@@ -1,3 +1,11 @@
+---
+title: "co_table"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
 
 co_table Compute Conditional Tables
 
@@ -16,12 +24,7 @@ co_table(x, margin, collapse = ".")
 * ``x``: a contingency table in array form.
 * `` margin`` :  margin index(es) or corresponding name(s) of the conditioning variables.
 collapse character used when collapsing level names (if more than 1 margin is specified).
-Details
-This is essentially an interface to [ which is more convenient for arrays of arbitrary dimension.
-Value
-A list of the resulting conditional tables.
-Author(s)
-Achim Zeileis <Achim.Zeileis@R-project.org>
+
 
 #### Examples
 ```{r}
@@ -30,130 +33,12 @@ data("HairEyeColor")
 co_table(HairEyeColor, 1)
 co_table(HairEyeColor, c("Hair", "Eye"))
 co_table(HairEyeColor, 1:2, collapse = "")
-DanishWelfare 31
-DanishWelfare Danish Welfare Study Data
 
-#### Desription
 
-Data from the Danish Welfare Study.
-
-#### Usage
-<pre><code>
-
-data("DanishWelfare")
-
-</code></pre>
-#### Format 
-
-A data frame with 180 observations and 5 variables.
-Freq frequency.
-Alcohol factor indicating daily alcohol consumption: less than 1 unit (<1), 1-2 units (1-2) or more
-than 2 units (>2). 1 unit is approximately 1 bottle of beer or 4cl 40% alcohol.
-Income factor indicating income group in 1000 DKK (0-50, 50-100, 100-150, >150).
-Status factor indicating marriage status (Widow, Married, Unmarried).
-Urban factor indicating urbanization: Copenhagen (Copenhagen), Suburbian Copenhagen (Sub-
-Copenhagen), three largest cities (LargeCity), other cities (City), countryside (Country).
-
-#### Source
-E. B. Andersen (1991), The Statistical Analysis of Categorical Data, page 205.
-References
-E. B. Andersen (1991), The Statistical Analysis of Categorical Data. 2nd edition. Springer-Verlag,
-Berlin.
-
-#### Examples
-```{r}
-
-data("DanishWelfare")
-ftable(xtabs(Freq ~ ., data = DanishWelfare))
-32 distplot
-distplot Diagnostic Distribution Plots
-
-#### Desription
-
-Diagnostic distribution plots: poissonness, binomialness and negative binomialness plots.
-
-#### Usage
-<pre><code>
-
-distplot(x, type = c("poisson", "binomial", "nbinomial"),
-size = NULL, lambda = NULL, legend = TRUE, xlim = NULL, ylim = NULL,
-conf_int = TRUE, conf_level = 0.95, main = NULL,
-xlab = "Number of occurrences", ylab = "Distribution metameter",
-gp = gpar(cex = 0.8), lwd=2, gp_conf_int = gpar(lty = 2),
-name = "distplot", newpage = TRUE,
-pop =TRUE, return_grob = FALSE, ...)
-
-</code></pre>
-#### Arguments
-
-x either a vector of counts, a 1-way table of frequencies of counts or a data frame
-or matrix with frequencies in the first column and the corresponding counts in
-the second column.
-type a character string indicating the distribution.
-size the size argument for the binomial and negative binomial distribution. If set to
-NULL and type is "binomial", then size is taken to be the maximum count. If
-set to NULL and type is "nbinomial", then size is estimated from the data.
-lambda parameter of the poisson distribution. If type is "poisson" and lambda is specified
-a leveled poissonness plot is produced.
-legend logical. Should a legend be plotted?
-xlim limits for the x axis.
-ylim limits for the y axis.
-conf_int logical. Should confidence intervals be plotted?
-conf_* `` level`` : confidence level for confidence intervals.
-main a title for the plot.
-xlab a label for the x axis.
-ylab a label for the y axis.
-gp a "gpar" object controlling the grid graphical parameters of the points.
-gp_conf_int a "gpar" object controlling the grid graphical parameters of the confidence intervals.
-lwd line width for the fitted line
-name name of the plotting viewport.
-newpage logical. Should grid.newpage be called before plotting?
-distplot 33
-pop logical. Should the viewport created be popped?
-return_grob logical. Should a snapshot of the display be returned as a grid grob?
-... further 
-</code></pre>
-#### Arguments
- passed to grid.points.
 Details
-distplot plots the number of occurrences (counts) against the distribution metameter of the specified
-distribution. If the distribution fits the data, the plot should show a straight line. See Friendly
-(2000) for details.
-In these plots, the open points show the observed count metameters; the filled points show the
-confidence interval centers, and the dashed lines show the conf_level confidence intervals for
-each point.
+This is essentially an interface to [ which is more convenient for arrays of arbitrary dimension.
 Value
-Returns invisibly a data frame containing the counts (Counts), frequencies (Freq) and other details
-of the computations used to construct the plot.
+A list of the resulting conditional tables.
 Author(s)
 Achim Zeileis <Achim.Zeileis@R-project.org>
-References
-D. C. Hoaglin (1980), A poissonness plot, The American Statistican, 34, 146–149.
-D. C. Hoaglin & J.W. Tukey (1985), Checking the shape of discrete distributions. In D. C. Hoaglin,
-F. Mosteller, J. W. Tukey (eds.), Exploring Data Tables, Trends and Shapes, chapter 9. John Wiley
-& Sons, New York.
-M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
 
-#### Examples
-```{r}
-
-## Simulated data 
-#### Examples
-```{r}
-:
-dummy <- rnbinom(1000, size = 1.5, prob = 0.8)
-distplot(dummy, type = "nbinomial")
-## Real data 
-#### Examples
-```{r}
-:
-data("HorseKicks")
-data("Federalist")
-data("Saxony")
-distplot(HorseKicks, type = "poisson")
-distplot(HorseKicks, type = "poisson", lambda = 0.61)
-distplot(Federalist, type = "poisson")
-distplot(Federalist, type = "nbinomial", size = 1)
-distplot(Federalist, type = "nbinomial")
-distplot(Saxony, type = "binomial", size = 12)
-34 doubledecker
