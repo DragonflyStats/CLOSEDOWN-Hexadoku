@@ -1,11 +1,20 @@
+---
+title: "``PreSex``"
+output: html_document
+---
 
-PreSex Pre-marital Sex and Divorce
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+### Pre-marital Sex and Divorce
 
 #### Desription
 
 Data from Thornes \& Collard (1979), reported in Gilbert (1981), on pre- and extra-marital sex and
 divorce.
-PreSex 95
+
 
 #### Usage
 <pre><code>
