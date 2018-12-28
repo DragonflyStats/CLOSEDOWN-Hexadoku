@@ -1,5 +1,14 @@
+---
+title: "``struc_mosaic``"
+output: html_document
+---
 
-struc_mosaic Core-generating Function for Mosaic Plots
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+### Core-generating Function for Mosaic Plots
 
 #### Desription
 
@@ -22,9 +31,7 @@ If FALSE and zero_shade is TRUE, a bullet for each zero cell is drawn to allow,
 e.g., residual-based shadings to be effective also for zero cells.
 zero_shade logical controlling whether zero bullets should be shaded.
 * zero_gp object of class "gpar" used for zero bullets in case they are not shaded.
-124 struc_mosaic
-* panel Optional function with 
-#### Arguments
+* panel Optional function with  Arguments
 : residuals, observed, expected, index,
 gp, and name called by the struc_mosaic workhorse for each tile that is drawn
 in the mosaic. index is an integer vector with the tile’s coordinates in the contingency
