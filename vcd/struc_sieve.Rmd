@@ -1,5 +1,14 @@
+---
+title: "``struc_sieve``"
+output: html_document
+---
 
-struc_sieve Core-generating Function for Sieve Plots
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+### Core-generating Function for Sieve Plots
 
 #### Desription
 
