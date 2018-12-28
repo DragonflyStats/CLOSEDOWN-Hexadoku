@@ -1,0 +1,3091 @@
+---
+title: "vcd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+Package 'vcd'
+December 6, 2017
+Version 1.4-4
+Title Visualizing Categorical Data
+
+#### Desription
+ Visualization techniques, data sets, summary and inference
+procedures aimed particularly at categorical data. Special
+emphasis is given to highly extensible grid graphics. The
+package was package was originally inspired by the book
+``Visualizing Categorical Data'' by * Michael Friendly and is
+now the main support package for a new book,
+``Discrete Data Analysis with R'' by * Michael Friendly and
+David Meyer (2015).
+LazyLoad yes
+LazyData yes
+Depends R (>= 2.4.0), grid
+Suggests KernSmooth, mvtnorm, kernlab, HSAUR, coin
+Imports stats, utils, MASS, grDevices, colorspace, lmtest
+License GPL-2
+NeedsCompilation no
+Author David Meyer [aut, cre],
+Achim Zeileis [aut] (<https://orcid.org/0000-0003-0918-3766>),
+Kurt Hornik [aut],
+Florian Gerber [ctb],
+* Michael Friendly [ctb]
+Maintainer David Meyer <David.Meyer@R-project.org>
+Repository CRAN
+Date/Publication 2017-12-06 10:51:14 UTC
+R topics documented:
+agreementplo. . 3
+Arthriti. . 6
+asso. 7
+1
+2 R topics documented:
+assocstat. 10
+Basebal. . 11
+binreg_plo13
+BrokenMarriag. 16
+Bundeslig17
+Bundestag200. 18
+Butterfl. . 20
+cd_plo. . 21
+CoalMiner23
+coindep_tes24
+cotabplo. 26
+cotab_pane28
+co_tabl. . 30
+DanishWelfar. 31
+distplo. . 32
+doubledecke. . 34
+Employmen35
+Federalis. 37
+fourfol. . 37
+goodfi40
+grid_barplo42
+grid_legen44
+Hitter46
+hl. . 48
+HorseKick48
+Hospita. . 49
+independence_tabl. . 50
+JobSatisfactio. 51
+JointSport52
+Kapp53
+labeling_borde. 55
+labeling_cells_lis59
+legend. . 61
+Lifeboat. 63
+lodd. 64
+loddsrati. 68
+mar_tabl. 72
+mosai73
+mplo76
+MSPatient78
+NonRespons. . 79
+Ord_plo. . 80
+OvaryCance. . 82
+Pairs plot panel functions for diagonal cell. 83
+Pairs plot panel functions for off-diagonal cell. . 86
+pairs.tabl. 87
+plot.loddsrati. . 90
+plot.logl. 93
+agreementplot 3
+PreSe94
+Punishmen96
+RepVic. . 97
+Rochdal. 98
+rootogra. 99
+Saxon. . 102
+SexualFu. 103
+shading. . 104
+siev. 108
+SpaceShuttl. . 110
+spacing. . 112
+spin. 113
+strucplo. . 115
+structabl. 119
+struc_asso121
+struc_mosai. . 123
+struc_siev125
+Suicid. . 126
+table2d_summar127
+ternaryplo. 128
+til. . 130
+Truck133
+UKSocce. 134
+VisualAcuit. . 134
+VonBor. . 135
+WeldonDic136
+WomenQueu. . 137
+woolf_tes. 138
+Index 140
+agreementplot Bangdiwala's Observer Agreement Chart
+
+#### Desription
+
+Representation of a kk confusion matrix, where the observed and expected diagonal elements are
+represented by superposed black and white rectangles, respectively. The function also computes a
+statistic measuring the strength of agreement (relation of respective area sums).
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+agreementplot(x, reverse_y = TRUE, main = NULL,
+weights = c(11/(ncol(x) - 1)^2), margins = par("mar"),
+newpage = TRUE, pop = TRUE,
+xlab = names(dimnames(x))[2],
+ylab = names(dimnames(x))[1],
+4 agreementplot
+xlab_rot = 0, xlab_just = "center",
+ylab_rot = 90, ylab_just = "center",
+fill_col = function(j) gray((1 - (weights[j]) ^ 2) ^ 0.5),
+line_col = "red", xscale = TRUE, yscale = TRUE,
+return_grob = FALSE,
+prefix = "", ...)
+## S3 method for class 'formula'
+agreementplot(formula, data = NULL, ..., subset)
+
+</code></pre>
+#### Arguments
+
+x a confusion matrix, i.e., a table with equal-sized dimensions.
+reverse_y if TRUE, the y axis is reversed (i.e., the rectangles' positions correspond to the
+contingency table).
+main user-specified main title.
+weights vector of weights for successive larger observed areas, used in the agreement
+strength statistic, and also for the shading. The first element should be 1.
+margins vector of margins (see par).
+newpage logical; if TRUE, the plot is drawn on a new page.
+pop logical; if TRUE, all newly generated viewports are popped after plotting.
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+xlab, ylab labels of x- and y-axis.
+xlab_rot, ylab_rot
+rotation angle for the category labels.
+xlab_just, ylab_just
+justification for the category labels.
+fill_col a function, giving the fill colors used for exact and partial agreement
+line_col color used for the diagonal reference line
+formula a formula, such ax. For details, see xtabs.
+data a data frame (or list), or a contingency table from which the variables in formula
+should be taken.
+subset an optional vector specifying a subset of the rows in the data frame to be used
+for plotting.
+xscale, yscale logicals indicating whether the marginals should be added on the x-axis/y-axis,
+respectively.
+prefix character string used as prefix for the viewport name
+... further graphics parameters (see par).
+Details
+Weights can be specified to allow for partial agreement, taking into account contributions from offdiagonal
+cells. Partial agreement is typically represented in the display by lighter shading, as given
+by fill_col(j), corresponding to weights[j].
+agreementplot 5
+A weight vector of length 1 means strict agreement only, each additional element increases the
+maximum number of disagreement steps.
+cotabplot can be used for stratified analyses (see 
+#### Examples
+```{r}
+).
+Value
+Invisibly returned, a list with components
+Bangdiwala the unweighted agreement strength statistic.
+Bangdiwala_Weighted
+the weighted statistic.
+weights the weight vector used.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Bangdiwala, S. I. (1988). The Agreement Chart. Department of Biostatistics, University of North
+Carolina at Chapel Hill, Institute of Statistics Mimeo Series No. 1859, http://www.stat.ncsu.
+edu/in
+</code></pre>
+#### Format 
+ion/library/mimeo.archive/ISMS_1988_1859.pdf
+Bangdiwala, S. I., Ana S. Haedo, Marcela L. Natal, and Andres Villaveces. The agreement chart as
+an alternative to the receiver-operating characteristic curve for diagnostic tests. Journal of Clinical
+Epidemiology, 61 (9), 866-874.
+* Michael Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("SexualFun")
+agreementplot(t(SexualFun))
+data("MSPatients")
+## Not run:
+## best visualized using a resized device, e.g. using:
+## get(getOption("device"))(width = 12)
+pushViewport(viewport(layout = grid.layout(ncol = 2)))
+pushViewport(viewport(layout.pos.col = 1))
+agreementplot(t(MSPatients[,,1]), main = "Winnipeg Patients",
+newpage = FALSE)
+popViewport()
+pushViewport(viewport(layout.pos.col = 2))
+agreementplot(t(MSPatients[,,2]), main = "New Orleans Patients",
+newpage = FALSE)
+popViewport(2)
+dev.off()
+## End(Not run)
+## alternatively, use cotabplot:
+cotabplot(MSPatients, panel = cotab_agreementplot)
+
+ainreg_plot 13
+binreg_plot Binary Regression Plot
+
+#### Desription
+
+Creates a display of observed and fitted 
+#### Value 
+ for a binary regression model with one numeric
+predictor, conditioned by zero or many co-factors.
+
+#### Usage
+<pre><code>
+
+binreg_plot(model, main = NULL, xlab = NULL, ylab = NULL,
+xlim = NULL, ylim = NULL,
+pred_var = NULL, pred_range = c("data", "xlim"),
+group_vars = NULL, base_level = NULL, subset,
+type = c("response", "link"), conf_level = 0.95, delta = FALSE,
+pch = NULL, cex = 0.6, jitter_factor = 0.1,
+lwd = 5, lty = 1, point_size = 0, col_lines = NULL, col_bands = NULL,
+legend = TRUE, legend_pos = NULL, legend_inset = c(0, 0.1),
+legend_vgap = unit(0.5, "lines"),
+labels = FALSE, labels_pos = c("right", "left"),
+labels_just = c("left","center"), labels_offset = c(0.01, 0),
+gp_main = gpar(fontface = "bold", fontsize = 14),
+gp_legend_frame = gpar(lwd = 1, col = "black"),
+gp_legend_title = gpar(fontface = "bold"),
+newpage = TRUE, pop = FALSE, return_grob = FALSE)
+grid_abline(a, b, ...)
+
+</code></pre>
+#### Arguments
+
+model a binary regression model fitted with glm.
+main user-specified main title.
+xlab x-axis label. Defaults to the name of the (first) numeric predictor.
+ylab y-axis label. Defaults to the name of the response - within either 'P(...)' or
+'logit(...)', depending on the response type.
+xlim Range of the x-axis. Defaults to the range of the numeric predictor.
+ylim Range of the y-axis. Defaults to the unit interval on probability scale or the fitted
+
+#### Value 
+ range on the link scale, depending on type.
+pred_var character string of length 1 giving the name of the numeric predictor. Defaults
+to the first one found in the data set.
+pred_range "data", "xlim", or a numeric vector. If "data", the numeric predictor corresponds
+to the observed 
+#### Value 
+. If "xlim", 100 
+#### Value 
+ are taken from the "xlim"
+range. A numeric vector will be interpreted as the 
+#### Value 
+ to be predicted.
+group_vars optional character string of conditioning variables. Defaults to all factors found
+in the data set, response excluded. If FALSE, no variables are used for conditioning.
+14 binreg_plot
+base_level vector of length one. If the response is a vector, this specifies the base ('no
+effect') value of the response variable (e.g., "Placebo", 0, FALSE, etc.) and
+defaults to the first level for factor responses, or 0 for numeric/binary variables.
+This controls which observations will be plotted on the top or the bottom of
+the display. If the response is a matrix with success and failure column, this
+specifies the one to be interpreted as failure (default: 2), either as an integer,
+or as a string ("success" or "failure"). The proportions of successes will be
+plotted as observed 
+#### Value 
+.
+subset an optional vector specifying a subset of the data rows. The value is evaluated
+in the data environment, so expressions can be used to select the data (see 
+#### Examples
+```{r}
+).
+type either "response" or "link" to select the scale of the fitted 
+#### Value 
+. The y-axis will
+be adapted accordingly.
+conf_* `` level`` : confidence level used for calculating confidence bands.
+delta logical; indicates whether the delta method should be employed for calculating
+the limits of the confidence band or not (see details).
+pch character or numeric vector of symbols used for plotting the (possibly conditioned)
+observed 
+#### Value 
+, recycled as needed.
+cex size of the plot symbols (in lines).
+jitter_factor argument passed to jitter used for the points representing the observed 
+#### Value 
+.
+lwd Line width for the fitted 
+#### Value 
+.
+lty Line type for the fitted 
+#### Value 
+.
+point_size size of points for the fitted 
+#### Value 
+ in char units (default: 0, so no points are
+plotted).
+col_lines, col_bands
+character vector specifying the colors of the fitted lines and confidence bands,
+by default chosen with rainbow_hcl. The confidence bands are using alpha
+blending with alpha = 0.2.
+legend logical; if TRUE (default), a legend is drawn.
+legend_pos numeric vector of length 2, specifying x and y coordinates of the legend, or a
+character string (e.g., "topleft", "center" etc.). Defaults to "topleft" if the
+fitted curve's slope is positive, and "topright" else.
+legend_inset numeric vector or length 2 specifying the inset from the legend's x and y coordinates
+in npc units.
+legend_vgap vertical space between the legend's line entries.
+labels logical; if TRUE, labels corresponding to the factor levels are plotted next to the
+fitted lines.
+labels_pos either "right" or "left", determining on which side of the fitted lines (start or
+end) the labels should be placed.
+labels_just character vector of length 2, specifying the relative justification of the labels to
+their coordinates. See the documentation of the just parameter of grid.text
+for more details.
+binreg_plot 15
+labels_offset numeric vector of length 2, specifying the offset of the labels' coordinates in npc
+units.
+gp_main object of class "gpar" used for the main title.
+gp_legend_frame
+object of class "gpar" used for the legend frame.
+gp_legend_title
+object of class "gpar" used for the legend title.
+newpage logical; if TRUE, the plot is drawn on a new page.
+pop logical; if TRUE, all newly generated viewports are popped after plotting.
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+a intercept; alternatively, a regression model from which coefficients can be extracted
+via coef.
+b slope.
+... Further 
+</code></pre>
+#### Arguments
+ passed to grid.abline.
+Details
+The primary purpose of binreg_plot() is to visualize observed and fitted 
+#### Value 
+ for binary regression
+models (like the logistic or probit regression model) with one numeric predictor. If one or more
+categorical predictors are used in the model, the fitted 
+#### Value 
+ are conditioned on them, i.e. separate
+curves are drawn corresponding to the factor level combinations. Thus, it shows a full-model plot,
+not a conditional plot where several models would be fit to data subsets.
+The implementation relies on objects returned by glm, as it uses its "terms" and "model" components.
+The function tries to determine suitable 
+Value 
+ for the legend and/or labels, but depending on the
+data, this might require some tweaking.
+By default, the limits of the confidence band are determined for the linear predictor (i.e., on the
+link scale) and transformed to response scale (if this is the chosen plot type) using the inverse link
+function. If delta is TRUE, the limits are determined on the response scale. Note that the resulting
+band using the delta method is symmetric around the fitted mean, but may exceed the unit interval
+(on the response scale) and will be cut off.
+grid_abline() is a simple convenience wrapper for grid.abline with similar behavior than
+abline in that it extracts coefficients from a regression model, if given instead of the intercept
+a.
+Value
+if return_grob is TRUE, a grob object corresponding to the plot. NULL (invisibly) else.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+* Michael Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+
+#### Examples
+```{r}
+
+## Simple model with no conditioning variables
+art.mod0 <- glm(Improved > "None" ~ Age, data = Arthritis, family = binomial)
+binreg_plot(art.mod0, "Arthritis Data")
+binreg_plot(art.mod0, type = "link") ## logit scale
+## one conditioning factor
+art.mod1 <- update(art.mod0. + Sex)
+binreg_plot(art.mod1)
+binreg_plot(art.mod1, legend = FALSE, labels = TRUE, xlim = c(20, 80))
+## two conditioning factors
+art.mod2 <- update(art.mod1. + Treatment)
+binreg_plot(art.mod2)
+binreg_plot(art.mod2, subset = Sex == "Male") ## subsetting
+## some tweaking
+binreg_plot(art.mod2, gp_legend_frame = gpar(col = NA, fill = "white"), col_bands = NA)
+binreg_plot(art.mod2, legend = FALSE, labels = TRUE,
+labels_pos = "left", labels_just = c("left", "top"))
+## model with grouped response data
+shuttle.mod <- glm(cbind(nFailuresnFailures) ~ Temperature,
+data = SpaceShuttle, na.action = na.exclude, family = binomial)
+binreg_plot(shuttle.mod, xlim = c(30, 81), pred_range = "xlim",
+ylab = "O-Ring Failure Probability", xlab = "Temperature (F)")
+BrokenMarriage Broken Marriage Data
+
+#### Desription
+
+Data from the Danish Welfare Study about broken marriages or permanent relationships depending
+on gender and social rank.
+
+#### Usage
+<pre><code>
+
+data("BrokenMarriage")
+
+</code></pre>
+#### Format 
+
+A data frame with 20 observations and 4 variables.
+Freq frequency.
+gender factor indicating gender (male, female).
+rank factor indicating social rank (I, II, III, IV, V).
+broken factor indicating whether the marriage or permanent relationship was broken (yes, no).
+Bundesliga 17
+Source
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data, page 177.
+References
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data. 2nd edition. Springer-Verlag,
+Berlin.
+
+#### Examples
+```{r}
+
+data("BrokenMarriage")
+structable(~ ., data = BrokenMarriage)
+```
+
+cd_plot 21
+cd_plot Conditional Density Plots
+
+#### Desription
+
+Computes and plots conditional densities describing how the distribution of a categorical variable y
+changes over a numerical variable x.
+
+#### Usage
+<pre><code>
+
+cd_plot(x, ...)
+## Default S3 method:
+cd_plot(x, y,
+plot = TRUE, ylab_tol = 0.05,
+bw = "nrd0"512, from = NULL, to = NULL,
+main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE, return_grob = FALSE, ...)
+## S3 method for class 'formula'
+cd_plot(formula, data = list(),
+plot = TRUE, ylab_tol = 0.05,
+bw = "nrd0"512, from = NULL, to = NULL,
+main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE, return_grob = FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: an object, the default method expects either a single numerical variable.
+y a "factor" interpreted to be the dependent variable
+formula a "formula" of typx with a single dependent "factor" and a single
+numerical explanatory variable.
+data an optional data frame.
+plot logical. Should the computed conditional densities be plotted?
+ylab_tol convenience tolerance parameter for y-axis annotation. If the distance between
+two labels drops under this threshold, they are plotted equidistantly.
+bw, n, from, to, ...
+
+</code></pre>
+#### Arguments
+ passed to density
+main, xlab, ylab
+character strings for annotation
+margins margins when calling plotViewport
+gp a "gpar" object controlling the grid graphical parameters of the rectangles.
+It should specify in particular a vector of fill colors of the same length as
+levels(y). The default is to call gray.colors.
+name name of the plotting viewport.
+newpage logical. Should grid.newpage be called before plotting?
+22 cd_plot
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+pop logical. Should the viewport created be popped?
+Details
+cd_plot computes the conditional densities of x given the levels of y weighted by the marginal
+distribution of y. The densities are derived cumulatively over the levels of y.
+This visualization technique is similar to spinograms (see spine) but they do not discretize the
+explanatory variable, but rather use a smoothing approach. Furthermore, the original x axis and not
+a distorted x axis (as for spinograms) is used. This typically results in conditional densities that are
+based on very few observations in the margins: hence, the estimates are less reliable there.
+Value
+The conditional density functions (cumulative over the levels of y) are returned invisibly.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+References
+Hofmann, H., Theus, M. (2005), Interactive graphics for visualizing conditional distributions, Unpublished
+Manuscript.
+See Also
+spine, density
+
+#### Examples
+```{r}
+
+## Arthritis data
+data("Arthritis")
+cd_plot(Improved ~ Age, data = Arthritis)
+cd_plot(Improved ~ Age, data = Arthritis, bw = 3)
+cd_plot(Improved ~ Age, data = Arthritis, bw = "SJ")
+## compare with spinogram
+spine(Improved ~ Age, data = Arthritis, breaks = 3)
+## Space shuttle data
+data("SpaceShuttle")
+cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2)
+## scatter plot with conditional density
+cdens <- cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2, plot = FALSE)
+plot(I(-1 * (as.numeric(Fail) - 2)) ~ jitter(Temperature, factor = 2), data = SpaceShuttle,
+xlab = "Temperature", ylab = "Failure")
+lines(53:81, cdens[[1]](53:81), col = 2)
+CoalMiners 23
+CoalMiners Breathlessness and Wheeze in Coal Miners
+
+#### Desription
+
+Data from Ashford & Sowden (1970) given by Agresti (1990) on the association between two pulmonary
+conditions, breathlessness and wheeze, in a large sample of coal miners who were smokers
+with no radiological evidence of pneumoconlosis, aged between 20-64 when examined. This data
+is frequently used as an example of fitting models for bivariate, binary responses.
+
+#### Usage
+<pre><code>
+
+data("CoalMiners")
+
+</code></pre>
+#### Format 
+
+A 3-dimensional table of sizresulting from cross-tabulating variables for 18,282 coal
+miners. The variables and their levels are as follows:
+No Name Levels
+1 Breathlessness B, NoB
+2 Wheeze W, NoW
+3 Age 20-24, 25-29, 30-34. , 60-64
+Details
+In an earlier version of this data set, the first group, aged 20-24, was inadvertently omitted from this
+data table and the breathlessness variable was called wheeze and vice versa.
+Source
+* Michael Friendly (2000), Visualizing Categorical Data, pages 82-83, 319-322.
+References
+A. Agresti (1990), Categorical Data Analysis. Wiley-Interscience, New York, Table 7.11, p. 237
+J. R. Ashford and R. D. Sowdon (1970), Multivariate probit analysis, Biometrics, 26, 535-546.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("CoalMiners")
+ftable(CoalMiners, row.vars = 3)
+## Fourfold display, both margins equated
+fourfold(CoalMiners[,,2:9], mfcol = c(2,4))
+24 coindep_test
+## Fourfold display, strata equated
+fourfold(CoalMiners[,,2:9], std = "ind.max", mfcol = c(2,4))
+## Log Odds Ratio Plot
+lor_CM <- loddsratio(CoalMiners)
+summary(lor_CM)
+plot(lor_CM)
+lor_CM_df <- as.data.frame(lor_CM)
+# fit linear models using WLS
+age <- seq(20, 60, by = 5)
+lmod <- lm(LOR ~ age, weight/ ASE^2, data = lor_CM_df)
+grid.lines(age, fitted(lmod), gp = gpar(col = "blue"))
+qmod <- lm(LOR ~ poly(age, 2), weight/ ASE^2, data = lor_CM_df)
+grid.lines(age, fitted(qmod), gp = gpar(col = "red"))
+
+
+cfourfold Fourfold Plots
+
+#### Desription
+
+Creates an (extended) fourfold display ok contingency table, allowing for the visual inspection
+of the association between two dichotomous variables in one or several populations (strata).
+38 fourfold
+
+#### Usage
+<pre><code>
+
+fourfold(x,
+color = c("#99CCFF", "#6699CC", "#FFA0A0", "#A0A0FF", "#FF0000", "#000080"),
+conf_level = 0.95, std = c("margins", "ind.max", "all.max"),
+margin = c(1, 2), space = 0.2, main = NULL, sub = NULL,
+mfrow = NULL, mfcol = NULL, extended = TRUE, ticks = 0.15,
+p_adjust_method = p.adjust.methods, newpage = TRUE,
+fontsize = 12, default_prefix = c("Row", "Col", "Strata"),
+sep = ": ", varnames = TRUE, return_grob = FALSE)
+
+</code></pre>
+#### Arguments
+
+k contingency table in array form, o 2 matrix if k is 1. If
+length(dim(x)>3, dimensions 3:length(dim(x) are silently raveled into a
+combined strata dimension with k=prod(dim(x)[-(1:2)])).
+color a vector of length 6 specifying the colors to use for the smaller and larger diagonals
+of eac2 table. The first pair is used for the standard (non-extended)
+plots, the other two for the extended version: the second/third pair is used for
+tables with non-significant/significant log-odds ratios, respectively, the latter being
+visualized in brighter colors.
+conf_* `` level`` : confidence level used for the confidence rings on the odds ratios. Must be a single
+non-negative number less than 1; if set to 0, confidence rings are suppressed.
+std a character string specifying how to standardize the table. Must be one of
+"margins", "ind.max", or "all.max", and can be abbreviated by the initial
+letter. If set to "margins", eac2 table is standardized to equate the margins
+specified by margin while preserving the odds ratio. If "ind.max" or
+"all.max", the tables are either individually or simultaneously standardized to
+a maximal cell frequency of 1.
+margin a numeric vector with the margins to equate. Must be one of 1, 2, or c(1, 2)
+(the default), which corresponds to standardizing only the row, only column, or
+both row and column in eac2 table. Only used if std equals "margins".
+space the amount of space (as a fraction of the maximal radius of the quarter circles)
+used for the row and column labels.
+main, sub character string for the fourfold plot title/subtitle.
+mfrow, mfcol a numeric vector with two components: nr and nc, indicating that the displays
+for th2 tables should be arranged in an nr by nc layout, filled by
+rows/columns. The defaults are calculated to give a collection of plots in landscape
+orientation when k is not a perfect square.
+extended logical; if TRUE, extended plots are plotted, i.e., colors are brighter for significant
+log-odds ratios, and ticks are plotted showing the direction of association for
+positive log-odds.
+ticks the length of the ticks. If set to 0, no ticks are plotted.
+p_adjust_method
+method to be used for p-value adjustments for multi-stratum plots, as provided
+by link[stats]{p.adjust}. Use p_adjust_method="none" to disable this
+fourfold 39
+adjustment. The p-
+#### Value 
+ are used for the 'visual' significance tests of the odds
+ratios.
+newpage logical; if TRUE, grid.newpage() is called before plotting.
+fontsize fontsize of main title. Other labels are scaled relative to this.
+default_prefix character vector of length 3 with default labels for possibly missing row/column/strata
+variable names.
+sep default separator between variable names and levels for labels.
+varnames Logical; should the variable names be printed in the labeling of stratifed plots?
+return_grob Logical; shall a snapshot of the display be returned as a grob object?
+Details
+The fourfold display is designed for the display otables.
+Following suitable standardization, the cell frequencies fij of each 22 table are shown as a quarter
+circle whose radius is proportional to
+p
+fij so that its area is proportional to the cell frequency. An
+association (odds ratio different from 1) between the binary row and column variables is indicated
+by the tendency of diagonally opposite cells in one direction to differ in size from those in the other
+direction; color is used to show this direction. Confidence rings for the odds ratio allow a visual
+test of the null of no association; the rings for adjacent quadrants overlap iff the observed counts
+are consistent with the null hypothesis.
+Typically, the number k corresponds to the number of levels of a stratifying variable, and it is of
+interest to see whether the association is homogeneous across strata. The fourfold display visualizes
+the pattern of association. Note that the confidence rings for the individual odds ratios are not
+adjusted for multiple testing.
+References
+Friendly, M. (1994), A fourfold display for 2 by 2 by k tables. Technical Report 217, York University,
+Psychology Department, http://datavis.ca/papers/4fold/4fold.pdf.
+Friendly, M. (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+See Also
+mosaic, assoc
+link[stats]{p.adjust} for methods of p value adjustment
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+## Use the Berkeley admission data as in Friendly (1995).
+x <- aperm(UCBAdmissions, c(2, 1, 3))
+dimnames(x)[[2]] <- c("Yes", "No")
+names(dimnames(x)) <- c("Sex", "Admit?", "Department")
+ftable(x)
+## Fourfold display of data aggregated over departments, with
+## frequencies standardized to equate the margins for admission
+40 goodfit
+## and sex.
+## Figure 1 in Friendly (1994).
+fourfold(margin.table(x, c(1, 2)))
+## Fourfold display of x, with frequencies in each table
+## standardized to equate the margins for admission and sex.
+## Figure 2 in Friendly (1994).
+fourfold(x)
+cotabplot(x, panel = cotab_fourfold)
+## Fourfold display of x, with frequencies in each table
+## standardized to equate the margins for admission. but not
+## for sex.
+## Figure 3 in Friendly (1994).
+fourfold(x, margin = 2)
+goodfit Goodness-of-fit Tests for Discrete Data
+
+#### Desription
+
+Fits a discrete (count data) distribution for goodness-of-fit tests.
+
+#### Usage
+<pre><code>
+
+goodfit(x, type = c("poisson", "binomial", "nbinomial"),
+method = c("ML", "MinChisq"), par = NULL)
+## S3 method for class 'goodfit'
+predict(object, newcount = NULL, type = c("response", "prob"), ...)
+## S3 method for class 'goodfit'
+residuals(object, type = c("pearson", "deviance",
+"raw"), ...)
+## S3 method for class 'goodfit'
+print(x, residuals_type = c("pearson", "deviance",
+"raw"), ...)
+
+</code></pre>
+#### Arguments
+
+x either a vector of counts, a 1-way table of frequencies of counts or a data frame
+or matrix with frequencies in the first column and the corresponding counts in
+the second column.
+type character string indicating: for goodfit, which distribution should be fit; for
+predict, the type of prediction (fitted response or probabilities); for residuals,
+either "pearson", "deviance" or "raw".
+residuals_type character string indicating the type of residuals: either "pearson", "deviance"
+or "raw".
+goodfit 41
+method a character string indicating whether the distribution should be fit via ML (Maximum
+Likelihood) or Minimum Chi-squared.
+par a named list giving the distribution parameters (named as in the corresponding
+density function), if set to NULL, the default, the parameters are estimated. If
+the parameter size is not specified if type is "binomial" it is taken to be the
+maximum count. If type is "nbinomial", then parameter size can be specified
+to fix it so that only the parameter prob will be estimated (see the 
+#### Examples
+```{r}
+
+below).
+object an object of class "goodfit".
+newcount a vector of counts. By default the counts stored in object are used, i.e., the
+fitted Value 
+ are computed. These can also be extracted by fitted(object).
+... currently not used.
+Details
+goodfit essentially computes the fitted 
+Value 
+ of a discrete distribution (either Poisson, binomial or
+negative binomial) to the count data given in x. If the parameters are not specified they are estimated
+either by ML or Minimum Chi-squared.
+To fix parameters, par should be a named list specifying the parameters lambda for "poisson"
+and prob and size for "binomial" or "nbinomial", respectively. If for "binomial", size is not
+specified it is not estimated but taken as the maximum count.
+The corresponding Pearson Chi-squared or likelihood ratio statistic, respectively, is computed and
+given with their p 
+#### Value 
+ by the summary method. The summary method always prints this in
+</code></pre>
+#### Format 
+ion
+and returns a matrix with the printed in
+</code></pre>
+#### Format 
+ion invisibly. The plot method produces a
+rootogram of the observed and fitted 
+#### Value 
+.
+In case of count distribtions (Poisson and negative binomial), the minimum Chi-squared approach
+is somewhat ad hoc. Strictly speaking, the Chi-squared asymptotics would only hold if the number
+of cells were fixed or did not increase too quickly with the sample size. However, in goodfit the
+number of cells is data-driven: Each count is a cell of its own. All counts larger than the maximal
+count are merged into the cell with the last count for computing the test statistic.
+Value
+A list of class "goodfit" with elements:
+observed observed frequencies.
+count corresponding counts.
+fitted expected frequencies (fitted by ML).
+type a character string indicating the distribution fitted.
+method a character string indicating the fitting method (can be either "ML", "MinChisq"
+or "fixed" if the parameters were specified).
+df degrees of freedom.
+par a named list of the (estimated) distribution parameters.
+42 grid_barplot
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+References
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+See Also
+rootogram
+
+#### Examples
+```{r}
+
+## Simulated data 
+#### Examples
+```{r}
+:
+dummy <- rnbinom(200, size = 1.5, prob = 0.8)
+gf <- goodfit(dummy, type = "nbinomial", method = "MinChisq")
+summary(gf)
+plot(gf)
+dummy <- rbinom(100, size = 6, prob = 0.5)
+gf1 <- goodfit(dummy, type = "binomial", par = list(size = 6))
+gf2 <- goodfit(dummy, type = "binomial", par = list(prob = 0.6, size = 6))
+summary(gf1)
+plot(gf1)
+summary(gf2)
+plot(gf2)
+## Real data 
+#### Examples
+```{r}
+:
+data("HorseKicks")
+HK.fit <- goodfit(HorseKicks)
+summary(HK.fit)
+plot(HK.fit)
+data("Federalist")
+## try geometric and full negative binomial distribution
+F.fit <- goodfit(Federalist, type = "nbinomial", par = list(size = 1))
+F.fit2 <- goodfit(Federalist, type = "nbinomial")
+summary(F.fit)
+summary(F.fit2)
+plot(F.fit)
+plot(F.fit2)
+grid_barplot Barplot
+
+#### Desription
+
+Bar plots of 1-way tables in grid.
+grid_barplot 43
+
+#### Usage
+<pre><code>
+
+grid_barplot(height, width = 0.8, offset = 0,
+names = NULL, xlim = NULL, ylim = NULL, xlab = "", ylab = "", main = "",
+gp = gpar(fill = "lightgray"), name = "grid_barplot",
+newpage = TRUE, pop = FALSE, return_grob = FALSE)
+
+</code></pre>
+#### Arguments
+
+height either a vector or a 1-way table of frequencies.
+width width of the bars (recycled if needed to the number of bars).
+offset offset of the bars (recycled if needed to the number of bars).
+names a vector of names for the bars, if set to NULL the names of height are used.
+xlim limits for the x axis.
+ylim limits for the y axis.
+xlab a label for the x axis.
+ylab a label for the y axis.
+main a title for the plot.
+gp a "gpar" object controlling the grid graphical parameters of the rectangles.
+name name of the plotting viewport.
+newpage logical. Should grid.newpage be called before plotting?
+pop logical. Should the viewport created be popped?
+return_grob logical. Shall the plot be returned as a grob object?
+Details
+grid_barplot mimics (some of) the features of barplot, but currently it only supports 1-way
+tables.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+
+#### Examples
+```{r}
+
+grid_barplot(sample(1:6), names = letters[1:6])
+```
+
+```
+
+hls HLS Color Specification
+
+#### Desription
+
+Create a HLS color from specifying hue, luminance and saturation.
+
+#### Usage
+<pre><code>
+
+hls(h = 10.51)
+
+</code></pre>
+#### Arguments
+
+* ``h`` : hue value in [0, 1].
+l luminance value in [0, 1].
+s saturation value in [0, 1].
+Details
+HLS colors are a similar specification of colors as HSV colors, but using hue/luminance/saturation
+rather that hue/saturation/value.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+See Also
+hsv, hcl2hex, polarLUV
+
+#### Examples
+```{r}
+
+## an HLS color wheel
+pie(rep(1, 12), col = sapply(1:12/12, function(x) hls(x)))
+```
+iobSatisfaction Job Satisfaction Data
+
+#### Desription
+
+Data from Petersen (1968) about the job satisfaction of 715 blue collar workers, selected from
+Danish Industry in 1968.
+
+#### Usage
+<pre><code>
+
+data("JobSatisfaction")
+
+</code></pre>
+#### Format 
+
+A data frame with 8 observations and 4 variables.
+Freq frequency.
+management factor indicating quality of management (bad, good).
+supervisor factor indicating supervisor's job satisfaction (low, high).
+own factor indicating worker's own job satisfaction (low, high).
+
+#### Source
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data, Table 5.4.
+
+References
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data. 2nd edition. Springer-Verlag,
+Berlin.
+E. Petersen (1968), Job Satisfaction in Denmark. (In Danish). Mentalhygiejnisk Forlag, Copenhagen.
+
+#### Examples
+```{r}
+
+data("JobSatisfaction")
+structable(~ ., data = JobSatisfaction)
+mantelhaen.test(xtabs(Freq ~ own + supervisor + management,
+data = JobSatisfaction))
+```
+
+JointSports Opinions About Joint Sports
+
+#### Desription
+
+Data from a Danish study in 1983 and 1985 about sports activities and the opinion about joint sports
+with the other gender among 16-19 year old high school students.
+
+#### Usage
+<pre><code>
+
+data("JointSports")
+
+</code></pre>
+#### Format 
+
+A data frame with 40 observations and 5 variables.
+Freq frequency.
+opinion factor indicating opinion about sports joint with the other gender (very good, good, indifferent,
+bad, very bad).
+year factor indicating year of study (1983, 1985).
+grade factor indicating school grade (1st, 3rd).
+gender factor indicating gender (Boy, Girl).
+
+##### Source
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data, page 210.
+References
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data. 2nd edition. Springer-Verlag,
+Berlin.
+
+
+#### Examples
+```{r}
+
+library(MASS)
+data("JointSports")
+tab <- xtabs(Freq ~ gender + opinion + grade + year, data = JointSports)
+doubledecker(opinion ~ gender + year + grade, data = tab)
+loglm(~ opinion* (gender + grade+ year) + gender*year*grade, data = tab)
+```
+
+Kappa Cohen's Kappa and Weighted Kappa
+
+#### Desription
+
+Computes two agreement rates: Cohen's kappa and weighted kappa, and confidence bands.
+
+#### Usage
+<pre><code>
+
+Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
+## S3 method for class 'Kappa'
+print(x, digits=max(getOption("digits") - 3, 3),
+CI=FALSE, level=0.95, ...)
+## S3 method for class 'Kappa'
+confint(object, parm, level = 0.95, ...)
+## S3 method for class 'Kappa'
+summary(object, ...)
+## S3 method for class 'summary.Kappa'
+print(x, ...)
+
+</code></pre>
+#### Arguments
+
+x For Kappa: a confusion matrix. For the print methods: object of class "Kappa"
+or "summary.Kappa"
+weights either one of the character strings given in the default value, or a user-specified
+matrix with same dimensions as x.
+digits minimal number of significant digits.
+CI logical; shall confidence limits be added to the output?
+* `` level`` : confidence level between 0 and 1 used for the confidence interval.
+object object of class "Kappa".
+parm Currently, ignored.
+... Further 
+</code></pre>
+#### Arguments
+ passed to the default print method.
+Details
+Cohen's kappa is the diagonal sum of the (possibly weighted) relative frequencies, corrected for
+expected 
+#### Value 
+ and standardized by its maximum value. The equal-spacing weights are defined by
+1????ji????jj=(r????1), r number of columns/rows, and the Fleiss-Cohen weights by 1????ji????jj2=(r????1)2.
+The latter one attaches greater importance to near disagreements.
+54 Kappa
+Value
+An object of class "Kappa" with three components:
+Unweighted numeric vector of length 2 with the kappa statistic (value component), along
+with Approximate Standard Error (ASE component)
+Weighted idem for the weighted kappa.
+Weights numeric matrix with weights used.
+Note
+The summary method also prints the weights.
+There is a confint method for computing approximate confidence intervals.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Cohen, J. (1960), A coefficient of agreement for nominal scales. Educational and Psychological
+Measurement, 20, 37-46.
+Everitt, B.S. (1968), Moments of statistics kappa and weighted kappa. The British Journal of Mathematical
+and Statistical Psychology, 21, 97-103.
+Fleiss, J.L., Cohen, J., and Everitt, B.S. (1969), Large sample standard errors of kappa and weighted
+kappa. Psychological Bulletin, 72, 332-327.
+See Also
+agreementplot, confint
+
+#### Examples
+```{r}
+
+data("SexualFun")
+K <- Kappa(SexualFun)
+K
+confint(K)
+summary(K)
+print(K, CI = TRUE)
+labeling_border 55
+labeling_border Labeling Functions for Strucplots
+
+#### Desription
+
+These functions generate labeling functions used for strucplots.
+
+#### Usage
+<pre><code>
+
+labeling_border(labels = TRUE, varnames = labels,
+set_labels = NULL, set_varnames = NULL,
+tl_labels = NULL, alternate_labels = FALSE, tl_varnames = NULL,
+gp_labels = gpar(fontsize = 12),
+gp_varnames = gpar(fontsize = 12, fontface = 2),
+rot_labels = c(0, 90, 0, 90), rot_varnames = c(0, 90, 0, 90),
+pos_labels = "center", pos_varnames = "center",
+just_labels = "center", just_varnames = pos_varnames,
+boxes = FALSE, fill_boxes = FALSE,
+offset_labels = c(0, 0, 0, 0), offset_varnames = offset_labels,
+labbl_varnames = NULL, labels_varnames = FALSE, sep = ": ",
+abbreviate_labs = FALSE, rep = TRUE, clip = FALSE, ...)
+labeling_Value 
+(value_type = c("observed", "expected", "residuals"),
+suppress = NULL, digits = 1, clip_cells = FALSE, ...)
+labeling_residuals(suppress = NULL, digits = 1, clip_cells = FALSE, ...)
+labeling_conditional(...)
+labeling_left(rep = FALSE, pos_varnames = "left",
+pos_labels = "left", just_labels = "left", ...)
+labeling_left2(tl_labels = TRUE, clip = TRUE, pos_varnames = "left",
+pos_labels = "left", just_labels = "left", ...)
+labeling_cboxed(tl_labels = TRUE, boxes = TRUE, clip = TRUE,
+pos_labels = "center", ...)
+labeling_lboxed(tl_labels = FALSE, boxes = TRUE, clip = TRUE,
+pos_labels = "left", just_labels = "left",
+labbl_varnames = FALSE, ...)
+labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
+boxes = NULL, clip = NULL, labbl_varnames = FALSE,
+rot_labels = rep.int(0, 4),
+pos_labels = c("left", "center", "left", "center"),
+just_labels = c("left", "left", "left", "center"),
+varnames = NULL, gp_varnames = gpar(fontsize = 12, fontface = 2),
+offset_varnames = c(0, -0.6, 0, 0), tl_labels = NULL, ...)
+
+</code></pre>
+#### Arguments
+
+labels vector of logicals indicating whether labels should be drawn for a particular
+dimension.
+56 labeling_border
+varnames vector of logicals indicating whether variable names should be drawn for a particular
+dimension.
+set_labels An optional character vector with named components replacing the so-specified
+variable names. The component names must exactly match the variable names
+to be replaced.
+set_varnames An optional list with named components of character vectors replacing the labels
+of the so-specified variables. The component names must exactly match the
+variable names whose labels should be replaced.
+tl_labels vector of logicals indicating whether labels should be positioned on top (column
+labels) / left (row labels) for a particular dimension.
+alternate_labels
+vector of logicals indicating whether labels should be alternated on the top/bottom
+(left/right) side of the plot for a particular dimension.
+tl_varnames vector of logicals indicating whether variable names should be positioned on top
+(column labels) / on left (row labels) for a particular dimension.
+gp_labels list of objects of class "gpar" used for drawing the labels.
+gp_varnames list of objects of class "gpar" used for drawing the variable names.
+rot_labels vector of rotation angles for the labels for each of the four sides of the plot.
+rot_varnames vector of rotation angles for the variable names for each of the four sides of the
+plot.
+pos_labels character string of label positions ("left", "center", "right") for each of the
+variables.
+pos_varnames character string of variable names positions ("left", "center", "right") for
+each of the four sides of the plot.
+just_labels character string of label justifications ("left", "center", "right") for each of
+the variables.
+just_varnames character string of variable names justifications ("left", "center", "right")
+for each of the four sides of the plot.
+boxes vector of logicals indicating whether boxes should be drawn around the labels
+for a particular dimension.
+fill_boxes Either a vector of logicals, or a vector of characters, or a list of such vectors,
+specifying the fill colors for the boxes. "TRUE" and "FALSE"  Value 
+ are transformed
+into "grey" and "white", respectively. If fill_boxes is atomic, each
+component specifies a basic color for the corresponding dimension. This color
+is transformed into its HSV representation, and the value is varied from 50% to
+100% to give a sequential color palette for the levels. For NA components, no
+palette is produced (no fill color). If fill_boxes is a list of vectors, each vector
+specifies the level colors of the corresponding dimension.
+offset_labels, offset_varnames
+numeric vector of length 4 indicating the offset of the labels (variable names)
+for each of the four sides of the plot.
+labbl_varnames vector of logicals indicating whether variable names should be drawn on the left
+(column variables) / on top (row variables) of the corresponding labels.
+labeling_border 57
+labels_varnames
+vector of logicals indicating, for each dimension, whether the variable name
+should be added to the corresponding labels or not.
+sep separator used if any component of "labels_varnames" is TRUE.
+abbreviate_labs
+vector of integers or logicals indicating, for each dimension, the number of characters
+the labels should be abbreviated to. TRUE means 1 character, FALSE causes
+no abbreviation. 
+#### Value 
+ are recycled as needed.
+rep vector of logicals indicating, for each dimension, whether labels should be repeated
+for all conditioning strata, or appear only once.
+clip vector of integers indicating, for each dimension, whether labels should be clipped
+to not overlap.
+lab_pos character string switching between "top" or "bottom" position of the labels
+(only used for labeling_doubledecker).
+dep_varname logical or character string. If logical, this is indicating whether the name of the
+dependent variable should be printed or not. A character string will be printed
+instead of the variable name taken from the dimnames.
+value_type character string specifying which 
+#### Value 
+ should be displayed in the cells.
+suppress numeric vector of length 2 specifying an interval of 
+#### Value 
+ that are not displayed.
+0 
+#### Value 
+ are never displayed. A single number, k, is treated as c(-k, k).
+The default for labeling residuals is c(-2,2). Use suppresto show all
+non-zero 
+#### Value 
+.
+digits integer specifying the number of digits used for rounding.
+clip_cells logical indicating whether the 
+#### Value 
+ should be clipped at the cell borders.
+... only used for labeling_conditional and labeling_doubledecker: parameters
+passed to labeling_cells and labeling_border.
+Details
+These functions generate labeling functions called by strucplot for their side-effect of adding
+labels to the plot. They suppose that a strucplot has been drawn and the corresponding viewport
+structure is pushed, since the positions of the viewports are used for the label positioning. Note that
+the functions can also be used 'stand-alone' as shown in the 
+#### Examples
+```{r}
+.
+All 
+#### Value 
+ supplied to vectorized 
+</code></pre>
+#### Arguments
+ can be 'abbreviated' by using named components which
+override the default component 
+#### Value 
+. In addition, these defaults can be overloaded by the sequence
+of non-named components which are recycled as needed (see examples).
+This help page only documents labeling_border and derived functions, more functions are described
+on the help page for labeling_cells and labeling_list.
+labeling_left, labeling_left2, labeling_cboxed, and labeling_lboxed are really just wrappers
+to labeling_border, and good examples for the parameter Usage.
+labeling_residuals is a trivial wrapper for labeling_Value
+, which in turn calls labeling_border
+by additionally adding the observed or expected frequencies or residuals to the cells.
+
+Value
+A function with 
+</code></pre>
+#### Arguments
+:
+d "dimnames" attribute from the visualized contingency table, or the visualized
+table itself from which the "dimnames" attributes will then be extracted.
+split_vertical vector of logicals indicating the split directions.
+condvars integer vector of conditioning dimensions.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### References
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+labeling_cells, labeling_list, structable, grid.text
+
+#### Examples
+```{r}
+
+data("Titanic")
+mosaic(Titanic)
+mosaic(Titanic, labeling = labeling_left)
+labeling_left
+mosaic(Titanic, labeling = labeling_cboxed)
+labeling_cboxed
+mosaic(Titanic, labeling = labeling_lboxed)
+labeling_lboxed
+data("PreSex")
+mosaic(~ PremaritalSex + ExtramaritalSex | Gender + MaritalStatus,
+data = PreSex, labeling = labeling_conditional)
+## specification of vectorized 
+</code></pre>
+#### Arguments
+
+mosaic(Titanic, labeling_args = list(abbreviate_labs = c(Survived = TRUE)))
+mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
+fill_boxes = c(Survived = "green", "red")))
+mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
+fill_boxes = list(Sex = "red", "green")))
+mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
+labeling_cells_list 59
+fill_boxes = list(Sex = c(Male = "red", "blue"), "green")))
+## change variable names
+mosaic(Titanic, labeling_args = list(set_varnames = c(Sex = "Gender")))
+## change labels
+mosaic(Titanic, labeling_args = list(set_varnames = c(Survived = "Status"),
+set_labels = list(Survived = c("Survived", "Not Survived")), rep = FALSE))
+## show frequencies
+mosaic(Titanic, labeling = labeling_
+#### Value 
+)
+labeling_cells_list Labeling Functions for Strucplots
+
+#### Desription
+
+These functions generate labeling functions that produce labels for strucplots.
+
+#### Usage
+<pre><code>
+
+labeling_cells(labels = TRUE, varnames = TRUE,
+abbreviate_labels = FALSE, abbreviate_varnames = FALSE,
+gp_text = gpar(), lsep = ": ", lcollapse = "\n",
+just = "center", pos = "center", rot = 0,
+margin = unit(0.5, "lines"), clip_cells = TRUE,
+text = NULL, ...)
+labeling_list(gp_text = gpar(), just = "left", pos = "left", lsep = ": ",
+se", offset = unit(c(2, 2), "lines"),
+varnames = TRUE, cols = 2, ...)
+
+</code></pre>
+#### Arguments
+
+labels vector of logicals indicating, for each dimension, whether labels for the factor
+levels should be drawn or not. 
+#### Value 
+ are recycled as needed.
+varnames vector of logicals indicating, for each dimension, whether variable names should
+be drawn. 
+#### Value 
+ are recycled as needed.
+abbreviate_labels
+vector of integers or logicals indicating, for each dimension, the number of characters
+the labels should be abbreviated to. TRUE means 1 character, FALSE causes
+no abbreviation. 
+#### Value 
+ are recycled as needed.
+abbreviate_varnames
+vector of integers or logicals indicating, for each dimension, the number of characters
+the variable (i.e., dimension) names should be abbreviated to. TRUE means
+1 character, FALSE causes no abbreviation. 
+#### Value 
+ are recycled as needed.
+gp_text object of class "gpar" used for the text drawn.
+lsep character that separates variable names from the factor levels.
+60 labeling_cells_list
+sep character that separates the factor levels (only used for labeling_list).
+offset object of class "unit" of length 2 specifying the offset in x- and y-direction of
+the text block drawn under the strucplot (only used for labeling_list).
+cols number of text columns (only used for labeling_list).
+lcollapse character that separates several variable name/factor level-combinations. Typically
+a line break. (Only used for labeling_cells.)
+just, pos character string of length 1 (labeling_list) or at most 2 (labeling_cells)
+specifying the labels' horizontal position and justification (horizontal and vertical
+for labeling_cells).
+rot rotation angle in degrees, used for all labels (only used for labeling_cells).
+margin object of class "unit" (a numeric value is converted to "lines") specifying an
+offset from the cell borders (only used for labeling_cells).
+clip_cells logical indicating whether text should be clipped at the cell borders (only used
+for labeling_cells).
+text Optionally, a character table of the same dimensions than the contingency table
+whose entries will then be used instead of the labels. NA entries are not
+drawn. This allows custom cell annotations (see 
+#### Examples
+```{r}
+). Only used for
+labeling_cells.
+... Currently not used.
+Details
+These functions generate labeling functions that can add different kinds of labels to an existing plot.
+Typically they are supplied to strucplot which then generates and calls the labeling function. They
+assume that a strucplot has been drawn and the corresponding viewport structure is pushed, so that
+by navigating through the viewport tree the labels can be positioned appropriately.
+This help page only documents labeling_list and labeling_cells; more functions are described
+on the help page for labeling_border.
+The functions can also be used 'stand-alone' as shown in the 
+#### Examples
+```{r}
+.
+Using labeling_list will typically necessitate a bottom margin adjustment.
+Value
+A function with 
+</code></pre>
+#### Arguments
+:
+d "dimnames" attribute from the visualized contingency table, or the visualized
+table itself from which the "dimnames" attributes will then be extracted.
+split_vertical vector of logicals indicating the split directions.
+condvars integer vector of conditioning dimensions
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+legends 61
+References
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+labeling_border, structable, grid.text
+
+#### Examples
+```{r}
+
+data("Titanic")
+mosaic(Titanic, labeling = labeling_cells)
+mosaic(Titanic, labeling = labeling_list)
+## A more complex example, adding the observed frequencies
+## to a mosaic plot:
+tab <- ifelse(Titanic < 6, NA, Titanic)
+mosaic(Titanic, pop = FALSE)
+labeling_cells(text = tab, margin = 0)(Titanic)
+legends Legend Functions for Strucplots
+
+#### Desription
+
+These functions generate legend functions for residual-based shadings.
+
+#### Usage
+<pre><code>
+
+legend_resbased(fontsize = 12, fontfamily = "",
+x = unit(1, "lines")unit(0.1,"npc"),
+height = unit(0.8, "npc"),
+width = unit(0.7, "lines"),
+digits = 2, check_overlap = TRUE, text = NULL,
+steps = 200, ticks = 10, pvalue = TRUE, range = NULL)
+legend_fixed(fontsize = 12, fontfamily = ""unit(1, "lines")NULL,
+height = NULL, width = unit(1.5, "lines"), steps = 200,
+digits = 1, space = 0.05, text = NULL, range = NULL)
+
+</code></pre>
+#### Arguments
+
+fontsize fontsize of title and p-value text.
+fontfamily fontfamily of all text.
+x, y objects of class "unit" indicating the coordinates of the title. For legend_fixed,
+the default for y is computed as to leave enough space for the specified text.
+62 legends
+height, width object of class "unit" indicating the height/width of the legend. For legend_fixed,
+the default for y is computed as to align upper margins of legend and actual plot.
+digits number of digits for the scale labels.
+check_overlap logical indicating whether overlap of scale labels should be inhibited or not.
+space For legend_fixed only: proportion of space between the tiles.
+text character string indicating the title of the legend.
+steps granularity of the color gradient.
+ticks number of scale ticks.
+pvalue logical indicating whether the p-value should be visualized under the scale or
+not.
+range Numeric vector of length 2 for setting the legend range. Computed from the
+residuals if omitted. NA 
+#### Value 
+ are replaced by the corresponding minimum /
+maximum of the residuals.
+Details
+These functions generate legend functions for residual-based shadings, visualizing deviations from
+expected 
+#### Value 
+ of an hypothesized independence model. Therefore, the legend uses a supplied
+shading function to visualize the color gradient for the residuals range. legend_fixed is inspired
+by the legend used in mosaicplot. For more details on the shading functions and their return
+
+#### Value 
+, see shadings.
+Value
+A function with 
+</code></pre>
+#### Arguments
+:
+residuals residuals from the fitted independence model to be visualized.
+shading shading function computing colors from residuals (see details).
+autotext character vector indicating the title to be used when no text argument is specified.
+Allows strucplot to generate sensible defaults depending on the residuals
+type.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+Meyer, D., Zeileis, A., Hornik, K. (2003), Visualizing independence using extended association
+plots. Proceedings of the 3rd International Workshop on Distributed Statistical Computing, K.
+Hornik, F. Leisch, A. Zeileis (eds.), ISSN 1609-395X. https://www.R-project.org/conferences/
+DSC-2003/Proceedings/
+Lifeboats 63
+See Also
+structable, shadings
+
+#### Examples
+```{r}
+
+data("Titanic")
+mosaic(Titanic, shade = TRUE, legend = legend_resbased)
+mosaic(Titanic, shade = TRUE, legend = legend_fixed, gp = shading_Friendly)
+```
+
+
+Pairs plot panel functions for diagonal cells
+Diagonal Panel Functions for Table Pairs Plot
+
+#### Desription
+
+Diagonal panel functions for pairs.table.
+
+#### Usage
+<pre><code>
+
+pairs_barplot(gp_bars = NULL,
+gp_vartext = gpar(fontsize = 17),
+gp_leveltext = gpar(),
+just_leveltext = c("center", "bottom"),
+just_vartext = c("center", "top"),
+rot = 0, abbreviate = FALSE, check_overlap = TRUE, fill = "grey",
+var_offset = unit(1, "npc"), ...)
+pairs_text(dimnames = TRUE, gp_vartext = gpar(fontsize = 17),
+gp_leveltext = gpar(), gp_border = gpar(), ...)
+pairs_diagonal_text(varnames = TRUE, gp_vartext = gpar(fontsize = 17, fontface = "bold"),
+gp_leveltext = gpar(), gp_border = gpar(), pos = c("right","top"),
+84 Pairs plot panel functions for diagonal cells
+distribute = c("equal","margin"), rot = 0, ...)
+pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
+offset_labels = -0.4, offset_varnames = 0,
+gp = NULL, fill = "grey", labeling = labeling_
+#### Value 
+, alternate_labels = TRUE, ...)
+
+</code></pre>
+#### Arguments
+
+dimnames vector of logicals indicating whether the factor levels should be displayed (only
+used for pairs_text).
+varnames vector of logicals indicating whether the variable names should be displayed
+(only used for pairs_text_diagonal).
+gp_bars object of class "gpar" used for bars (only used for pairs_barplot). If unspecified,
+the default is to set the fill component of this object to the fill
+argument.
+gp_vartext object of class "gpar" used for the factor names.
+gp_leveltext object of class "gpar" used for the factor levels.
+gp_border object of class "gpar" used for the border (only used for pairs_text).
+gp object of class "gpar" used for the tiles (only used for pairs_diagonal_mosaic).
+If unspecified, the default is to set the fill component of this object to the fill
+argument.
+fill color vector or palette function used for the fill colors of bars (for pairs_barplot)
+or tiles (for pairs_diagonal_mosaic).
+labeling labeling function, passed to mosaic()
+alternate_labels
+should labels alternate top/bottom?
+just_leveltext, just_vartext
+character string indicating the justification for variable names and levels.
+pos character string of length 2 controlling the horizontal and vertical position of the
+variable names (only used for pairs_text_diagonal).
+rot rotation angle for the variable levels.
+distribute character string indicating whether levels should be distributed equally or according
+to the margins (only used for pairs_text_diagonal).
+abbreviate integer or logical indicating the number of characters the labels should be abbreviated
+to. TRUE means 1 character, FALSE causes no abbreviation.
+check_overlap If TRUE, some levels will suppressed to avoid overlapping, if any.
+split_vertical vector of logicals of length k, where k is the number of margins of x (
+#### Value 
+
+are recycled as needed). A TRUE component indicates that the tile(s) of the corresponding
+dimension should be split vertically, FALSE means horizontal splits.
+Default is FALSE.
+margins either an object of class "unit" of length 4, or a numeric vector of length 4.
+The elements are recycled as needed. The four components specify the top,
+right, bottom, and left margin of the plot, respectively. When a numeric vector
+is supplied, the numbers are interpreted as "lines" units. In addition, the
+unit or numeric vector may have named 
+</code></pre>
+#### Arguments
+ ('top', 'right', 'bottom',
+Pairs plot panel functions for diagonal cells 85
+and 'left'), in which case the non-named 
+</code></pre>
+#### Arguments
+ specify the default 
+#### Value 
+
+(recycled as needed), overloaded by the named 
+</code></pre>
+#### Arguments
+.
+offset_labels, offset_varnames
+numeric vector of length 4 indicating the offset of the labels (variable names)
+for each of the four sides of the plot.
+var_offset object of class "unit" specifying the offset of variable names from the bottom
+of the bar plots created by pairs_barplot. If numeric, the unit defaults to
+"npc".
+... other parameters passed to the underlying graphics functions.
+Details
+In the diagonal cells, the pairsplot visualizes statistics or in
+</code></pre>
+#### Format 
+ion for each dimension (that is: the
+single factors) alone. pairs_text displays the factor's name, and optionally also the factor levels.
+pairs_barplot produces a bar plot of the corresponding factor, along with the factor's name.
+Value
+A function with one argument: the marginal table for the corresponding dimension.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+See Also
+pairs.table, pairs_assoc, pairs_mosaic
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+pairs(UCBAdmissions) # pairs_barplot is default
+pairs(UCBAdmissions, diag_panel = pairs_text)
+pairs(UCBAdmissions, diag_panel = pairs_diagonal_text)
+pairs(Titanic, diag_panel = pairs_diagonal_text)
+pairs(Titanic, diag_panel = pairs_diagonal_text(distribute = "margin"))
+pairs(Titanic,
+diag_panel = pairs_diagonal_text(distribute = "margin", rot = 45))
+86 Pairs plot panel functions for off-diagonal cells
+```
+
+RepVict 97
+RepVict Repeat Victimization Data
+
+#### Desription
+
+Data from Reiss (1980) given by Fienberg (1980) about instances of repeat victimization for households
+in the U.S. National Crime Survey.
+
+#### Usage
+<pre><code>
+
+data("RepVict")
+
+</code></pre>
+#### Format 
+
+A 2-dimensional array resulting from cross-tabulating victimization. The variables and their levels
+are as follows:
+No Name Levels
+1 First Victimization Rape, Assault, Robbery, Pickpocket, Personal Larceny,
+Burglary, Household Larceny, Auto Theft
+2 Second Victimization Rape, Assault, Robbery, Pickpocket, Personal Larceny,
+Burglary, Household Larceny, Auto Theft
+Source
+* Michael Friendly (2000), Visualizing Categorical Data, page 113.
+References
+S. E. Fienberg (1980), The Analysis of Cross-Classified Categorical Data, MIT Press, Cambridge,
+2nd edition.
+A. J. J. Reiss (1980), Victim proneness by type of crime in repeat victimization. In S. E. Fienberg
+& A. J. J. Reiss (eds.), Indicators of Crime and Criminal Justice. U.S. Government Printing Office,
+Washington, DC.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("RepVict")
+mosaic(RepVict[-c(4,7),-c(4,7)], gp = shading_max,
+main = "Repeat Victimization Data")
+98 Rochdale
+Rochdale Rochdale Data
+
+#### Desription
+
+In
+</code></pre>
+#### Format 
+ion on 665 households of Rochdale, Lancashire, UK. The study was conducted to identify
+influence factors on economical activity of wives.
+
+#### Usage
+<pre><code>
+
+data("Rochdale")
+
+</code></pre>
+#### Format 
+
+A 8-dimensional array resulting from cross-tabulating 665 observations on 8 variables. The variables
+and their levels are as follows:
+No Name Levels
+1 EconActive yes, no
+2 Age <38, >38
+3 HusbandEmployed yes, no
+4 Child yes, no
+5 Education yes, no
+6 HusbandEducation yes, no
+7 Asian yes, no
+8 HouseholdWorking yes, no
+Note
+Many observations are missing: only 91 out of all 256 combinations contain in
+</code></pre>
+#### Format 
+ion.
+Source
+Whittaker (1990).
+References
+H. Hofmann (2003). Constructing and reading mosaicplots. Computational Statistics & Data Analysis,
+43, 4, 565-580.
+J. Whittaker (1990), Graphical Models on Applied Multivariate Statistics, Wiley, New York.
+
+#### Examples
+```{r}
+
+data("Rochdale")
+mosaic(Rochdale)
+rootogram 99
+rootogram Rootograms
+
+#### Desription
+
+Rootograms of observed and fitted 
+#### Value 
+.
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+rootogram(x, fitted, names = NULL, scale = c("sqrt", "raw"),
+type = c("hanging", "standing", "deviation"),
+shade = FALSE, legend = TRUE,
+legend_args = list(x = 00.2, height = 0.6), df = NULL,
+rect_gp = NULL, rect_gp_args = list(),
+lines_gp = gpar(col = "red", lwd = 2),
+points_gp = gpar(col = "red"), pch = 19,
+xlab = NULL, ylab = NULL, ylim = NULL,
+main = NULL, sub = NULL,
+margins = unit(0, "lines"),
+title_margins = NULL, legend_width = NULL,
+main_gp = gpar(fontsize = 20),
+sub_gp = gpar(fontsize = 15),
+name = "rootogram", prefix = "",
+keep_aspect_ratio = FALSE,
+newpage = TRUE, pop = TRUE,
+return_grob = FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+x either a vector or a 1-way table of frequencies.
+fitted a vector of fitted frequencies.
+names a vector of names passed to grid_barplot, if set to NULL the names of x are
+used.
+scale a character string indicating whether the 
+#### Value 
+ should be plotted on the raw or
+square root scale.
+type a character string indicating if the bars for the observed frequencies should be
+hanging or standing or indicate the deviation between observed and fitted
+frequencies.
+shade logical specifying whether rect_gp should be set to colors corresponding to the
+pearson residuals, i.e., if a residual-based shading should be applied to the bars.
+legend either a legend-generating function, or a legend function (see details and legends),
+or a logical. If legend is NULL or TRUE and gp is a function, legend defaults to
+legend_resbased.
+legend_args list of 
+</code></pre>
+#### Arguments
+ for the legend-generating function, if specified.
+100 rootogram
+df degrees of freedom passed to the shading functions used for inference.
+rect_gp a "gpar" object controlling the grid graphical parameters of the rectangles,
+shading function or a corresponding generating function (see shadings). If
+unspecified and no shading is applied, defaults to light grey fill color for the
+bars.
+rect_gp_args list of 
+</code></pre>
+#### Arguments
+ for the shading-generating function, if specified for rect_gp.
+lines_gp a "gpar" object controlling the grid graphical parameters of the lines.
+points_gp a "gpar" object controlling the grid graphical parameters of the points.
+pch plotting character for the points.
+xlab a label for the x axis.
+ylab a label for the y axis.
+ylim limits for the y axis.
+main either a logical, or a character string used for plotting the main title. If main is a
+logical and TRUE, the name of the object supplied as x is used.
+sub a character string used for plotting the subtitle. If sub is a logical and TRUE and
+main is unspecified, the name of the object supplied as x is used.
+margins either an object of class "unit" of length 4, or a numeric vector of length 4.
+The elements are recycled as needed. The four components specify the top,
+right, bottom, and left margin of the plot, respectively. When a numeric vector
+is supplied, the numbers are interpreted as "lines" units. In addition, the
+unit or numeric vector may have named 
+</code></pre>
+#### Arguments
+ ('top', 'right', 'bottom',
+and 'left'), in which case the non-named 
+</code></pre>
+#### Arguments
+ specify the default 
+#### Value 
+
+(recycled as needed), overloaded by the named 
+</code></pre>
+#### Arguments
+.
+title_margins either an object of class "unit" of length 2, or a numeric vector of length 2. The
+elements are recycled as needed. The two components specify the top and bottom
+title margin of the plot, respectively. The default for each specified title are
+2 lines (and 0 else), except when a legend is plotted and keep_aspect_ratio
+is TRUE: in this case, the default 
+#### Value 
+ of both margins are set as to align the
+heights of legend and actual plot. When a numeric vector is supplied, the numbers
+are interpreted as "lines" units. In addition, the unit or numeric vector may
+have named 
+</code></pre>
+#### Arguments
+ ('top' and 'bottom'), in which case the non-named argument
+specify the default value (recycled as needed), overloaded by the named arguments.
+legend_width An object of class "unit" of length 1 specifying the width of the legend (if any).
+Default: 5 lines.
+main_gp, sub_gp
+object of class "gpar" containing the graphical parameters used for the main
+(sub) title, if specified.
+name name of the plotting viewport.
+keep_aspect_ratio
+logical indicating whether the aspect ratio should be fixed or not.
+prefix optional character string used as a prefix for the generated viewport and grob
+names.
+
+newpage logical. Should grid.newpage be called before plotting?
+pop logical. Should the viewport created be popped?
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+... further 
+</code></pre>
+#### Arguments
+ passed to grid_barplot.
+Details
+The observed frequencies are displayed as bars and the fitted frequencies as a line. By default a sqrt
+scale is used to make the smaller frequencies more visible.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>, David Meyer <David.Meyer@R-project.org>
+References
+J. W. Tukey (1977), Exploratory Data Analysis. Addison Wesley, Reading, MA.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+See Also
+grid_barplot
+
+#### Examples
+```{r}
+
+## Simulated data 
+#### Examples
+```{r}
+:
+dummy <- rnbinom(200, size = 1.5, prob = 0.8)
+observed <- table(dummy)
+fitted1 <- dnbinom(as.numeric(names(observed)),
+size = 1.5, prob = 0.8) * sum(observed)
+fitted2 <- dnbinom(as.numeric(names(observed)),
+size = 2, prob = 0.6) * sum(observed)
+rootogram(observed, fitted1)
+rootogram(observed, fitted2)
+## Real data 
+#### Examples
+```{r}
+:
+data("HorseKicks")
+HK.fit <- goodfit(HorseKicks)
+summary(HK.fit)
+plot(HK.fit)
+## or equivalently
+rootogram(HK.fit)
+data("Federalist")
+F.fit <- goodfit(Federalist, type = "nbinomial")
+summary(F.fit)
+plot(F.fit)
+## (Pearson) residual-based shading
+data("Federalist")
+Fed_fit0 <- goodfit(Federalist, type = "poisson")
+102 Saxony
+plot(Fed_fit0, shade = TRUE)
+Saxony Families in Saxony
+
+#### Desription
+
+Data from Geissler, cited in Sokal & Rohlf (1969) and Lindsey (1995) on gender distributions in
+families in Saxony in the 19th century.
+
+#### Usage
+<pre><code>
+
+data("Saxony")
+
+</code></pre>
+#### Format 
+
+A 1-way table giving the number of male children in 6115 families of size 12. The variable and its
+levels are
+No Name Levels
+1 nMales 0, 1. , 12
+Source
+M. Friendly (2000), Visualizing Categorical Data, pages 40-42.
+References
+J. K. Lindsey (1995), Analysis of Frequency and Count Data. Oxford University Press, Oxford,
+UK.
+R. R. Sokal & F. J. Rohlf (1969), Biometry. The Principles and Practice of Statistics. W. H.
+Freeman, San Francisco, CA.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("Saxony")
+gf <- goodfit(Saxony, type = "binomial")
+summary(gf)
+plot(gf)
+```
+sieve Extended Sieve Plots
+
+#### Desription
+
+(Extended) sieve displays for n-way contingency tables: plots rectangles with areas proportional to
+the expected cell frequencies and filled with a number of squares equal to the observed frequencies.
+Thus, the densities visualize the deviations of the observed from the expected 
+#### Value 
+.
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+sieve(x, condvars = NULL, gp = NULL, shade = NULL,
+legend = FALSE, split_vertical = NULL, direction = NULL, spacing = NULL,
+spacing_args = list(), sievetype = c("observed","expected"),
+gp_tile = gpar(), scale = 1, main = NULL, sub = NULL, ...)
+## S3 method for class 'formula'
+sieve(formula, data, ..., main = NULL, sub = NULL, subset = NULL)
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form, with optional category labels specified in the
+dimnames(x) attribute.
+condvars vector of integers or character strings indicating conditioning variables, if any.
+The table will be permuted to order them first.
+formula a formula specifying the variables used to create a contingency table from data.
+For convenience, conditioning formulas can be specified; the conditioning variables
+will then be used first for splitting. Formulas for sieve displays (unlike
+those for doubledecker plots) have no response variable.
+data either a data frame, or an object of class "table" or "ftable".
+subset an optional vector specifying a subset of observations to be used.
+shade logical specifying whether gp should be used or not (see gp). If TRUE and
+expected is unspecified, a default model is fitted: if condvars is specified, a
+corresponding conditional independence model, and else the total independence
+model. If shade is NULL (default), gp is used if specified.
+sievetype logical indicating whether rectangles should be filled according to observed or
+expected frequencies.
+gp object of class "gpar", shading function or a corresponding generating function
+(see details of strucplot and shadings). Components of "gpar" objects are
+recycled as needed along the last splitting dimension. The default is a modified
+version of shading_Friendly: if sievetype is "observed", cells with positive
+residuals are painted with a red sieve, and cells with negative residuals with a
+blue one. If sievetype is "expected", the sieves' color is gray. Ignored if
+shade = FALSE.
+sieve 109
+gp_tile object of class "gpar", controlling the appearance of all static elements of the
+cells (e.g., border and fill color).
+scale scaling factor for the sieve.
+legend either a legend-generating function, a legend function (see details of strucplot
+and legends), or a logical value. If legend is NULL or TRUE and gp is a function,
+legend defaults to legend_resbased.
+split_vertical vector of logicals of length k, where k is the number of margins of x (default:
+FALSE). 
+#### Value 
+ are recycled as needed. A TRUE component indicates that the
+tile(s) of the corresponding dimension should be split vertically, FALSE means
+horizontal splits. Ignored if direction is not NULL.
+direction character vector of length k, where k is the number of margins of x (
+#### Value 
+
+are recycled as needed). For each component, a value of "h" indicates that the
+tile(s) of the corresponding dimension should be split horizontally, whereas "v"
+indicates vertical split(s).
+spacing spacing object, spacing function, or corresponding generating function (see strucplot
+for more in
+</code></pre>
+#### Format 
+ion). The default is no spacing at all if x has two dimensions,
+and spacing_increase for more dimensions.
+spacing_args list of 
+</code></pre>
+#### Arguments
+ for the generating function, if specified (see strucplot for
+more in
+</code></pre>
+#### Format 
+ion).
+main, sub either a logical, or a character string used for plotting the main (sub) title. If
+logical and TRUE, the name of the data object is used.
+... Other 
+</code></pre>
+#### Arguments
+ passed to strucplot
+Details
+sieve is a generic function which currently has a default method and a formula interface. Both are
+high-level interfaces to the strucplot function, and produce (extended) sieve displays. Most of the
+functionality is described there, such as specification of the independence model, labeling, legend,
+spacing, shading, and other graphical parameters.
+The layout is very flexible: the specification of shading, labeling, spacing, and legend is modularized
+(see strucplot for details).
+Value
+The "structable" visualized is returned invisibly.
+Note
+To be faithful to the original definition by Riedwyl & Schüpbach, the default is to have no spacing
+between the tiles for two-way tables.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+110 SpaceShuttle
+References
+H. Riedwyl & M. Schüpbach (1994), Parquet diagram to plot contingency tables. In F. Faulbaum
+(ed.), Softstat '93: Advances in Statistical Software, 293-299. Gustav Fischer, New York.
+M. Friendly (2000), Visualizing Categorical Data, SAS Institute, Cary, NC.
+David Meyer, Achim Zeileis, and Kurt Hornik (2006). The strucplot framework: Visualizing multiway
+contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+assoc, strucplot, mosaic, structable, doubledecker
+
+#### Examples
+```{r}
+
+data("HairEyeColor")
+## aggregate over 'sex':
+(haireye <- margin.table(HairEyeColor, c(2,1)))
+## plot expected 
+#### Value 
+:
+sieve(haireye, sievetype = "expected", shade = TRUE)
+## plot observed table:
+sieve(haireye, shade = TRUE)
+## plot complete diagram:
+sieve(HairEyeColor, shade = TRUE)
+## example with observed 
+#### Value 
+ in the cells:
+sieve(haireye, shade = TRUE, labeling = labeling_
+#### Value 
+,
+gp_text = gpar(fontface = 2))
+## example with expected 
+#### Value 
+ in the cells:
+sieve(haireye, shade = TRUE, labeling = labeling_
+#### Value 
+,
+value_type = "expected", gp_text = gpar(fontface = 2))
+## an example for the formula interface:
+data("VisualAcuity")
+sieve(Freq ~ right + left, data = VisualAcuity)
+SpaceShuttle Space Shuttle O-ring Failures
+
+#### Desription
+
+Data from Dalal et al. (1989) about O-ring failures in the NASA space shuttle program. The damage
+index comes from a discussion of the data by Tufte (1997).
+SpaceShuttle 111
+
+#### Usage
+<pre><code>
+
+data("SpaceShuttle")
+
+</code></pre>
+#### Format 
+
+A data frame with 24 observations and 6 variables.
+FlightNumber Number of space shuttle flight.
+Temperature temperature during start (in degrees F).
+Pressure pressure.
+Fail did any O-ring failures occur? (no, yes).
+nFailures how many (of six) 0-rings failed?.
+Damage damage index.
+Source
+* Michael Friendly (2000), Visualizing Categorical Data: http://euclid.psych.yorku.ca/ftp/
+sas/vcd/catdata/orings.sas
+References
+S. Dalal, E. B. Fowlkes, B. Hoadly (1989), Risk analysis of the space shuttle: Pre-Challenger
+prediction of failure, Journal of the American Statistical Association, 84, 945-957.
+E. R. Tufte (1997), Visual Explanations: Images and Quantities, Evidence and Narrative. Graphics
+Press, Cheshire, CT.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("SpaceShuttle")
+plot(nFailures/6 ~ Temperature, data = SpaceShuttle,
+xlim = c(30, 81), ylim = c(0,1),
+main = "NASA Space Shuttle O-Ring Failures",
+ylab = "Estimated failure probability",
+pch = 19, col = 4)
+fm <- glm(cbind(nFailuresnFailures) ~ Temperature,
+data = SpaceShuttle,
+family = binomial)
+lines(30 : 81,
+predict(fm, data.frame(Temperature = 30 : 81), type = "re"),
+lwd = 2)
+abline(v = 31, lty = 3)
+112 spacings
+spacings Spacing-generating Functions
+
+#### Desription
+
+These functions generate spacing functions to be used with strucplot to obtain customized spaces
+between the elements of a strucplot.
+
+#### Usage
+<pre><code>
+
+spacing_equal(sp = unit(0.3, "lines"))
+spacing_dimequal(sp)
+spacing_increase(start = unit(0.3, "lines"), rate = 1.5)
+spacing_conditional(sp = unit(0.3, "lines"), start = unit(2, "lines"), rate = 1.8)
+spacing_highlighting(start = unit(0.2, "lines"), rate = 1.5)
+
+</code></pre>
+#### Arguments
+
+start object of class "unit" indicating the start value for increasing spacings.
+rate increase rate for spacings.
+sp object of class "unit" specifying a fixed spacing.
+Details
+These generating functions return a function used by strucplot to generate appropriate spaces
+between tiles of a strucplot, using the dimnames in
+</code></pre>
+#### Format 
+ion of the visualized table.
+spacing_equal allows to specify one fixed space for all dimensions.
+spacing_dimequal allows to specify a fixed space for each dimension.
+spacing_increase creates increasing spaces for all dimensions, based on a starting value and an
+increase rate.
+spacing_conditional combines spacing_equal and spacing_increase to create fixed spaces
+for conditioned dimensions, and increasing spaces for conditioning dimensions.
+spacing_highlighting is essentially spacing_conditional but with the space of the last dimension
+set to 0. With a corresponding color scheme, this gives the impression of the last class being
+'highlighted' in the penultimate class (as, e.g., in doubledecker plots).
+Value
+A spacing function with 
+</code></pre>
+#### Arguments
+:
+d "dim" attribute of a contingency table.
+condvars index vector of conditioning dimensions (currently only used by spacing_conditional).
+This function computes a list of objects of class "unit". Each list element contains the spacing
+in
+</code></pre>
+#### Format 
+ion for the corresponding dimension of the table. The length of the "unit" objects is
+k ???? 1, k number of levels of the corresponding factor.
+spine 113
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+strucplot, doubledecker
+
+#### Examples
+```{r}
+
+data("Titanic")
+strucplot(Titanic, spacing = spacing_increase(start = 0.5, rate = 1.5))
+strucplot(Titanic, spacing = spacing_equal(1))
+strucplot(Titanic, spacing = spacing_dimequal(1:4 / 4))
+strucplot(Titanic, spacing = spacing_highlighting,
+gp = gpar(fill = c("light gray","dark gray")))
+data("PreSex")
+strucplot(aperm(PreSex, c(1,4,2,3)), spacing = spacing_conditional,
+condvars = 2)
+spine Spine Plots and Spinograms
+
+#### Desription
+
+Spine plots are a special cases of mosaic plots, and can be seen as a generalization of stacked (or
+highlighted) bar plots. Analogously, spinograms are an extension of histograms.
+
+#### Usage
+<pre><code>
+
+spine(x, ...)
+## Default S3 method:
+spine(xNULL,
+breaks = NULL, ylab_tol = 0.05, off = NULL,
+main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
+gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
+...)
+## S3 method for class 'formula'
+spine(formula, data = list(),
+breaks = NULL, ylab_tol = 0.05, off = NULL,
+main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
+gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
+...)
+114 spine
+
+</code></pre>
+#### Arguments
+
+* ``x``: an object, the default method expects either a single variable (interpreted to be
+the explanatory variable) or a 2-way table. See details.
+y a "factor" interpreted to be the dependent variable
+formula a "formula" of typx with a single dependent "factor" and a single
+explanatory variable.
+data an optional data frame.
+breaks if the explanatory variable is numeric, this controls how it is discretized. breaks
+is passed to hist and can be a list of 
+</code></pre>
+#### Arguments
+.
+ylab_tol convenience tolerance parameter for y-axis annotation. If the distance between
+two labels drops under this threshold, they are plotted equidistantly.
+off vertical offset between the bars (in per cent). It is fixed to 0 for spinograms and
+defaults to 2 for spine plots.
+main, xlab, ylab
+character strings for annotation
+ylim limits for the y axis
+margins margins when calling plotViewport
+gp a "gpar" object controlling the grid graphical parameters of the rectangles.
+It should specify in particular a vector of fill colors of the same length as
+levels(y). The default is to call gray.colors.
+name name of the plotting viewport.
+newpage logical. Should grid.newpage be called before plotting?
+pop logical. Should the viewport created be popped?
+... additional 
+</code></pre>
+#### Arguments
+ passed to plotViewport.
+Details
+spine creates either a spinogram or a spine plot. It can be called via spine(x, y) or spine(y ~ x)
+where y is interpreted to be the dependent variable (and has to be categorical) and x the explanatory
+variable. x can be either categorical (then a spine plot is created) or numerical (then a spinogram is
+plotted). Additionally, spine can also be called with only a single argument which then has to be a
+2-way table, interpreted to correspond to table(x, y).
+Spine plots are a generalization of stacked bar plots where not the heights but the widths of the
+bars corresponds to the relative frequencies of x. The heights of the bars then correspond to the
+conditional relative frequencies of y in every x group. This is a special case of a mosaic plot with
+specific spacing and shading.
+Analogously, spinograms extend stacked histograms. As for the histogram, x is first discretized
+(using hist) and then for the discretized data a spine plot is created.
+Value
+The table visualized is returned invisibly.
+strucplot 115
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+References
+Hummel, J. (1996), Linked bar charts: Analysing categorical data graphically. Computational
+Statistics, 11, 23-33.
+Hofmann, H., Theus, M. (2005), Interactive graphics for visualizing conditional distributions, Unpublished
+Manuscript.
+See Also
+cd_plot, mosaic, hist
+
+#### Examples
+```{r}
+
+## Arthritis data (dependence on a categorical variable)
+data("Arthritis")
+(spine(Improved ~ Treatment, data = Arthritis))
+## Arthritis data (dependence on a numerical variable)
+(spine(Improved ~ Age, data = Arthritis, breaks = 5))
+(spine(Improved ~ Age, data = Arthritis, breaks = quantile(Arthritis$Age)))
+(spine(Improved ~ Age, data = Arthritis, breaks = "Scott"))
+## Space shuttle data (dependence on a numerical variable)
+data("SpaceShuttle")
+(spine(Fail ~ Temperature, data = SpaceShuttle, breaks = 3))
+strucplot Structured Displays of Contingency Tables
+
+#### Desription
+
+This modular function visualizes certain aspects of high-dimensional contingency tables in a hierarchical
+way.
+
+#### Usage
+<pre><code>
+
+strucplot(x, residuals = NULL, expected = NULL,
+condvars = NULL, shade = NULL, type = c("observed", "expected"),
+residuals_type = NULL, df = NULL, split_vertical = NULL,
+spacing = spacing_equal, spacing_args = list(),
+gp = NULL, gp_args = list(),
+labeling = labeling_border, labeling_args = list(),
+core = struc_mosaic, core_args = list(),
+legend = NULL, legend_args = list(),
+main = NULL, sub = NULL, margins = unit(3, "lines"),
+116 strucplot
+title_margins = NULL, legend_width = NULL,
+main_gp = gpar(fontsize = 20), sub_gp = gpar(fontsize = 15),
+newpage = TRUE, pop = TRUE, return_grob = FALSE,
+keep_aspect_ratio = NULL, prefix = "", ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form, with optional category labels specified in the
+dimnames attribute.
+residuals optionally, an array of residuals of the same dimension as x (see details).
+expected optionally, an array of expected 
+#### Value 
+ of the same dimension as x, or alternatively
+the corresponding independence model specification as used by loglin
+or loglm (see details).
+df degrees of freedom passed to the shading functions used for inference. Will be
+calculated (and overwritten if specified) if both expected and residuals are
+NULL, or if expected is given a formula.
+condvars number of conditioning variables, if any; those are expected to be ordered first
+in the table. This in
+</code></pre>
+#### Format 
+ion is used for computing the expected 
+#### Value 
+, and is
+also passed to the spacing functions (see spacings).
+shade logical specifying whether gp should be used or not (see gp). If TRUE and
+expected is unspecified, a default model is fitted: if condvars is specified, a
+corresponding conditional independence model, and else the total independence
+model.
+residuals_type a character string indicating the type of residuals to be computed when none are
+supplied. If residuals is NULL, residuals_type must be one of "pearson"
+(default; giving components of Pearson's chi-squared), "deviance" (giving components
+of the likelihood ratio chi-squared), or "FT" for the Freeman-Tukey
+residuals. The value of this argument can be abbreviated. If residuals are
+specified, the value of residuals_type is just passed "as is" to the legend function.
+type a character string indicating whether the observed or the expected 
+#### Value 
+ of the
+table should be visualized.
+split_vertical vector of logicals of length k, where k is the number of margins of x (
+#### Value 
+
+are recycled as needed). A TRUE component indicates that the tile(s) of the corresponding
+dimension should be split vertically, FALSE means horizontal splits.
+Default is FALSE.
+spacing spacing object, spacing function, or a corresponding generating function (see
+details and spacings).
+spacing_args list of 
+</code></pre>
+#### Arguments
+ for the spacing-generating function, if specified.
+gp object of class "gpar", shading function or a corresponding generating function
+(see details and shadings). Components of "gpar" objects are recycled as
+needed along the last splitting dimension. Ignored if shade = FALSE.
+gp_args list of 
+</code></pre>
+#### Arguments
+ for the shading-generating function, if specified.
+labeling either a logical, or a labeling function, or a corresponding generating function
+(see details and labelings. If FALSE or NULL, no labeling is produced.
+strucplot 117
+labeling_args list of 
+</code></pre>
+#### Arguments
+ for the labeling-generating function, if specified.
+core either a core function, or a corresponding generating function (see details). Currently,
+generating functions for mosaic plots (struc_mosaic), association plots
+(struc_assoc), and sieve plots (struc_sieve) are provided.
+core_args list of 
+</code></pre>
+#### Arguments
+ for the core-generating function, if specified.
+legend either a legend-generating function, or a legend function (see details and legends),
+or a logical. If legend is NULL or TRUE and gp is a function, legend defaults to
+legend_resbased.
+legend_args list of 
+</code></pre>
+#### Arguments
+ for the legend-generating function, if specified.
+main either a logical, or a character string used for plotting the main title. If main is a
+logical and TRUE, the name of the object supplied as x is used.
+sub a character string used for plotting the subtitle. If sub is a logical and TRUE and
+main is unspecified, the name of the object supplied as x is used.
+margins either an object of class "unit" of length 4, or a numeric vector of length 4.
+The elements are recycled as needed. The four components specify the top,
+right, bottom, and left margin of the plot, respectively. When a numeric vector
+is supplied, the numbers are interpreted as "lines" units. In addition, the
+unit or numeric vector may have named 
+</code></pre>
+#### Arguments
+ ('top', 'right', 'bottom',
+and 'left'), in which case the non-named 
+</code></pre>
+#### Arguments
+ specify the default 
+#### Value 
+
+(recycled as needed), overloaded by the named 
+</code></pre>
+#### Arguments
+.
+title_margins either an object of class "unit" of length 2, or a numeric vector of length 2. The
+elements are recycled as needed. The two components specify the top and bottom
+title margin of the plot, respectively. The default for each specified title are
+2 lines (and 0 else), except when a legend is plotted and keep_aspect_ratio
+is TRUE: in this case, the default 
+#### Value 
+ of both margins are set as to align the
+heights of legend and actual plot. When a numeric vector is supplied, the numbers
+are interpreted as "lines" units. In addition, the unit or numeric vector may
+have named 
+</code></pre>
+#### Arguments
+ ('top' and 'bottom'), in which case the non-named argument
+specify the default value (recycled as needed), overloaded by the named
+
+</code></pre>
+#### Arguments
+.
+legend_width An object of class "unit" of length 1 specifying the width of the legend (if any).
+Default: 5 lines.
+pop logical indicating whether the generated viewport tree should be removed at the
+end of the drawing or not.
+main_gp, sub_gp
+object of class "gpar" containing the graphical parameters used for the main
+(sub) title, if specified.
+newpage logical indicating whether a new page should be created for the plot or not.
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+keep_aspect_ratio
+logical indicating whether the aspect ratio should be fixed or not. If unspecified,
+the default is TRUE for two-dimensional tables and FALSE otherwise.
+prefix optional character string used as a prefix for the generated viewport and grob
+names.
+... For convenience, list of 
+</code></pre>
+#### Arguments
+ passed to the labeling-generating function
+used.
+118 strucplot
+Details
+This function-usually called by higher-level functions such as assoc and mosaic-generates conditioning
+plots of contingency tables. First, it sets up a set of viewports for main- and subtitles,
+legend, and the actual plot region. Then, residuals are computed as needed from observed and
+expected frequencies, where the expected frequencies are optionally computed for a specified independence
+model. Finally, the specified functions for spacing, gp, main plot, legend, and labeling
+are called to produce the plot. The function invisibly returns the "structable" object visualized.
+Most elements of the plot, such as the core function, the spacing between the tiles, the shading
+of the tiles, the labeling, and the legend, are modularized in graphical appearance control ("grapcon")
+functions and specified as parameters. For each element foo (= spacing, labeling, core,
+or legend), strucplot takes two 
+</code></pre>
+#### Arguments
+: foo and foo\_args, which can be used to specify the
+parameters in the following alternative ways:
+1. Passing a suitable function to foo which subsequently will be called from strucplot to compute
+shadings, labelings, etc.
+2. Passing a corresponding generating function to foo, along with parameters passed to foo\_args,
+that generates such a function. Generating functions must inherit from classes "grapcon_generator"
+and "}foo\code{".
+3. Except for the shading functions (shading\_bar), passing foo(foo\_args) to the foo argument.
+4. For shadings and spacings, passing the final parameter object itself; see the corresponding
+help pages for more details on the data structures.
+If legends are drawn, a 'cinemascope'-like layout is used for the plot to preserve the 1:1 aspect ratio.
+If type = "expected", the expected 
+#### Value 
+ are passed to the observed argument of the core
+function, and the observed 
+#### Value 
+ to the expected argument.
+Although the gp argument is typically used for shading, it can be used for arbitrary modifications
+of the tiles' graphics parameters (e.g., for highlighting particular cells, etc.).
+Value
+Invisibly, an object of class "structable" corresponding to the plot. If return_grob is TRUE,
+additionally, the plot as a grob object is returned in a grob attribute.
+Note
+The created viewports, as well as the tiles and bullets, are named and thus can conveniently modified
+after a plot has been drawn (and pop = FALSE).
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Meyer D., Zeileis A., and Hornik K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+structable 119
+See Also
+assoc, mosaic, sieve, struc_assoc, struc_sieve, struc_mosaic, structable, doubledecker,
+labelings, shadings, legends, spacings
+
+#### Examples
+```{r}
+
+data("Titanic")
+strucplot(Titanic)
+strucplot(Titanic, core = struc_assoc)
+strucplot(Titanic, spacing = spacing_increase,
+spacing_args = list(start = 0.5, rate = 1.5))
+strucplot(Titanic, spacing = spacing_increase(start = 0.5, rate = 1.5))
+## modify a tile's color
+strucplot(Titanic, pop = FALSE)
+grid.edit("rect:Class=1st,Sex=Male,Age=Adult,Survived=Yes",
+gp = gpar(fill = "red"))
+
+```
+
+
+struc_mosaic Core-ge
+mary of a 2-way Table
+
+#### Desription
+
+Prints a 2-way contingency table along with percentages, marginal, and conditional distributions.
+
+#### Usage
+<pre><code>
+
+table2d_summary(object, margins = TRUE, percentages = FALSE,
+conditionals = c("none", "row", "column"), chisq.test = TRUE, ...)
+
+</code></pre>
+#### Arguments
+
+objec c-contingency table
+margins if TRUE, marginal distributions are computed.
+percentages if TRUE, relative frequencies are computed.
+conditionals if not "none", the conditional distributions, given the row/column factor, are
+computed.
+chisq.test if TRUE, a chi-squared test of independence is carried out.
+... currently not used.
+Value
+Returns invisiblk table, k depending on the amount of choices (at most 3).
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+See Also
+mar_table, prop.table, independence_table
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+table2d_summary(margin.table(UCBAdmissions, 1:2))
+
+UKSoccer UK Soccer Scores
+
+#### Desription
+
+Data from Lee (1997), on the goals scored by Home and Away teams in the Premier Football
+League, 1995/6 season.
+
+#### Usage
+<pre><code>
+
+data("UKSoccer")
+
+</code></pre>
+#### Format 
+
+A 2-dimensional array resulting from cross-tabulating the number of goals scored in 380 games.
+The variables and their levels are as follows:
+No Name Levels
+1 Home 0, 1. , 4
+2 Away 0, 1. , 4
+Source
+M. Friendly (2000), Visualizing Categorical Data, page 27.
+References
+A. J. Lee (1997), Modelling scores in the Premier League: Is Manchester United really the best?,
+Chance, 10(1), 15-19.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+See Also
+Bundesliga
+
+#### Examples
+```{r}
+
+data("UKSoccer")
+mosaic(UKSoccer, gp = shading_max, main = "UK Soccer Scores")
+VisualAcuity Visual Acuity in Left and Right Eyes
+
+#### Desription
+
+Data from Kendall & Stuart (1961) on unaided vision among 3,242 men and 7,477 women, all aged
+30-39 and employed in the U.K. Royal Ordnance factories 1943-1946.
+VonBort 135
+
+#### Usage
+<pre><code>
+
+data("VisualAcuity")
+
+</code></pre>
+#### Format 
+
+A data frame with 32 observations and 4 variables.
+Freq frequency of visual acuity measurements.
+right visual acuity on right eye.
+left visual acuity on left eye.
+gender factor indicating gender of patient.
+Source
+M. Friendly (2000), Visualizing Categorical Data: http://euclid.psych.yorku.ca/ftp/sas/
+vcd/catdata/vision.sas
+References
+M. G. Kendall & A. Stuart (1961), The Advanced Theory of Statistics, Vol. 2. Griffin, London.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("VisualAcuity")
+structable(~ gender + left + right, data = VisualAcuity)
+sieve(Freq ~ left + right | gender, data = VisualAcuity, shade = TRUE)
+cotabplot(Freq ~ left + right | gender, data = VisualAcuity,
+panel = cotab_agreementplot)
+VonBort Von Bortkiewicz Horse Kicks Data
+
+#### Desription
+
+Data from von Bortkiewicz (1898), given by Andrews \& Herzberg (1985), on number of deaths by
+horse or mule kicks in 14 corps of the Prussian army.
+
+#### Usage
+<pre><code>
+
+data("VonBort")
+
+</code></pre>
+#### Format 
+
+A data frame with 280 observations and 4 variables.
+deaths number of deaths.
+year year of the deaths.
+corps factor indicating the corps.
+fisher factor indicating whether the corresponding corps was considered by Fisher (1925) or not.
+Source
+* , Visualizing Categorical Data: http://euclid.psych.yorku.ca/ftp/
+sas/vcd/catdata/vonbort.sas
+References
+D. F. Andrews \& A. M. Herzberg (1985), Data: A Collection of Problems from Many Fields for
+the Student and Research Worker. Springer-Verlag, New York, NY.
+R. A. Fisher (1925), Statistical Methods for Research Workers. Oliver & Boyd, London.
+L. von Bortkiewicz (1898), Das Gesetz der kleinen Zahlen. Teubner, Leipzig.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+See Also
+HorseKicks for a popular subsample.
+
+#### Examples
+```{r}
+
+data("VonBort")
+## HorseKicks data
+xtabs(~ deaths, data = VonBort, subset = fisher == "yes")
+WeldonDice Weldon's Dice Data
+
+#### Desription
+
+Data from Pearson (1900) about the frequency of 5s and 6s in throws of 12 dice. Weldon tossed the
+dice 26,306 times and reported his results in a letter to Francis Galton on 1894-02-02.
+
+#### Usage
+<pre><code>
+
+data("WeldonDice")
+
+</code></pre>
+#### Format 
+
+A 1-way table giving the frequency ooin 26,306 throws of 12 dice where 10 indicates '10
+or more' 5s or 6s. The variable and its levels are
+WomenQueue 137
+No Name Levels
+1 n56 0, 1. , 10
+Source
+M. Friendly (2000), Visualizing Categorical Data, pages 20-21.
+References
+K. Pearson (1900), On the criterion that a given system of deviations from the probable in the case
+of a correlated system of variables is such that it can be reasonably supposed to have arisen by
+random sampling, Philosophical Magazine, 50 (5th series), 157-175.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("WeldonDice")
+gf <- goodfit(WeldonDice, type = "binomial")
+summary(gf)
+plot(gf)
+WomenQueue Women in Queues
+
+#### Desription
+
+Data from Jinkinson \& Slater (1981) and Hoaglin \& Tukey (1985) reporting the frequency distribution
+of females in 100 queues of length 10 in a London Underground station.
+
+#### Usage
+<pre><code>
+
+data("WomenQueue")
+
+</code></pre>
+#### Format 
+
+A 1-way table giving the number of women in 100 queues of length 10. The variable and its levels
+are
+No Name Levels
+1 nWomen 0, 1. , 10
+Source
+M. Friendly (2000), Visualizing Categorical Data, pages 19-20.
+138 woolf_test
+References
+D. C. Hoaglin \& J.W. Tukey (1985), Checking the shape of discrete distributions. In D. C. Hoaglin,
+F. Mosteller, J. W. Tukey (eds.), Exploring Data Tables, Trends and Shapes, chapter 9. John Wiley
+\& Sons, New York.
+R. A. Jinkinson \& M. Slater (1981), Critical discussion of a graphical method for identifying
+discrete distributions, The Statistician, 30, 239-248.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
+#### Examples
+```{r}
+
+data("WomenQueue")
+gf <- goodfit(WomenQueue, type = "binomial")
+summary(gf)
+plot(gf)
+woolf_test Woolf Test
+
+#### Desription
+
+Test for homogeneity otables over strata (i.e., whether the log odds ratios are the same
+in all strata).
+
+#### Usage
+<pre><code>
+
+woolf_test(x)
+
+</code></pre>
+#### Arguments
+
+
+Value
+A list of class "htest" containing the following components:
+statistic the chi-squared test statistic.
+parameter degrees of freedom of the approximate chi-squared distribution of the test statistic.
+p.value p-value for the test.
+method a character string indicating the type of test performed.
+data.name a character string giving the name(s) of the data.
+observed the observed counts.
+expected the expected counts under the null hypothesis.
+woolf_test 139
+References
+Woolf, B. 1955. On estimating the relation between blood group and disease. Ann. Human Genet.
+(London) 19, 251-253.
+See Also
+mantelhaen.test
+
+#### Examples
+```{r}
+
+data("CoalMiners")
+woolf_test(CoalMiners)
+Index
+Topic array
+co_table, 30
+independence_table, 50
+Topic category
+agreementplot, 3
+assocstats, 10
+binreg_plot, 13
+distplot, 32
+goodfit, 40
+independence_table, 50
+Kappa, 53
+lodds, 64
+loddsratio, 68
+mar_table, 72
+Ord_plot, 80
+plot.loddsratio, 90
+table2d_summary, 127
+Topic datasets
+Arthritis, 6
+Baseball, 11
+BrokenMarriage, 16
+Bundesliga, 17
+Bundestag2005, 18
+Butterfly, 20
+CoalMiners, 23
+DanishWelfare, 31
+Employment, 35
+Federalist, 37
+Hitters, 46
+HorseKicks, 48
+Hospital, 49
+JobSatisfaction, 51
+JointSports, 52
+Lifeboats, 63
+MSPatients, 78
+NonResponse, 79
+OvaryCancer, 82
+PreSex, 94
+Punishment, 96
+RepVict, 97
+Rochdale, 98
+Saxony, 102
+SexualFun, 103
+SpaceShuttle, 110
+Suicide, 126
+Trucks, 133
+UKSoccer, 134
+VisualAcuity, 134
+VonBort, 135
+WeldonDice, 136
+WomenQueue, 137
+Topic hplot
+agreementplot, 3
+assoc, 7
+binreg_plot, 13
+cd_plot, 21
+cotab_panel, 28
+cotabplot, 26
+doubledecker, 34
+fourfold, 37
+grid_barplot, 42
+grid_legend, 44
+hls, 48
+labeling_border, 55
+labeling_cells_list, 59
+legends, 61
+mosaic, 73
+Pairs plot panel functions for
+diagonal cells, 83
+Pairs plot panel functions for
+off-diagonal cells, 86
+pairs.table, 87
+plot.loglm, 93
+rootogram, 99
+shadings, 104
+sieve, 108
+spacings, 112
+spine, 113
+140
+INDEX 141
+struc_assoc, 121
+struc_mosaic, 123
+struc_sieve, 125
+strucplot, 115
+structable, 119
+ternaryplot, 128
+tile, 130
+Topic htest
+coindep_test, 24
+woolf_test, 138
+[, 30
+abline, 15
+agreementplot, 3, 54
+aperm, 120
+aperm.lodds (lodds), 64
+aperm.loddsratio (loddsratio), 68
+aperm.structable (structable), 119
+Arthritis, 6
+as.array.lodds (lodds), 64
+as.array.loddsratio (loddsratio), 68
+as.data.frame.lodds (lodds), 64
+as.data.frame.loddsratio (loddsratio),
+68
+as.matrix.lodds (lodds), 64
+as.matrix.loddsratio (loddsratio), 68
+as.matrix.structable (structable), 119
+as.table.structable (structable), 119
+as.vector.structable (structable), 119
+assoc, 7, 29, 39, 76, 86, 87, 89, 93, 94, 107,
+110, 118, 119, 123, 132
+assoc.loglm (plot.loglm), 93
+assocplot, 9
+assocstats, 10
+barplot, 43
+Baseball, 11, 46
+binreg_plot, 13
+BrokenMarriage, 16
+Bundesliga, 17, 134
+Bundestag2005, 18
+Butterfly, 20
+cbind, 120
+cbind.structable (structable), 119
+cd_plot, 21, 115
+chisq.test, 25
+co_table, 28, 29, 30
+CoalMiners, 23
+coef, 15
+coef.lodds (lodds), 64
+coef.loddsratio (loddsratio), 68
+coeftest, 67, 71
+coindep_test, 24, 28, 29, 106
+confint, 54, 67, 71
+confint.Kappa (Kappa), 53
+confint.lodds (lodds), 64
+confint.loddsratio (loddsratio), 68
+coplot, 27
+cotab_agreementplot (cotab_panel), 28
+cotab_assoc (cotab_panel), 28
+cotab_coindep, 28
+cotab_coindep (cotab_panel), 28
+cotab_fourfold (cotab_panel), 28
+cotab_loddsratio (cotab_panel), 28
+cotab_mosaic, 27, 28
+cotab_mosaic (cotab_panel), 28
+cotab_panel, 28
+cotab_sieve (cotab_panel), 28
+cotabplot, 5, 26, 29, 92
+DanishWelfare, 31
+density, 21, 22
+dim, 120
+dim.lodds (lodds), 64
+dim.loddsratio (loddsratio), 68
+dim.structable (structable), 119
+dimnames.lodds (lodds), 64
+dimnames.loddsratio (loddsratio), 68
+dimnames.structable (structable), 119
+distplot, 32
+diverge_hcl, 106, 107
+doubledecker, 34, 76, 110, 112, 113, 119
+Employment, 35
+Extract.structable (structable), 119
+Federalist, 37
+fisher.test, 25
+fitted.coindep_test (coindep_test), 24
+fitted.goodfit (goodfit), 40
+fourfold, 37
+ftable, 120
+glm, 13, 15
+goodfit, 40
+gray.colors, 21, 114
+grid.abline, 15
+142 INDEX
+grid.newpage, 21, 32, 43, 81, 101, 114
+grid.points, 33, 81
+grid.text, 14, 58, 61
+grid_abline (binreg_plot), 13
+grid_barplot, 42, 99, 101
+grid_legend, 44
+hcl2hex, 48, 105
+hcl2hex (shadings), 104
+hex, 106, 107
+hist, 114, 115
+Hitters, 12, 46
+hls, 48
+HorseKicks, 48, 136
+Hospital, 49
+hsv, 48, 105-107
+independence_table, 50, 127
+is.na, 120
+is.na.structable (structable), 119
+is.structable (structable), 119
+jitter, 14
+JobSatisfaction, 51
+JointSports, 52
+Kappa, 53
+labeling_border, 55, 60, 61
+labeling_cboxed (labeling_border), 55
+labeling_cells, 57, 58
+labeling_cells (labeling_cells_list), 59
+labeling_cells_list, 59
+labeling_conditional (labeling_border),
+55
+labeling_doubledecker
+(labeling_border), 55
+labeling_lboxed (labeling_border), 55
+labeling_left (labeling_border), 55
+labeling_left2 (labeling_border), 55
+labeling_list, 57, 58
+labeling_list (labeling_cells_list), 59
+labeling_residuals (labeling_border), 55
+labeling_
+#### Value 
+ings (labeling_border), 55
+legend, 45
+legend_fixed (legends), 61
+legend_resbased, 99, 109, 117, 131
+legend_resbased (legends), 61
+legends, 61, 99, 109, 117, 119, 131
+length, 120
+length.structable (structable), 119
+Lifeboats, 63
+lines.loddsratio (plot.loddsratio), 90
+lodds, 64
+loddsratio, 67, 68, 92
+loglin, 74, 116
+loglm, 74, 93, 94, 116
+mantelhaen.test, 139
+mar_table, 72, 127
+mosaic, 9, 29, 35, 39, 73, 86, 87, 89, 93, 94,
+106, 107, 110, 115, 118-120, 124,
+132
+mosaic.loglm (plot.loglm), 93
+mosaicplot, 62, 75, 76
+mplot, 76
+MSPatients, 78
+NonResponse, 79
+odds (lodds), 64
+oddsratio (loddsratio), 68
+Ord_estimate (Ord_plot), 80
+Ord_plot, 80
+OvaryCancer, 82
+pairs, 88
+Pairs plot panel functions for
+diagonal cells, 83
+Pairs plot panel functions for
+off-diagonal cells, 86
+pairs.structable (pairs.table), 87
+pairs.table, 83, 85-87, 87
+pairs_assoc, 85, 86, 89
+pairs_assoc (Pairs plot panel
+functions for off-diagonal
+cells), 86
+pairs_barplot, 85, 87, 89
+pairs_barplot (Pairs plot panel
+functions for diagonal cells),
+83
+pairs_diagonal_mosaic, 89
+pairs_diagonal_mosaic (Pairs plot
+panel functions for diagonal
+cells), 83
+pairs_diagonal_text, 89
+INDEX 143
+pairs_diagonal_text (Pairs plot panel
+functions for diagonal cells),
+83
+pairs_mosaic, 85, 86, 89
+pairs_mosaic (Pairs plot panel
+functions for off-diagonal
+cells), 86
+pairs_sieve, 86, 89
+pairs_sieve (Pairs plot panel
+functions for off-diagonal
+cells), 86
+pairs_strucplot (Pairs plot panel
+functions for off-diagonal
+cells), 86
+pairs_text, 85, 87, 89
+pairs_text (Pairs plot panel functions
+for diagonal cells), 83
+par, 4, 91
+plot.goodfit (goodfit), 40
+plot.loddsratio, 66, 70, 71, 90
+plot.loglm, 93
+plotViewport, 21, 114
+polarLUV, 48, 106, 107
+POSIXt, 63
+predict.goodfit (goodfit), 40
+PreSex, 94
+print.assocstats (assocstats), 10
+print.goodfit (goodfit), 40
+print.Kappa (Kappa), 53
+print.lodds (lodds), 64
+print.loddsratio (loddsratio), 68
+print.summary.assocstats (assocstats),
+10
+print.summary.Kappa (Kappa), 53
+print.table2d_summary
+(table2d_summary), 127
+prop.table, 127
+Punishment, 96
+r2dtable, 25
+rainbow_hcl, 14, 91, 105
+rbind, 120
+rbind.structable (structable), 119
+RepVict, 97
+residuals.goodfit (goodfit), 40
+Rochdale, 98
+rootogram, 41, 42, 99
+Saxony, 102
+SexualFun, 103
+shading_binary (shadings), 104
+shading_diagonal (shadings), 104
+shading_Friendly, 108
+shading_Friendly (shadings), 104
+shading_Friendly2 (shadings), 104
+shading_hcl, 29
+shading_hcl (shadings), 104
+shading_hsv (shadings), 104
+shading_Marimekko (shadings), 104
+shading_max (shadings), 104
+shading_sieve (shadings), 104
+shadings, 29, 62, 63, 74, 93, 100, 104, 108,
+116, 119
+sieve, 29, 86, 89, 108, 119, 125, 126
+SpaceShuttle, 110
+spacing_conditional, 8
+spacing_conditional (spacings), 112
+spacing_dimequal (spacings), 112
+spacing_equal (spacings), 112
+spacing_highlighting (spacings), 112
+spacing_increase (spacings), 112
+spacings, 112, 116, 119
+spine, 22, 113
+struc_assoc, 117, 119, 121
+struc_mosaic, 117, 119, 123
+struc_sieve, 117, 119, 125
+strucplot, 8, 9, 34, 35, 57, 60, 74-76, 86, 94,
+107-110, 112, 113, 115, 120,
+123-126, 131, 132
+structable, 9, 58, 61, 63, 75, 76, 110, 119,
+119, 123, 124, 126, 132
+Suicide, 126
+summary.assocstats (assocstats), 10
+summary.goodfit (goodfit), 40
+summary.Kappa (Kappa), 53
+t.lodds (lodds), 64
+t.loddsratio (loddsratio), 68
+t.structable (structable), 119
+table2d_summary, 127
+ternaryplot, 128
+tile, 130
+Trucks, 133
+UKSoccer, 18, 134
+vcov.lodds (lodds), 64
+vcov.loddsratio (loddsratio), 68
+144 INDEX
+VisualAcuity, 134
+VonBort, 48, 49, 135
+WeldonDice, 136
+WomenQueue, 137
+woolf_test, 138
+xtabs, 4
