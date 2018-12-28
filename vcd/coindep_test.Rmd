@@ -1,4 +1,13 @@
-coindep_test Test for (Conditional) Independence
+---
+title: "coindep_test "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+Test for (Conditional) Independence
 
 #### Desription
 
@@ -17,48 +26,14 @@ pearson = TRUE)
 #### Arguments
 
 * ``x``: a contingency table.
-margin margin index(es) or corresponding name(s) of the conditioning variables. Each
-resulting conditional table has to be a 2-way table.
-n number of (conditional) independence tables to be drawn.
-indepfun aggregation function capturing independence in (each conditional) 2-way table.
-aggfun aggregation function aggregating the test statistics computed by indepfun.
-alternative a character string specifying the alternative hypothesis; must be either "greater"
+* margin margin index(es) or corresponding name(s) of the conditioning variables. Each resulting conditional table has to be a 2-way table.
+* n number of (conditional) independence tables to be drawn.
+* indepfun aggregation function capturing independence in (each conditional) 2-way table.
+* aggfun aggregation function aggregating the test statistics computed by indepfun.
+* alternative a character string specifying the alternative hypothesis; must be either "greater"
 (default) or "less" (and may be abbreviated.)
-pearson logical. Should the table of Pearson residuals under independence be computed
-and passed to indepfun (default) or the raw table of observed frequencies?
-coindep_test 25
-Details
-If margin is NULL this computes a simple independence statistic in a 2-way table. Alternatively,
-margin can give several conditioning variables and then conditional independence in the resulting
-conditional table is tested.
-By default, this uses a (double) maximum statistic of Pearson residuals. By changing indepfun or
-aggfun a (maximum of) Pearson Chi-squared statistic(s) can be computed or just the usual Pearson
-Chi-squared statistics and so on. Other statistics can be computed by changing pearson to FALSE.
-The function uses r2dtable to simulate the distribution of the test statistic under the null.
-Value
-A list of class "coindep_test" inheriting from "htest" with following components:
-statistic the value of the test statistic.
-p.value the p value for the test.
-method a character string indicating the type of the test.
-data.name a character string giving the name(s) of the data.
-observed observed table of frequencies
-expctd expected table of frequencies
-residuals corresponding Pearson residuals
-margin the margin used
-dist a vector of size n with simulated 
-#### Value 
- of the distribution of the statistic under
-the null.
-qdist the corresponding quantile function (for computing critical 
-#### Value 
-).
-pdist the corresponding distribution function (for computing p 
-#### Value 
-).
-Author(s)
-Achim Zeileis <Achim.Zeileis@R-project.org>
-See Also
-chisq.test, fisher.test, r2dtable
+* pearson logical. Should the table of Pearson residuals under independence be computed and passed to indepfun (default) or the raw table of observed frequencies?
+
 
 #### Examples
 ```{r}
@@ -87,3 +62,36 @@ coindep_test(UCBAdmissions, margin = "Dept", indepfun = function(x) sum(x^2), ag
 loglm(~ Dept * (Gender + Admit), data = UCBAdmissions)
 ```
 
+
+#### Details
+If margin is NULL this computes a simple independence statistic in a 2-way table. Alternatively,
+margin can give several conditioning variables and then conditional independence in the resulting
+conditional table is tested.
+By default, this uses a (double) maximum statistic of Pearson residuals. By changing indepfun or
+aggfun a (maximum of) Pearson Chi-squared statistic(s) can be computed or just the usual Pearson
+Chi-squared statistics and so on. Other statistics can be computed by changing pearson to FALSE.
+The function uses r2dtable to simulate the distribution of the test statistic under the null.
+
+#### Value
+A list of class "coindep_test" inheriting from "htest" with following components:
+statistic the value of the test statistic.
+p.value the p value for the test.
+method a character string indicating the type of the test.
+data.name a character string giving the name(s) of the data.
+observed observed table of frequencies
+expctd expected table of frequencies
+residuals corresponding Pearson residuals
+margin the margin used
+dist a vector of size n with simulated 
+Value 
+ of the distribution of the statistic under
+the null.
+qdist the corresponding quantile function (for computing critical Value 
+).
+pdist the corresponding distribution function (for computing p 
+#### Value 
+).
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+See Also
+chisq.test, fisher.test, r2dtable
