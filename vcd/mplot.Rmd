@@ -1,7 +1,5 @@
 ---
-title: "vcd"
-author: "Kevin O'Brien"
-date: "28 December 2018"
+title: "mplot"
 output: html_document
 ---
 
@@ -9,12 +7,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(vcd)
 ```
-mplot Multiple Grid plots
+ Multiple Grid plots
 
 #### Desription
 
 combines severals grid-based plots in a multi-panel-layout.
-mplot 77
+
 
 #### Usage
 <pre><code>
@@ -28,20 +26,19 @@ keep_aspect_ratio = TRUE)
 </code></pre>
 #### Arguments
 
-..., .list A list of objects inheriting from class "grob", or having a "grob" attribute containing
+* ..., .list A list of objects inheriting from class "grob", or having a "grob" attribute containing
 such an object.
 layout integer vector of length 2 giving the number of rows and columns. If NULL,
-the 
-#### Value 
+the  Value 
  will be guessed using some heuristics from the number of objects
 supplied i. .
-cex Scaling factor for the fonts in the subplots. If NULL, the value is calculated as the
+* cex Scaling factor for the fonts in the subplots. If NULL, the value is calculated as the
 inverse square root of the row number.
-main, sub Optional main and sub title, respectively.
-gp_main, gp_sub
+* main, sub Optional main and sub title, respectively. gp_main, gp_sub
 Optional objects of class "gpar" specifying the graphical parameters for the
 main and sub title, respectively.
-keep_aspect_ratio
+
+* keep_aspect_ratio
 logical; should the aspect ratio of the plots be fixed?
 
 
@@ -65,7 +62,6 @@ mplot Multiple Grid plots
 #### Desription
 
 combines severals grid-based plots in a multi-panel-layout.
-mplot 77
 
 #### Usage
 <pre><code>
