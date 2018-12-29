@@ -1,5 +1,15 @@
 
-grid_legend Legend Function for grid Graphics
+---
+title: "grid_legend"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+Legend Function for grid Graphics
 
 #### Desription
 
@@ -9,12 +19,9 @@ This function can be used to add legends to grid-based plots.
 <pre><code>
 
 grid_legend(x, y, pch = NA, col = par('col'), labels, frame = TRUE,
-hgap = unit(0.8, "lines"), vgap = unit(0.8, "lines"),
-default_units = "lines", gp = gpar(), draw = TRUE,
-title = NULL, just = 'center', lwd = NA, lty = NA,
-size = 1,
-gp_title = NULL, gp_labels = NULL,
-gp_frame = gpar(fill = "transparent"),
+hgap = unit(0.8, "lines"), vgap = unit(0.8, "lines"), default_units = "lines", gp = gpar(), draw = TRUE,
+title = NULL, just = 'center', lwd = NA, lty = NA, size = 1,
+gp_title = NULL, gp_labels = NULL, gp_frame = gpar(fill = "transparent"),
 inset = c(0, 0))
 
 </code></pre>
@@ -24,32 +31,24 @@ x character string "topright", "topleft", "bottomright", "bottomleft", "top",
 "bottom", "left", "right", "center" or x coordinate of the legend.
 y y coordinates of the legend.
 pch integer vector of plotting symbols, if any.
-col character vector of colors for the symbols.
-labels character vector of labels corresponding to the symbols.
-frame logical indicating whether the legend should have a border or not.
-hgap object of class "unit" specifying the space between symbols and labels.
-vgap object of class "unit" specifying the space between the lines.
-default_units character string indicating the default unit.
-gp object of class "gpar" used for the legend.
-draw logical indicating whether the legend be drawn or not.
-title character string indicating the plot’s title.
-just justification of the legend relative to its (x, y) location. see ?viewport for more
-details.
-lwd positive number to set the line width. if specified lines are drawn.
-lty line type. if specified lines are drawn.
-size size of the group symbols (in char units).
-gp_title object of class "gpar" used for the title.
-gp_labels object of class "gpar" used for the labels.
-gp_frame object of class "gpar" used for the frame.
-inset numeric vector of length 2 specifying the inset of the legend in npc units, relative
-to the specified x and y coordinates.
-grid_legend 45
-Value
-Invisibly, the legend as a "grob" object.
-Author(s)
-David Meyer <David.Meyer@R-project.org> Florian Gerber <florian.gerber@math.uzh.ch>
-See Also
-legend
+* col character vector of colors for the symbols.
+* labels character vector of labels corresponding to the symbols.
+* frame logical indicating whether the legend should have a border or not.
+* hgap object of class "unit" specifying the space between symbols and labels.
+* vgap object of class "unit" specifying the space between the lines.
+* default_units character string indicating the default unit.
+* gp object of class "gpar" used for the legend.
+* draw logical indicating whether the legend be drawn or not.
+* title character string indicating the plot’s title.
+* just justification of the legend relative to its (x, y) location. see ?viewport for more details.
+* lwd positive number to set the line width. if specified lines are drawn.
+* lty line type. if specified lines are drawn.
+* size size of the group symbols (in char units).
+* gp_title object of class "gpar" used for the title.
+* gp_labels object of class "gpar" used for the labels.
+* gp_frame object of class "gpar" used for the frame.
+* inset numeric vector of length 2 specifying the inset of the legend in npc units, relative to the specified x and y coordinates.
+
 
 #### Examples
 ```{r}
@@ -128,3 +127,12 @@ title = NULL,
 gp=gpar(lwd=2, cex=1,col = 1),
 hgap = unit(.8, "lines"),
 vgap = unit(.9, "lines"))
+
+
+grid_legend 45
+Value
+Invisibly, the legend as a "grob" object.
+Author(s)
+David Meyer <David.Meyer@R-project.org> Florian Gerber <florian.gerber@math.uzh.ch>
+See Also
+legend
