@@ -1,4 +1,13 @@
-plot.loglm Visualize Fitted Log-linear Models
+---
+title: "plot.loglm "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+ Visualize Fitted Log-linear Models
 
 #### Desription
 
@@ -17,34 +26,15 @@ residuals_type = c("pearson", "deviance"), gp = shading_hcl, gp_args = list(),
 
 x a fitted "loglm" object, see loglm.
 panel a panel function for visualizing the observed 
-#### Value 
-, residuals and expected 
-#### Value 
-.
+Value , residuals and expected Value .
 Currently, mosaic and assoc in vcd.
-type a character string indicating whether the observed or the expected 
-#### Value 
- of the
-table should be visualized.
-residuals_type a character string indicating the type of residuals to be computed.
-gp object of class "gpar", shading function or a corresponding generating function
-(see details and shadings). Ignored if shade = FALSE.
-gp_args list of 
-</code></pre>
-#### Arguments
- for the shading-generating function, if specified.
-... Other 
-</code></pre>
-#### Arguments
- passed to the panel function.
+* type a character string indicating whether the observed or the expected value of the table should be visualized.
+* residuals_type a character string indicating the type of residuals to be computed.
+* gp object of class "gpar", shading function or a corresponding generating function (see details and shadings). Ignored if shade = FALSE.
+* gp_args list of arguments for the shading-generating function, if specified.
+* ... Other arguments passed to the panel function.
 
 
-#### Details
-The plot method for "loglm" objects by default visualizes the model using a mosaic plot (can be
-changed to an association plot by setting panel = assoc) with a shading based on the residuals of
-this model. The legend also reports the corresponding p value of the associated goodness-of-fit test.
-The mosaic and assoc methods are simple convenience interfaces to this plot method, setting the
-panel argument accordingly.
 
 
 #### Examples
@@ -69,7 +59,11 @@ plot(fm, labeling_args = list(abbreviate = c(Admit = 3)))
 plot(fm, panel = assoc)
 assoc(fm)
 ```
-Value
+#### Details
+The plot method for "loglm" objects by default visualizes the model using a mosaic plot (can be changed to an association plot by setting panel = assoc) with a shading based on the residuals of this model. The legend also reports the corresponding p value of the associated goodness-of-fit test. The mosaic and assoc methods are simple convenience interfaces to this plot method, setting the
+panel argument accordingly.
+
+#### Value
 The "structable" visualized is returned invisibly.
 Author(s)
 Achim Zeileis <Achim.Zeileis@R-project.org>
