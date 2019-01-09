@@ -1,0 +1,89 @@
+tidyHtmlTable Generate an htmlTable using a ggplot2-like interface
+
+#### Description 
+
+Builds an htmlTable by mapping columns from the input data, x, to elements of an output htmlTable
+(e.g. rnames, header, etc.)
+
+#### Usage 
+
+tidyHtmlTable(x, value = "value", header = "header",
+rnames = "rnames", rgroup = NULL, hidden_rgroup = NULL,
+cgroup1 = NULL, cgroup2 = NULL, tspanner = NULL,
+hidden_tspanner = NULL, ...)
+tidyHtmlTable 19
+
+#### Arguments 
+
+x Tidy data used to build the htmlTable
+value The column containing values filling individual cells of the output htmlTable
+header The column in x specifying column headings
+rnames The column in x specifying row names
+rgroup The column in x specifying row groups
+hidden_rgroup rgroup values that will be hidden.
+cgroup1 The column in x specifying the inner most column groups
+cgroup2 The column in x specifying the outer most column groups
+tspanner The column in x specifying tspanner groups
+hidden_tspanner
+tspanner values that will be hidden.
+... Additional arguments that will be passed to the inner htmlTable function
+Value
+Returns html code that will build a pretty table
+Column-mapping parameters
+The tidyHtmlTable function is designed to work like ggplot2 in that columns from x are mapped
+to specific parameters from the htmlTable function. At minimum, x must contain the names of
+columns mapping to rnames, header, and rnames. header and rnames retain the same meaning
+as in the htmlTable function. value contains the individual values that will be used to fill each cell
+within the output htmlTable.
+A full list of parameters from htmlTable which may be mapped to columns within x include:
+• value
+• header
+• rnames
+• rgroup
+• cgroup1
+• cgroup2
+• tspanner
+Note that unlike in htmlTable which contains cgroup, and which may specify a variable number of
+column groups, tidyhtmlTable contains the parameters cgroup1 and cgroup2. These parameters
+correspond to the inward most and outward most column groups respectively.
+Also note that the coordinates of each value within x must be unambiguously mapped to a position
+within the output htmlTable. Therefore, the each row-wise combination the variables specified
+above contained in x must be unique.
+20 tidyHtmlTable
+Hidden values
+htmlTable Allows for some values within rgroup, cgroup, etc. to be specified as "". The following
+parameters allow for specific values to be treated as if they were a string of length zero in the
+htmlTable function.
+• hidden_rgroup
+• hidden_tspanner
+Additional dependencies
+In order to run this function you also must have dplyr and tidyr packages installed. These have
+been removed due to the additional 20 Mb that these dependencies added (issue #47). The particular
+functions required are:
+• dplyr: mutate_at, select, pull, slice, filter, arrange_at, mutate_if, is.grouped_df,
+left_join
+• tidyr: spread
+See Also
+htmlTable
+Examples
+## Not run:
+library(tidyverse)
+mtcars %>%
+rownames_to_column %>%
+select(rowname, cyl, gear, hp, mpg, qsec) %>%
+gather(per_metric, value, hp, mpg, qsec) %>%
+group_by(cyl, gear, per_metric) %>%
+summarise(Mean = round(mean(value), 1),
+SD = round(sd(value), 1),
+Min = round(min(value), 1),
+Max = round(max(value), 1)) %>%
+gather(summary_stat, value, Mean, SD, Min, Max) %>%
+ungroup %>%
+mutate(gear = paste(gear, "Gears"),
+cyl = paste(cyl, "Cylinders")) %>%
+tidyHtmlTable(header = "gear",
+cgroup1 = "cyl",
+cell_value = "value",
+rnames = "summary_stat",
+rgroup = "per_metric")
+## End(Not run)
