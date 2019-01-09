@@ -1,0 +1,42 @@
+
+robcov_alt Robust covariance matrix based upon the ’sandwich’-package
+
+#### Description 
+
+This is an alternative to the ’rms’-package robust covariance matrix that uses the ’sandwich’ package
+vcovHC() function instead of the ’rms’-built-in estimator. The advantage being that many more
+estimation types are available.
+\n#### Usage\n<pre><code>\n
+robcov_alt(fit, type = "HC3", ...)
+Arguments
+fit The ols fit that
+type a character string specifying the estimation type. See vcovHC() for options.
+... You should specify type= followed by some of the alternative available for the
+vcovHC() function.
+Value
+model The fitted model with adjusted variance and df.residual set to NULL
+Examples
+# Generate some data
+n <- 500
+x1 <- runif(n)*2
+x2 <- runif(n)
+y <- x1^3 + x2 + rnorm(n)
+library(rms)
+library(sandwich)
+dd <- datadist(x1, x2, y)
+18 timeSplitter
+org.op <- options(datadist = "dd")
+# Main function
+f <- ols(y ~ rcs(x1, 3) + x2)
+# Check the bread
+bread(f)
+# Check the HC-matrix
+vcovHC(f, type="HC4m")
+# Adjust the model so that it uses the HC4m variance
+f_rob <- robcov_alt(f, type="HC4m")
+# Get the new HC4m-matrix
+# - this function just returns the f_rob$var matrix
+vcov(f_rob)
+# Now check the confidence interval for the function
+confint(f_rob)
+options(org.op)
