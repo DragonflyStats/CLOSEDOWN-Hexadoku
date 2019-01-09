@@ -1,0 +1,29 @@
+htmlTableWidget htmlTable with pagination widget
+
+#### Description 
+
+This widget renders a table with pagination into an htmlwidget
+
+#### Usage 
+
+htmlTableWidget(x, number_of_entries = c(10, 25, 100), width = NULL,
+height = NULL, elementId = NULL, ...)
+
+#### Arguments 
+
+x A data frame to be rendered
+number_of_entries
+a numeric vector with the number of entries per page to show. If there is more
+than one number given, the user will be able to show the number of rows per
+page in the table.
+width Fixed width for widget (in css units). The default is NULL, which results in
+intelligent automatic sizing based on the widget’s container.
+height Fixed height for widget (in css units). The default is NULL, which results in
+intelligent automatic sizing based on the widget’s container.
+elementId Use an explicit element ID for the widget (rather than an automatically generated
+one). Useful if you have other JavaScript that needs to explicitly discover and
+interact with a specific widget instance.
+... Additional parameters passed to htmlTable
+Value
+an htmlwidget showing the paginated table
+htmlTableWidget-shiny 13
