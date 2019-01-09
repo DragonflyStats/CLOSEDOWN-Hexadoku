@@ -1,0 +1,56 @@
+timeSplitter A function for splitting a time according to time periods
+
+#### Description 
+
+If we have a violation of the cox proprtional hazards assumption we need to split an individual’s
+followup time into several. See vignette("timeSplitter", package="Greg") for a detailed
+description.
+\n#### Usage\n<pre><code>\n
+timeSplitter(data, by, time_var, event_var, event_start_status,
+time_related_vars, time_offset)
+Arguments
+data The dataset that you want to split according to the time_var option.
+by The time period that you want to split the dataset by. The size of the variable
+must be in proportion to the the time_var. The by variable can also be a vector
+for each time split, useful if the effect has large varyations over time.
+time_var The name of the main time variable in the dataset. This variable must be a
+numeric variable.
+event_var The event variable
+event_start_status
+The start status of the event status, e.g. "Alive"
+time_related_vars
+A dataset often contains other variabels that you want to update during the split,
+most commonly these are age or calendar time.
+time_offset If you want to skip the initial years you can offset the entire dataset by setting
+this variable. See detailed description below.
+timeSplitter 19
+Details
+Important note: The time variables must have the same time unit. I.e. function can not dedu if all
+variables are in years or if one happens to be in days.
+Value
+data.frame with the split data. The starting time for each period is named Start_time and the
+ending time is called Stop_time. Note that the resulting event_var will now contain the timesplitted
+eventvar.
+The time_offset - details
+Both time_var and other variables will be adjusted by the time_offset, e.g. if we the time scale is in
+years and we want to skip the first 4 years we set the time_offset = 4. In the outputted dataset
+the smallest time_var will be 0. Note: 0 will not be included as we generally want to look at those
+that survived the start date, e.g. if a patient dies on the 4-year mark we would not include him/her
+in our study.
+Examples
+test_data <- data.frame(
+id = 1:4,
+time = c(4, 3.5, 1, 5),
+event = c("alive", "censored", "dead", "dead"),
+age = c(62.2, 55.3, 73.7, 46.3),
+date = as.Date(
+c("2003-01-01",
+"2010-04-01",
+"2013-09-20",
+"2002-02-23"))
+)
+timeSplitter(test_data, .5,
+time_var = "time",
+time_related_vars = c("age", "date"),
+event_var = "event")
+Index
