@@ -1,0 +1,22 @@
+prEscapeHtml Remove html entities from table
+
+#### Description 
+
+Removes the htmlEntities from table input data. Note that this also replaces $ signs in order to
+remove the MathJax issue.
+
+#### Usage 
+
+prEscapeHtml(x)
+16 SCB
+
+#### Arguments 
+
+x The matrix/data.frame with the data. For the print and knit_print it takes a
+string of the class htmlTable as x argument.
+Value
+x without the html entities
+See Also
+Other hidden helper functions for htmlTable: prAddCells, prAddSemicolon2StrEnd, prGetCgroupHeader,
+prGetRowlabelPos, prGetStyle, prPrepareAlign, prPrepareCgroup, prTblNo
+
