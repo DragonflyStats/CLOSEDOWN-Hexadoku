@@ -1,0 +1,16 @@
+prConvertDfFactors Convert all factors to characters to print them as they expected
+
+#### Description 
+
+Convert all factors to characters to print them as they expected
+
+#### Usage 
+
+prConvertDfFactors(x)
+
+#### Arguments 
+
+x The matrix/data.frame with the data. For the print and knit_print it takes a
+string of the class htmlTable as x argument.
+Value
+The data frame with factors as characters
