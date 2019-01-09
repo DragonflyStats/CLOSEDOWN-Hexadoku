@@ -1,0 +1,322 @@
+htmlTable Outputting HTML tables
+
+#### Description 
+
+This is a function for outputting a more advanced table than what xtable, ztable, or knitr’s kable()
+allows. It’s aim is to provide the Hmisc latex() colgroup and rowgroup functions in HTML. The
+html-output is designed for maximum compatibility with LibreOffice/OpenOffice.
+
+#### Usage 
+
+htmlTable(x, ...)
+## Default S3 method:
+htmlTable(x, header, rnames, rowlabel, caption, tfoot,
+label, rgroup, n.rgroup, cgroup, n.cgroup, tspanner, n.tspanner, total,
+align = paste(rep("c", ncol(x)), collapse = ""),
+align.header = paste(rep("c", ncol(x)), collapse = ""), align.cgroup,
+css.rgroup = "font-weight: 900;", css.rgroup.sep = "",
+htmlTable 5
+css.tspanner = "font-weight: 900; text-align: left;",
+css.tspanner.sep = "border-top: 1px solid #BEBEBE;",
+css.total = "border-top: 1px solid #BEBEBE; font-weight: 900;",
+css.cell = "", css.cgroup = "", css.class = "gmisc_table",
+css.table = "margin-top: 1em; margin-bottom: 1em;",
+pos.rowlabel = "bottom", pos.caption = "top", col.rgroup = "none",
+col.columns = "none", padding.rgroup = "&nbsp;&nbsp;",
+padding.tspanner = "", ctable = TRUE,
+compatibility = getOption("htmlTableCompat", "LibreOffice"),
+cspan.rgroup = "all", escape.html = FALSE, ...)
+## S3 method for class 'htmlTable'
+knit_print(x, ...)
+## S3 method for class 'htmlTable'
+print(x, useViewer, ...)
+
+#### Arguments 
+
+x The matrix/data.frame with the data. For the print and knit_print it takes a
+string of the class htmlTable as x argument.
+... Passed on to print.htmlTable function and any argument except the useViewer
+will be passed on to the cat functions arguments.
+header A vector of character strings specifying column header, defaulting to colnames(x)
+rnames Default rownames are generated from rownames(x). If you provide FALSE then
+it will skip the rownames. Note: For data.frames if you do rownames(my_dataframe) <- NULL
+it still has rownames. Thus you need to use FALSE if you want to surpress rownames
+for data.frames.
+rowlabel If the table has rownames or rnames, rowlabel is a character string containing
+the column heading for the rnames.
+caption Adds a table caption.
+tfoot Adds a table footer (uses the <tfoot> html element). The output is run through
+txtMergeLines simplifying the generation of multiple lines.
+label A text string representing a symbolic label for the table for referencing as an anchor.
+All you need to do is to reference the table, for instance <a href="#anchor_name">see table 2</a>.
+This is known as the element’s id attribute, i.e. table id, in HTML linguo, and
+should be unique id for an HTML element in contrast to the css.class element
+attribute.
+rgroup A vector of character strings containing headings for row groups. n.rgroup
+must be present when rgroup is given. See detailed description in section below.
+n.rgroup An integer vector giving the number of rows in each grouping. If rgroup is not
+specified, n.rgroup is just used to divide off blocks of rows by horizontal lines.
+If rgroup is given but n.rgroup is omitted, n.rgroup will default so that each
+row group contains the same number of rows. If you want additional rgroup
+column elements to the cells you can sett the "add" attribute to rgroup through
+attr(rgroup, "add"), see below explaining section.
+6 htmlTable
+cgroup A vector, matrix or list of character strings defining major column header. The
+default is to have none. These elements are also known as column spanners. If
+you want a column not to have a spanner then put that column as "". If you pass
+cgroup and n.crgroup as matrices you can have column spanners for several
+rows. See cgroup section below for details.
+n.cgroup An integer vector, matrix or list containing the number of columns for which
+each element in cgroup is a heading. For example, specify cgroup=c("Major_1","Major_2"),
+n.cgroup=c(3,3) if "Major_1" is to span columns 1-3 and "Major_2" is to
+span columns 4-6. rowlabel does not count in the column numbers. You can
+omit n.cgroup if all groups have the same number of columns. If the n.cgroup
+is one less than the number of columns in the matrix/data.frame then it automatically
+adds those.
+tspanner The table spanner is somewhat of a table header that you can use when you want
+to join different tables with the same columns.
+n.tspanner An integer vector with the number of rows or rgroups in the original matrix that
+the table spanner should span. If you have provided one fewer n.tspanner elements
+the last will be imputed from the number of rgroups (if you have provided
+‘rgroup‘ and ‘sum(n.tspanner) < length(rgroup)‘) or the number of rows in the
+table.
+total The last row is sometimes a row total with a border on top and bold fonts. Set
+this to TRUE if you are interested in such a row. If you want a total row at the
+end of each table spanner you can set this to "tspanner".
+align A character strings specifying column alignments, defaulting to paste(rep('c',ncol(x)),collapse=''to center. Valid alignments are l = left, c = center and r = right. You can also
+specify align='c|c' and other LaTeX tabular formatting. If you want to set the
+alignment of the rownames this string needst to be ncol(x) + 1, otherwise it
+automatically pads the string with a left alignment for the rownames.
+align.header A character strings specifying alignment for column header, defaulting to centered,
+i.e. paste(rep('c',ncol(x)),collapse='').
+align.cgroup The justification of the cgroups
+css.rgroup CSS style for the rgorup, if different styles are wanted for each of the rgroups
+you can just specify a vector with the number of elements
+css.rgroup.sep The line between different rgroups. The line is set to the TR element of the
+lower rgroup, i.e. you have to set the border-top/padding-top etc to a line with
+the expected function. This is only used for rgroups that are printed. You can
+specify different separators if you give a vector of rgroup - 1 length (this is since
+the first rgroup doesn’t have a separator).
+css.tspanner The CSS style for the table spanner
+css.tspanner.sep
+The line between different spanners
+css.total The css of the total row
+css.cell The css.cell element allows you to add any possible CSS style to your table cells.
+See section below for details.
+css.cgroup The same as css.class but for cgroup formatting.
+htmlTable 7
+css.class The html CSS class for the table. This allows directing html formatting through
+CSS directly at all instances of that class. Note: unfortunately the CSS is frequently
+ignored by word processors. This option is mostly inteded for webpresentations.
+css.table You can specify the the style of the table-element using this parameter
+pos.rowlabel Where the rowlabel should be positioned. This value can be "top", "bottom",
+"header", or a integer between 1 and nrow(cgroup) + 1. The options "bottom"
+and "header" are the same, where the row label is presented at the same level
+as the header.
+pos.caption Set to "bottom" to position a caption below the table instead of the default of
+"top".
+col.rgroup Alternating colors (zebra striping/banded rows) for each rgroup; one or two
+colors is recommended and will be recycled.
+col.columns Alternating colors for each column.
+padding.rgroup Generally two non-breakings spaces, i.e. &nbsp;&nbsp;, but some journals only
+have a bold face for the rgroup and leaves the subelements unindented.
+padding.tspanner
+The table spanner is usually without padding but you may specify padding similar
+to padding.rgroup and it will be added to all elements, including the rgroup
+elements. This allows for a 3-level hierarchy if needed.
+ctable If the table should have a double top border or a single a’ la LaTeX ctable style
+compatibility Is default set to LibreOffice as some settings need to be in old html format
+as Libre Office can’t handle some commands such as the css caption-alignment.
+Note: this option is not yet fully implemented for all details, in the future I aim
+to generate a html-correct table and one that is aimed at Libre Office compatibility.
+Word-compatibility is difficult as Word ignores most settings and destroys
+all layout attempts (at least that is how my 2010 version behaves). You can additinally
+use the options(htmlTableCompat = "html") if you want a change
+to apply to the entire document. MS Excel sometimes misinterprets certain cell
+data when opening HTML-tables (eg. 1/2 becomes 1. February). To avoid this
+please specify the correct Microsoft Office format for each cell in the table using
+the css.cell-argument. To make MS Excel interpret everything as text use
+"mso-number-format:\"\@\"".
+cspan.rgroup The number of columns that an rgroup should span. It spans by default all
+columns but you may want to limit this if you have column colors that you want
+to retain.
+escape.html logical: should HTML characters be escaped? Defaults to FALSE.
+useViewer If you are using RStudio there is a viewer thar can render the table within that is
+envoced if in interactive mode. Set this to FALSE if you want to remove that
+functionality. You can also force the function to call a specific viewer by setting
+this to a viewer function, e.g. useViewer = utils::browseURL if you want to
+override the default RStudio viewer. Another option that does the same is to set
+the options(viewer=utils::browseURL) and it will default to that particular
+viewer (this is how RStudio decides on a viewer). Note: If you want to force all
+output to go through the cat() the set options(htmlTable.cat = TRUE).
+8 htmlTable
+Value
+string Returns a string of class htmlTable
+Multiple rows of column spanners cgroup
+If you want to have a column spanner in multiple levels you can set the cgroup and n.cgroup
+arguments to a matrix or list.
+If the different levels have different number of elements and you have provided a **matrix** you
+need to set the ones that lack elements to NA. For instance cgroup = rbind(c("first", "second", NA), c("a", "b", "c")).
+And the corresponding n,cgroup would be n.cgroup = rbind(c(1, 2, NA), c(2, 1, 2)). for
+a table consisting of 5 columns. The "first" spans the first two columns, the "second" spans the last
+three columns, "a" spans the first two, "b" the middle column, and "c" the last two columns.
+It is recommended to use ‘list‘ as you will not have to bother with the ‘NA‘.
+If you want leav a cgroup empty then simply provide ‘""‘ as the cgroup.
+The rgroup argument
+The rgroup allows you to smoothly group rows. Each row within a group receives an indention of
+two blank spaces and are grouped with their corresponing rgroup element. The sum(n.rgroup)
+should always be equal or less than the matrix rows. If less then it will pad the remaining rows
+with either an empty rgroup, i.e. an "" or if the rgroup is one longer than the n.rgroup the last
+n.rgroup element will be calculated through nrow(x) - sum(n.rgroup) in order to make the table
+generating smoother.
+The add attribute to rgroup
+You can now have an additional element at the rgroup level by specifying the attr(rgroup, 'add').
+The value can either be a vector, a list, or a matrix. See vignette("general", package = "htmlTable")
+for examples.
+• A vector of either equal number of rgroups to the number of rgroups that aren’t empty, i.e.
+rgroup[rgroup != ""]. Or a named vector where the name must correspond to either an
+rgroup or to an rgroup number.
+• A list that has exactly the same requirements as the vector. In addition to the previous we
+can also have a list with column numbers within as names within the list.
+• A matrix with the dimensiont nrow(x) x ncol(x) or nrow(x) x 1 where the latter is
+equivalent to a named vector. If you have rownames these will resolve similarly to the names
+to the list/vector arguments. The same thing applies to colnames.
+Important knitr-note
+This funciton will only work with knitr outputting html, i.e. markdown mode. As the function
+returns raw html-code the compatibility with non-html formatting is limited, even with pandoc.
+Thanks to the the knit_print and the asis_output the results='asis' is no longer needed
+except within for-loops. If you have a knitr-chunk with a for loop and use print() to produce
+raw html you must set the chunk option results='asis'. Note: the print-function relies on the
+interactive() function for determining if the output should be sent to a browser or to the terminal.
+htmlTable 9
+In vignettes and other directly knitted documents you may need to either set useViewer = FALSE
+alternatively set options(htmlTable.cat = TRUE).
+RStudio’s notebook
+RStudio has an interactive notebook that allows output directly into the document. In order for the
+output to be properly formatted it needs to have the class of html. The htmlTable tries to identify
+if the environment is a notebook document (uses the rstudio api and identifies if its a file with and
+‘Rmd‘ file ending or if ther is an element with ‘html_notebook‘). If you don’t want this behaviour
+you can remove it using the ‘options(htmlTable.skip_notebook = TRUE)‘
+Table counter
+If you set the option table_counter you will get a Table 1,2,3 etc before each table, just set options(table_counter=TRUE).
+If you set it to a number then that number will correspond to the start of the table_counter. The
+table_counter option will also contain the number of the last table, this can be useful when referencing
+it in text. By setting the option options(table_counter_str = "<b>Table %s:</b> ")
+you can manipulate the counter table text that is added prior to the actual caption. Note, you should
+use the sprintf %s instead of %d as the software converts all numbers to characters for compatibility
+reasons. If you set options(table_counter_roman = TRUE) then the table counter will use
+Roman numumerals instead of Arabic.
+The css.cell argument
+The css.cell parameter allows you to add any possible CSS style to your table cells. css.cell
+can be either a vector or a matrix.
+If css.cell is a vector, it’s assumed that the styles should be repeated throughout the rows (that is,
+each element in css.cell specifies the style for a whole column of ’x’).
+In the case of css.cell being a matrix of the same size of the x argument, each element of x gets
+the style from the corresponding element in css.cell. Additionally, the number of rows of css.cell
+can be nrow(x) + 1 so the first row of of css.cell specifies the style for the header of x; also the
+number of columns of css.cell can be ncol(x) + 1 to include the specification of style for row
+names of x.
+Note that the text-align CSS field in the css.cell argument will be overriden by the align
+argument.
+Empty dataframes
+An empty dataframe will result in a warning and output an empty table, provided that rgroup and
+n.rgroup are not specified. All other row layout options will be ignored.
+Browsers and possible issues
+Copy-pasting: As you copy-paste results intoWord you need to keep the original formatting. Either
+right click and choose that paste option or click on the icon appearing after a paste. Currently the
+following compatibitilies have been tested with MS Word 2013:
+• Internet Explorer (v. 11.20.10586.0) Works perfectly when copy-pasting into Word
+10 htmlTable
+• RStudio (v. 0.99.448) Works perfectly when copy-pasting into Word. Note: can have issues
+with multiline cgroups - see bug
+• Chrome (v. 47.0.2526.106) Works perfectly when copy-pasting into Word. Note: can have
+issues with multiline cgroups - see bug
+• Firefox (v. 43.0.3) Works poorly - looses font-styling, lines and general feel
+• Edge (v. 25.10586.0.0) Works poorly - looses lines and general feel
+Direct word processor opening: Opening directly in LibreOffice or Word is no longer recommended.
+You get much prettier results using the cut-and-paste option.
+Note that when using complex cgroup alignments with multiple levels not every browser is able to
+handle this. For instance the RStudio webkit browser seems to have issues with this and a bug has
+been filed.
+As the table uses html for rendering you need to be aware of that headers, rownames, and cell values
+should try respect this for optimal display. Browsers try to compensate and frequently the tables
+still turn out fine but it is not advized. Most importantly you should try to use &lt; instead of < and
+&gt; instead of >. You can find a complete list of html characters here.
+See Also
+txtMergeLines, latex
+Other table functions: tblNoLast, tblNoNext
+Examples
+# Store all output into a list in order to
+# output everything at once at the end
+all_tables <- list()
+# A simple output
+output <- matrix(1:4,
+ncol=2,
+dimnames = list(list("Row 1", "Row 2"),
+list("Column 1", "Column 2")))
+htmlTable(output) ->
+all_tables[["Basic table"]]
+# An advanced output
+output <-
+matrix(ncol=6, nrow=8)
+for (nr in 1:nrow(output)){
+for (nc in 1:ncol(output)){
+output[nr, nc] <-
+paste0(nr, ":", nc)
+}
+}
+htmlTable(output, align="r",
+header = paste(c("1st", "2nd",
+htmlTable 11
+"3rd", "4th",
+"5th", "6th"),
+"hdr"),
+rnames = paste(c("1st", "2nd",
+"3rd",
+paste0(4:8, "th")),
+"row"),
+rgroup = paste("Group", LETTERS[1:3]),
+n.rgroup = c(2,4,nrow(output) - 6),
+cgroup = rbind(c("", "Column spanners", NA),
+c("", "Cgroup 1", "Cgroup 2&dagger;")),
+n.cgroup = rbind(c(1,2,NA),
+c(2,2,2)),
+caption="Basic table with both column spanners (groups) and row groups",
+tfoot="&dagger; A table footer commment",
+cspan.rgroup = 2,
+col.columns = c(rep("none", 2),
+rep("#F5FBFF", 4)),
+col.rgroup = c("none", "#F7F7F7"),
+css.cell = "padding-left: .5em; padding-right: .2em;") ->
+all_tables[["Advanced table"]]
+# An advanced empty table
+output <- matrix(ncol = 6,
+nrow = 0)
+htmlTable(output, align="r",
+header = paste(c("1st", "2nd",
+"3rd", "4th",
+"5th", "6th"),
+"hdr"),
+cgroup = rbind(c("", "Column spanners", NA),
+c("", "Cgroup 1", "Cgroup 2&dagger;")),
+n.cgroup = rbind(c(1,2,NA),
+c(2,2,2)),
+caption="Basic empty table with column spanners (groups) and ignored row colors",
+tfoot="&dagger; A table footer commment",
+cspan.rgroup = 2,
+col.columns = c(rep("none", 2),
+rep("#F5FBFF", 4)),
+col.rgroup = c("none", "#F7F7F7"),
+css.cell = "padding-left: .5em; padding-right: .2em;") ->
+all_tables[["Empty table"]]
+# An example of how to use the css.cell for header styling
+simple_output <- matrix(1:4, ncol=2)
+htmlTable(simple_output,
+header = LETTERS[1:2],
+css.cell = rbind(rep("background: lightgrey; font-size: 2em;", times=ncol(simple_output)),
+matrix("", ncol=ncol(simple_output), nrow=nrow(simple_output)))) ->
+all_tables[["Header formatting"]]
+concatHtmlTables(all_tables)
+12 htmlTableWidget
+# See vignette("tables", package = "htmlTable")
+# for more examples
