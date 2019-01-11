@@ -1,0 +1,69 @@
+
+## ``specify_decimal_p``
+
+Custom function for getting specified number of decimal places in re-
+sults for p-value
+
+#### Description
+
+Function to format an R object for pretty printing with a specified (
+k
+) number of decimal places. The
+function also allows really small
+p
+-values to be denoted as
+"p < 0.001"
+rather than
+"p = 0.000"
+.
+Note that if
+p.value
+is set to
+TRUE
+, the minimum value of
+k
+allowed is
+3
+. If
+k
+is set to less than 3,
+the function will ignore entered
+k
+value and use
+k = 3
+instead.
+
+#### Usage
+<pre><code>
+
+specify_decimal_p(x, k = 3, p.value = FALSE)
+
+</code></pre>
+#### Arguments 
+
+x
+A numeric variable.
+k
+Number of digits after decimal point (should be an integer) (Default:
+k = 3
+).
+p.value
+Decides whether the number is a p-value (Default:
+FALSE
+).
+Value
+
+#### Format
+ted numeric values.
+Titanic_full
+21
+Author(s)
+Indrajeet Patil
+
+#### Examples
+```{r}
+
+groupedstats::specify_decimal_p(x = 0.00001, k = 2, p.value = TRUE)
+groupedstats::specify_decimal_p(x = 0.008, k = 2, p.value = TRUE)
+groupedstats::specify_decimal_p(x = 0.008, k = 3, p.value = FALSE)
+```
