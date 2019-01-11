@@ -1,5 +1,5 @@
 
-txtInt SI or English formatting of an integer
+``txtInt`` SI or English formatting of an integer
 
 #### Description 
 
@@ -8,21 +8,26 @@ scientific form 10e+? is furthermore avoided.
 
 #### Usage 
 
+<pre><code>
 txtInt(x, language = "en", html = TRUE, ...)
+</code></pre>
 
 #### Arguments 
 
-x The integer variable
-language The ISO-639-1 two-letter code for the language of interest. Currently only english
+* x The integer variable
+* language The ISO-639-1 two-letter code for the language of interest. Currently only english
 is distinguished from the ISO format using a ’,’ as the separator.
-html If the format is used in html context then the space should be a non-breaking
+* html If the format is used in html context then the space should be a non-breaking
 space, &nbsp;
-... Passed to format
-Value
-string
-Examples
+* ... Passed to format
+
+#### Examples
+```{r}
 txtInt(123)
 txtInt(1234)
 txtInt(12345)
 txtInt(123456)
+```
 
+#### Value
+string
