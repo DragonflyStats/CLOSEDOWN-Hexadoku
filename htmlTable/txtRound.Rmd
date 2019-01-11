@@ -1,0 +1,48 @@
+txtRound A convenient rounding function
+
+#### Description 
+
+If you provide a string value in X the function will try to round this if a numeric text is present. If
+you want to skip certain rows/columns then use the excl.* arguments.
+
+#### Usage 
+<pre><code>
+txtRound(x, ...)
+## Default S3 method:
+txtRound(x, digits = 0, digits.nonzero = NA,
+txt.NA = "", dec = ".", scientific, ...)
+## S3 method for class 'data.frame'
+txtRound(x, ...)
+## S3 method for class 'table'
+txtRound(x, ...)
+## S3 method for class 'matrix'
+txtRound(x, digits = 0, excl.cols, excl.rows, ...)
+</code></pre>
+
+#### Arguments 
+
+* x The value/vector/data.frame/matrix to be rounded
+* ... Passed to next method
+* digits The number of digits to round each element to. If you provide a vector each element will apply to the corresponding columns.
+* digits.nonzero The number of digits to keep if the result is close to zero. Sometimes we have an entire table with large numbers only to have a few but interesting observation that are really interesting
+txt.NA The string to exchange NA with
+* dec The decimal marker. If the text is in non-english decimal and string formatted you need to change this to the apropriate decimal indicator.
+* ``scientific``: If the value should be in scientific format.
+* ``excl.cols``: Columns to exclude from the rounding procedure. This can be either a number or regular expression. Skipped if x is a vector.
+* ``excl.rows``: Rows to exclude from the rounding procedure. This can be either a number or
+regular expression.
+
+
+#### Examples
+```{r}
+mx <- matrix(c(1, 1.11, 1.25,
+2.50, 2.55, 2.45,
+3.2313, 3, pi),
+ncol = 3, byrow=TRUE)
+txtRound(mx, 1)
+```
+
+Value
+matrix/data.frame
+See Also
+Other text formatters: txtMergeLines, txtPval
