@@ -1,0 +1,35 @@
+
+Titanic_full
+Titanic dataset.
+
+#### Description
+
+Titanic dataset.
+
+#### Usage
+<pre><code>
+
+Titanic_full
+
+#### Format
+
+A data frame with 2201 rows and 5 variables
+* id. Dummy identity number for each person.
+* Class. 1st, 2nd, 3rd, Crew.
+* Sex. Male, Female.
+* Age. Child, Adult.
+* Survived. No, Yes.
+Details
+This data set provides information on the fate of passengers on the fatal maiden voyage of the ocean
+liner ’Titanic’, summarized according to economic status (class), sex, age, and survival.
+This is a modified dataset from
+datasets
+package.
+Source
+https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/Titanic.html
+
+#### Examples
+```{r}
+
+dim(Titanic_full)
+head(Titanic_full)
