@@ -1,0 +1,19 @@
+
+fortify.network Function for converting a network object into the correct format for
+use with geomnet
+#### Description
+Function for converting a network object into the correct format for use with geomnet
+Usage
+## S3 method for class 'network'
+fortify(model, data = NULL, group = NULL, ...)
+#### Arguments
+model object of class "network"
+data NULL - not used in this function
+group character. Used for facetting. If you wish to facet on a network variable provide
+the name of that variable here.
+... not used in this function
+Examples
+# class network (sna, network, statnet packages)
+library(network)
+data(emon, package = "network")
+fortify(emon$Cheyenne)
