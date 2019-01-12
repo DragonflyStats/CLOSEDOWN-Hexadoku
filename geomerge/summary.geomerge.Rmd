@@ -1,0 +1,28 @@
+
+summary.geomerge Summary function for objects of class ’geomerge’.
+#### Description
+Overloads the default summary for objects of class ’geomerge’.
+#### Usage
+<pre><code>
+## S3 method for class 'geomerge'
+summary(object, ...)
+</code></pre>
+
+#### Arguments
+* object object of class geomerge.
+* ... further arguments passed to or from other methods.
+
+#### Value
+Returns a number of summary statistics describing the results of the geomerge integration, including
+how many variables were integrated, which of those are numerical vs. non numerical and whether
+spatially and/or temporally lagged values are available.
+Author(s)
+Karsten Donnay and Andrew M. Linke.
+
+#### References
+Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
+Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
+Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
+Baltimore.
+See Also
+geomerge
