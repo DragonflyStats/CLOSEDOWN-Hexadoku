@@ -1,0 +1,19 @@
+madmen Network of romantic relationships in the TV show Mad Men (undirected)
+
+#### Description
+A list of two datasets, vertices and edges, containing information on sexual relations in the TV show Mad Men. This data set was first compiled by Winston Chang for the package gcookbook (under
+the same name) and was extended here to include the gender of each of the characters. The variables are as follows:
+
+#### Usage
+madmen
+
+#### Format
+A list of two data frames:
+• the edges data set consists of two variables of length 39:
+– Name1, Name2: Factor variables containing names of characters with a sexual relationship
+• the vertices data set consists of three variables with information on 45 characters of the show:
+– label: Factor variable with name of the character,
+– Gender: Factor variable of the gender of the character.
+#### References
+Winston Chang. 2013. R Graphics Cookbook. O’Reilly Media, Inc..
+18 mm.directed
