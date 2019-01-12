@@ -1,0 +1,35 @@
+
+lesmis Coappearance network of characters in Les Miserables (undirected)
+#### Description
+A list of two datasets, vertices and edges, containing data on characters and their coapperance in
+chapters in Victor Hugo’s Les Miserables. The variables are as follows:
+Usage
+lesmis
+Format
+A list of two data frames:
+• the edges data set consists of three variables of length 254:
+– from: Character 1
+– to: Character 2
+– degree: number of times they appear together in a chapter of Les Miserables
+• the vertices data set consists of two variables with information on 77 characters:
+– id: Character ID number
+– label: Character name
+#### References
+D. E. Knuth, The Stanford GraphBase: A Platform for Combinatorial Computing, Addison-Wesley,
+Reading, MA (1993).
+Examples
+# prep the data
+lesmisnet <- merge(lesmis$edges, lesmis$vertices, by.x = "from",
+by.y = "label", all = TRUE)
+lesmisnet$degree[is.na(lesmisnet$degree)] <- 0
+# create plot
+library(geomnet)
+library(dplyr)
+madmen 17
+ggplot(data = lesmisnet, aes(from_id = from, to_id = to,
+linewidth = degree / 5 + 0.1 )) +
+geom_net(aes(size = degree, alpha = degree),
+colour = "grey30", ecolour = "grey60",
+layout.alg = "fruchtermanreingold", labelon = TRUE, vjust = -0.75) +
+scale_alpha(range = c(0.3, 1)) +
+theme_net()
