@@ -1,0 +1,83 @@
+email Email network (directed)
+#### Description
+A list of two datasets, vertices and edges, containing data on employees and (fictitious) email headers from two weeks of internal GAStech company email between employees made available as part
+of the VAST challenge 2014 (K. Cook, G. Grinstein, M. Whiting, see http://hcil2.cs.umd.edu/
+newvarepository/benchmarks.php). The variables are as follows:
+Usage
+email
+football 5
+Format
+A list of two data frames:
+• the edges data set consists of ten variables of length 9063:
+– From: Email address of sender
+– eID: email ID. If an email ws sent to multiple recipients, the email ID is the same.
+– Date: Date and time email was sent
+– Subject: Subject line of email
+– to: Email address of recipient
+– month: Month email was sent
+– day: Day of month email was sent
+– year: Year email was sent
+– nrecipients: Number of recipients of email
+• the nodes data set consists of 18 variables with information on 55 employees:
+– label: Employee’s email address
+– LastName: Employee’s last name
+– FirstName: Employee’s first name
+– BirthDate: Employee’s first date
+– BirthCountry: Employee’s (fictional) country of birth
+– Gender: Employee’s gender
+– CitizenshipCountry: Employee’s (fictional) country of citizenship
+– CitizenshipBasis: Is citizenship by birth or parents?
+– CitizenshipStartDate: When employee became a citizen
+– PassportCountry: (Fictional) country issuing employee’s passport
+– PassportIssueDate: Date employee received passport
+– PassportExpirationDate: Date employee’s passport expires
+– CurrentEmploymentType: Employee’s department in the company
+– CurrentEmploymentTitle: Employee’s title at the company
+– CurrentEmploymentStartDate: Date employee started at position
+– MilitaryServiceBranch: Branch of the (fictional) military in which the employee serves
+– MilitaryDischargeType: General or honorable discharge from military service?
+football College football games network (undirected)
+#### Description
+A list of two datasets, vertices and edges, containing data on Division I college football games in
+the Fall 2000 season. The variables are as follows:
+Usage
+football
+6 football
+Format
+A list of two data frames:
+• the edges data set consists of three variables of length 613:
+– from, to: Character variables describing the teams playing in the game
+– same.conf: An indicator variable that is 1 if the two teams are in the same conference and
+0 otherwise.
+• the vertices data set consists of two variables with information on 115 Division I schools:
+– label: Character variable containing the school names
+– value: Character variable containing the conference of the schools
+#### References
+M. Girvan and M. E. J. Newman, Proc. Natl. Acad. Sci. USA 99, 7821-7826 (2002).
+Examples
+# data step: merge vertices and edges
+ftnet <- merge(
+football$edges, football$vertices,
+by.x = "from", by.y = "label", all = TRUE
+)
+# label independent schools
+ftnet$schools <- ifelse(ftnet$value == "Independents", ftnet$from, "")
+library(geomnet)
+library(dplyr)
+# create data plot
+ggplot(data = ftnet,
+aes(from_id = from, to_id = to)) +
+geom_net(
+aes(
+colour = value, group = value,
+linetype = factor(1-same.conf),
+label = schools
+),
+linewidth = 0.5,
+size = 5, vjust = -0.75, alpha = 0.3,
+layout.alg = 'fruchtermanreingold'
+) +
+theme_net() +
+theme(legend.position = "bottom") +
+scale_colour_brewer("Conference", palette = "Paired")
+fortify.adjmat 7
