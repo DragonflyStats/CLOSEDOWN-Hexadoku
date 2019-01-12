@@ -16,40 +16,14 @@ var.equal = FALSE)
 </code></pre>
 #### Arguments 
 
-data
-Dataframe from which variables are to be taken.
-dep.vars
-List dependent variables for a t-test (
-y
-in
-y ~ x
-).
-indep.vars
-List independent variables for a t-test (
-x
-in
-y ~ x
-).
-grouping.vars
-List of grouping variables.
-paired
-A logical indicating whether you want a paired t-test (Default:
-paired = FALSE
-;
-independent t-test, i.e.).
-var.equal
-A logical variable indicating whether to treat the two variances as being equal.
-If
-TRUE
-,  then  the  pooled  variance  is  used  to  estimate  the  variance  otherwise
-the Welch (or Satterthwaite) approximation to the degrees of freedom is used
-(Default:
-var.equal = FALSE
-; Welch’s t-test, i.e.).
-Value
-A tibble dataframe with tidy results from t-test analyses.
-intent_morality
-15
+* data Dataframe from which variables are to be taken.
+* dep.vars List dependent variables for a t-test (y in y ~ x).
+* indep.vars List independent variables for a t-test (x in y ~ x).
+* grouping.vars List of grouping variables.
+* paired A logical indicating whether you want a paired t-test (Default: paired = FALSE; independent t-test, i.e.).
+* var.equal A logical variable indicating whether to treat the two variances as being equal. If TRUE,  then  the  pooled  variance  is  used  to  estimate  the  variance  otherwise the Welch (or Satterthwaite) approximation to the degrees of freedom is used
+(Default: var.equal = FALSE ; Welch’s t-test, i.e.).
+* Value A tibble dataframe with tidy results from t-test analyses.
 
 #### Examples
 ```{r}
