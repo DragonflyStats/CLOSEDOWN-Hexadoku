@@ -1,0 +1,20 @@
+
+print.geomerge Print function for objects of class ’geomerge’.
+#### Description
+Overloads the default print for objects of class ’geomerge’.
+#### Usage
+## S3 method for class 'geomerge'
+print(x, ...)
+#### Arguments
+x object of class geomerge.
+... further #### Arguments passed to or from other methods.
+Author(s)
+Karsten Donnay and Andrew M. Linke.
+References
+Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
+Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
+Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
+Baltimore.
+See Also
+geomerge
+states 17
