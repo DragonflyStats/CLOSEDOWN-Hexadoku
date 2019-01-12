@@ -1,37 +1,11 @@
 
 ## ``specify_decimal_p``
 
-Custom function for getting specified number of decimal places in re-
-sults for p-value
+Custom function for getting specified number of decimal places in results for p-value
 
 #### Description
 
-Function to format an R object for pretty printing with a specified (
-k
-) number of decimal places. The
-function also allows really small
-p
--values to be denoted as
-"p < 0.001"
-rather than
-"p = 0.000"
-.
-Note that if
-p.value
-is set to
-TRUE
-, the minimum value of
-k
-allowed is
-3
-. If
-k
-is set to less than 3,
-the function will ignore entered
-k
-value and use
-k = 3
-instead.
+Function to format an R object for pretty printing with a specified (k ) number of decimal places. The function also allows really small p -values to be denoted as "p < 0.001" rather than "p = 0.000" . Note that if p.value is set to TRUE , the minimum value of k allowed is 3 . If k is set to less than 3, the function will ignore entered k value and use k = 3 instead.
 
 #### Usage
 <pre><code>
@@ -51,12 +25,8 @@ p.value
 Decides whether the number is a p-value (Default:
 FALSE
 ).
-Value
+Value Formatted numeric values.
 
-#### Format
-ted numeric values.
-Titanic_full
-21
 Author(s)
 Indrajeet Patil
 
