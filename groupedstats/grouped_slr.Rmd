@@ -5,8 +5,7 @@ across multiple grouping variables.
 
 #### Description
 
-Function to run simple linear regression (slr) on multiple variables across multiple grouping vari-
-ables.
+Function to run simple linear regression (slr) on multiple variables across multiple grouping variables.
 
 #### Usage
 <pre><code>
@@ -36,21 +35,6 @@ y ~ x
 ).
 grouping.vars
 List of grouping variables.
-Value
-A  tibble  dataframe  with  tidy  results  from  simple  linear  regression  analyses.   The  estimates  are
-standardized, i.e. the
-lm
-model used is
-scale(y) ~ scale(x)
-, and not
-y ~ x
-.
-Author(s)
-Indrajeet Patil
-See Also
-grouped_lm
-grouped_ttest
-13
 
 #### Examples
 ```{r}
@@ -72,3 +56,21 @@ grouping.vars = supp,
 measures = len,
 measures.type = "numeric"
 )
+```
+
+#### Value
+A  tibble  dataframe  with  tidy  results  from  simple  linear  regression  analyses.   The  estimates  are
+standardized, i.e. the
+lm
+model used is
+scale(y) ~ scale(x)
+, and not
+y ~ x
+.
+
+#### Author(s)
+Indrajeet Patil
+See Also
+grouped_lm
+grouped_ttest
+
