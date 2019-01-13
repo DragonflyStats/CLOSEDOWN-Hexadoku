@@ -1,0 +1,108 @@
+Package ‘geomnet’
+December 8, 2016
+Type Package
+Title Network Visualization in the 'ggplot2' Framework
+Version 0.2.0
+Date 2016-11-14
+Author Samantha Tyner, Heike Hofmann
+Maintainer Samantha Tyner <sctyner@iastate.edu>
+#### #### DescriptionNetwork visualization in the 'ggplot2' framework. Network
+functionality is provided in a single 'ggplot2' layer by calling the geom 'net'.
+Layouts are calculated using the 'sna' package, example networks are included.
+License GPL (>= 2)
+URL http://github.com/sctyner/geomnet
+BugReports https://github.com/sctyner/geomnet/issues
+LazyData TRUE
+Depends R (>= 2.14), ggplot2 (>= 2.2.0)
+Imports sna, network, dplyr, tidyr, readr, plotly
+Suggests ggrepel, knitr, igraph, ggmap
+RoxygenNote 5.0.1
+NeedsCompilation no
+Repository CRAN
+Date/Publication 2016-12-08 20:38:18
+R topics documented:
+as.adjmat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+as.edgedf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+bikes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+blood . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+email . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+football . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+1
+2 as.edgedf
+fortify.adjmat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+fortify.edgedf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+fortify.igraph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+fortify.network . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+GeomCircle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+geom_net . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+jtt . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+lesmis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+madmen . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+metro_map . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+mm.directed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+protein . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+soccer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+theme_elements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+theme_net . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+Index 22
+as.adjmat Cast matrix to an adjacency matrix
+#### Description
+Create and assign a new class for use of geomnet’s fortify.adjmat function.
+Usage
+as.adjmat(dat)
+#### Arguments
+dat A square adjacency matrix.
+as.edgedf Cast a data frame to an edgedf
+#### Description
+Create and assign a new class for use of geomnet’s fortify.edgedf function.
+Usage
+as.edgedf(dat)
+#### Arguments
+dat A network edgelist of class "data.frame" for use with fortify.edgedf.
+bikes 3
+bikes Bike sharing network (directed)
+#### Description
+This network is a summary of the bike trips taken by customers of the bike sharing company Capital
+Bikeshare (https://secure.capitalbikeshare.com/) during the second quarter of 2015. Only
+trips between stations in the vicinity of Rockville, MD, are included. The data is organized as a list
+of two datasets, vertices (stations) and edges (trips between stations), as follows:
+Usage
+bikes
+Format
+A list of two data frames:
+• the trips data set consists of four variables of length 53:
+– Start.station: Station where bike trip starts
+– End.station: Station where bike trip ends
+– n: Number of trips between the two stations
+– minlength: Duration of shortest trip between the two stations (in seconds). Only those
+stations are included, if the shortest trip between them lasted not more than 15 minutes.
+• the vertices data set consists of five variables with information on 21 stations:
+– id: Station ID number
+– name: Station name
+– lat: Latitude of station location
+– long: Longitude of station location
+– nbDocks: Number of bike docks at the station
+#### References
+https://secure.capitalbikeshare.com/
+4 email
+blood Network of blood types (directed)
+#### Description
+A list of two datasets, vertices and edges, containing information on blood type (see http://www.
+redcrossblood.org/learn-about-blood/blood-types). The variables are as follows:
+Usage
+blood
+Format
+A list of two data frames:
+• the edges data set consists of three variables of length 27:
+– from, to: factor variables of blood types describing the relationship ’is compatible with’
+– group\_to: factor variable with levels ’same’ and ’diff’ for same or different blood type
+group not regarding the rho-gam factor.
+• the vertices data set consists of five variables and 32 rows:
+– label: factor variable of blood types,
+– type: factor variable of blood type, not regarding the rhesus factor,
+– rho: factor variable: ’pos’ and ’neg’ describing the rhesus factor,
+– Ethnicity: factor variable of four variables: ’Caucasians’, ’African.American’, ’Hispanic’, and ’Asian’,
+– Predominance: numeric variable consisting of the percentage points of each blood type
+within each ethnicity.
+
+
