@@ -1,16 +1,24 @@
 
-metro_map Map of Washington DC Metro area
+metro_map 
+
+Map of Washington DC Metro area
+
 #### Description
-A dataset containing information to draw a map of Rockville, MD, and vicinity using ggmap. This
-information was pulled from Google Maps using the ggmap package.
-Usage
+A dataset containing information to draw a map of Rockville, MD, and vicinity using ggmap. 
+This information was pulled from Google Maps using the ggmap package.
+
+#### Usage
+<pre><code>
 metro_map
-Format
+</code></pre>
+
+#### Format
 An object of class "ggmap" and "raster" containing a map of the Rockville, MD, area.
 #### References
 D. Kahle and H. Wickham. ggmap: Spatial Visualization with ggplot2. The R Journal, 5(1), 144-
 161. https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf
-Examples
+
+#### Examples
 ## Not run:
 library(ggmap)
 data(metro_map)
