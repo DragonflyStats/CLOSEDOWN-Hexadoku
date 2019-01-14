@@ -1,6 +1,6 @@
 
-movies_wide
-movies_wide
+``movies_wide``
+
 Movie information and user ratings from IMDB.com (wide format).
 
 #### Description
@@ -9,43 +9,38 @@ Movie information and user ratings from IMDB.com (wide format).
 
 #### Usage
 <pre><code>
-
 movies_wide
+</code></pre>
 
 #### Format
 
 A data frame with 1813 rows and 14 variables
-* title. Title of the movie.
-* year. Year of release.
-* budget. Total budget (if known) in US dollars
-* length. Length in minutes.
-* rating. Average IMDB user rating.
-* votes. Number of IMDB users who rated this movie.
-* mpaa. MPAA rating.
-* action, animation, comedy, drama, documentary, romance, short.  Binary variables represent-
-ing if movie was classified as belonging to that genre.
-Details
-Modified dataset from
-ggplot2movies
-package.
-The internet movie database,
-http://imdb.com/
-,  is a website devoted to collecting movie data
-supplied by studios and fans.  It claims to be the biggest movie database on the web and is run by
-amazon.  More about information imdb.com can be found online,
-http://imdb.com/help/show_
-leaf?about
-,  including information about the data collection process,
-http://imdb.com/help/
-show_leaf?infosource
-.
-Movies were selected for inclusion if they had a known length and had been rated by at least one
-imdb user.
-Source
-https://CRAN.R-project.org/package=ggplot2movies
+
+* ``title``: Title of the movie.
+* ``year``: Year of release.
+* ``budget``: Total budget (if known) in US dollars
+* ``length``: Length in minutes.
+* ``rating``: Average IMDB user rating.
+* ``votes``: Number of IMDB users who rated this movie.
+* ``mpaa``: MPAA rating.
+* genre variables : action, animation, comedy, drama, documentary, romance, short.  
+Binary variables representing if movie was classified as belonging to that genre.
+
 
 #### Examples
 ```{r}
 
 dim(movies_wide)
 head(movies_wide)
+```
+
+
+#### Details
+Modified dataset from ggplot2movies package.
+The internet movie database,http://imdb.com/,  is a website devoted to collecting movie data supplied by studios and fans.  It claims to be the biggest movie database on the web and is run by amazon.  More about information imdb.com can be found online,
+http://imdb.com/help/show_leaf?about ,  including information about the data collection process,
+http://imdb.com/help/show_leaf?infosource.
+Movies were selected for inclusion if they had a known length and had been rated by at least one imdb user.
+
+#### Source
+https://CRAN.R-project.org/package=ggplot2movies
