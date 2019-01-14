@@ -1,22 +1,26 @@
 
 geoEPR Polygon dataset to illustrate the functionality of geomerge
+
 #### Description
-geoEPR Nigeria dataset used as example for a SpatialPolygonsDataFrame can be accessed and
-downloaded at https://icr.ethz.ch/data/epr/geoepr/. The dataset contains geo-locations for all politically relevant ethnic groups from the EPR-Core 2014 dataset. It assigns every politically relevant
-group one of six settlement patterns and provides polygons describing their location.
+
+geoEPR Nigeria dataset used as example for a SpatialPolygonsDataFrame can be accessed and downloaded at https://icr.ethz.ch/data/epr/geoepr/. The dataset contains geo-locations for all politically relevant ethnic groups from the EPR-Core 2014 dataset. It assigns every politically relevant group one of six settlement patterns and provides polygons describing their location.
+
 #### Usage
+<pre><code>
 data(geomerge)
-Format
+</code></pre>
+
+#### Format
 A SpatialPolygonsDataFrame containing observations.
-Author(s)
+
+#### Author(s)
 Karsten Donnay and Andrew M. Linke
-Source
+
+#### Source
 https://icr.ethz.ch/data/epr/geoepr/
 Citation: Julian Wucherpfennig, Nils B. Weidmann, Luc Girardin, Lars-Erik Cederman, and Andreas Wimmer. (2011). "Politically Relevant Ethnic Groups Across Space and Time: Introducing
 the GeoEPR Dataset." Conflict Management and Peace Science 28(5): 423-437.
-References
-Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
-Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
-Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
-Baltimore.
-geomerge 7
+
+#### References
+Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
+Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,Baltimore.
