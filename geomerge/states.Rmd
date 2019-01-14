@@ -4,19 +4,22 @@ states Polygon dataset to illustrate the functionality of geomerge
 Nigeria administrative units (ADM1) dataset used as example for the target SpatialPolygonsDataFrame
 data are merged. The dataset is available at http://www.arcgis.com/home/item.html?id=0e58995046b74254911c1dc0eb756fa4.
 #### Usage
+<pre><code>
 data(geomerge)
-Format
+</code></pre>
+
+#### Format
 A SpatialPolygonsDataFrame containing observation and that data is merged to using geomerge.
-Details
-Note that the polygons in states have been simplified to reduce the size of the SpatialPolygonsDataFrame
-used as integration target for easier illustration. This applies, in particular, to the Niger Delta region
-of Nigeria.
-Author(s)
+
+#### Details
+Note that the polygons in states have been simplified to reduce the size of the SpatialPolygonsDataFrame used as integration target for easier illustration. This applies, in particular, to the Niger Delta region of Nigeria.
+
+#### Author(s)
 Karsten Donnay and Andrew M. Linke
 Source
 http://www.arcgis.com/home/item.html?id=0e58995046b74254911c1dc0eb756fa4
-References
-Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
-Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
+
+#### References
+Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
 Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
 Baltimore.
