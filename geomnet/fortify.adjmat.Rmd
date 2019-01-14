@@ -1,6 +1,6 @@
 
-
-fortify.adjmat Function for converting a network adjacency matrix into the correct format for use with geomnet
+``fortify.adjmat`` 
+Function for converting a network adjacency matrix into the correct format for use with geomnet
 
 #### Description
 
@@ -14,12 +14,14 @@ fortify(model, data = NULL, ...)
 <code></pre>
 
 #### Arguments
-* model An adjacency matrix of class "adjmat".
-* data not used in this function
-* ... not used in this function
+* ``model``: An adjacency matrix of class "adjmat".
+* ``data``: not used in this function
+* ``...``: not used in this function
 
 #### Examples
+```{r}
 data(emon, package = "network")
 adjmat <- as.adjmat(network::as.matrix.network.adjacency(emon$MtSi))
 str(adjmat)
 fortify(adjmat)
+```
