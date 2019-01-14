@@ -1,52 +1,39 @@
+## ``grouped_robustslr``
 
-grouped_robustslr
 Function to run robust simple linear regression (slr) on multiple variables across multiple grouping variables.
 
 #### Description
 
-Function to run robust simple linear regression (slr) on multiple variables across multiple grouping
-variables.
+Function to run robust simple linear regression (slr) on multiple variables across multiple grouping variables.
 
 #### Usage
 <pre><code>
-
 grouped_robustslr(data, dep.vars, indep.vars, grouping.vars)
-
 </code></pre>
+
 #### Arguments 
 
-* data :Dataframe from which variables are to be taken.
-* dep.vars List criterion or dependent variables for regression (y
-in
-y ~ x
-).
-* indep.vars List predictor or independent variables for regression (
-x in y ~ x ).
-* grouping.vars: List of grouping variables.
-
-
+* ``data``: Dataframe from which variables are to be taken.
+* ``dep.vars``: List criterion or dependent variables for regression (y in y ~ x).
+* ``indep.vars``: List predictor or independent variables for regression ( x in y ~ x ).
+* ``grouping.vars``: List of grouping variables.
 
 #### Examples
+
 ```{r}
 
 # in case of just one grouping variable
 groupedstats::grouped_robustslr(
-data = iris,
-dep.vars = c(Sepal.Length, Petal.Length),
-indep.vars = c(Sepal.Width, Petal.Width),
-grouping.vars = Species
-)
+  data = iris,
+  dep.vars = c(Sepal.Length, Petal.Length),
+  indep.vars = c(Sepal.Width, Petal.Width),
+  grouping.vars = Species)
 ```
 #### Value
 A tibble dataframe with tidy results from robust linear regression analyses. The estimates are stan-
-dardized, i.e. the
-lm
-model used is
-scale(y) ~ scale(x)
-, and not
-y ~ x
-.
-Author(s)
+dardized, i.e. the lm model used is scale(y) ~ scale(x), and not y ~ x.
+
+#### Author(s)
 Indrajeet Patil
 grouped_slr
-11
+
