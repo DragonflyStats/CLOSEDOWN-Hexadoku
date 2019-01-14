@@ -1,24 +1,33 @@
 
 geomerge.neighbor Returns first and second order spatial neighbors [Auxiliary Function]
+
 #### Description
-Auxiliary function that uses functionality from spdep to retrieve first and second order neighbor
-weights.
+
+Auxiliary function that uses functionality from spdep to retrieve first and second order neighbor weights.
+
 #### Usage
+
+<pre><code>
 geomerge.neighbor(polygon_input)
+</code></pre>
+
 #### Arguments
-polygon_input a SpatialPolygonsDataFrame.
-Details
-The function serves as a wrapper for the poly2nb, nblag and nb2listw functions from spdep and
-returns first and second order neighbor weights using zero.policy = TRUE.
-Value
+
+* ``polygon_input``: a SpatialPolygonsDataFrame.
+
+#### Details
+The function serves as a wrapper for the poly2nb, nblag and nb2listw functions from spdep and returns first and second order neighbor weights using ``zero.policy = TRUE``.
+
+#### Value
 Returns a list of lists of neighbor weights named "wts1" and "wts2".
-14 gpw
-Author(s)
+
+#### Author(s)
 Karsten Donnay and Andrew M. Linke.
-References
-Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
-Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
+
+#### References
+Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
 Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
 Baltimore.
-See Also
+
+#### See Also
 geomerge-package, geomerge, generateGrid
