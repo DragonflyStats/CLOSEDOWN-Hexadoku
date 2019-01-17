@@ -1,24 +1,27 @@
-vector2string Collapse vector to string
+## ``vector2string`` Collapse vector to string
 
 #### Description 
 
 Merges all the values and outputs a string formatted as ’1st element’, ’2nd element’, ...
 
 #### Usage 
-
+<pre><code>
 vector2string(x, quotation_mark = "'", collapse = sprintf("%s, %s",
 quotation_mark, quotation_mark))
+</code></pre>
 
 #### Arguments 
 
-x The vector to collapse
-quotation_mark The type of quote to use
-collapse The string that separates each element
-Value
-A string with ', ' separation
-vector2string 25
-Examples
+* ``x``: The vector to collapse
+* ``quotation_mark``: The type of quote to use
+* ``collapse``: The string that separates each element
+
+#### Examples
+```{r}
 vector2string(1:4)
 vector2string(c("a","b'b", "c"))
 vector2string(c("a","b'b", "c"), quotation_mark = '"')
-Index
+```
+Value
+A string with ', ' separation
+vector2string 25
