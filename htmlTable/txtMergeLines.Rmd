@@ -2,26 +2,26 @@ txtMergeLines A merges lines while preserving the line break for html/LaTeX
 
 #### Description 
 
-This function helps you to do a multiline table header in both html and in LaTeX. In html this isn’t
-that tricky, you just use the <br /> command but in LaTeX I often find myself writing vbox/hbox
-stuff and therefore I’ve created this simple helper function
+This function helps you to do a multiline table header in both html and in LaTeX. In html this isn’t that tricky, you just use the <br /> command but in LaTeX I often find myself writing vbox/hbox stuff and therefore I’ve created this simple helper function
 
 #### Usage 
-
+<pre><code>
 txtMergeLines(..., html = 5)
-22 txtPval
+</code></pre>
 
 #### Arguments 
 
-... The lines that you want to be joined
-html If HTML compatible output should be used. If FALSE it outputs LaTeX formatting.
-Note if you set this to 5 then the html5 version of br will be used: <br>
-otherwise it uses the <br /> that is compatible with the xhtml-formatting.
-Value
-string
-See Also
-Other text formatters: txtPval, txtRound
-Examples
+* ... The lines that you want to be joined
+* html If HTML compatible output should be used. If FALSE it outputs LaTeX formatting. Note if you set this to 5 then the html5 version of br will be used: <br> otherwise it uses the <br /> that is compatible with the xhtml-formatting.
+
+#### Examples
+```{r}
 txtMergeLines("hello", "world")
 txtMergeLines("hello", "world", html=FALSE)
 txtMergeLines("hello", "world", list("A list", "is OK"))
+```
+
+#### Value
+string
+See Also
+Other text formatters: txtPval, txtRound
