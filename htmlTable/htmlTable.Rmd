@@ -2,12 +2,10 @@ htmlTable Outputting HTML tables
 
 #### Description 
 
-This is a function for outputting a more advanced table than what xtable, ztable, or knitr’s kable()
-allows. It’s aim is to provide the Hmisc latex() colgroup and rowgroup functions in HTML. The
-html-output is designed for maximum compatibility with LibreOffice/OpenOffice.
+This is a function for outputting a more advanced table than what xtable, ztable, or knitr’s ``kable()`` allows. It’s aim is to provide the Hmisc latex() colgroup and rowgroup functions in HTML. The html-output is designed for maximum compatibility with LibreOffice/OpenOffice.
 
 #### Usage 
-
+<pre><code>
 htmlTable(x, ...)
 ## Default S3 method:
 htmlTable(x, header, rnames, rowlabel, caption, tfoot,
@@ -30,33 +28,26 @@ cspan.rgroup = "all", escape.html = FALSE, ...)
 knit_print(x, ...)
 ## S3 method for class 'htmlTable'
 print(x, useViewer, ...)
+</code></pre>
 
 #### Arguments 
 
-x The matrix/data.frame with the data. For the print and knit_print it takes a
-string of the class htmlTable as x argument.
-... Passed on to print.htmlTable function and any argument except the useViewer
-will be passed on to the cat functions arguments.
-header A vector of character strings specifying column header, defaulting to colnames(x)
-rnames Default rownames are generated from rownames(x). If you provide FALSE then
-it will skip the rownames. Note: For data.frames if you do rownames(my_dataframe) <- NULL
-it still has rownames. Thus you need to use FALSE if you want to surpress rownames
+* x The matrix/data.frame with the data. For the print and knit_print it takes a string of the class htmlTable as x argument.
+* ... Passed on to print.htmlTable function and any argument except the useViewer will be passed on to the cat functions arguments.
+* header A vector of character strings specifying column header, defaulting to colnames(x)
+* rnames Default rownames are generated from rownames(x). If you provide FALSE then it will skip the rownames. Note: For data.frames if you do rownames(my_dataframe) <- NULL it still has rownames. Thus you need to use FALSE if you want to surpress rownames
 for data.frames.
-rowlabel If the table has rownames or rnames, rowlabel is a character string containing
+* rowlabel If the table has rownames or rnames, rowlabel is a character string containing
 the column heading for the rnames.
 caption Adds a table caption.
-tfoot Adds a table footer (uses the <tfoot> html element). The output is run through
-txtMergeLines simplifying the generation of multiple lines.
-label A text string representing a symbolic label for the table for referencing as an anchor.
-All you need to do is to reference the table, for instance <a href="#anchor_name">see table 2</a>.
+* tfoot Adds a table footer (uses the <tfoot> html element). The output is run through
+* txtMergeLines simplifying the generation of multiple lines.
+* label A text string representing a symbolic label for the table for referencing as an anchor. All you need to do is to reference the table, for instance <a href="#anchor_name">see table 2</a>.
 This is known as the element’s id attribute, i.e. table id, in HTML linguo, and
 should be unique id for an HTML element in contrast to the css.class element
 attribute.
-rgroup A vector of character strings containing headings for row groups. n.rgroup
-must be present when rgroup is given. See detailed description in section below.
-n.rgroup An integer vector giving the number of rows in each grouping. If rgroup is not
-specified, n.rgroup is just used to divide off blocks of rows by horizontal lines.
-If rgroup is given but n.rgroup is omitted, n.rgroup will default so that each
+* rgroup A vector of character strings containing headings for row groups. n.rgroup must be present when rgroup is given. See detailed description in section below.
+* n.rgroup An integer vector giving the number of rows in each grouping. If rgroup is not specified, n.rgroup is just used to divide off blocks of rows by horizontal lines. If rgroup is given but n.rgroup is omitted, n.rgroup will default so that each
 row group contains the same number of rows. If you want additional rgroup
 column elements to the cells you can sett the "add" attribute to rgroup through
 attr(rgroup, "add"), see below explaining section.
@@ -98,44 +89,30 @@ the expected function. This is only used for rgroups that are printed. You can
 specify different separators if you give a vector of rgroup - 1 length (this is since
 the first rgroup doesn’t have a separator).
 css.tspanner The CSS style for the table spanner
-css.tspanner.sep
-The line between different spanners
+css.tspanner.sep:  The line between different spanners
 css.total The css of the total row
-css.cell The css.cell element allows you to add any possible CSS style to your table cells.
-See section below for details.
+css.cell The css.cell element allows you to add any possible CSS style to your table cells. See section below for details.
 css.cgroup The same as css.class but for cgroup formatting.
-htmlTable 7
 css.class The html CSS class for the table. This allows directing html formatting through
-CSS directly at all instances of that class. Note: unfortunately the CSS is frequently
-ignored by word processors. This option is mostly inteded for webpresentations.
-css.table You can specify the the style of the table-element using this parameter
-pos.rowlabel Where the rowlabel should be positioned. This value can be "top", "bottom",
-"header", or a integer between 1 and nrow(cgroup) + 1. The options "bottom"
-and "header" are the same, where the row label is presented at the same level
-as the header.
-pos.caption Set to "bottom" to position a caption below the table instead of the default of
+CSS directly at all instances of that class. Note: unfortunately the CSS is frequently ignored by word processors. This option is mostly inteded for webpresentations.
+* ``css.table``: You can specify the the style of the table-element using this parameter pos.rowlabel Where the rowlabel should be positioned. This value can be "top", "bottom",
+"header", or a integer between 1 and nrow(cgroup) + 1. The options "bottom" and "header" are the same, where the row label is presented at the same level as the header.
+* ``pos.caption``: Set to "bottom" to position a caption below the table instead of the default of
 "top".
-col.rgroup Alternating colors (zebra striping/banded rows) for each rgroup; one or two
-colors is recommended and will be recycled.
-col.columns Alternating colors for each column.
-padding.rgroup Generally two non-breakings spaces, i.e. &nbsp;&nbsp;, but some journals only
+col.rgroup Alternating colors (zebra striping/banded rows) for each rgroup; one or two colors is recommended and will be recycled.
+* ``col.columns`` Alternating colors for each column.
+* ``padding.rgroup``: Generally two non-breakings spaces, i.e. &nbsp;&nbsp;, but some journals only
 have a bold face for the rgroup and leaves the subelements unindented.
-padding.tspanner
-The table spanner is usually without padding but you may specify padding similar
-to padding.rgroup and it will be added to all elements, including the rgroup
-elements. This allows for a 3-level hierarchy if needed.
-ctable If the table should have a double top border or a single a’ la LaTeX ctable style
-compatibility Is default set to LibreOffice as some settings need to be in old html format
-as Libre Office can’t handle some commands such as the css caption-alignment.
+* ``padding.tspanner``: The table spanner is usually without padding but you may specify padding similar
+to padding.rgroup and it will be added to all elements, including the rgroup elements. This allows for a 3-level hierarchy if needed.
+* ``ctable`` If the table should have a double top border or a single a’ la LaTeX ctable style
+compatibility Is default set to LibreOffice as some settings need to be in old html format as Libre Office can’t handle some commands such as the css caption-alignment.
 Note: this option is not yet fully implemented for all details, in the future I aim
 to generate a html-correct table and one that is aimed at Libre Office compatibility.
 Word-compatibility is difficult as Word ignores most settings and destroys
 all layout attempts (at least that is how my 2010 version behaves). You can additinally
-use the options(htmlTableCompat = "html") if you want a change
-to apply to the entire document. MS Excel sometimes misinterprets certain cell
-data when opening HTML-tables (eg. 1/2 becomes 1. February). To avoid this
-please specify the correct Microsoft Office format for each cell in the table using
-the css.cell-argument. To make MS Excel interpret everything as text use
+use the options(htmlTableCompat = "html") if you want a change to apply to the entire document. MS Excel sometimes misinterprets certain cell
+data when opening HTML-tables (eg. 1/2 becomes 1. February). To avoid this please specify the correct Microsoft Office format for each cell in the table using the css.cell-argument. To make MS Excel interpret everything as text use
 "mso-number-format:\"\@\"".
 cspan.rgroup The number of columns that an rgroup should span. It spans by default all
 columns but you may want to limit this if you have column colors that you want
@@ -149,8 +126,8 @@ override the default RStudio viewer. Another option that does the same is to set
 the options(viewer=utils::browseURL) and it will default to that particular
 viewer (this is how RStudio decides on a viewer). Note: If you want to force all
 output to go through the cat() the set options(htmlTable.cat = TRUE).
-8 htmlTable
-Value
+
+#### Value
 string Returns a string of class htmlTable
 Multiple rows of column spanners cgroup
 If you want to have a column spanner in multiple levels you can set the cgroup and n.cgroup
