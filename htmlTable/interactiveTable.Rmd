@@ -2,12 +2,10 @@ interactiveTable An interactive table that allows you to limit the size of boxes
 
 #### Description 
 
-This function wraps the htmlTable and adds JavaScript code for toggling the amount of text shown
-in any particular cell.
-14 interactiveTable
+This function wraps the htmlTable and adds JavaScript code for toggling the amount of text shown in any particular cell.
 
 #### Usage 
-
+<pre><code>
 interactiveTable(x, ..., txt.maxlen = 20, button = FALSE,
 minimized.columns, js.scripts = c())
 ## S3 method for class 'htmlTable'
@@ -17,31 +15,29 @@ button = FALSE, minimized.columns, js.scripts = c())
 knit_print(x, ...)
 ## S3 method for class 'interactiveTable'
 print(x, useViewer, ...)
+</code></pre>
 
 #### Arguments 
 
-x The interactive table that is to be printed
-... The exact same parameters as htmlTable uses
-txt.maxlen The maximum length of a text
-button Indicator if the cell should be clickable or if a button should appear with a
-plus/minus
-minimized.columns
-Notifies if any particular columns should be collapsed from start
-js.scripts If you want to add your own JavaScript code you can just add it here. All code is
-merged into one string where each section is wrapped in it’s own <scrip></script>
-element.
-tbl An htmlTable object can be directly passed into the function
-useViewer If you are using RStudio there is a viewer thar can render the table within that is
-envoced if in interactive mode. Set this to FALSE if you want to remove that
-functionality. You can also force the function to call a specific viewer by setting
-this to a viewer function, e.g. useViewer = utils::browseURL if you want to
+* x The interactive table that is to be printed
+* ... The exact same parameters as htmlTable uses
+* txt.maxlen The maximum length of a text
+* button Indicator if the cell should be clickable or if a button should appear with a plus/minus
+* minimized.columns Notifies if any particular columns should be collapsed from start
+* js.scripts If you want to add your own JavaScript code you can just add it here. All code is merged into one string where each section is wrapped in it’s own <scrip></script> element.
+* tbl An htmlTable object can be directly passed into the function
+* useViewer If you are using RStudio there is a viewer thar can render the table within that is
+* envoced if in interactive mode. Set this to FALSE if you want to remove that functionality. You can also force the function to call a specific viewer by setting this to a viewer function, e.g. useViewer = utils::browseURL if you want to
 override the default RStudio viewer. Another option that does the same is to set
 the options(viewer=utils::browseURL) and it will default to that particular
 viewer (this is how RStudio decides on a viewer). Note: If you want to force all
 output to go through the cat() the set options(htmlTable.cat = TRUE).
-Value
+
+#### Value
 An htmlTable with a javascript attribute containing the code that is then printed
-Examples
+
+#### Examples
+```{r}
 # A simple output
 long_txt <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -60,3 +56,4 @@ minimized.columns = ncol(output),
 header = c("Short", "Long"),
 rnames = c("First", "Second"),
 col.rgroup = c("#FFF", "#EEF"))
+```
