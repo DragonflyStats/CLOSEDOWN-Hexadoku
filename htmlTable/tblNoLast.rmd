@@ -1,21 +1,24 @@
-tblNoLast Gets the last table number
+## ``tblNoLast`` 
+Gets the last table number
 
 #### Description 
 
-The function relies on options("table_counter") in order to keep track of the last number.
+The function relies on ``options("table_counter")`` in order to keep track of the last number.
 
 #### Usage 
-
+<pre><code>
 tblNoLast(roman = getOption("table_counter_roman", FALSE))
-
+</code></pre>
 #### Arguments 
+* roman Whether or not to use roman numbers instead of arabic. Can also be set through
+``options(table_caption_no_roman = TRUE)``
 
-roman Whether or not to use roman numbers instead of arabic. Can also be set through
-options(table_caption_no_roman = TRUE)
-See Also
+#### See Also
 Other table functions: htmlTable, tblNoNext
-Examples
+
+#### Examples
+```{r}
 org_opts <- options(table_counter=1)
 tblNoLast()
 options(org_opts)
-18 tidyHtmlTable
+```
