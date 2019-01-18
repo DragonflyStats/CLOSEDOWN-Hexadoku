@@ -1,0 +1,70 @@
+6
+
+dyCallbacks
+Callbacks for dygraph events
+
+#### 
+#### Description
+
+
+Set JavaScript callbacks for various dygraph events.  See the dygraph options reference for addi-
+tional details on the signature of each callback.
+
+#### Usage
+<pre><code>
+
+dyCallbacks(dygraph, clickCallback = NULL, drawCallback = NULL,
+highlightCallback = NULL, pointClickCallback = NULL,
+underlayCallback = NULL, unhighlightCallback = NULL,
+zoomCallback = NULL, drawHighlightPointCallback = NULL,
+drawPointCallback = NULL, annotationClickHandler = NULL,
+annotationMouseOverHandler = NULL, annotationMouseOutHandler = NULL,
+annotationDblClickHandler = NULL)
+
+</code></pre>
+#### Arguments
+
+dygraph: Dygraph to add callbacks to
+clickCallback
+A function to call when the canvas is clicked.
+drawCallback
+When set, this callback gets called every time the dygraph is drawn.  This in-
+cludes the initial draw, after zooming and repeatedly while panning.
+highlightCallback
+When set, this callback gets called every time a new point is highlighted.
+pointClickCallback
+A function to call when a data point is clicked. and the point that was clicked.
+underlayCallback
+When set, this callback gets called before the chart is drawn.
+unhighlightCallback
+When set, this callback gets called every time the user stops highlighting any
+point by mousing out of the graph.
+zoomCallback
+A function to call when the zoom window is changed (either by zooming in or
+out).
+drawHighlightPointCallback
+Draw a custom item when a point is highlighted.  Default is a small dot match-
+ing the series color.  This method should constrain drawing to within pointSize
+pixels from (cx, cy)
+drawPointCallback
+Draw a custom item when drawPoints is enabled. Default is a small dot match-
+ing the series color.  This method should constrain drawing to within pointSize
+pixels from (cx, cy).
+dyCandlestick
+7
+annotationClickHandler
+JavaScript function to call when an annotation is clicked. This can also be spec-
+ified on a per-annotation basis.
+annotationMouseOverHandler
+JavaScript function to call when the mouse hovers over an annotation. This can
+also be specified on a per-annotation basis.
+annotationMouseOutHandler
+JavaScript function to call when the mouse exits an annotation. This can also be
+specified on a per-annotation basis.
+annotationDblClickHandler
+JavaScript function to call when an annotation is double clicked.  This can also
+be specified on a per-annotation basis.
+
+#### Value
+
+Dygraph with callbacks
