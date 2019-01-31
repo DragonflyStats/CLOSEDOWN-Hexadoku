@@ -1,12 +1,16 @@
 
 proportion Rescale a vector relative to the maximal absolute value in the vector
-Description
+
+#### Description
 Rescale a vector relative to the maximal absolute value in the vector
-Usage
+
+#### Usage
 proportion(x, na.rm = FALSE)
 28 qrank
-Arguments
+
+#### Arguments
 x a numeric vector
 na.rm a logical indicating whether missing values should be removed
-Examples
+
+#### Examples
 proportion(mtcars$mpg)
