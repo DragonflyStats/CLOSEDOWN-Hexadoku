@@ -1,17 +1,30 @@
+---
+title: "``formattable::normalize``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 
 formatter Create a formatter function making HTML elements
-Description
+
+#### Description
 Create a formatter function making HTML elements
-Usage
+
+#### Usage
 formatter(.tag, ...)
-Arguments
+
+#### Arguments
 .tag HTML tag name. Uses span by default.
 ... functions to create attributes of HTML element from data colums. The unnamed
 element will serve as the function to produce the inner text of the element. If no
 unnamed element is provided, identity function will be used to preserve the
 string representation of the colum values. Function and formula are accepted.
 See details for how different forms of formula will behave differently.
-Details
+
+#### Details
 This function creates a formatter object which is essentially a closure taking a value and optionally
 the dataset behind.
 The formatter produces a character vector of HTML elements represented as strings. The tag name
@@ -21,7 +34,8 @@ Formula like x ~ expr will behave like function(x) expr. Formula like ~expr will
 in different manner: expr will be evaluated in the data frame with the enclosing environment being
 the formula environment. If a column is formatted according to multiple other columns, ~expr
 should be used and the column names can directly appear in expr.
-Value
+
+#### Value
 a function that transforms a column of data (usually an atomic vector) to formatted data represented
 in HTML and CSS.
 format_table 21
