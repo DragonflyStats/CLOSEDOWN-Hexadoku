@@ -1,15 +1,17 @@
 qrank Quantile ranks of a vector
-Description
-The quantile rank of a number in a vector is the relative position of ranking resulted from rank
-divided by the length of vector.
-Usage
+
+##### Description
+The quantile rank of a number in a vector is the relative position of ranking resulted from rank divided by the length of vector.
+
+#### Usage
 <pre><code>
 qrank(x, ...)
 </code></pre
 
 #### Arguments
-x a vector
-... additional parameters passed to rank
+* x a vector
+* ... additional parameters passed to rank
+
 See Also
 rank
 
