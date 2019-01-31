@@ -1,3 +1,12 @@
+---
+title: "``formattable::csscolor()``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 
 csscolor Generate CSS-compatible color strings
 
@@ -18,7 +27,9 @@ csscolor(x, format = c("auto", "hex", "rgb", "rgba"), use.names = TRUE)
 a character vector of CSS-compatible color strings
 
 #### Examples
+```{r}
 csscolor(rgb(0, 0.5, 0.5))
 csscolor(c(rgb(0, 0.2, 0.2), rgb(0, 0.5, 0.2)))
 csscolor(rgb(0, 0.5, 0.5, 0.2))
 csscolor(gradient(c(1,2,3,4,5), "white", "red"))
+```
