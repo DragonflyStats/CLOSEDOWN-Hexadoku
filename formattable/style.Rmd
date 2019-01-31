@@ -1,3 +1,12 @@
+---
+title: "``formattable::style``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 
 style Create a string-representation of CSS style
 
@@ -11,9 +20,7 @@ style(...)
 </code></pre>
 
 #### Arguments
-... style attributes in form of name = value. Many CSS properties contains '-' in
-the middle of their names. In this case, use "the-name" = value instead. NA
-will cancel the attribute.
+* ... style attributes in form of name = value. Many CSS properties contains '-' in the middle of their names. In this case, use "the-name" = value instead. NA will cancel the attribute.
 
 #### Details
 The general usage of CSS styling is
