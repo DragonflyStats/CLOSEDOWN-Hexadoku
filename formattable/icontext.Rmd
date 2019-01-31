@@ -1,3 +1,13 @@
+
+---
+title: "``formattable::icontext``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 ## icontext Create icon-text elements
 
 #### Description
