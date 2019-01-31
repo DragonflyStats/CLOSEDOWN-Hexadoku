@@ -1,5 +1,4 @@
-
-area Create an area to apply formatter
+`area`:  Create an area to apply formatter
 
 #### Description
 Create an representation of two-dimenstional area to apply formatter function. The area can be one
@@ -11,8 +10,8 @@ area(row, col)
 </code></pre>
 
 #### Arguments
-* row an expression of row range. If missing, TRUE is used instead.
-* col an expression of column range. If missing, TRUE is used instead.
+* `row`: an expression of row range. If missing, TRUE is used instead.
+* `col`: an expression of column range. If missing, TRUE is used instead.
 
 #### Details
 The function creates an area object to store the representation of row and column selector expressions.
@@ -26,8 +25,10 @@ format_table, formattable.data.frame
 as.datatable 5
 
 #### Examples
+```{r}
 area(col = c("mpg", "cyl"))
 area(col = mpg:cyl)
 area(row = 1)
 area(row = 1:10, col = 5:10)
 area(1:10, col1:col5)
+```
