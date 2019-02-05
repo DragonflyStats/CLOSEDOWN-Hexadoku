@@ -1,5 +1,13 @@
+---
+title: "prettyR::describe.factor"
+output: html_document
+---
 
-describe.factor: description of factor variables
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+description of factor variables
 
 #### Description
 Describes a factor variable.
@@ -10,19 +18,14 @@ describe.factor(x,varname="",horizontal=FALSE,decr.order=TRUE)
 </code></pre>
 
 #### Arguments 
-* x A factor.
-* varname A name for the variable. ‘describe’ always passes the name.
-* horizontal Whether to display the results across the page (TRUE) or down the page (FALSE).
-* decr.order Whether to order the rows by decreasing frequency.
+* ``x```: A factor.
+* ``varname``: A name for the variable. ‘describe’ always passes the name.
+* ``horizontal``: Whether to display the results across the page (TRUE) or down the page (FALSE).
+* ``decr.order``: Whether to order the rows by decreasing frequency.
 
 #### Details
-‘describe.factor’ displays the name of the factor, a table of its values, the modal value of the factor and the number of valid (not NA) values.
+‘``describe.factor``’ displays the name of the factor, a table of its values, the modal value of the factor and the number of valid (not NA) values.
 
 #### Value
 nil
 
-#### Author(s)
-Jim Lemon
-
-#### See Also
-Mode, valid.n, table
