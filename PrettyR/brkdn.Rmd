@@ -1,19 +1,13 @@
 ---
-
-title: "``brkdn``"
-
+title: "``prettyR::brkdn``"
 output: html_document
-
 ---
 
   
 
 ```{r setup, include=FALSE}
-
 knitr::opts_chunk$set(echo = TRUE)
-
 library(PrettyR)
-
 ```
 
 
@@ -45,12 +39,10 @@ attr(test.df$Employ,"value.labels")<-c("Full time","None","Part time")
 brkdn(Age~Sex+Employ,test.df)
 ```
 #### Details
-‘brkdn’ will accept a formula referring to columns in a data frame. It calls ‘describe.numeric’
-for the calculations and displays a table of results.
+‘brkdn’ will accept a formula referring to columns in a data frame. It calls ‘describe.numeric’ for the calculations and displays a table of results.
 
 #### Value
-The results of ‘describe.numeric’, or a multi-level list if more than one grouping variable is
-specified.
+The results of ‘describe.numeric’, or a multi-level list if more than one grouping variable is specified.
 
 #### Author(s)
 Jim Lemon
