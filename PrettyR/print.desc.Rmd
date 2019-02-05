@@ -1,4 +1,12 @@
-print.desc Display descriptive stats output
+---
+title: "prettyR::print.desc"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 #### Description
 Displays a list of descriptive statistics produced by ‘describe’.
 
@@ -13,6 +21,14 @@ print(x,ndec=2,...)
 * ndec The number of decimal places to display.
 * ... additional arguments  passed to ‘print’
 
+
+#### Examples 
+```{r}
+test.df<-data.frame(A=c(sample(1:10,99,TRUE),NA),
+  C=sample(LETTERS,100,TRUE))
+test.desc<-describe(test.df)
+print(test.desc)
+```
 #### Details
 ‘print.desc’ displays the list of descriptive statistics produced by the ‘describe’ function.
 Value
@@ -21,9 +37,3 @@ Author(s)
 Jim Lemon
 See Also
 describe
-#### Examples 
-```{r}
-test.df<-data.frame(A=c(sample(1:10,99,TRUE),NA),C=sample(LETTERS,100,TRUE))
-test.desc<-describe(test.df)
-print(test.desc)
-```
