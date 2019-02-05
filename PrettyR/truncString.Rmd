@@ -1,0 +1,33 @@
+---
+title: "prettyR::truncString"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Truncate strings and add ellipses if a string is truncated.
+
+#### Description
+Truncates one or more strings to a specified length, adding an ellipsis (...) to those strings that have been truncated. The justification of the strings can be controlled by the ‘justify’ argument as in format, which does the padding and justification.
+
+#### Usage
+
+<pre><code>
+truncString(x,maxlen=20,justify="left")
+</code></pre>
+
+#### Arguments 
+* ``x``: A vector of strings.
+* ``maxlen``: The maximum length of the returned strings.
+* ``justify``: Justification for the new strings.
+
+#### Value
+The string(s) passed as ‘x’ now with a maximum length of ‘maxlen’.
+
+#### Author(s)
+Jim Lemon
+See Also
+substr
+
