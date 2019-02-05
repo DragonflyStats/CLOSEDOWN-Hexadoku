@@ -1,20 +1,36 @@
-calculate.xtab Calculate a crosstabulation
+---
+title: "prettyr::calculate.xtab "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(prettyR)
+```
+
+
+Calculate a crosstabulation
+
 #### Description
 Calculates the marginal totals and names for a crosstabulation.
-Usage
+
+#### Usage
+<pre><code>
 calculate.xtab(v1,v2,varnames=NULL)
+</code></pre>
+
 #### Arguments 
-* v1,v2 The variables to be crosstabulated.
-* varnames Labels for the variables (defaults to ‘names(data))’
+* ``v1``,``v2``: The variables to be crosstabulated.
+* ``varnames``: Labels for the variables (defaults to ‘names(data))’
 
 #### Details
-‘calculate.xtab’ calls ‘table’ for the base table, calculates the marginal totals and returns a list
-with these and the names of the variables that will be used by ‘print.xtab’.
+‘calculate.xtab’ calls ‘table’ for the base table, calculates the marginal totals and returns a list with these and the names of the variables that will be used by ‘print.xtab’.
 
 #### Value
 A list containing the value of ‘table’, the row and column marginals and the names of the variables.
 
-Author(s)
+#### Author(s)
 Jim Lemon
-See Also
+
+#### See Also
 table, print.xtab
