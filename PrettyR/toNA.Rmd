@@ -1,0 +1,29 @@
+---
+title: 'prettyR::toNA'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+toNA Set specified values in an object to NA
+#### Description
+Sets all specified values in an object to NA.
+
+#### Usage
+<pre><code>
+toNA(x,values=NA)
+</code></pre>
+
+#### Arguments 
+* ``x``: A vector, matrix or data frame (max 2D).
+* ``values``: One or more values that are to be set to NA.
+
+#### Details
+‘toNA’ sets all entries in an object in values to NA. Useful for converting various missing value
+samps to NA.
+
+#### Value
+The object with NAs replacing all specified values.
+Author(s)
+Jim Lemon
