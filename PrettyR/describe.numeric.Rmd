@@ -1,11 +1,18 @@
+---
+title: "``prettyR::describe.numeric``"
+output: html_document
+---
 
-``describe.numeric``: Description of numeric variables
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 #### Description
 
 Describes a numeric variable.
 
 #### Usage
-<prre><code>
+<pre><code>
 describe.numeric(x,varname="",
 num.desc=c("mean","median","var","sd","valid.n"))
 </code></pre>
@@ -21,23 +28,24 @@ x<-rnorm(100)
 # include a function that calculates the "smoothness" of a vector
 # of numbers by calculating the mean of the absolute difference
 # between each successive value - all values equal would be 0
+
 smoothness<-function(x,na.rm=TRUE) {
-if(na.rm) x<-x[!is.na(x)]
-xspan<-diff(range(x))
-return(mean(abs(diff(x))/xspan,na.rm=TRUE))
-}
+  if(na.rm) x<-x[!is.na(x)]
+  xspan<-diff(range(x))
+  return(mean(abs(diff(x))/xspan,na.rm=TRUE))
+  }
+  
 describe(x,num.desc=c("mean","median","smoothness"),xname="x")
 
 # now sort the values to make the vector "smoother"
 describe(sort(x),num.desc=c("mean","median","smoothness"),xname="x")
 ```
-Details
-‘describe.numeric’ displays the name of the vector and the results of the functions whose names
-are passed in ‘num.desc’. Note that any functions that are called by ‘describe.numeric’ must
-have an ‘na.rm’ argument, even if it is a dummy.
-Value
+
+#### Details
+describe.numeric’ displays the name of the vector and the results of the functions whose names are passed in ‘num.desc’. Note that any functions that are called by ‘describe.numeric’ must have an ‘na.rm’ argument, even if it is a dummy.
+
+#### Value
 The vector of values returned from the functions in ‘num.desc’.
 Author(s)
 Jim Lemon
-See Also
-describe, valid.n
+
