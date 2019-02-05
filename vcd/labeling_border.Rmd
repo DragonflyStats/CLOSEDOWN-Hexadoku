@@ -1,6 +1,13 @@
+---
+title: "vcd::labeling_border "
+output: html_document
+---
 
-labeling_border 55
-labeling_border Labeling Functions for Strucplots
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+Labeling Functions for Strucplots
 
 #### Desription
 
@@ -48,39 +55,27 @@ offset_varnames = c(0, -0.6, 0, 0), tl_labels = NULL, ...)
 
 * ``labels``: vector of logicals indicating whether labels should be drawn for a particular
 dimension.
-56 labeling_border
-varnames vector of logicals indicating whether variable names should be drawn for a particular
-dimension.
-set_labels An optional character vector with named components replacing the so-specified
-variable names. The component names must exactly match the variable names
-to be replaced.
+
+* varnames vector of logicals indicating whether variable names should be drawn for a particular dimension.
+set_labels An optional character vector with named components replacing the so-specified variable names. The component names must exactly match the variable names to be replaced.
 set_varnames An optional list with named components of character vectors replacing the labels
-of the so-specified variables. The component names must exactly match the
-variable names whose labels should be replaced.
+of the so-specified variables. The component names must exactly match the variable names whose labels should be replaced.
 tl_* ``labels``: vector of logicals indicating whether labels should be positioned on top (column
 labels) / left (row labels) for a particular dimension.
 alternate_labels
-vector of logicals indicating whether labels should be alternated on the top/bottom
-(left/right) side of the plot for a particular dimension.
+vector of logicals indicating whether labels should be alternated on the top/bottom (left/right) side of the plot for a particular dimension.
 tl_varnames vector of logicals indicating whether variable names should be positioned on top
 (column labels) / on left (row labels) for a particular dimension.
-gp_labels list of objects of class "gpar" used for drawing the labels.
-gp_varnames list of objects of class "gpar" used for drawing the variable names.
-rot_labels vector of rotation angles for the labels for each of the four sides of the plot.
-rot_varnames vector of rotation angles for the variable names for each of the four sides of the
-plot.
-pos_labels character string of label positions ("left", "center", "right") for each of the
-variables.
-pos_varnames character string of variable names positions ("left", "center", "right") for
-each of the four sides of the plot.
-just_labels character string of label justifications ("left", "center", "right") for each of
-the variables.
-just_varnames character string of variable names justifications ("left", "center", "right")
-for each of the four sides of the plot.
-boxes vector of logicals indicating whether boxes should be drawn around the labels
-for a particular dimension.
-fill_boxes Either a vector of logicals, or a vector of characters, or a list of such vectors,
-specifying the fill colors for the boxes. "TRUE" and "FALSE"  Value 
+* gp_labels list of objects of class "gpar" used for drawing the labels.
+* gp_varnames list of objects of class "gpar" used for drawing the variable names.
+* rot_labels vector of rotation angles for the labels for each of the four sides of the plot.
+* rot_varnames vector of rotation angles for the variable names for each of the four sides of the plot.
+* pos_labels character string of label positions ("left", "center", "right") for each of the variables.
+* pos_varnames character string of variable names positions ("left", "center", "right") for each of the four sides of the plot.
+* just_labels character string of label justifications ("left", "center", "right") for each of the variables.
+* just_varnames character string of variable names justifications ("left", "center", "right") for each of the four sides of the plot.
+* boxes vector of logicals indicating whether boxes should be drawn around the labels for a particular dimension.
+* fill_boxes Either a vector of logicals, or a vector of characters, or a list of such vectors, specifying the fill colors for the boxes. "TRUE" and "FALSE"  Value 
  are transformed
 into "grey" and "white", respectively. If fill_boxes is atomic, each
 component specifies a basic color for the corresponding dimension. This color
@@ -110,11 +105,8 @@ clip vector of integers indicating, for each dimension, whether labels should be
 to not overlap.
 lab_pos character string switching between "top" or "bottom" position of the labels
 (only used for labeling_doubledecker).
-dep_varname logical or character string. If logical, this is indicating whether the name of the
-dependent variable should be printed or not. A character string will be printed
-instead of the variable name taken from the dimnames.
-value_type character string specifying which 
-#### Value 
+* dep_varname logical or character string. If logical, this is indicating whether the name of the dependent variable should be printed or not. A character string will be printed instead of the variable name taken from the dimnames.
+value_type character string specifying which Value 
  should be displayed in the cells.
 suppress numeric vector of length 2 specifying an interval of 
 #### Value 
