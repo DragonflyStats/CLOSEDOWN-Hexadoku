@@ -1,5 +1,15 @@
+---
+title: "prettyr::Mode "
+output: html_document
+---
 
-Mode Find the modal value
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(prettyR)
+```
+
+Find the modal value, i.e. most commonly occuring
+
 #### Description
 Finds the modal value of an object (usually a factor).
 
@@ -13,8 +23,7 @@ Mode(x,na.rm=FALSE)
 * ``na.rm``: A dummy argument to make it compatible with calls to ‘mean’, etc.
 
 #### Details
-‘Mode’ finds the modal value of the object. If there are multiple modal values, it returns an appropriate message. If ‘Mode’ is called with a continuous variable, it will not in general return a sensible answer. It does not attempt to estimate the density of the values and return an approximate modal
-value.
+‘Mode’ finds the modal value of the object. If there are multiple modal values, it returns an appropriate message. If ‘Mode’ is called with a continuous variable, it will not in general return a sensible answer. It does not attempt to estimate the density of the values and return an approximate modal value.
 
 #### Value
 The modal value of the object as a character string.
