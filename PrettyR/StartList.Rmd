@@ -1,0 +1,31 @@
+---
+title: "prettyR::StartList"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(prettyR)
+```
+
+ Write the header for the HTML listing file (htmlize).
+#### Description
+Initiate the listing file for an R listing in HTML format.
+
+#### Usage
+<pre><code>
+StartList(listcon,title="R listing",bgcolor="#dddddd",useCSS=NULL)
+</code></pre>
+
+#### Arguments 
+* ``listcon``: The connection for writing to the listing file.
+* ``title``: The title and heading for the listing frame.
+* ``bgcolor``: The background color for the listing frame.
+* ``useCSS``: Path and filename of a CSS stylesheet.
+
+#### Details
+‘StartList’ sets up the file with the listing frame information for the HTML listing.
+Value
+nil
+Author(s)
+Jim Lemon
