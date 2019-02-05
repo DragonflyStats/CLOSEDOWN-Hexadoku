@@ -1,0 +1,27 @@
+---
+title: "prettyR::StartNav"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(prettyR)
+```
+
+Write the header for the HTML navigation file (R2html).
+#### Description
+Initiate the navigation file for an R listing in HTML format.
+
+#### Usage
+<pre><code>
+StartNav(navcon,title="R listing",bgcolor="#dddddd")
+</code></pre>
+
+#### Arguments 
+* ``navcon``: The connection for writing to the navigation file.
+* ``title``: Title for the navigation window.
+* ``bgcolor``: The background color for the navigation frame.
+
+
+#### Details
+‘StartNav’ sets up the file with the navigation frame information for the HTML listing for ‘R2html’.
