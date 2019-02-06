@@ -1,43 +1,42 @@
 
-GeomCircle Geom for drawing circles in the ggplot2 framework
+## ``GeomCircle ``
+
+Geom for drawing circles in the ggplot2 framework
+
 #### Description
-Circles are drawn with a specified radius centered at (x, y). This geom is very much exploratory -
-we are using it for drawing edges for self #### References. It is not explored for any more general use, so
-use with caution!
-Usage
+Circles are drawn with a specified radius centered at (x, y). This geom is very much exploratory - we are using it for drawing edges for self #### References. It is not explored for any more general use, so use with caution!
+
+#### Usage
+<pre><code>
 GeomCircle
 geom_circle(mapping = NULL, data = NULL, stat = "identity",
 position = "identity", na.rm = FALSE, show.legend = NA,
 inherit.aes = TRUE, radius = 0.05, ...)
+</code></pre>
 
 #### Arguments
-mapping Set of aesthetic mappings created by aes or aes_. If specified and inherit.aes = TRUE
+* ``mapping``: Set of aesthetic mappings created by aes or aes_. If specified and inherit.aes = TRUE
 (the default), it is combined with the default mapping at the top level of the plot.
 You must supply mapping if there is no plot mapping.
-data The data to be displayed in this layer. There are three options:
-If NULL, the default, the data is inherited from the plot data as specified in the
-call to ggplot.
-A data.frame, or other object, will override the plot data. All objects will
-be fortified to produce a data frame. See fortify for which variables will be
-created.
-A function will be called with a single argument, the plot data. The return
-value must be a data.frame., and will be used as the layer data.
-stat The statistical transformation to use on the data for this layer, as a string.
-position Position adjustment, either as a string, or the result of a call to a position adjustment function.
-na.rm If FALSE, the default, missing values are removed with a warning. If TRUE,
-missing values are silently removed.
-show.legend logical. Should this layer be included in the legends? NA, the default, includes if
-any aesthetics are mapped. FALSE never includes, and TRUE always includes.
-inherit.aes If FALSE, overrides the default aesthetics, rather than combining with them.
-This is most useful for helper functions that define both data and aesthetics and
-shouldn’t inherit behaviour from the default plot specification, e.g. borders.
-radius numeric value giving the radius of the circle to be drawn (0-1 normalized scale)
-... other #### Arguments passed on to layer. These are often aesthetics, used to set an
-aesthetic to a fixed value, like color = "red" or size = 3. They may also be
+* ``data``: The data to be displayed in this layer. There are three options:
+If NULL, the default, the data is inherited from the plot data as specified in the call to ggplot.
+A data.frame, or other object, will override the plot data. All objects will be fortified to produce a data frame. See fortify for which variables will be created. A function will be called with a single argument, the plot data. The return value must be a data.frame., and will be used as the layer data.
+* ``stat``: The statistical transformation to use on the data for this layer, as a string.
+* ``position``: Position adjustment, either as a string, or the result of a call to a position adjustment function.
+* na.rm If FALSE, the default, missing values are removed with a warning. If TRUE, missing values are silently removed.
+* ``show.legend``: logical. Should this layer be included in the legends? NA, the default, includes if any aesthetics are mapped. FALSE never includes, and TRUE always includes.
+* inherit.aes If FALSE, overrides the default aesthetics, rather than combining with them.
+This is most useful for helper functions that define both data and aesthetics and shouldn’t inherit behaviour from the default plot specification, e.g. borders.
+* ``radius``: numeric value giving the radius of the circle to be drawn (0-1 normalized scale)
+... other arguments passed on to layer. These are often aesthetics, used to set an aesthetic to a fixed value, like color = "red" or size = 3. They may also be
 parameters to the paired geom/stat.
-Format
+
+#### Format
 An object of class GeomCircle (inherits from Geom, ggproto) of length 5.
-Examples
+
+#### Examples
+
+```{r}
 # circles are drawn centered at x and y
 library(ggplot2)
 data(mpg)
@@ -45,3 +44,4 @@ ggplot(mpg, aes(displ, hwy)) + geom_circle(radius=0.1) + geom_point()
 ggplot(mpg, aes(displ, hwy)) + geom_circle(linetype=2, radius=0.05, alpha=0.5)
 ggplot(mpg, aes(displ, hwy)) + geom_circle(aes(linetype=factor(cyl)), radius=0.05, alpha=0.5)
 geom_net 11
+```
