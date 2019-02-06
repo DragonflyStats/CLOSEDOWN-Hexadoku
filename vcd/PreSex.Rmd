@@ -12,8 +12,7 @@ library(vcd)
 
 #### Desription
 
-Data from Thornes \& Collard (1979), reported in Gilbert (1981), on pre- and extra-marital sex and
-divorce.
+Data from Thornes \& Collard (1979), reported in Gilbert (1981), on pre- and extra-marital sex and divorce.
 
 
 #### Usage
@@ -31,14 +30,7 @@ No Name Levels
 2 ExtramaritalSex Yes, No
 3 PremaritalSex Yes, No
 4 Gender Women, Men
-Source
-* Michael Friendly (2000), Visualizing Categorical Data: http://euclid.psych.yorku.ca/ftp/
-sas/vcd/catdata/marital.sas
-References
-G. N. Gilbert (1981), Modelling Society: An Introduction to Loglinear Analysis for Social Researchers.
-Allen and Unwin, London.
-B. Thornes \& J. Collard (1979), Who Divorces?. Routledge \& Kegan, London.
-M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
 
 #### Examples
 ```{r}
@@ -61,3 +53,12 @@ mosaic(PreSex,
 expecteGender * PremaritalSex * ExtramaritalSex
 + MaritalStatus * PremaritalSex * ExtramaritalSex,
 main = "G*P*E + P*E*M")
+```
+Source
+* Michael Friendly (2000), Visualizing Categorical Data: http://euclid.psych.yorku.ca/ftp/
+sas/vcd/catdata/marital.sas
+References
+G. N. Gilbert (1981), Modelling Society: An Introduction to Loglinear Analysis for Social Researchers.
+Allen and Unwin, London.
+B. Thornes \& J. Collard (1979), Who Divorces?. Routledge \& Kegan, London.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
