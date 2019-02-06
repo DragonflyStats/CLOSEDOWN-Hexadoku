@@ -1,10 +1,18 @@
-cd_plot 21
-cd_plot Conditional Density Plots
+---
+title: "vcd::cd_plot "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+Conditional Density Plots
 
 #### Desription
 
-Computes and plots conditional densities describing how the distribution of a categorical variable y
-changes over a numerical variable x.
+Computes and plots conditional densities describing how the distribution of a categorical variable y changes over a numerical variable x.
 
 #### Usage
 <pre><code>
@@ -34,22 +42,43 @@ data an optional data frame.
 plot logical. Should the computed conditional densities be plotted?
 ylab_tol convenience tolerance parameter for y-axis annotation. If the distance between
 two labels drops under this threshold, they are plotted equidistantly.
-bw, n, from, to, ...
-
-</code></pre>
-#### Arguments
+bw, n, from, to, ...: Aguments
  passed to density
-main, xlab, ylab
-character strings for annotation
-margins margins when calling plotViewport
-gp a "gpar" object controlling the grid graphical parameters of the rectangles.
+* main, xlab, ylab
+ character strings for annotation
+* margins margins when calling plotViewport
+* gp a "gpar" object controlling the grid graphical parameters of the rectangles.
 It should specify in particular a vector of fill colors of the same length as
 levels(y). The default is to call gray.colors.
-name name of the plotting viewport.
-newpage logical. Should grid.newpage be called before plotting?
-22 cd_plot
-return_grob logical. Should a snapshot of the display be returned as a grid grob?
-pop logical. Should the viewport created be popped?
+* name name of the plotting viewport.
+* newpage logical. Should grid.newpage be called before plotting?
+
+* return_grob logical. Should a snapshot of the display be returned as a grid grob?
+* pop logical. Should the viewport created be popped?
+
+#### Examples
+```{r}
+
+## Arthritis data
+data("Arthritis")
+cd_plot(Improved ~ Age, data = Arthritis)
+cd_plot(Improved ~ Age, data = Arthritis, bw = 3)
+cd_plot(Improved ~ Age, data = Arthritis, bw = "SJ")
+## compare with spinogram
+spine(Improved ~ Age, data = Arthritis, breaks = 3)
+```
+
+```{r}
+## Space shuttle data
+data("SpaceShuttle")
+cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2)
+## scatter plot with conditional density
+cdens <- cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2, plot = FALSE)
+plot(I(-1 * (as.numeric(Fail) - 2)) ~ jitter(Temperature, factor = 2), data = SpaceShuttle,
+xlab = "Temperature", ylab = "Failure")
+lines(53:81, cdens[[1]](53:81), col = 2)
+```
+
 Details
 cd_plot computes the conditional densities of x given the levels of y weighted by the marginal
 distribution of y. The densities are derived cumulatively over the levels of y.
@@ -66,22 +95,3 @@ Hofmann, H., Theus, M. (2005), Interactive graphics for visualizing conditional 
 Manuscript.
 See Also
 spine, density
-
-#### Examples
-```{r}
-
-## Arthritis data
-data("Arthritis")
-cd_plot(Improved ~ Age, data = Arthritis)
-cd_plot(Improved ~ Age, data = Arthritis, bw = 3)
-cd_plot(Improved ~ Age, data = Arthritis, bw = "SJ")
-## compare with spinogram
-spine(Improved ~ Age, data = Arthritis, breaks = 3)
-## Space shuttle data
-data("SpaceShuttle")
-cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2)
-## scatter plot with conditional density
-cdens <- cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2, plot = FALSE)
-plot(I(-1 * (as.numeric(Fail) - 2)) ~ jitter(Temperature, factor = 2), data = SpaceShuttle,
-xlab = "Temperature", ylab = "Failure")
-lines(53:81, cdens[[1]](53:81), col = 2)
