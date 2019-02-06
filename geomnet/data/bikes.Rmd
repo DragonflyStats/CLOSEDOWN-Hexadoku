@@ -1,0 +1,28 @@
+bikes 3
+bikes Bike sharing network (directed)
+#### Description
+This network is a summary of the bike trips taken by customers of the bike sharing company Capital
+Bikeshare (https://secure.capitalbikeshare.com/) during the second quarter of 2015. Only
+trips between stations in the vicinity of Rockville, MD, are included. The data is organized as a list
+of two datasets, vertices (stations) and edges (trips between stations), as follows:
+Usage
+bikes
+Format
+A list of two data frames:
+• the trips data set consists of four variables of length 53:
+– Start.station: Station where bike trip starts
+– End.station: Station where bike trip ends
+– n: Number of trips between the two stations
+– minlength: Duration of shortest trip between the two stations (in seconds). Only those
+stations are included, if the shortest trip between them lasted not more than 15 minutes.
+• the vertices data set consists of five variables with information on 21 stations:
+– id: Station ID number
+– name: Station name
+– lat: Latitude of station location
+– long: Longitude of station location
+– nbDocks: Number of bike docks at the station
+#### References
+https://secure.capitalbikeshare.com/
+4 email
+
+
