@@ -1,0 +1,20 @@
+blood Network of blood types (directed)
+
+#### Description
+A list of two datasets, vertices and edges, containing information on blood type (see http://www.
+redcrossblood.org/learn-about-blood/blood-types). The variables are as follows:
+
+#### Usage
+blood
+
+#### Format
+A list of two data frames:
+• the edges data set consists of three variables of length 27:
+– from, to: factor variables of blood types describing the relationship ’is compatible with’
+– group\_to: factor variable with levels ’same’ and ’diff’ for same or different blood type group not regarding the rho-gam factor.
+• the vertices data set consists of five variables and 32 rows:
+– label: factor variable of blood types,
+– type: factor variable of blood type, not regarding the rhesus factor,
+– rho: factor variable: ’pos’ and ’neg’ describing the rhesus factor,
+– Ethnicity: factor variable of four variables: ’Caucasians’, ’African.American’, ’Hispanic’, and ’Asian’,
+– Predominance: numeric variable consisting of the percentage points of each blood type within each ethnicity.
