@@ -1,22 +1,30 @@
 
 
-fortify.igraph Function for converting an igraph object into the correct format for
-use with geomnet
+## ``fortify.igraph`` 
+
+Function for converting an igraph object into the correct format for use with geomnet
+
 #### Description
 Function for converting an igraph object into the correct format for use with geomnet
-Usage
+
+#### Usage
+<pre><code>
 ## S3 method for class 'igraph'
 fortify(model, data = NULL, group = NULL, ...)
+</code></pre>
+
 #### Arguments
-model A network object of class "igraph".
-data NULL - not used in this function
-group character. Used for facetting. If you wish to facet on a network variable provide
-the name of that variable here.
-... not used in this function
-Examples
+* model A network object of class "igraph".
+* data NULL - not used in this function
+* group character. Used for facetting. If you wish to facet on a network variable provide the name of that variable here.
+* ... not used in this function
+
+#### Examples
+```{r}
 # class igraph (igraph, igraphdata packages)
 library(igraph)
 data(blood, package = "geomnet")
 blood.igraph <- graph_from_data_frame(d = blood$edges,
 directed = TRUE, vertices = unique(blood$vertices[, 1:3]))
 fortify(blood.igraph)
+```
