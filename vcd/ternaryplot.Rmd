@@ -1,5 +1,5 @@
 ---
-title: "``ternaryplot``"
+title: "``vcd::ternaryplot``"
 
 output: html_document
 ---
@@ -32,34 +32,31 @@ main = "ternary plot", newpage = TRUE, pop = TRUE,
 return_grob = FALSE, ...)
 
 </code></pre>
+
 #### Arguments
 
-x a matrix with three columns.
-scale row sums scale to be used.
-dimnames dimension labels (defaults to the column names of x).
-dimnames_position, dimnames_color
-position and color of dimension labels.
+* x a matrix with three columns.
+* scale row sums scale to be used.
+* dimnames dimension labels (defaults to the column names of x).
+* dimnames_position, dimnames_color position and color of dimension labels.
 dimnames_rot Numeric vector of length 3, specifying the angle of the dimension labels.
 id optional labels to be plotted below the plot symbols. coordinates and id are
 mutual exclusive.
-id_color color of these labels.
-id_just character vector of length 1 or 2 indicating the justification of these labels.
-coordinates if TRUE, the coordinates of the points are plotted below them. coordinates and
-id are mutual exclusive.
+* id_color color of these labels.
+* id_just character vector of length 1 or 2 indicating the justification of these labels.
+* coordinates if TRUE, the coordinates of the points are plotted below them. coordinates and id are mutual exclusive.
 grid if TRUE, a grid is plotted. May optionally be a string indicating the line type
 (default: "dotted").
-grid_color grid color.
-labels, labels_color
+* grid_color grid color.
+* labels, labels_color
 position and color of the grid labels.
-labels_rot Numeric vector of length 3, specifying the angle of the grid labels.
+* labels_rot Numeric vector of length 3, specifying the angle of the grid labels.
 border color of the triangle border.
 ternaryplot 129
-bg triangle background.
-pch plotting character. Defaults to filled dots.
-cex a numerical value giving the amount by which plotting text and symbols should
-be scaled relative to the default. Ignored for the symbol size if prop_size is not
-FALSE.
-prop_size if TRUE, the symbol size is plotted proportional to the row sum of the three
+* bg triangle background.
+* pch plotting character. Defaults to filled dots.
+* cex a numerical value giving the amount by which plotting text and symbols should be scaled relative to the default. Ignored for the symbol size if prop_size is not FALSE.
+* ``prop_size``: if TRUE, the symbol size is plotted proportional to the row sum of the three
 variables, i.e., represents the weight of the observation.
 col plotting color.
 main main title.
@@ -67,15 +64,6 @@ newpage if TRUE, the plot will appear on a new graphics page.
 pop logical; if TRUE, all newly generated viewports are popped after plotting.
 return_grob logical. Should a snapshot of the display be returned as a grid grob?
 ... additional graphics parameters (see par)
-Details
-A points' coordinates are found by computing the gravity center of mass points using the data entries
-as weights. Thus, the coordinates of a point P(a; b; c)= 1, are: P(b + c=2; c
-p
-3=2).
-Author(s)
-David Meyer <David.Meyer@R-project.org>
-References
-M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
 
 #### Examples
 ```{r}
@@ -86,6 +74,9 @@ tab <- as.table(xtabs(~ I(Sex:Treatment) + Improved, data = Arthritis))
 ## Mark groups
 col <- c("red", "red", "blue", "blue")
 pch <- c(1, 19, 1, 19)
+```
+
+```{r}
 ## plot
 ternaryplot(
 tab,
@@ -96,10 +87,12 @@ bg = "lightgray",
 grid_color = "white",
 labels_color = "white",
 main = "Arthritis Treatment Data"
-130 tile
 )
 ## legend
 grid_legend(0.8, 0.7, pch, col, rownames(tab), title = "GROUP")
+```
+
+```{r}
 ## Titanic
 data("Lifeboats")
 attach(Lifeboats)
@@ -115,6 +108,9 @@ main = "Lifeboats on Titanic"
 grid_legend(0.8, 0.9, c(1, 19),
 c("red", "blue"), c("Port", "Starboard"),
 title = "SIDE")
+```
+
+```{r}
 ## Hitters
 data("Hitters")
 attach(Hitters)
@@ -129,3 +125,13 @@ main = "Baseball Hitters Data"
 grid_legend(0.8, 0.9, pch, colors, levels(Positions),
 title = "POSITION(S)")
 ```
+
+#### Details
+A points' coordinates are found by computing the gravity center of mass points using the data entries
+as weights. Thus, the coordinates of a point P(a; b; c)= 1, are: P(b + c=2; c
+p
+3=2).
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
