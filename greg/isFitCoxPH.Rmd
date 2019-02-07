@@ -1,19 +1,35 @@
+---
+title: "``greg::isFitCoxPH``"
+output: html_document
+---
 
-isFitCoxPH Functions for checking regression type
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(greg)
+```
+
+
+ Functions for checking regression type
 
 #### Description 
 
-The isFitCoxPH A simple check if object inherits either "coxph" or "crr" class indicating that it is a
-survival function.
-12 isFitCoxPH
-\n#### Usage\n<pre><code>\n
+The isFitCoxPH A simple check if object inherits either "coxph" or "crr" class indicating that it is a survival function.
+
+#### Usage
+
+<pre><code>
 isFitCoxPH(fit)
 isFitLogit(fit)
-Arguments
+</code></pre>
+
+#### Arguments
 fit Regression object
-Value
+
+#### Value
 boolean Returns TRUE if the object is of that type otherwise it returns FALSE.
-Examples
+
+#### Examples
+```{r}
 # simulated data to use
 set.seed(10)
 ds <- data.frame(
@@ -22,6 +38,9 @@ fstatus = sample(0:1,200,replace=TRUE),
 x1 = runif(200),
 x2 = runif(200),
 x3 = runif(200))
+```
+
+```{r}
 library(survival)
 library(rms)
 dd <- datadist(ds)
@@ -33,6 +52,9 @@ print("Correct, the cph is of cox PH hazard type")
 fit <- coxph(s ~ x1 + x2 + x3, data=ds)
 if (isFitCoxPH(fit))
 print("Correct, the coxph is of cox PH hazard type")
+```
+
+```{r}
 library(cmprsk)
 set.seed(10)
 ftime <- rexp(200)
@@ -44,7 +66,6 @@ if (isFitCoxPH(fit))
 print(paste("Correct, the competing risk regression is",
 "considered a type of cox regression",
 "since it has a Hazard Ratio"))
-isFitCoxPH 13
 # ** Borrowed code from the lrm example **
 #Fit a logistic model containing predictors age, blood.pressure, sex
 #and cholesterol, with age fitted with a smooth 5-knot restricted cubic
@@ -62,6 +83,9 @@ label(blood.pressure) <- 'Systolic Blood Pressure'
 label(sex) <- 'Sex'
 units(cholesterol) <- 'mg/dl' # uses units.default in Hmisc
 units(blood.pressure) <- 'mmHg'
+```
+
+```{r}
 #To use prop. odds model, avoid using a huge number of intercepts by
 #grouping cholesterol into 40-tiles
 # Specify population model for log odds that Y=1
@@ -86,3 +110,4 @@ print("Correct, the glm with a family of binomial is a logistic regression")
 fit_glm <- glm(blood.pressure ~ sex)
 if (isFitLogit(fit_glm) == FALSE)
 print("Correct, the glm without logit as a family is not a logistic regression")
+```
