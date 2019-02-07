@@ -1,13 +1,23 @@
+---
+title: "``greg::plotHR``"
+output: html_document
+---
 
-14 plotHR
-plotHR Plot a spline in a Cox regression model
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(greg)
+```
+
+``plotHR``: Plot a spline in a Cox regression model
 
 #### Description 
 
-This function is a more specialized version of the termplot() function. It creates a plot with the
-spline against hazard ratio. The plot can additianally have indicator of variable density and have
-multiple lines.
-\n#### Usage\n<pre><code>\n
+This function is a more specialized version of the termplot() function. It creates a plot with the spline against hazard ratio. The plot can additianally have indicator of variable density and have multiple lines.
+
+#### Usage
+
+<pre><code>
+
 plotHR(models, term = 1, se = TRUE, cntrst = ifelse(inherits(models,
 "rms") || inherits(models[[1]], "rms"), TRUE, FALSE),
 polygon_ci = TRUE, rug = "density", xlab = "",
@@ -16,74 +26,44 @@ col.term = "#08519C", col.se = "#DEEBF7", col.dens = grey(0.9),
 lwd.term = 3, lty.term = 1, lwd.se = lwd.term, lty.se = lty.term,
 x.ticks = NULL, y.ticks = NULL, ylog = TRUE, cex = 1,
 y_axis_side = 2, plot.bty = "n", axes = TRUE, alpha = 0.05, ...)
-Arguments
-models A single model or a list() with several models
-term The term of interest. Can be either the name or the number of the covariate in
-the model.
-se Boolean if you want the confidence intervals or not
-cntrst By contrasting values you can have the median as a reference point making it
-easier to compare hazard ratios.
-polygon_ci If you want a polygon as indicator for your confidence interval. This can also
-be in the form of a vector if you have several models. Sometimes you only want
-one model to have a polygon and the rest to be dotted lines. This gives the reader
-an indication of which model is important.
-rug The rug is the density of the population along the spline variable. Often this
-is displayed as a jitter with bars that are thicker & more common when there
-are more observations in that area or a smooth density plot that looks like a
-mountain. Use "density" for the mountain view and "ticks" for the jitter format.
-xlab The label of the x-axis
-ylab The label of the y-axis
-main The main title of the plot
-xlim A vector with 2 elements containing the upper & the lower bound of the x-axis
-ylim A vector with 2 elements containing the upper & the lower bound of the y-axis
-col.term The color of the estimate line. If multiple lines you can have different colors by
-giving a vector.
-plotHR 15
-col.se The color of the confidence interval. If multiple lines you can have different
-colors by giving a vector.
-col.dens The color of the density plot. Ignored if you’re using jitter
-lwd.term The width of the estimated line. If you have more than one model then provide
-the function with a vector if you want to have different lines for different width
-for each model.
-lty.term The typeof the estimated line, see lty. If you have more than one model then
-provide the function with a vector if you want to have different line types for for
-each model.
-lwd.se The line width of your confidence interval. This is ignored if you’re using polygons
-for all the confidence intervals.
-lty.se The line type of your confidence interval. This is ignored if you’re using polygons
-for all the confidence intervals.
-x.ticks The ticks for the x-axis if you desire other than the default.
-y.ticks The ticks for the y-axis if you desire other than the default.
-ylog Show a logarithmic y-axis. Not having a logarithmic axis might seem easier to
-understand but it’s actually not really a good idea. The distance between HR
-0.5 and 2.0 should be the same. This will only show on a logarithmic scale and
-therefore it is strongly recommended to use the logarithmic scale.
-cex Increase if you want larger font size in the graph.
-y_axis_side The side that the y axis is to be plotted, see axis() for details
-plot.bty Type of box that you want. See the bty description in graphical parameters
-(par). If bty is one of "o" (the default), "l", "7", "c", "u", or "]" the resulting box
-resembles the corresponding upper case letter. A value of "n" suppresses the
-box.
-axes A boolean that is used to identify if axes are to be plotted
-alpha The alpha level for the confidence intervals
-... Any additional values that are to be sent to the plot() function
-Value
-The function does not return anything
-Multiple models in one plot
-The function allows for plotting multiple splines in one graph. Sometimes you might want to show
-more than one spline for the same variable. This allows you to create that comparison.
-Examples of a situation where I’ve used multiple splines in one plot is when I want to look at a
-variables behavior in different time periods. This is another way of looking at the proportional
-hazards assumption. The Schoenfeld residuals can be a little tricky to look at when you have the
-splines.
-Another example of when I’ve used this is when I’ve wanted to plot adjusted and unadjusted splines.
-This can very nicely demonstrate which of the variable span is mostly confounded. For instance -
-younger persons may exhibit a higher risk for a procedure but when you put in your covariates you
-find that the increased hazard changes back to the basic
-16 plotHR
-Author(s)
-Reinhard Seifert, Max Gordon
-Examples
+</code></pre>
+
+#### Arguments
+
+* models A single model or a list() with several models
+* term The term of interest. Can be either the name or the number of the covariate in the model.
+* se Boolean if you want the confidence intervals or not
+cntrst By contrasting values you can have the median as a reference point making it easier to compare hazard ratios.
+* polygon_ci If you want a polygon as indicator for your confidence interval. This can also be in the form of a vector if you have several models. Sometimes you only want one model to have a polygon and the rest to be dotted lines. This gives the reader an indication of which model is important.
+* rug The rug is the density of the population along the spline variable. Often this is displayed as a jitter with bars that are thicker & more common when there are more observations in that area or a smooth density plot that looks like a mountain. Use "density" for the mountain view and "ticks" for the jitter format.
+* xlab The label of the x-axis
+* ylab The label of the y-axis
+* main The main title of the plot
+* xlim A vector with 2 elements containing the upper & the lower bound of the x-axis
+* ylim A vector with 2 elements containing the upper & the lower bound of the y-axis
+* col.term The color of the estimate line. If multiple lines you can have different colors by giving a vector.
+* col.se The color of the confidence interval. If multiple lines you can have different colors by giving a vector.
+* col.dens The color of the density plot. Ignored if you’re using jitter
+* lwd.term The width of the estimated line. If you have more than one model then provide the function with a vector if you want to have different lines for different width for each model.
+* lty.term The typeof the estimated line, see lty. If you have more than one model then provide the function with a vector if you want to have different line types for for each model.
+* lwd.se The line width of your confidence interval. This is ignored if you’re using polygons for all the confidence intervals.
+* lty.se The line type of your confidence interval. This is ignored if you’re using polygons for all the confidence intervals.
+* x.ticks The ticks for the x-axis if you desire other than the default.
+* y.ticks The ticks for the y-axis if you desire other than the default.
+* ylog Show a logarithmic y-axis. Not having a logarithmic axis might seem easier to understand but it’s actually not really a good idea. The distance between HR 0.5 and 2.0 should be the same. This will only show on a logarithmic scale and therefore it is strongly recommended to use the logarithmic scale.
+* cex Increase if you want larger font size in the graph.
+* y_axis_side The side that the y axis is to be plotted, see axis() for details
+plot.bty Type of box that you want. See the bty description in graphical parameters (par). If bty is one of "o" (the default), "l", "7", "c", "u", or "]" the resulting box
+resembles the corresponding upper case letter. A value of "n" suppresses the box.
+* axes A boolean that is used to identify if axes are to be plotted
+* alpha The alpha level for the confidence intervals
+* ... Any additional values that are to be sent to the plot() function
+
+
+
+#### Examples
+
+```{r}
 library(survival)
 library(rms)
 # Get data for example
@@ -112,6 +92,9 @@ e = e,
 age=age,
 smoking=smoking,
 sex=sex)
+```
+
+```{r}
 library(splines)
 Srv <- Surv(dt,e)
 fit.coxph <- coxph(Srv ~ bs(age, 3) + sex + smoking, data=ds)
@@ -131,3 +114,17 @@ col.se = c("#DEEBF7BB", grey(0.6)),
 lty.term = c(1, 2),
 plot.bty="l", xlim=c(30, 70))
 par(org_par)
+```
+
+#### Value
+The function does not return anything
+
+Multiple models in one plot
+The function allows for plotting multiple splines in one graph. Sometimes you might want to show more than one spline for the same variable. This allows you to create that comparison.
+Examples of a situation where I’ve used multiple splines in one plot is when I want to look at a variables behavior in different time periods. This is another way of looking at the proportional
+hazards assumption. The Schoenfeld residuals can be a little tricky to look at when you have the splines.
+Another example of when I’ve used this is when I’ve wanted to plot adjusted and unadjusted splines.
+This can very nicely demonstrate which of the variable span is mostly confounded. For instance - younger persons may exhibit a higher risk for a procedure but when you put in your covariates you find that the increased hazard changes back to the basic
+
+#### Author(s)
+Reinhard Seifert, Max Gordon
