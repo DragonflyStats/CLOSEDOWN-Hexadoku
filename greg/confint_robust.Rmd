@@ -1,34 +1,48 @@
-confint_robust The confint function adapted for vcovHC
+---
+title: "``greg::confint_robust ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(greg)
+```
+The confint function adapted for vcovHC
 
 #### Description 
 
-The confint.lm uses the t-distribution as the default confidence interval estimator. When there is
-reason to believe that the normal distribution is violated an alternative approach using the vcovHC()
-may be more suitable.
-\n#### Usage\n<pre><code>\n
+The confint.lm uses the t-distribution as the default confidence interval estimator. When there is reason to believe that the normal distribution is violated an alternative approach using the ``vcovHC()`` may be more suitable.
+
+#### Usage
+<pre><code>
 confint_robust(object, parm, level = 0.95, HC_type = "HC3",
 t_distribution = FALSE, ...)
-forestplotCombineRegrObj 7
-Arguments
-object The regression model object, either an ols or lm object
-parm a specification of which parameters are to be given confidence intervals, either
-a vector of numbers or a vector of names. If missing, all parameters are considered.
-level the confidence level required.
-HC_type See options for vcovHC()
-t_distribution A boolean for if the t-distribution should be used or not. Defaults to FALSE.
-According to Cribari-Nieto and Lima’s study from 2009 this should not be the
+</code></pre>
+
+#### Arguments
+* ``object``: The regression model object, either an ols or lm object
+* ``parm``: a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
+* ``level``: the confidence level required.
+* ``HC_type``: See options for ``vcovHC()``
+* ``t_distribution``: A boolean for if the t-distribution should be used or not. Defaults to FALSE. According to Cribari-Nieto and Lima’s study from 2009 this should not be the
 case.
-... Additional parameters that are passed on to vcovHC()
-Value
-matrix A matrix (or vector) with columns giving lower and upper confidence limits for each parameter.
-These will be labelled as (1-level)/2 and 1 - (1-level)/2 in
-References
-F. Cribari-Neto and M. da G. A. Lima, "Heteroskedasticity-consistent interval estimators", Journal
-of Statistical Computation and Simulation, vol. 79, no. 6, pp. 787-803, 2009.
-Examples
+* ``...``: Additional parameters that are passed on to vcovHC()
+
+
+#### Examples
+```{r}
 n <- 50
 x <- runif(n)
 y <- x + rnorm(n)
 fit <- lm(y~x)
 library("sandwich")
 confint_robust(fit, HC_type = "HC4m")
+```
+
+
+#### Value
+matrix A matrix (or vector) with columns giving lower and upper confidence limits for each parameter.
+These will be labelled as (1-level)/2 and 1 - (1-level)/2 in
+References
+F. Cribari-Neto and M. da G. A. Lima, "Heteroskedasticity-consistent interval estimators", Journal
+of Statistical Computation and Simulation, vol. 79, no. 6, pp. 787-803, 2009.
