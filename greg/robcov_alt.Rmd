@@ -1,21 +1,34 @@
+---
+title: "``greg::robcov_alt ``"
+output: html_document
+---
 
-robcov_alt Robust covariance matrix based upon the ’sandwich’-package
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(greg)
+```
+
+Robust covariance matrix based upon the ’sandwich’-package
 
 #### Description 
 
-This is an alternative to the ’rms’-package robust covariance matrix that uses the ’sandwich’ package
-vcovHC() function instead of the ’rms’-built-in estimator. The advantage being that many more
-estimation types are available.
-\n#### Usage\n<pre><code>\n
+This is an alternative to the ’rms’-package robust covariance matrix that uses the ’sandwich’ package vcovHC() function instead of the ’rms’-built-in estimator. The advantage being that many more estimation types are available.
+
+#### Usage 
+<pre><code>
 robcov_alt(fit, type = "HC3", ...)
-Arguments
-fit The ols fit that
-type a character string specifying the estimation type. See vcovHC() for options.
-... You should specify type= followed by some of the alternative available for the
-vcovHC() function.
-Value
+</code></pre>
+
+#### Arguments
+* fit The ols fit 
+* type a character string specifying the estimation type. See vcovHC() for options.
+* ... You should specify type= followed by some of the alternative available for the vcovHC() function.
+
+#### Value
 model The fitted model with adjusted variance and df.residual set to NULL
-Examples
+
+#### Examples
+```{r}
 # Generate some data
 n <- 500
 x1 <- runif(n)*2
@@ -24,7 +37,6 @@ y <- x1^3 + x2 + rnorm(n)
 library(rms)
 library(sandwich)
 dd <- datadist(x1, x2, y)
-18 timeSplitter
 org.op <- options(datadist = "dd")
 # Main function
 f <- ols(y ~ rcs(x1, 3) + x2)
@@ -40,3 +52,4 @@ vcov(f_rob)
 # Now check the confidence interval for the function
 confint(f_rob)
 options(org.op)
+```
