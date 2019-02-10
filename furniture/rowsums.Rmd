@@ -1,7 +1,5 @@
 ---
 title: "``rowsums``: Get Row Sums"
-author: "Kevin O'Brien"
-date: "11 November 2018"
 output: html_document
 ---
 
@@ -10,13 +8,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(furniture)
 ```
 
-
-
-
 #### Description
 
-Does what rowSums() does but without having to cbind the variables. Makes it easier to use with
-the tidyverse
+Does what ``rowSums()`` does but without having to cbind the variables. Makes it easier to use with the tidyverse
 
 #### Usage
 <pre><code>
@@ -24,8 +18,8 @@ rowsums(..., na.rm = FALSE)
 </code></pre>
 
 #### Arguments
-* ... the variables to be included in the row sums
-* na.rm should the missing values be ignored? default is FALSE
+* ``...``: the variables to be included in the row sums
+* ``na.rm``: should the missing values be ignored? default is FALSE
 
 #### Value
 the row sums
