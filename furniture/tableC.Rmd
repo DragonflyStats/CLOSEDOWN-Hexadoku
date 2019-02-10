@@ -1,8 +1,5 @@
 ---
 title: "``tableC``: Correlation Table" 
-
-author: "Kevin O'Brien"
-date: "11 November 2018"
 output: html_document
 ---
 
@@ -11,8 +8,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(furniture)
 library(ggplot2)
 ```
-
-
 
 #### Description
 
@@ -25,16 +20,16 @@ tableC(.data, ..., cor_type = "pearson", na.rm = FALSE, rounding = 3, output = "
 </code></pre>
 
 #### Arguments
-* .data : the data frame containing the variables
-* ... : the unquoted variable names to be included in the correlations
-* cor_type : the correlation type; default is "pearson", other option is "spearman"
-* na.rm : logical (default is FALSE); if set to TRUE, the correlations use the "complete.obs"methods option from stats::cor()
-* rounding : the value passed to round for the output of both the correlation and p-value; default is 3
-* output : how the table is output; can be "text" for regular console output, "latex2" for specialized latex output, or any of kable()'s options from knitr (e.g., "latex", "markdown", "pandoc").
-* booktabs: when output != "text"; option is passed to knitr::kable
-* caption: when output != "text"; option is passed to knitr::kable
-* align: when output != "text"; option is passed to knitr::kable
-* float: when output == "latex2" it controls the floating parameter (h, t, b, H)
+* ``.data`` : the data frame containing the variables
+* ``...`` : the unquoted variable names to be included in the correlations
+* ``cor_type`` : the correlation type; default is "pearson", other option is "spearman"
+* ``na.rm`` : logical (default is FALSE); if set to TRUE, the correlations use the "complete.obs"methods option from stats::cor()
+* ``rounding`` : the value passed to round for the output of both the correlation and p-value; default is 3
+* ``output`` : how the table is output; can be "text" for regular console output, "latex2" for specialized latex output, or any of kable()'s options from knitr (e.g., "latex", "markdown", "pandoc").
+* ``booktabs``: when output != "text"; option is passed to knitr::kable
+* ``caption``: when output != "text"; option is passed to knitr::kable
+* ``align``: when output != "text"; option is passed to knitr::kable
+* ``float``: when output == "latex2" it controls the floating parameter (h, t, b, H)
 
 ```{r}
 tableC(iris[,1:4],outut=text) 
