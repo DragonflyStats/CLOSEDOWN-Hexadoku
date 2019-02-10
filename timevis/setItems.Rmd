@@ -1,6 +1,12 @@
-setItems
-Set the items of a timeline
+---
+title: "``timevis::setItems``"
+2output: html_document
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
 #### Description
 
 Set the items of a timeline
@@ -14,8 +20,8 @@ setItems(id, data)
 <code></pre>
 #### Arguments
 
-* id Timeline id or a timevis object (the output from timevis())
-* data A dataframe containing the item data to use.
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``data``: A dataframe containing the item data to use.
 
 #### Examples
 ```{r}
