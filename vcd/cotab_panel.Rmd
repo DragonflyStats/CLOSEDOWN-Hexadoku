@@ -51,15 +51,8 @@ cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions, panel = ucb)
 These functions of class "panel_generator" are panel-generating functions for use with cotabplot,
 i.e., they return functions with the interface
 panel(x, condlevels)
-required for cotabplot. The functions produced by cotab_mosaic, cotab_assoc and cotab_sieve
-essentially only call co_table to produce the conditioned table and then call mosaic, assoc or
-sieve respectively with the 
-</code></pre>
-#### Arguments
- specified.
-The function cotab_coindep is similar but additionally chooses an appropriate residual-based
-shading visualizing the associated conditional independence model. The conditional independence
-test is carried out via coindep_test and the shading is set up via shading_hcl.
+required for cotabplot. The functions produced by cotab_mosaic, cotab_assoc and cotab_sieve essentially only call co_table to produce the conditioned table and then call mosaic, assoc or sieve respectively with the arguments  specified.
+The function cotab_coindep is similar but additionally chooses an appropriate residual-based shading visualizing the associated conditional independence model. The conditional independence test is carried out via coindep_test and the shading is set up via ``shading_hcl``.
 A Desription
  of the underlying ideas is given in Zeileis, Meyer, Hornik (2005).
 
