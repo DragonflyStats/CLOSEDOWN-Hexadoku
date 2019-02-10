@@ -1,6 +1,11 @@
-setSelection
-13
-Select one or multiple items on a timeline
+---
+title: "``timevis::setSelection``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 #### Description
 
@@ -9,17 +14,15 @@ Select one or multiple items on a timeline
 #### Usage
 <pre><code>
 
-
 setSelection(id, itemId, options)
 
 <code></pre>
+
 #### Arguments
 
-id Timeline id or a timevis object (the output from timevis())
-itemId A vector (or single value) of the item ids to select
-options Named list of options controlling mainly the animation. Most common options
-are focus = TRUE/FALSE and "animation" = TRUE/FALSE. For a full list of
-options, see the "setSelection" method in the official Timeline documentation
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``itemId``: A vector (or single value) of the item ids to select
+* ``options``: Named list of options controlling mainly the animation. Most common options are focus = TRUE/FALSE and "animation" = TRUE/FALSE. For a full list of options, see the "setSelection" method in the official Timeline documentation
 
 #### Examples
 ```{r}
@@ -44,4 +47,5 @@ setSelection("timeline", 2)
 })
 }
 )
-}14
+}
+```
