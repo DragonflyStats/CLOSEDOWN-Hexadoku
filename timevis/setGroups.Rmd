@@ -1,4 +1,13 @@
-setGroups
+---
+title: "``timevis::setGroups``"
+2output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
+
 Set the groups of a timeline
 
 #### Description
@@ -12,10 +21,11 @@ Set the groups of a timeline
 setGroups(id, data)
 
 <code></pre>
+
 #### Arguments
 
-id Timeline id or a timevis object (the output from timevis())
-data A dataframe containing the groups data to use.
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``data``: A dataframe containing the groups data to use.
 
 #### Examples
 ```{r}
@@ -27,6 +37,10 @@ group = c(1, 2, 1, 2)),
 groups = data.frame(id = 1:2, content = c("G1", "G2"))
 ) %>%
 setGroups(data.frame(id = 1:2, content = c("Group 1", "Group 2")))
+```
+
+
+```{r}
 if (interactive()) {
 library(shiny)
 shinyApp(
@@ -50,3 +64,4 @@ data.frame(id = 1:2, content = c("Group 1", "Group 2")))
 11
 )
 }
+```
