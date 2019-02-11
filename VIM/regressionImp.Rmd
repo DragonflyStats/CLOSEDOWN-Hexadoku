@@ -1,0 +1,47 @@
+regressionImp
+Regression Imputation
+
+#### Description 
+
+Impute missing values based on a regression model.
+
+#### Usage 
+<pre><code>
+
+regressionImp(formula, data, family = "AUTO", robust = FALSE,
+imp_var = TRUE, imp_suffix = "imp", mod_cat = FALSE)
+Arguments
+formula model formula to impute one variable
+data A data.frame or survey object containing the data
+family family argument for "glm" ("AUTO" tries to choose automatically, only really
+tested option!!!)
+robust TRUE/FALSE if robust regression should be used
+imp_var TRUE/FALSE if a TRUE/FALSE variables for each imputed variable should be
+created show the imputation status
+imp_suffix suffix used for TF imputation variables
+mod_cat TRUE/FALSE if TRUE for categorical variables the level with the highest pre-
+diction probability is selected, otherwise it is sampled according to the proba-
+bilities.rugNA
+53
+
+#### Details 
+
+"lm" is used for family "normal" and glm for all other families. (Robust=TRUE: lmrob, glmrob)
+Value
+the imputed data set.
+Author(s)
+Alexander Kowarik
+References
+A. Kowarik, M. Templ (2016) Imputation with R package VIM. Journal of Statistical Software,
+74(7), 1-16.
+
+#### Examples 
+```{r}
+data(sleep)
+sleepImp1 <- regressionImp(Dream+NonD~BodyWgt+BrainWgt,data=sleep)
+sleepImp2 <- regressionImp(Sleep+Gest+Span+Dream+NonD~BodyWgt+BrainWgt,data=sleep)
+data(testdata)
+imp_testdata1 <- regressionImp(b1+b2~x1+x2,data=testdata$wna)
+imp_testdata3 <- regressionImp(x1~x2,data=testdata$wna,robust=TRUE)
+```
+
