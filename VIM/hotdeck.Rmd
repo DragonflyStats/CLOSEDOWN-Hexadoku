@@ -1,0 +1,59 @@
+hotdeck
+Hot-Deck Imputation
+
+#### Description 
+
+Implementation of the popular Sequential, Random (within a domain) hot-deck algorithm for im-
+putation.
+
+#### Usage 
+<pre><code>
+
+hotdeck(data, variable = NULL, ord_var = NULL, domain_var = NULL,
+makeNA = NULL, NAcond = NULL, impNA = TRUE, donorcond = NULL,
+imp_var = TRUE, imp_suffix = "imp")26
+hotdeck
+Arguments
+data data.frame or matrix
+variable variables where missing values should be imputed
+ord_var variables for sorting the data set before imputation
+domain_var variables for building domains and impute within these domains
+makeNA list of length equal to the number of variables, with values, that should be con-
+verted to NA for each variable
+NAcond list of length equal to the number of variables, with a condition for imputing a
+NA
+impNA TRUE/FALSE whether NA should be imputed
+donorcond list of length equal to the number of variables, with a donorcond condition for
+the donors e.g. ">5"
+imp_var TRUE/FALSE if a TRUE/FALSE variables for each imputed variable should be
+created show the imputation status
+imp_suffix suffix for the TRUE/FALSE variables showing the imputation status
+Value
+the imputed data set.
+Note
+If the sequential hotdeck does not lead to a suitable, a random donor in the group will be used.
+Author(s)
+Alexander Kowarik
+References
+A. Kowarik, M. Templ (2016) Imputation with R package VIM. Journal of Statistical Software,
+74(7), 1-16.
+
+#### Examples 
+```{r}
+data(sleep)
+sleepI <- hotdeck(sleep)
+sleepI2 <- hotdeck(sleep,ord_var="BodyWgt",domain_var="Pred")
+set.seed(132)
+nRows <- 1e3
+# Generate a data set with nRows rows and several variables
+x<-data.frame(x=rnorm(nRows),y=rnorm(nRows),z=sample(LETTERS,nRows,replace=TRUE),
+d1=sample(LETTERS[1:3],nRows,replace=TRUE),d2=sample(LETTERS[1:2],nRows,replace=TRUE),
+o1=rnorm(nRows),o2=rnorm(nRows),o3=rnorm(100))
+origX <- xinitialise
+27
+x[sample(1:nRows,nRows/10),1] <- NA
+x[sample(1:nRows,nRows/10),2] <- NA
+x[sample(1:nRows,nRows/10),3] <- NA
+x[sample(1:nRows,nRows/10),4] <- NA
+xImp <- hotdeck(x,ord_var = c("o1","o2","o3"),domain_var="d2")
+```
