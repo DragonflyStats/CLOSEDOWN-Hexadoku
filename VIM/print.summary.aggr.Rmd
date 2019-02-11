@@ -1,0 +1,29 @@
+print.summary.aggr
+Print method for objects of class summary.aggr
+
+#### Description 
+
+Print method for objects of class "summary.aggr".
+
+#### Usage 
+<pre><code>
+
+## S3 method for class 'summary.aggr'
+print(x, ...)52
+regressionImp
+Arguments
+x an object of class "summary.aggr".
+... Further arguments, currently ignored.
+Author(s)
+Andreas Alfons, modifications by Bernd Prantner
+See Also
+summary.aggr, aggr
+
+#### Examples 
+```{r}
+data(sleep, package = "VIM")
+s <- summary(aggr(sleep, plot=FALSE))
+s
+
+
+```
