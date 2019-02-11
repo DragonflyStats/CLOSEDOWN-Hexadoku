@@ -1,0 +1,55 @@
+
+prepare
+Transformation and standardization
+
+#### Description 
+
+This function is used by the VIM GUI for transformation and standardization of the data.
+
+#### Usage 
+<pre><code>
+
+prepare (x, scaling = c("none","classical","MCD","robust","onestep"),
+transformation = c("none","minus","reciprocal","logarithm",
+"exponential","boxcox","clr","ilr","alr"),
+alpha = NULL, powers = NULL, start = 0, alrVar)
+Arguments
+x a vector, matrix or data.frame.
+scaling the scaling to be applied to the data. Possible values are "none", "classical",
+MCD, "robust" and "onestep".
+transformation the transformation of the data. Possible values are "none", "minus", "reciprocal",
+"logarithm", "exponential", "boxcox", "clr", "ilr" and "alr".
+alpha a numeric parameter controlling the size of the subset for the MCD (if scaling="MCD").
+See covMcd.
+powers a numeric vector giving the powers to be used in the Box-Cox transformation (if
+transformation="boxcox"). If NULL, the powers are calculated with function
+powerTransform.
+start a constant to be added prior to Box-Cox transformation (if transformation="boxcox").
+alrVar variable to be used as denominator in the additive logratio transformation (if
+transformation="alr").print.summary.aggr
+51
+
+#### Details 
+
+Transformation:
+"none": no transformation is used.
+"logarithm": compute the the logarithm (to the base 10).
+"boxcox": apply a Box-Cox transformation. Powers may be specified or calculated with the func-
+tion powerTransform.
+Standardization:
+"none": no standardization is used.
+"classical": apply a z-Transformation on each variable by using function scale.
+"robust": apply a robustified z-Transformation by using median and MAD.
+Value
+Transformed and standardized data.
+Author(s)
+Matthias Templ, modifications by Andreas Alfons
+See Also
+scale, powerTransform
+
+#### Examples 
+```{r}
+data(sleep, package = "VIM")
+x <- sleep[, c("BodyWgt", "BrainWgt")]
+prepare(x, scaling = "robust", transformation = "logarithm")
+
