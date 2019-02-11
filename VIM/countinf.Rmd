@@ -1,0 +1,26 @@
+countInf
+Count number of infinite or missing values
+
+#### Description 
+
+Count the number of infinite or missing values in a vector.
+
+#### Usage 
+<pre><code>
+
+countInf(x)
+Arguments
+x
+a vector.
+Value
+countInf returns the number of infinite values in x. countNA returns the number of missing values
+in x.
+Author(s)
+Andreas Alfons
+
+#### Examples 
+```{r}
+data(sleep, package="VIM")
+countInf(log(sleep$Dream))
+countNA(sleep$Dream)20
+```
