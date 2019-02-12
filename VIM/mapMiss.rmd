@@ -1,0 +1,55 @@
+mapMiss
+33
+Map with information about missing/imputed values
+
+#### Description 
+
+Map of observed and missing/imputed values.
+
+#### Usage 
+<pre><code>
+
+mapMiss(x, coords, map, delimiter = NULL, selection = c("any", "all"),
+col = c("skyblue", "red", "orange"), alpha = NULL, pch = c(19, 15),
+col.map = grey(0.5), legend = TRUE, interactive = TRUE, ...)
+</code></pre>
+
+#### Arguments
+* x a vector, matrix or data.frame.
+* coords a data.frame or matrix with two columns giving the spatial coordinates of the observations.
+* map a background map to be passed to bgmap.
+* delimiter a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If such imputation-indices are found, they are used for highlighting and the colors are adjusted according to the given colors for imputed variables (see col).
+* selection the selection method for displaying missing/imputed values in the map. Possible values are "any" (display missing/imputed values in any variable) and "all" (display missing/imputed values in all variables).
+* col a vector of length three giving the colors to be used for observed, missing and imputed values. If a single color is supplied, it is used for all values.
+* alpha a numeric value between 0 and 1 giving the level of transparency of the colors, or NULL. This can be used to prevent overplotting.
+* pch a vector of length two giving the plot characters to be used for observed and missing/imputed values. If a single plot character is supplied, it will be used for both.
+* col.map the color to be used for the background map.
+* legend a logical indicating whether a legend should be plotted.
+* interactive a logical indicating whether information about selected observations can be displayed interactively (see ‘details’).
+* ... further graphical parameters to be passed to bgmap and points.
+
+
+#### Examples 
+```{r}
+data(chorizonDL, package = "VIM")
+data(kola.background, package = "VIM")
+coo <- chorizonDL[, c("XCOO", "YCOO")]
+## for missing values
+x <- chorizonDL[, c("As", "Bi")]
+mapMiss(x, coo, kola.background)
+## for imputed values
+x_imp <- kNN(chorizonDL[, c("As", "Bi")])
+mapMiss(x_imp, coo, kola.background, delimiter = "_imp")
+```
+#### Details 
+
+If interactive=TRUE, detailed information for an observation can be printed on the console by clicking on the corresponding point. Clicking in a region that does not contain any points quits the interactive session.
+
+#### Author(s)
+Matthias Templ, Andreas Alfons, modifications by Bernd Prantner
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.
+See Also
+bgmap, bubbleMiss, colormapMiss
