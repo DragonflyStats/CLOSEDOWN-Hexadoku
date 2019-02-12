@@ -1,4 +1,14 @@
-countInf
+---
+title: "``VIM::countInf``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
 Count number of infinite or missing values
 
 #### Description 
@@ -9,14 +19,12 @@ Count the number of infinite or missing values in a vector.
 <pre><code>
 
 countInf(x)
-Arguments
+</code></pre>
+
+#### Arguments
 x
 a vector.
-Value
-countInf returns the number of infinite values in x. countNA returns the number of missing values
-in x.
-Author(s)
-Andreas Alfons
+
 
 #### Examples 
 ```{r}
@@ -24,3 +32,9 @@ data(sleep, package="VIM")
 countInf(log(sleep$Dream))
 countNA(sleep$Dream)20
 ```
+
+#### Value
+countInf returns the number of infinite values in x. countNA returns the number of missing values
+in x.
+Author(s)
+Andreas Alfons
