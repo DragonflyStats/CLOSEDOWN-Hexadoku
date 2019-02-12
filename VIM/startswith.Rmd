@@ -1,0 +1,61 @@
+
+---
+title: "``gdata::drop.levels``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+## ``startsWith``
+                   
+Determine if a character string "starts with" with the specified characters.
+
+#### Description
+
+Determine if a character string "starts with" with the specified characters.
+
+#### Usage
+<pre><code>
+
+startsWith(str, pattern, trim=FALSE, ignore.case=FALSE)
+
+</code></pre>
+#### Arguments
+
+* ``str``: character vector to test
+* pattern characters to check for
+* trim Logical flag indicating whether leading whitespace should be removed from str
+* before testing for a match.
+* ignore.case Logical flag indicating whether case should be ignored when testing for a match.
+
+#### Details
+
+This function returns TRUE for each element of the vector str where pattern occurs at the begin-
+ning of the string. If trim is TRUE, leading whitespace is removed from the elements of str before
+the test is performed. If ignore.case is TRUE, character case is ignored.
+
+#### Value
+
+Boolean vector of the same length as str.
+Author(s)
+Gregory R. Warnes <greg@warnes.net>
+See Also
+substr, trim52
+trim
+
+#### Examples
+```{r}
+
+## simplest example:
+startsWith( 'Testing', 'Test')
+## vector examples
+s <- c('Testing', ' Testing', 'testing', 'Texting')
+names(s) <- s
+startsWith(s, 'Test')
+# ' Testing', 'testing', and 'Texting' do not match
+startsWith(s, 'Test', trim=TRUE)
+# Now ' Testing' matches
+startsWith(s, 'Test', ignore.case=TRUE) # Now 'testing' matches
+```
