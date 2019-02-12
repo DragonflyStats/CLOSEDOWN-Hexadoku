@@ -1,5 +1,13 @@
-irmi
-irmi
+---
+title: "``VIM::imri``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
 Iterative robust model-based imputation (IRMI)
 
 #### Description 
@@ -16,7 +24,9 @@ noise = TRUE, noise.factor = 1, force = FALSE, robMethod = "MM",
 force.mixed = TRUE, mi = 1, addMixedFactors = FALSE, trace = FALSE,
 init.method = "kNN", modelFormulas = NULL, multinom.method = "multinom",
 imp_var = TRUE, imp_suffix = "imp")
-Arguments
+</code></pre>
+
+#### Arguments
 x data.frame or matrix
 eps threshold for convergency
 maxit maximum number of iterations
@@ -26,62 +36,33 @@ the point of the semi-continuous distribution with non-zero probability
 count column index of count variables
 step a stepwise model selection is applied when the parameter is set to TRUE
 robust if TRUE, robust regression methods will be applied
-takeAll takes information of (initialised) missings in the response as well for regression
-imputation.
-noise irmi has the option to add a random error term to the imputed values, this creates
-the possibility for multiple imputation. The error term has mean 0 and variance
+takeAll takes information of (initialised) missings in the response as well for regression imputation.
+noise irmi has the option to add a random error term to the imputed values, this creates the possibility for multiple imputation. The error term has mean 0 and variance
 corresponding to the variance of the regression residuals.
 noise.factor amount of noise.
-force if TRUE, the algorithm tries to find a solution in any case, possible by using
-different robust methods automatically.
+force if TRUE, the algorithm tries to find a solution in any case, possible by using different robust methods automatically.
 robMethod regression method when the response is continuous.
-force.mixed if TRUE, the algorithm tries to find a solution in any case, possible by using
-different robust methods automatically.
-mi
-number of multiple imputations.
-addMixedFactors
+force.mixed if TRUE, the algorithm tries to find a solution in any case, possible by using different robust methods automatically.
+* mi: number of multiple imputations.
+* addMixedFactors
 if TRUE add additional factor variable for each mixed variable as X variable in
 the regressionirmi
 29
-trace Additional information about the iterations when trace equals TRUE.
-init.method Method for initialization of missing values (kNN or median)
-modelFormulas a named list with the name of variables for the rhs of the formulas, which must
-contain a rhs formula for each variable with missing values, it should look like
-list(y1=c("x1","x2"),y2=c("x1","x3"))
-if factor variables for the mixed variables should be created for the regression
-models
-multinom.method
-Method for estimating the multinomial models (current default and only avail-
-able method is multinom)
-imp_var TRUE/FALSE if a TRUE/FALSE variables for each imputed variable should be
-created show the imputation status
-imp_suffix suffix for the TRUE/FALSE variables showing the imputation status
+* trace Additional information about the iterations when trace equals TRUE.
+* init.method Method for initialization of missing values (kNN or median)
+* modelFormulas a named list with the name of variables for the rhs of the formulas, which must contain a rhs formula for each variable with missing values, it should look like list(y1=c("x1","x2"),y2=c("x1","x3"))
+if factor variables for the mixed variables should be created for the regression models multinom.method
+Method for estimating the multinomial models (current default and only available method is multinom)
+imp_var TRUE/FALSE if a TRUE/FALSE variables for each imputed variable should be created show the imputation status
+imp_suffix suffix for the TRUE/FALSE variables showing the imputation status 
 
-#### Details 
-
-The method works sequentially and iterative. The method can deal with a mixture of continuous,
-semi-continuous, ordinal and nominal variables including outliers.
-A full description of the method can be found in the mentioned reference.
-Value
-the imputed data set.
-Author(s)
-Matthias Templ, Alexander Kowarik
-References
-M. Templ, A. Kowarik, P. Filzmoser (2011) Iterative stepwise regression imputation using standard
-and robust methods. Journal of Computational Statistics and Data Analysis, Vol. 55, pp. 2793-
-2806.
-A. Kowarik, M. Templ (2016) Imputation with R package VIM. Journal of Statistical Software,
-74(7), 1-16.
-See Also
-mi
 
 #### Examples 
 ```{r}
 data(sleep)
 irmi(sleep)
 data(testdata)
-imp_testdata1 <- irmi(testdata$wna,mixed=testdata$mixed)30
-kNN
+imp_testdata1 <- irmi(testdata$wna,mixed=testdata$mixed)
 # mixed.constant != 0 (-10)
 testdata$wna$m1[testdata$wna$m1==0] <- -10
 testdata$wna$m2 <- log(testdata$wna$m2+0.001)
@@ -101,3 +82,21 @@ td <- testdata$wna
 td$c1 <- as.ordered(td$c1)
 irmi(td)
 
+```
+#### Details 
+
+The method works sequentially and iterative. The method can deal with a mixture of continuous,
+semi-continuous, ordinal and nominal variables including outliers.
+A full description of the method can be found in the mentioned reference.
+Value
+the imputed data set.
+Author(s)
+Matthias Templ, Alexander Kowarik
+References
+M. Templ, A. Kowarik, P. Filzmoser (2011) Iterative stepwise regression imputation using standard
+and robust methods. Journal of Computational Statistics and Data Analysis, Vol. 55, pp. 2793-
+2806.
+A. Kowarik, M. Templ (2016) Imputation with R package VIM. Journal of Statistical Software,
+74(7), 1-16.
+See Also
+mi

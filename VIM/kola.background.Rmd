@@ -1,0 +1,28 @@
+---
+title: "``VIM::kola.background``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
+
+Background map for the Kola project data
+
+#### Description 
+
+Coordinates of the Kola background map.
+Source
+Kola Project (1993-1998)
+References
+Reimann, C., Filzmoser, P., Garrett, R.G. and Dutter, R. (2008) Statistical Data Analysis Explained:
+Applied Environmental Statistics with R. Wiley, 2008.
+
+#### Examples 
+```{r}
+data(kola.background, package = "VIM")
+bgmap(kola.background)mapMiss
+```
