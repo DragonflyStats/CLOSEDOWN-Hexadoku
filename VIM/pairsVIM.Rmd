@@ -1,4 +1,13 @@
-pairsVIM
+---
+title: "``VIM::pairsVIM``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
 Scatterplot Matrices
 
 #### Description 
@@ -11,9 +20,10 @@ Create a scatterplot matrix.
 pairsVIM(x, ..., delimiter = NULL, main = NULL, sub = NULL,
 panel = points, lower = panel, upper = panel, diagonal = NULL,
 labels = TRUE, pos.labels = NULL, cex.labels = NULL,
-font.labels = par("font"), layout = c("matrix", "graph"), gap = 1)44
-pairsVIM
-Arguments
+font.labels = par("font"), layout = c("matrix", "graph"), gap = 1)
+</code></pre>
+
+#### Arguments
 x
 ...
 delimiter
@@ -32,25 +42,31 @@ further arguments and graphical parameters to be passed down. par("oma")
 will be set appropriately unless supplied (see par).
 a character-vector to distinguish between variables and imputation-indices for
 imputed variables (therefore, x needs to have colnames). If given, it is used
-to determine the corresponding imputation-index for any imputed variable (a
-logical-vector indicating which values of the variable have been imputed). If
-such imputation-indices are found, they are used for highlighting and the colors
+to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If such imputation-indices are found, they are used for highlighting and the colors
 are adjusted according to the given colors for imputed variables (see col).
 main and sub title.
 a function(x, y, ...{}), which is used to plot the contents of each off-
 diagonal panel of the display.
 separate panel functions to be used below and above the diagonal, respectively.
 optional function(x, ...{}) to be applied on the diagonal panels.
-either a logical indicating whether labels should be plotted in the diagonal pan-
-els, or a character vector giving the labels.
+either a logical indicating whether labels should be plotted in the diagonal panels, or a character vector giving the labels.
 the vertical position of the labels in the diagonal panels.
 the character expansion factor to be used for the labels.
 the font to be used for the labels.
-a character string giving the layout of the scatterplot matrix. Possible values
-are "matrix" (a matrix-like layout with the first row on top) and "graph" (a
-graph-like layout with the first row at the bottom).
+a character string giving the layout of the scatterplot matrix. Possible values are "matrix" (a matrix-like layout with the first row on top) and "graph" (a graph-like layout with the first row at the bottom).
 a numeric value giving the distance between the panels in margin lines.
 
+
+
+#### Examples 
+```{r}
+data(sleep, package = "VIM")
+x <- sleep[, -(8:10)]
+x[,c(1,2,4,6,7)] <- log10(x[,c(1,2,4,6,7)])
+pairsVIM(x)
+
+
+```
 #### Details 
 
 This function is the workhorse for marginmatrix and scattmatrixMiss.
@@ -69,13 +85,3 @@ Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1
 45
 See Also
 marginmatrix, scattmatrixMiss
-
-#### Examples 
-```{r}
-data(sleep, package = "VIM")
-x <- sleep[, -(8:10)]
-x[,c(1,2,4,6,7)] <- log10(x[,c(1,2,4,6,7)])
-pairsVIM(x)
-
-
-```
