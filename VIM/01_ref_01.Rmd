@@ -1,0 +1,506 @@
+
+
+SBS5242
+Synthetic subset of the Austrian structural business statistics data
+
+#### Description 
+
+Synthetic subset of the Austrian structural business statistics (SBS) data, namely NACE code 52.42
+(retail sale of clothing).scattJitt
+55
+
+#### Details 
+
+The Austrian SBS data set consists of more than 320.000 enterprises. Available raw (unedited) data
+set: 21669 observations in 90 variables, structured according NACE revision 1.1 with 3891 missing
+values.
+We investigate 9 variables of NACE 52.42 (retail sale of clothing).
+From these confidential raw data set a non-confidential, close-to-reality, synthetic data set was gen-
+erated.
+Source
+http://www.statistik.at
+
+#### Examples 
+```{r}
+data(SBS5242)
+aggr(SBS5242)
+scattJitt
+Bivariate jitter plot
+
+#### Description 
+
+Create a bivariate jitter plot.
+
+#### Usage 
+<pre><code>
+
+scattJitt(x, delimiter = NULL, col = c("skyblue", "red", "red4", "orange",
+"orange4"), alpha = NULL, cex = par("cex"), col.line = "lightgrey",
+lty = "dashed", lwd = par("lwd"), numbers = TRUE,
+cex.numbers = par("cex"), main = NULL, sub = NULL, xlab = NULL,
+ylab = NULL, axes = TRUE, frame.plot = axes, labels = c("observed",
+"missing", "imputed"), ...)
+Arguments
+x a data.frame or matrix with two columns.
+delimiter a character-vector to distinguish between variables and imputation-indices for
+imputed variables (therefore, x needs to have colnames). If given, it is used
+to determine the corresponding imputation-index for any imputed variable (a
+logical-vector indicating which values of the variable have been imputed). If
+such imputation-indices are found, they are used for highlighting and the colors
+are adjusted according to the given colors for imputed variables (see col).56
+scattJitt
+col
+alpha
+cex
+col.line
+lty
+lwd
+numbers
+cex.numbers
+main, sub
+xlab, ylab
+axes
+frame.plot
+labels
+...
+a vector of length five giving the colors to be used in the plot. The first color will
+be used for complete observations, the second/fourth color for missing/imputed
+values in only one variable, and the third/fifth color for missing/imputed values
+in both variables. If only one color is supplied, it is used for all. Else if two
+colors are supplied, the second one is recycled.
+a numeric value between 0 and 1 giving the level of transparency of the colors,
+or NULL. This can be used to prevent overplotting.
+the character expansion factor for the plot characters.
+the color for the lines dividing the plot region.
+the line type for the lines dividing the plot region (see par).
+the line width for the lines dividing the plot region.
+a logical indicating whether the frequencies of observed and missing/imputed
+values should be displayed (see ‘
+#### Details 
+’).
+the character expansion factor to be used for the frequencies of the observed and
+missing/imputed values.
+main and sub title.
+axis labels.
+a logical indicating whether both axes should be drawn on the plot. Use graphi-
+cal parameter "xaxt" or "yaxt" to suppress just one of the axes.
+a logical indicating whether a box should be drawn around the plot.
+a vector of length three giving the axis labels for the regions for observed, miss-
+ing and imputed values (see ‘
+#### Details 
+’).
+further graphical parameters to be passed down (see par).
+
+#### Details 
+
+The amount of observed and missing/imputed values is visualized by jittered points. Thereby the plot region is divided into up to four regions according to the existence of missing/imputed values
+in one or both variables. In addition, the amount of observed and missing/imputed values can be represented by a number.
+Note
+Some of the argument names and positions have changed with version 1.3 due to extended function-
+ality and for more consistency with other plot functions in VIM. For back compatibility, the argument cex.text can still be supplied to ...{} and is handled correctly. Nevertheless, it is deprecated and
+no longer documented. Use cex.numbers instead.
+Author(s)
+Matthias Templ, modifications by Andreas Alfons and Bernd Prantner
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.scattmatrixMiss
+57
+
+#### Examples 
+```{r}
+data(tao, package = "VIM")
+## for missing values
+scattJitt(tao[, c("Air.Temp", "Humidity")])
+## for imputed values
+scattJitt(kNN(tao[, c("Air.Temp", "Humidity")]), delimiter = "_imp")
+scattmatrixMiss
+Scatterplot matrix with information about missing/imputed values
+
+#### Description 
+
+Scatterplot matrix in which observations with missing/imputed values in certain variables are high-
+lighted.
+
+#### Usage 
+<pre><code>
+
+scattmatrixMiss(x, delimiter = NULL, highlight = NULL,
+selection = c("any", "all"), plotvars = NULL, col = c("skyblue", "red",
+"orange"), alpha = NULL, pch = c(1, 3), lty = par("lty"),
+diagonal = c("density", "none"), interactive = TRUE, ...)
+Arguments
+x a matrix or data.frame.
+delimiter a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used
+to determine the corresponding imputation-index for any imputed variable (a
+logical-vector indicating which values of the variable have been imputed). If such imputation-indices are found, they are used for highlighting and the colors
+are adjusted according to the given colors for imputed variables (see col).
+highlight a vector giving the variables to be used for highlighting. If NULL (the default),
+all variables are used for highlighting.
+selection the selection method for highlighting missing/imputed values in multiple high-
+light variables. Possible values are "any" (highlighting of missing/imputed values in any of the highlight variables) and "all" (highlighting of missing/imputed
+values in all of the highlight variables).
+plotvars a vector giving the variables to be plotted. If NULL (the default), all variables are plotted.
+col a vector of length three giving the colors to be used in the plot. The second/third color will be used for highlighting missing/imputed values.
+alpha a numeric value between 0 and 1 giving the level of transparency of the colors, or NULL. This can be used to prevent overplotting.58
+scattmatrixMiss
+pch a vector of length two giving the plot characters. The second plot character will
+be used for the highlighted observations.
+lty a vector of length two giving the line types for the density plots in the diagonal panels (if diagonal="density"). The second line type is used for the
+highlighted observations. If a single value is supplied, it is used for both non-
+highlighted and highlighted observations.
+diagonal a character string specifying the plot to be drawn in the diagonal panels. Pos-
+sible values are "density" (density plots for non-highlighted and highlighted
+observations) and "none".
+interactive a logical indicating whether the variables to be used for highlighting can be selected interactively (see ‘
+#### Details 
+’).
+... for scattmatrixMiss, further arguments and graphical parameters to be passed
+to pairsVIM. par("oma") will be set appropriately unless supplied (see par).
+For TKRscattmatrixMiss, further arguments to be passed to scattmatrixMiss.
+
+#### Details 
+
+scattmatrixMiss uses pairsVIM with a panel function that allows highlighting of missing/imputed
+values.
+If interactive=TRUE, the variables to be used for highlighting can be selected interactively. Ob-
+servations with missing/imputed values in any or in all of the selected variables are highlighted (as
+determined by selection). A variable can be added to the selection by clicking in a diagonal panel.
+If a variable is already selected, clicking on the corresponding diagonal panel removes it from the
+selection. Clicking anywhere else quits the interactive session.
+The graphical parameter oma will be set unless supplied as an argument.
+TKRscattmatrixMiss behaves like scattmatrixMiss, but uses tkrplot to embed the plot in a
+Tcl/Tk window. This is useful if the number of variables is large, because scrollbars allow to move
+from one part of the plot to another.
+Note
+Some of the argument names and positions have changed with version 1.3 due to a re-implementation
+and for more consistency with other plot functions in VIM. For back compatibility, the argument
+colcomb can still be supplied to ...{} and is handled correctly. Nevertheless, it is deprecated and
+no longer documented. Use highlight instead. The arguments smooth, reg.line and legend.plot
+are no longer used and ignored if supplied.
+Author(s)
+Andreas Alfons, Matthias Templ, modifications by Bernd Prantner
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.scattMiss
+59
+See Also
+pairsVIM, marginmatrix
+
+#### Examples 
+```{r}
+data(sleep, package = "VIM")
+## for missing values
+x <- sleep[, 1:5]
+x[,c(1,2,4)] <- log10(x[,c(1,2,4)])
+scattmatrixMiss(x, highlight = "Dream")
+## for imputed values
+x_imp <- kNN(sleep[, 1:5])
+x_imp[,c(1,2,4)] <- log10(x_imp[,c(1,2,4)])
+scattmatrixMiss(x_imp, delimiter = "_imp", highlight = "Dream")
+scattMiss
+Scatterplot with information about missing/imputed values
+
+#### Description 
+
+In addition to a standard scatterplot, lines are plotted for the missing values in one variable. If there
+are imputed values, they will be highlighted.
+
+#### Usage 
+<pre><code>
+
+scattMiss(x, delimiter = NULL, side = 1, col = c("skyblue", "red",
+"orange", "lightgrey"), alpha = NULL, lty = c("dashed", "dotted"),
+lwd = par("lwd"), quantiles = c(0.5, 0.975), inEllipse = FALSE,
+zeros = FALSE, xlim = NULL, ylim = NULL, main = NULL, sub = NULL,
+xlab = NULL, ylab = NULL, interactive = TRUE, ...)
+Arguments
+x a matrix or data.frame with two columns.
+delimiter a character-vector to distinguish between variables and imputation-indices for
+imputed variables (therefore, x needs to have colnames). If given, it is used
+to determine the corresponding imputation-index for any imputed variable (a
+logical-vector indicating which values of the variable have been imputed). If
+such imputation-indices are found, they are used for highlighting and the colors
+are adjusted according to the given colors for imputed variables (see col).
+side if side=1, a rug representation and vertical lines are plotted for the missing/imputed
+values in the second variable; if side=2, a rug representation and horizontal lines
+for the missing/imputed values in the first variable.60
+scattMiss
+col a vector of length four giving the colors to be used in the plot. The first color
+is used for the scatterplot, the second/third color for the rug representation for
+missing/imputed values. The second color is also used for the lines for missing
+values. Imputed values will be highlighted with the third color, and the fourth
+color is used for the ellipses (see ‘
+#### Details 
+’). If only one color is supplied, it is
+used for the scatterplot, the rug representation and the lines, whereas the default
+color is used for the ellipses. Else if a vector of length two is supplied, the
+default color is used for the ellipses as well.
+alpha a numeric value between 0 and 1 giving the level of transparency of the colors,
+or NULL. This can be used to prevent overplotting.
+lty a vector of length two giving the line types for the lines and ellipses. If a single
+value is supplied, it will be used for both.
+lwd a vector of length two giving the line widths for the lines and ellipses. If a single
+value is supplied, it will be used for both.
+quantiles a vector giving the quantiles of the chi-square distribution to be used for the
+tolerance ellipses, or NULL to suppress plotting ellipses (see ‘
+#### Details 
+’).
+inEllipse plot lines only inside the largest ellipse. Ignored if quantiles is NULL or if there
+are imputed values.
+zeros a logical vector of length two indicating whether the variables are semi-continuous,
+i.e., contain a considerable amount of zeros. If TRUE, only the non-zero observa-
+tions are used for computing the tolerance ellipses. If a single logical is supplied,
+it is recycled. Ignored if quantiles is NULL.
+xlim, ylim axis limits.
+main, sub main and sub title.
+xlab, ylab axis labels.
+interactive a logical indicating whether the side argument can be changed interactively ((see details)..
+... further graphical parameters to be passed down (see par).
+
+#### Details 
+
+Information about missing values in one variable is included as vertical or horizontal lines, as deter-
+mined by the side argument. The lines are thereby drawn at the observed x- or y-value. In case of
+imputed values, they will additionally be highlighted in the scatterplot. Supplementary, percentage
+coverage ellipses can be drawn to give a clue about the shape of the bivariate data distribution.
+If interactiveis TRUE, clicking in the bottom margin redraws the plot with information about
+missing/imputed values in the first variable and clicking in the left margin redraws the plot with
+information about missing/imputed values in the second variable. Clicking anywhere else in the
+plot quits the interactive session.
+Note
+The argument zeros has been introduced in version 1.4. As a result, some of the argument positions
+have changed.sleep
+61
+Author(s)
+Andreas Alfons, modifications by Bernd Prantner
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.
+See Also
+marginplot
+
+#### Examples 
+```{r}
+data(tao, package = "VIM")
+## for missing values
+scattMiss(tao[,c("Air.Temp", "Humidity")])
+## for imputed values
+scattMiss(kNN(tao[,c("Air.Temp", "Humidity")]), delimiter = "_imp")
+sleep
+Mammal sleep data
+
+#### Description 
+
+Sleep data with missing values.
+Format
+A data frame with 62 observations on the following 10 variables.
+BodyWgt a numeric vector
+BrainWgt a numeric vector
+NonD a numeric vector
+Dream a numeric vector
+Sleep a numeric vector
+Span a numeric vector
+Gest a numeric vector
+Pred a numeric vector
+Exp a numeric vector
+Danger a numeric vector62
+spineMiss
+Source
+Allison, T. and Chichetti, D. (1976) Sleep in mammals: ecological and constitutional correlates.
+Science 194 (4266), 732–734.
+The data set was imported from GGobi.
+
+#### Examples 
+```{r}
+data(sleep, package = "VIM")
+summary(sleep)
+aggr(sleep)
+spineMiss
+Spineplot with information about missing/imputed values
+
+#### Description 
+
+Spineplot or spinogram with highlighting of missing/imputed values in other variables by splitting
+each cell into two parts. Additionally, information about missing/imputed values in the variable of
+interest is shown on the right hand side.
+
+#### Usage 
+<pre><code>
+
+spineMiss(x, delimiter = NULL, pos = 1, selection = c("any", "all"),
+breaks = "Sturges", right = TRUE, col = c("skyblue", "red", "skyblue4",
+"red4", "orange", "orange4"), border = NULL, main = NULL, sub = NULL,
+xlab = NULL, ylab = NULL, axes = TRUE, labels = axes,
+only.miss = TRUE, miss.labels = axes, interactive = TRUE, ...)
+Arguments
+x a vector, matrix or data.frame.
+delimiter a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used
+to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If
+such imputation-indices are found, they are used for highlighting and the colors are adjusted according to the given colors for imputed variables (see col).
+pos a numeric value giving the index of the variable of interest. Additional variables
+in x are used for highlighting.
+selection the selection method for highlighting missing/imputed values in multiple addi-
+tional variables. Possible values are "any" (highlighting of missing/imputed val-
+ues in any of the additional variables) and "all" (highlighting of missing/imputed values in all of the additional variables).spineMiss
+63
+breaks if the variable of interest is numeric, breaks controls the breakpoints (see hist
+for possible values).
+right logical; if TRUE and the variable of interest is numeric, the spinogram cells are
+right-closed (left-open) intervals.
+col a vector of length six giving the colors to be used. If only one color is supplied, the bars are transparent and the supplied color is used for highlighting
+missing/imputed values. Else if two colors are supplied, they are recycled.
+border the color to be used for the border of the cells. Use border=NA to omit borders.
+main, sub main and sub title.
+xlab, ylab axis labels.
+axes a logical indicating whether axes should be drawn on the plot.
+labels if the variable of interest is categorical, either a logical indicating whether labels should be plotted below each cell, or a character vector giving the labels. This
+is ignored if the variable of interest is numeric.
+only.miss logical; if TRUE, the missing/imputed values in the variable of interest are also visualized by a cell in the spineplot or spinogram. Otherwise, a small spineplot
+is drawn on the right hand side (see ‘
+#### Details 
+’).
+miss.labels either a logical indicating whether label(s) should be plotted below the cell(s)
+on the right hand side, or a character string or vector giving the label(s) ((see details)..
+interactive a logical indicating whether the variables can be switched interactively (see ‘De-
+tails’).
+... further graphical parameters to be passed to title and axis.
+
+#### Details 
+
+A spineplot is created if the variable of interest is categorial and a spinogram if it is numerical.
+The horizontal axis is scaled according to relative frequencies of the categories/classes. If more
+than one variable is supplied, the cells are split according to missingness/number of imputed values
+in the additional variables. Thus the proportion of highlighted observations in each category/class
+is displayed on the vertical axis. Since the height of each cell corresponds to the proportion of
+highlighted observations, it is now possible to compare the proportions of missing/imputed values
+among the different categories/classes.
+If only.miss=TRUE, the missing/imputed values in the variable of interest are also visualized by a
+cell in the spine plot or spinogram. If additional variables are supplied, this cell is again split into
+two parts according to missingness/number if imputed values in the additional variables.
+Otherwise, a small spineplot that visualizes missing/imputed values in the variable of interest is
+drawn on the right hand side. The first cell corresponds to observed values and the second cell to
+missing/imputed values. Each of the two cells is again split into two parts according to missing-
+ness/number of imputed values in the additional variables. Note that this display does not make
+sense if only one variable is supplied, therefore only.miss is ignored in that case.
+If interactive=TRUE, clicking in the left margin of the plot results in switching to the previous
+variable and clicking in the right margin results in switching to the next variable. Clicking anywhere
+else on the graphics device quits the interactive session.64
+tao
+Value
+a table containing the frequencies corresponding to the cells.
+Note
+Some of the argument names and positions have changed with version 1.3 due to extended func-
+tionality and for more consistency with other plot functions in VIM. For back compatibility, the
+arguments xaxlabels and missaxlabels can still be supplied to ...{} and are handled correctly.
+Nevertheless, they are deprecated and no longer documented. Use labels and miss.labels in-
+stead.
+The code is based on the function spineplot by Achim Zeileis.
+Author(s)
+Andreas Alfons, Matthias Templ, modifications by Bernd Prantner
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.
+See Also
+histMiss, barMiss, mosaicMiss
+
+#### Examples 
+```{r}
+data(tao, package = "VIM")
+data(sleep, package = "VIM")
+## for missing values
+spineMiss(tao[, c("Air.Temp", "Humidity")])
+spineMiss(sleep[, c("Exp", "Sleep")])
+## for imputed values
+spineMiss(kNN(tao[, c("Air.Temp", "Humidity")]), delimiter = "_imp")
+spineMiss(kNN(sleep[, c("Exp", "Sleep")]), delimiter = "_imp")
+tao
+Tropical Atmosphere Ocean (TAO) project data
+
+#### Description 
+
+A small subsample of the Tropical Atmosphere Ocean (TAO) project data, derived from the GGOBI
+project.testdata
+65
+Format
+A data frame with 736 observations on the following 8 variables.
+Year a numeric vector
+Latitude a numeric vector
+Longitude a numeric vector
+Sea.Surface.Temp a numeric vector
+Air.Temp a numeric vector
+Humidity a numeric vector
+UWind a numeric vector
+VWind a numeric vector
+
+#### Details 
+
+All cases recorded for five locations and two time periods.
+Source
+http://www.pmel.noaa.gov/tao/
+
+#### Examples 
+```{r}
+data(tao, package = "VIM")
+summary(tao)
+aggr(tao)
+testdata
+Simulated data set for testing purpose
+
+#### Description 
+
+2 numeric, 2 binary, 2 nominal and 2 mixed (semi-continous) variables
+Format
+The format is: List of 4 $ wna :’data.frame’: 500 obs. of 8 variables: ..$ x1: num [1:500] 10.87
+9.53 7.83 8.53 8.67 ... ..$ x2: num [1:500] 10.9 9.32 7.68 8.2 8.41 ... ..$ c1: Factor w/ 4 levels
+"a","b","c","d": 3 2 2 1 2 2 1 3 3 2 ... ..$ c2: Factor w/ 4 levels "a","b","c","d": 2 3 2 2 2 2 2 4 2 2
+... ..$ b1: Factor w/ 2 levels "0","1": 2 2 1 2 1 2 1 2 1 1 ... ..$ b2: Factor w/ 2 levels "0","1": 2 2 1 1
+1 1 1 2 2 2 ... ..$ m1: num [1:500] 0 8.29 9.08 0 0 ... ..$ m2: num [1:500] 10.66 9.39 7.8 8.11 7.33
+... $ wona :’data.frame’: 500 obs. of 8 variables: ..$ x1: num [1:500] 10.87 9.53 7.83 8.53 8.67 ...
+..$ x2: num [1:500] 10.9 9.32 7.68 8.2 8.41 ... ..$ c1: Factor w/ 4 levels "a","b","c","d": 3 2 2 1 2 2
+1 3 3 2 ... ..$ c2: Factor w/ 4 levels "a","b","c","d": 2 3 2 2 2 2 2 4 2 2 ... ..$ b1: Factor w/ 2 levels
+"0","1": 2 2 1 2 1 2 1 2 1 1 ... ..$ b2: Factor w/ 2 levels "0","1": 2 2 1 1 1 1 1 2 2 2 ... ..$ m1: num
+[1:500] 0 8.29 9.08 0 0 ... ..$ m2: num [1:500] 10.66 9.39 7.8 8.11 7.33 ... $ mixed : chr [1:2] "m1"
+"m2" $ outlierInd: NULL66
+vmGUIenvir
+
+#### Examples 
+```{r}
+data(testdata)
+vmGUIenvir
+Environment for the GUI for Visualization and Imputation of Missing
+Values
+
+#### Description 
+
+Location were everything from package VIM and VIMGUI is stored.
+
+#### Usage 
+<pre><code>
+
+vmGUIenvir
+putVm(x, value)
+getVm(x, mode = "any")
+existsVm(x, mode = "any")
+rmVm(...)
+Arguments
+x object name
+value value to be assigned to x
+mode see ’exists’
+... see ’rm’
+Format
+An object of class environment of length 0.
+
+#### Details 
+
+Internal information regarding the VIM GUI is stored in the environment vmGUIenvir.
+Author(s)
+Andreas Alfons, based on an initial design by Matthias Templ, modifications by Bernd PrantnervmGUIenvir
+67
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.
