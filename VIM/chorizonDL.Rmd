@@ -1,0 +1,138 @@
+
+chorizonDL
+C-horizon of the Kola data with missing values
+
+#### Description 
+
+This data set is the same as the chorizon data set in package mvoutlier, except that values below
+the detection limit are coded as NA.
+Format
+A data frame with 606 observations on the following 110 variables.
+*ID a numeric vector
+XCOO a numeric vector
+YCOO a numeric vector
+Ag a numeric vector12
+chorizonDL
+Ag_INAA a numeric vector
+Al a numeric vector
+Al2O3 a numeric vector
+As a numeric vector
+As_INAA a numeric vector
+Au_INAA a numeric vector
+B a numeric vector
+Ba a numeric vector
+Ba_INAA a numeric vector
+Be a numeric vector
+Bi a numeric vector
+Br_IC a numeric vector
+Br_INAA a numeric vector
+Ca a numeric vector
+Ca_INAA a numeric vector
+CaO a numeric vector
+Cd a numeric vector
+Ce_INAA a numeric vector
+Cl_IC a numeric vector
+Co a numeric vector
+Co_INAA a numeric vector
+EC a numeric vector
+Cr a numeric vector
+Cr_INAA a numeric vector
+Cs_INAA a numeric vector
+Cu a numeric vector
+Eu_INAA a numeric vector
+F_IC a numeric vector
+Fe a numeric vector
+Fe_INAA a numeric vector
+Fe2O3 a numeric vector
+Hf_INAA a numeric vector
+Hg a numeric vector
+Hg_INAA a numeric vector
+Ir_INAA a numeric vector
+K a numeric vector
+K2O a numeric vectorchorizonDL
+La a numeric vector
+La_INAA a numeric vector
+Li a numeric vector
+LOI a numeric vector
+Lu_INAA a numeric vector
+wt_INAA a numeric vector
+Mg a numeric vector
+MgO a numeric vector
+Mn a numeric vector
+MnO a numeric vector
+Mo a numeric vector
+Mo_INAA a numeric vector
+Na a numeric vector
+Na_INAA a numeric vector
+Na2O a numeric vector
+Nd_INAA a numeric vector
+Ni a numeric vector
+Ni_INAA a numeric vector
+NO3_IC a numeric vector
+P a numeric vector
+P2O5 a numeric vector
+Pb a numeric vector
+pH a numeric vector
+PO4_IC a numeric vector
+Rb a numeric vector
+S a numeric vector
+Sb a numeric vector
+Sb_INAA a numeric vector
+Sc a numeric vector
+Sc_INAA a numeric vector
+Se a numeric vector
+Se_INAA a numeric vector
+Si a numeric vector
+SiO2 a numeric vector
+Sm_INAA a numeric vector
+Sn_INAA a numeric vector
+SO4_IC a numeric vector
+1314
+chorizonDL
+Sr a numeric vector
+Sr_INAA a numeric vector
+SUM_XRF a numeric vector
+Ta_INAA a numeric vector
+Tb_INAA a numeric vector
+Te a numeric vector
+Th a numeric vector
+Th_INAA a numeric vector
+Ti a numeric vector
+TiO2 a numeric vector
+U_INAA a numeric vector
+V a numeric vector
+W_INAA a numeric vector
+Y a numeric vector
+Yb_INAA a numeric vector
+Zn a numeric vector
+Zn_INAA a numeric vector
+ELEV a numeric vector
+*COUN a numeric vector
+*ASP a numeric vector
+TOPC a numeric vector
+LITO a numeric vector
+Al_XRF a numeric vector
+Ca_XRF a numeric vector
+Fe_XRF a numeric vector
+K_XRF a numeric vector
+Mg_XRF a numeric vector
+Mn_XRF a numeric vector
+Na_XRF a numeric vector
+P_XRF a numeric vector
+Si_XRF a numeric vector
+Ti_XRF a numeric vector
+Note
+For a more detailed description of this data set, see chorizon in package mvoutlier.
+Source
+Kola Project (1993-1998)colormapMiss
+15
+References
+Reimann, C., Filzmoser, P., Garrett, R.G. and Dutter, R. (2008) Statistical Data Analysis Explained:
+Applied Environmental Statistics with R. Wiley.
+See Also
+chorizon
+
+#### Examples 
+```{r}
+data(chorizonDL, package = "VIM")
+summary(chorizonDL)
