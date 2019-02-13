@@ -1,0 +1,26 @@
+
+alphablend
+Alphablending for colors
+
+#### Description 
+
+Convert colors to semitransparent colors.
+
+#### Usage 
+<pre><code>
+
+alphablend(col, alpha = NULL, bg = NULL)8
+barMiss
+Arguments
+col a vector specifying colors.
+alpha a numeric vector containing the alpha values (between 0 and 1).
+bg the background color to be used for alphablending. This can be used as a
+workaround for graphics devices that do not support semitransparent colors.
+Value
+a vector containing the semitransparent colors.
+Author(s)
+Andreas Alfons
+
+#### Examples 
+```{r}
+alphablend("red", 0.6)
