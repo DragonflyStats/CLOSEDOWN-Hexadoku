@@ -1,0 +1,122 @@
+Package ‘VIM’
+February 11, 2019
+Version 4.8.0
+Date 2019-02-07
+Title Visualization and Imputation of Missing Values
+Depends R (>= 3.1.0),colorspace,grid,data.table(>= 1.9.4)
+Imports car, grDevices, robustbase, stats, sp,
+vcd,MASS,nnet,e1071,methods,Rcpp,utils,graphics,laeken, ranger
+Suggests dplyr, testthat
+
+#### Description 
+ New tools for the visualization of missing and/or imputed values are introduced, which can be used for exploring the data and the structure of the missing and/or imputed values. Depending on this structure of the missing
+values, the corresponding methods may help to identify the mechanism generating the missing values and allows to explore the data including missing values.
+In addition, the quality of imputation can be visually explored using various univariate, bivariate, multiple and multivariate plot methods. A graphical user interface available in the separate package VIMGUI allows an easy handling of
+the implemented plot methods.
+
+* LazyData TRUE
+* ByteCompile TRUE
+* License GPL (>= 2)
+* URL https://github.com/statistikat/VIM
+* Repository CRAN
+* LinkingTo Rcpp
+* RoxygenNote 6.1.1
+* NeedsCompilation yes
+* Author Matthias Templ [aut, cre],
+* Alexander Kowarik [aut] (<https://orcid.org/0000-0001-8598-4130>),
+Andreas Alfons [aut],
+Bernd Prantner [aut]
+Maintainer Matthias Templ <matthias.templ@gmail.com>
+Date/Publication 2019-02-11 12:33:20 UTC
+1R topics documented:
+2
+R topics documented:
+VIM-package . . .
+aggr . . . . . . . .
+alphablend . . . . .
+barMiss . . . . . .
+bgmap . . . . . . .
+chorizonDL . . . .
+colormapMiss . . .
+colSequence . . . .
+countInf . . . . . .
+gapMiss . . . . . .
+growdotMiss . . .
+histMiss . . . . . .
+hotdeck . . . . . .
+initialise . . . . . .
+irmi . . . . . . . .
+kNN . . . . . . . .
+kola.background . .
+mapMiss . . . . . .
+marginmatrix . . .
+marginplot . . . . .
+matchImpute . . .
+matrixplot . . . . .
+mosaicMiss . . . .
+pairsVIM . . . . .
+parcoordMiss . . .
+pbox . . . . . . . .
+prepare . . . . . .
+print.summary.aggr
+regressionImp . . .
+rugNA . . . . . . .
+SBS5242 . . . . .
+scattJitt . . . . . .
+scattmatrixMiss . .
+scattMiss . . . . .
+sleep . . . . . . . .
+spineMiss . . . . .
+tao . . . . . . . . .
+testdata . . . . . .
+vmGUIenvir . . . .
+Index
+
+
+68VIM-package
+VIM-package
+3
+Visualization and Imputation of Missing Values
+
+#### Description 
+
+This package introduces new tools for the visualization of missing or imputed values in , which can
+be used for exploring the data and the structure of the missing or imputed values. Depending on this
+structure, they may help to identify the mechanism generating the missing values or errors, which
+may have happened in the imputation process. This knowledge is necessary for selecting an appro-
+priate imputation method in order to reliably estimate the missing values. Thus the visualization
+tools should be applied before imputation and the diagnostic tools afterwards.
+
+#### Details 
+
+Detecting missing values mechanisms is usually done by statistical tests or models. Visualization
+of missing and imputed values can support the test decision, but also reveals more details about
+the data structure. Most notably, statistical requirements for a test can be checked graphically, and
+problems like outliers or skewed data distributions can be discovered. Furthermore, the included
+plot methods may also be able to detect missing values mechanisms in the first place.
+A graphical user interface available in the package VIMGUI allows an easy handling of the plot
+methods. In addition, VIM can be used for data from essentially any field.
+Package:
+Version:
+Date:
+Depends:
+Imports:
+License:
+URL:
+VIM
+3.0.3
+2013-01-09
+R (>= 2.10),e1071,car, colorspace, nnet, robustbase, tcltk, tkrplot, sp, vcd, Rcpp
+car, colorspace, grDevices, robustbase, stats, tcltk, sp, utils, vcd
+GPL (>= 2)
+http://cran.r-project.org/package=VIM
+Author(s)
+Matthias Templ, Andreas Alfons, Alexander Kowarik, Bernd Prantner
+Maintainer: Matthias Templ <templ@tuwien.ac.at>
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.
+M. Templ, A. Kowarik, P. Filzmoser (2011) Iterative stepwise regression imputation using standard
+and robust methods. Journal of Computational Statistics and Data Analysis, Vol. 55, pp. 2793-
+2806.4
