@@ -1,0 +1,154 @@
+
+aggr
+aggr
+Aggregations for missing/imputed values
+
+#### Description 
+
+Calculate or plot the amount of missing/imputed values in each variable and the amount of miss-
+ing/imputed values in certain combinations of variables.
+Print method for objects of class "aggr".
+Summary method for objects of class "aggr".
+
+#### Usage 
+<pre><code>
+
+aggr(x, delimiter = NULL, plot = TRUE, ...)
+## S3 method for class 'aggr'
+plot(x, col = c("skyblue", "red", "orange"), bars = TRUE,
+numbers = FALSE, prop = TRUE, combined = FALSE, varheight = FALSE,
+only.miss = FALSE, border = par("fg"), sortVars = FALSE,
+sortCombs = TRUE, ylabs = NULL, axes = TRUE, labels = axes,
+cex.lab = 1.2, cex.axis = par("cex"), cex.numbers = par("cex"),
+gap = 4, ...)
+## S3 method for class 'aggr'
+print(x, digits = NULL, ...)
+## S3 method for class 'aggr'
+summary(object, ...)
+</code></pre>
+
+#### Arguments
+x
+delimiter
+plot
+...
+col
+a vector, matrix or data.frame.
+a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used
+to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If
+such imputation-indices are found, they are used for highlighting and the colors are adjusted according to the given colors for imputed variables (see col).
+a logical indicating whether the results should be plotted (the default is TRUE).
+for aggr and TKRaggr, further arguments and graphical parameters to be passed to plot.aggr. For plot.aggr, further graphical parameters to be passed down.
+par("oma") will be set appropriately unless supplied (see par).
+a vector of length three giving the colors to be used for observed, missing and imputed data. If only one color is supplied, it is used for missing and imputed
+data and observed data is transparent. If only two colors are supplied, the first one is used for observed data and the second color is used for missing and im-
+puted data.aggr
+5
+bars a logical indicating whether a small barplot for the frequencies of the different
+combinations should be drawn.
+numbers a logical indicating whether the proportion or frequencies of the different com-
+binations should be represented by numbers.
+prop a logical indicating whether the proportion of missing/imputed values and com-
+binations should be used rather than the total amount.
+combined a logical indicating whether the two plots should be combined. If FALSE, a
+separate barplot on the left hand side shows the amount of missing/imputed
+values in each variable. If TRUE, a small version of this barplot is drawn on
+top of the plot for the combinations of missing/imputed and non-missing values.
+See “
+#### Details 
+” for more information.
+varheight a logical indicating whether the cell heights are given by the frequencies of
+occurrence of the corresponding combinations.
+only.miss a logical indicating whether the small barplot for the frequencies of the combina-
+tions should only be drawn for combinations including missing/imputed values
+(if bars is TRUE). This is useful if most observations are complete, in which case
+the corresponding bar would dominate the barplot such that the remaining bars
+are too compressed. The proportion or frequency of complete observations (as
+determined by prop) is then represented by a number instead of a bar.
+border the color to be used for the border of the bars and rectangles. Use border=NA to
+omit borders.
+sortVars a logical indicating whether the variables should be sorted by the number of
+missing/imputed values.
+sortCombs a logical indicating whether the combinations should be sorted by the frequency
+of occurrence.
+ylabs if combined is TRUE, a character string giving the y-axis label of the combined
+plot, otherwise a character vector of length two giving the y-axis labels for the
+two plots.
+axes a logical indicating whether axes should be drawn.
+labels either a logical indicating whether labels should be plotted on the x-axis, or a
+character vector giving the labels.
+cex.lab the character expansion factor to be used for the axis labels.
+cex.axis the character expansion factor to be used for the axis annotation.
+cex.numbers the character expansion factor to be used for the proportion or frequencies of the
+different combinations
+gap if combined is FALSE, a numeric value giving the distance between the two plots
+in margin lines.
+digits the minimum number of significant digits to be used (see print.default).
+object an object of class "aggr".6
+aggr
+
+#### Details 
+
+Often it is of interest how many missing/imputed values are contained in each variable. Even more
+interesting, there may be certain combinations of variables with a high number of missing/imputed
+values.
+If combined is FALSE, two separate plots are drawn for the missing/imputed values in each variable
+and the combinations of missing/imputed and non-missing values. The barplot on the left hand
+side shows the amount of missing/imputed values in each variable. In the aggregation plot on the
+right hand side, all existing combinations of missing/imputed and non-missing values in the ob-
+servations are visualized. Available, missing and imputed data are color coded as given by col.
+Additionally, there are two possibilities to represent the frequencies of occurrence of the different
+combinations. The first option is to visualize the proportions or frequencies by a small bar plot
+and/or numbers. The second option is to let the cell heights be given by the frequencies of the cor-
+responding combinations. Furthermore, variables may be sorted by the number of missing/imputed
+values and combinations by the frequency of occurrence to give more power to finding the structure
+of missing/imputed values.
+If combined is TRUE, a small version of the barplot showing the amount of missing/imputed values
+in each variable is drawn on top of the aggregation plot.
+The graphical parameter oma will be set unless supplied as an argument.
+Value
+for aggr, a list of class "aggr" containing the following components: - x the data used. - combina-
+tions a character vector representing the combinations of variables. - count the frequencies of these
+combinations. - percent the percentage of these combinations. - missings a data.frame contain-
+ing the amount of missing/imputed values in each variable. - tabcomb the indicator matrix for the
+combinations of variables.
+a list of class "summary.aggr" containing the following components: - missings a data.frame
+containing the amount of missing or imputed values in each variable. - combinations a data.frame
+containing a character vector representing the combinations of variables along with their frequencies
+and percentages.
+Note
+Some of the argument names and positions have changed with version 1.3 due to extended func-
+tionality and for more consistency with other plot functions in VIM. For back compatibility, the
+arguments labs and names.arg can still be supplied to ...{} and are handled correctly. Neverthe-
+less, they are deprecated and no longer documented. Use ylabs and labels instead.
+Author(s)
+Andreas Alfons, Matthias Templ, modifications for displaying imputed values by Bernd Prantner
+Matthias Templ, modifications by Andreas Alfons and Bernd Prantner
+Matthias Templ, modifications by Andreas Alfonsalphablend
+7
+References
+M. Templ, A. Alfons, P. Filzmoser (2012) Exploring incomplete data using visualization tools.
+Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1007/s11634-011-
+0102-y.
+See Also
+print.aggr, summary.aggr
+aggr
+print.summary.aggr, aggr
+
+#### Examples 
+```{r}
+data(sleep, package="VIM")
+## for missing values
+a <- aggr(sleep)
+a
+summary(a)
+## for imputed values
+sleep_IMPUTED <- kNN(sleep)
+a <- aggr(sleep_IMPUTED, delimiter="_imp")
+a
+summary(a)
+data(sleep, package = "VIM")
+a <- aggr(sleep, plot=FALSE)
+a
+data(sleep, package = "VIM")
+summary(aggr(sleep, plot=FALSE))
