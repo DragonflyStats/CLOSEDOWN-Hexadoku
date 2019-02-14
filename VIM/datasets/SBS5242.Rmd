@@ -1,5 +1,14 @@
+---
+title: "``VIM::SBS5242``"
+output: html_document
+---
 
-SBS5242
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
 Synthetic subset of the Austrian structural business statistics data
 
 #### Description 
@@ -7,6 +16,14 @@ Synthetic subset of the Austrian structural business statistics data
 Synthetic subset of the Austrian structural business statistics (SBS) data, namely NACE code 52.42
 (retail sale of clothing).scattJitt
 55
+
+
+
+#### Examples 
+```{r}
+data(SBS5242)
+aggr(SBS5242)
+```
 
 #### Details 
 
@@ -18,8 +35,3 @@ From these confidential raw data set a non-confidential, close-to-reality, synth
 erated.
 Source
 http://www.statistik.at
-
-#### Examples 
-```{r}
-data(SBS5242)
-aggr(SBS5242)
