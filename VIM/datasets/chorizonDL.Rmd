@@ -1,3 +1,14 @@
+---
+title: "``VIM::chorizonDL``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
 
 chorizonDL
 C-horizon of the Kola data with missing values
@@ -6,7 +17,8 @@ C-horizon of the Kola data with missing values
 
 This data set is the same as the chorizon data set in package mvoutlier, except that values below
 the detection limit are coded as NA.
-Format
+
+#### Format
 A data frame with 606 observations on the following 110 variables.
 *ID a numeric vector
 XCOO a numeric vector
@@ -87,8 +99,6 @@ SiO2 a numeric vector
 Sm_INAA a numeric vector
 Sn_INAA a numeric vector
 SO4_IC a numeric vector
-1314
-chorizonDL
 Sr a numeric vector
 Sr_INAA a numeric vector
 SUM_XRF a numeric vector
@@ -121,7 +131,14 @@ Na_XRF a numeric vector
 P_XRF a numeric vector
 Si_XRF a numeric vector
 Ti_XRF a numeric vector
-Note
+
+
+#### Examples 
+```{r}
+data(chorizonDL, package = "VIM")
+summary(chorizonDL)
+```
+#### Note
 For a more detailed description of this data set, see chorizon in package mvoutlier.
 Source
 Kola Project (1993-1998)colormapMiss
@@ -131,8 +148,3 @@ Reimann, C., Filzmoser, P., Garrett, R.G. and Dutter, R. (2008) Statistical Data
 Applied Environmental Statistics with R. Wiley.
 See Also
 chorizon
-
-#### Examples 
-```{r}
-data(chorizonDL, package = "VIM")
-summary(chorizonDL)
