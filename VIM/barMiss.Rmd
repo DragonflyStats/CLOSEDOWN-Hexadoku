@@ -1,5 +1,13 @@
+---
+title: "``VIM::barMiss``"
+output: html_document
+---
 
-barMiss
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
 Barplot with information about missing/imputed values
 
 #### Description 
@@ -16,12 +24,12 @@ col = c("skyblue", "red", "skyblue4", "red4", "orange", "orange4"),
 border = NULL, main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
 axes = TRUE, labels = axes, only.miss = TRUE, miss.labels = axes,
 interactive = TRUE, ...)
-Arguments
-x a vector, matrix or data.frame.
-delimiter a character-vector to distinguish between variables and imputation-indices for
-imputed variables (therefore, x needs to have colnames). If given, it is used
-to determine the corresponding imputation-index for any imputed variable (a
-logical-vector indicating which values of the variable have been imputed). If
+</code></pre>
+
+#### Arguments
+* x a vector, matrix or data.frame.
+* delimiter a character-vector to distinguish between variables and imputation-indices for
+imputed variables (therefore, x needs to have colnames). If given, it is used to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If
 such imputation-indices are found, they are used for highlighting and the colors
 are adjusted according to the given colors for imputed variables (see col).barMiss
 pos
@@ -37,15 +45,12 @@ miss.labels
 interactive
 ...
 9
-a numeric value giving the index of the variable of interest. Additional variables
-in x are used for highlighting.
-the selection method for highlighting missing/imputed values in multiple addi-
-tional variables. Possible values are "any" (highlighting of missing/imputed val-
+a numeric value giving the index of the variable of interest. Additional variables in x are used for highlighting.
+the selection method for highlighting missing/imputed values in multiple additional variables. Possible values are "any" (highlighting of missing/imputed val-
 ues in any of the additional variables) and "all" (highlighting of missing/imputed
 values in all of the additional variables).
 a vector of length six giving the colors to be used. If only one color is sup-
-plied, the bars are transparent and the supplied color is used for highlighting
-missing/imputed values. Else if two colors are supplied, they are recycled.
+plied, the bars are transparent and the supplied color is used for highlighting missing/imputed values. Else if two colors are supplied, they are recycled. 
 the color to be used for the border of the bars. Use border=NA to omit borders.
 main and sub title.
 axis labels.
@@ -63,6 +68,20 @@ a logical indicating whether variables can be switched interactively (see ‘De-
 tails’).
 further graphical parameters to be passed to title and axis.
 
+
+
+#### Examples 
+```{r}
+data(sleep, package = "VIM")
+## for missing values
+x <- sleep[, c("Exp", "Sleep")]
+barMiss(x)
+barMiss(x, only.miss = FALSE)
+## for imputed values
+x_IMPUTED <- kNN(sleep[, c("Exp", "Sleep")])
+barMiss(x_IMPUTED, delimiter = "_imp")
+barMiss(x_IMPUTED, delimiter = "_imp", only.miss = FALSE)
+```
 #### Details 
 
 If more than one variable is supplied, the bars for the variable of interest are split according to
@@ -70,12 +89,8 @@ missingness/number of imputed missings in the additional variables.
 If only.miss=TRUE, the missing/imputed values in the variable of interest are visualized by one
 bar on the right hand side. If additional variables are supplied, this bar is again split into two parts
 according to missingness/number of imputed missings in the additional variables.
-Otherwise, a small barplot consisting of two bars is drawn on the right hand side. The first bar
-corresponds to observed values in the variable of interest and the second bar to missing/imputed
-values. Since these two bars are not on the same scale as the main barplot, a second y-axis is
-plotted on the right (if axes=TRUE). Each of the two bars are again split into two parts according to
-missingness/number of imputed missings in the additional variables. Note that this display does not
-make sense if only one variable is supplied, therefore only.miss is ignored in that case.
+Otherwise, a small barplot consisting of two bars is drawn on the right hand side. The first bar corresponds to observed values in the variable of interest and the second bar to missing/imputed values. Since these two bars are not on the same scale as the main barplot, a second y-axis is plotted on the right (if axes=TRUE). Each of the two bars are again split into two parts according to
+missingness/number of imputed missings in the additional variables. Note that this display does not make sense if only one variable is supplied, therefore only.miss is ignored in that case.
 If interactive=TRUE, clicking in the left margin of the plot results in switching to the previous
 variable and clicking in the right margin results in switching to the next variable. Clicking anywhere
 else on the graphics device quits the interactive session. When switching to a continuous variable,
@@ -97,15 +112,3 @@ Journal of Advances in Data Analysis and Classification, Online first. DOI: 10.1
 0102-y.
 See Also
 spineMiss, histMiss
-
-#### Examples 
-```{r}
-data(sleep, package = "VIM")
-## for missing values
-x <- sleep[, c("Exp", "Sleep")]
-barMiss(x)
-barMiss(x, only.miss = FALSE)
-## for imputed values
-x_IMPUTED <- kNN(sleep[, c("Exp", "Sleep")])
-barMiss(x_IMPUTED, delimiter = "_imp")
-barMiss(x_IMPUTED, delimiter = "_imp", only.miss = FALSE)
