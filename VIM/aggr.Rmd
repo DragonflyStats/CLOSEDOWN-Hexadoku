@@ -1,5 +1,13 @@
+---
+title: "``VIM::aggr``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
 
-aggr
 aggr
 Aggregations for missing/imputed values
 
