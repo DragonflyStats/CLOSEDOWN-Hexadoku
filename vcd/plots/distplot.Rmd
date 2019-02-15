@@ -1,5 +1,13 @@
-32 distplot
-distplot Diagnostic Distribution Plots
+---
+title: "``vcd::distplot``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+## ``distplot`` Diagnostic Distribution Plots
 
 #### Desription
 
@@ -19,14 +27,14 @@ pop =TRUE, return_grob = FALSE, ...)
 </code></pre>
 #### Arguments
 
-* x either a vector of counts, a 1-way table of frequencies of counts or a data frame or matrix with frequencies in the first column and the corresponding counts in the second column.
-* type a character string indicating the distribution.
+* ``x``: either a vector of counts, a 1-way table of frequencies of counts or a data frame or matrix with frequencies in the first column and the corresponding counts in the second column.
+* ``type``: a character string indicating the distribution.
 * ``size``: the size argument for the binomial and negative binomial distribution. If set to NULL and type is "binomial", then size is taken to be the maximum count. If set to NULL and type is "nbinomial", then size is estimated from the data.
 * ``lambda``: parameter of the poisson distribution. If type is "poisson" and lambda is specified a leveled poissonness plot is produced.
 * ``legend``: logical. Should a legend be plotted?
-* xlim limits for the x axis.
+* ``xlim``: limits for the x axis.
 * ``ylim``: limits for the y axis.
-* conf_int logical. Should confidence intervals be plotted?
+* ``conf_int``: logical. Should confidence intervals be plotted?
 * ``conf_level`` : confidence level for confidence intervals.
 * main a title for the plot.
 * xlab a label for the x axis.
@@ -39,10 +47,6 @@ pop =TRUE, return_grob = FALSE, ...)
 * pop logical. Should the viewport created be popped?
 * ``return_grob``: logical. Should a snapshot of the display be returned as a grid grob?
 * ... further Arguments passed to grid.points.
-
-#### Details
-distplot plots the number of occurrences (counts) against the distribution metameter of the specified distribution. If the distribution fits the data, the plot should show a straight line. See Friendly (2000) for details.
-In these plots, the open points show the observed count metameters; the filled points show the confidence interval centers, and the dashed lines show the ``conf_level`` confidence intervals for each point.
 
 
 #### Examples
@@ -64,6 +68,12 @@ distplot(Federalist, type = "nbinomial", size = 1)
 distplot(Federalist, type = "nbinomial")
 distplot(Saxony, type = "binomial", size = 12)
 ```
+
+#### Details
+distplot plots the number of occurrences (counts) against the distribution metameter of the specified distribution. If the distribution fits the data, the plot should show a straight line. See Friendly (2000) for details.
+In these plots, the open points show the observed count metameters; the filled points show the confidence interval centers, and the dashed lines show the ``conf_level`` confidence intervals for each point.
+
+
 
 #### Value
 Returns invisibly a data frame containing the counts (Counts), frequencies (Freq) and other details of the computations used to construct the plot.
