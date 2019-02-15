@@ -1,3 +1,14 @@
+
+---
+title: "``vcd::spine``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
 spine Spine Plots and Spinograms
 
 #### Desription
@@ -21,10 +32,9 @@ spine(formula, data = list(),
       main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
       gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
       ...)
-114 spine
-
 </code></pre>
-  #### Arguments
+
+#### Arguments
   
   * ``x``: an object, the default method expects either a single variable (interpreted to be
                                                                            the explanatory variable) or a 2-way table. See details.
@@ -33,9 +43,7 @@ formula a "formula" of typx with a single dependent "factor" and a single
 explanatory variable.
 data an optional data frame.
 breaks if the explanatory variable is numeric, this controls how it is discretized. breaks
-is passed to hist and can be a list of 
-</code></pre>
-  #### Arguments
+is passed to hist and can be a list of Arguments
   .
 ylab_tol convenience tolerance parameter for y-axis annotation. If the distance between
 two labels drops under this threshold, they are plotted equidistantly.
@@ -61,24 +69,11 @@ where y is interpreted to be the dependent variable (and has to be categorical) 
 variable. x can be either categorical (then a spine plot is created) or numerical (then a spinogram is
                                                                                    plotted). Additionally, spine can also be called with only a single argument which then has to be a
 2-way table, interpreted to correspond to table(x, y).
-Spine plots are a generalization of stacked bar plots where not the heights but the widths of the
-bars corresponds to the relative frequencies of x. The heights of the bars then correspond to the
-conditional relative frequencies of y in every x group. This is a special case of a mosaic plot with
+Spine plots are a generalization of stacked bar plots where not the heights but the widths of the bars corresponds to the relative frequencies of x. The heights of the bars then correspond to the conditional relative frequencies of y in every x group. This is a special case of a mosaic plot with
 specific spacing and shading.
 Analogously, spinograms extend stacked histograms. As for the histogram, x is first discretized
 (using hist) and then for the discretized data a spine plot is created.
-Value
-The table visualized is returned invisibly.
-strucplot 115
-Author(s)
-Achim Zeileis <Achim.Zeileis@R-project.org>
-  References
-Hummel, J. (1996), Linked bar charts: Analysing categorical data graphically. Computational
-Statistics, 11, 23-33.
-Hofmann, H., Theus, M. (2005), Interactive graphics for visualizing conditional distributions, Unpublished
-Manuscript.
-See Also
-cd_plot, mosaic, hist
+
 
 #### Examples
 ```{r}
@@ -95,3 +90,15 @@ data("SpaceShuttle")
 (spine(Fail ~ Temperature, data = SpaceShuttle, breaks = 3))
 
 ```
+Value
+The table visualized is returned invisibly.
+strucplot 115
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+  References
+Hummel, J. (1996), Linked bar charts: Analysing categorical data graphically. Computational
+Statistics, 11, 23-33.
+Hofmann, H., Theus, M. (2005), Interactive graphics for visualizing conditional distributions, Unpublished
+Manuscript.
+See Also
+cd_plot, mosaic, hist
