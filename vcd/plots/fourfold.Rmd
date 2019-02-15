@@ -1,4 +1,13 @@
 
+---
+title: "``vcd::cfourfold ``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
 cfourfold Fourfold Plots
 
 #### Desription
@@ -23,7 +32,7 @@ sep = ": ", varnames = TRUE, return_grob = FALSE)
 * k contingency table in array form, o 2 matrix if k is 1. If length(dim(x)>3, dimensions 3:length(dim(x) are silently raveled into a combined strata dimension with k=prod(dim(x)[-(1:2)])).
 * color a vector of length 6 specifying the colors to use for the smaller and larger diagonals of eac2 table. The first pair is used for the standard (non-extended) lots, the other two for the extended version: the second/third pair is used for
 tables with non-significant/significant log-odds ratios, respectively, the latter being visualized in brighter colors.
-conf_* `` level`` : confidence level used for the confidence rings on the odds ratios. Must be a single on-negative number less than 1; if set to 0, confidence rings are suppressed.
+* ``conf_level`` : confidence level used for the confidence rings on the odds ratios. Must be a single on-negative number less than 1; if set to 0, confidence rings are suppressed.
 * std a character string specifying how to standardize the table. Must be one of "margins", "ind.max", or "all.max", and can be abbreviated by the initial etter. If set to "margins", eac2 table is standardized to equate the margins specified by margin while preserving the odds ratio. If "ind.max" or "all.max", the tables are either individually or simultaneously standardized to
 a maximal cell frequency of 1.
 * margin a numeric vector with the margins to equate. Must be one of 1, 2, or c(1, 2)
