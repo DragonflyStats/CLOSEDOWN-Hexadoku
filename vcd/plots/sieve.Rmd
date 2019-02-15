@@ -1,4 +1,13 @@
-sieve Extended Sieve Plots
+---
+title: "``vcd::sieve``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+ Extended Sieve Plots
 
 #### Description
 
@@ -26,7 +35,7 @@ The table will be permuted to order them first.
 formula a formula specifying the variables used to create a contingency table from data.
 For convenience, conditioning formulas can be specified; the conditioning variables will then be used first for splitting. Formulas for sieve displays (unlike those for doubledecker plots) have no response variable.
 data either a data frame, or an object of class "table" or "ftable".
-subset an optional vector specifying a subset of observations to be used.
+* ``subset``: an optional vector specifying a subset of observations to be used.
 shade logical specifying whether gp should be used or not (see gp). If TRUE and expected is unspecified, a default model is fitted: if condvars is specified, a corresponding conditional independence model, and else the total independence model. If shade is NULL (default), gp is used if specified.
 sievetype logical indicating whether rectangles should be filled according to observed or expected frequencies.
 gp object of class "gpar", shading function or a corresponding generating function (see details of strucplot and shadings). Components of "gpar" objects are recycled as needed along the last splitting dimension. The default is a modified version of shading_Friendly: if sievetype is "observed", cells with positive
