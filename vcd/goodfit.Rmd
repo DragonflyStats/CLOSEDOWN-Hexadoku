@@ -1,6 +1,15 @@
 
+---
+title: "``vcd::goodfit``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
 
-goodfit Goodness-of-fit Tests for Discrete Data
+
+## Goodness-of-fit Tests for Discrete Data
 
 #### Desription
 
@@ -9,30 +18,26 @@ Fits a discrete (count data) distribution for goodness-of-fit tests.
 #### Usage
 <pre><code>
 
-goodfit(x, type = c("poisson", "binomial", "nbinomial"),
-method = c("ML", "MinChisq"), par = NULL)
+goodfit(x, type = c("poisson", "binomial", "nbinomial"), method = c("ML", "MinChisq"), par = NULL)
 ## S3 method for class 'goodfit'
 predict(object, newcount = NULL, type = c("response", "prob"), ...)
 ## S3 method for class 'goodfit'
-residuals(object, type = c("pearson", "deviance",
-"raw"), ...)
+residuals(object, type = c("pearson", "deviance","raw"), ...)
 ## S3 method for class 'goodfit'
-print(x, residuals_type = c("pearson", "deviance",
-"raw"), ...)
+print(x, residuals_type = c("pearson", "deviance","raw"), ...)
 
 </code></pre>
 #### Arguments
 
-* x either a vector of counts, a 1-way table of frequencies of counts or a data frame or matrix with frequencies in the first column and the corresponding counts in the second column.
-* type character string indicating: for goodfit, which distribution should be fit; for predict, the type of prediction (fitted response or probabilities); for residuals, either "pearson", "deviance" or "raw".
-* residuals_type character string indicating the type of residuals: either "pearson", "deviance" or "raw".
-goodfit 41
-* method a character string indicating whether the distribution should be fit via ML (Maximum Likelihood) or Minimum Chi-squared.
-* par a named list giving the distribution parameters (named as in the corresponding density function), if set to NULL, the default, the parameters are estimated. If the parameter size is not specified if type is "binomial" it is taken to be the
+* ``x``: either a vector of counts, a 1-way table of frequencies of counts or a data frame or matrix with frequencies in the first column and the corresponding counts in the second column.
+* ``type``: character string indicating: for goodfit, which distribution should be fit; for predict, the type of prediction (fitted response or probabilities); for residuals, either "pearson", "deviance" or "raw".
+* ``residuals_type``: character string indicating the type of residuals: either "pearson", "deviance" or "raw".
+* ``method``: a character string indicating whether the distribution should be fit via ML (Maximum Likelihood) or Minimum Chi-squared.
+* ``par``: a named list giving the distribution parameters (named as in the corresponding density function), if set to NULL, the default, the parameters are estimated. If the parameter size is not specified if type is "binomial" it is taken to be the
 maximum count. If type is "nbinomial", then parameter size can be specified to fix it so that only the parameter prob will be estimated (see the examples below).
-* object an object of class "goodfit".
-* newcount a vector of counts. By default the counts stored in object are used, i.e., the fitted Value  are computed. These can also be extracted by fitted(object).
-* ... currently not used.
+* ``object``: an object of class "goodfit".
+* ``newcount``: a vector of counts. By default the counts stored in object are used, i.e., the fitted Value  are computed. These can also be extracted by fitted(object).
+* ``...``: currently not used.
 
 
 
