@@ -1,12 +1,18 @@
+---
+title: "``VIM::colormapMiss``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
 
-colormapMiss
 Colored map with information about missing/imputed values
 
 #### Description 
 
-Colored map in which the proportion or amount of missing/imputed values in each region is coded
-according to a continuous or discrete color scheme. The sequential color palette may thereby be
-computed in the HCL or the RGB color space.
+Colored map in which the proportion or amount of missing/imputed values in each region is coded according to a continuous or discrete color scheme. The sequential color palette may thereby be computed in the HCL or the RGB color space.
 
 #### Usage 
 <pre><code>
@@ -23,13 +29,13 @@ par("fg"), legend = TRUE,
 colormapMissLegend(xleft, ybottom, xright, ytop, cmap, n = 1000,
 horizontal = TRUE, digits = 2, cex.numbers = 0.8,
 col.numbers = par("fg"), ...)
-Arguments
+</code></pre>
+#### Arguments
 x a numeric vector.
 region a vector or factor of the same length as x giving the regions.
 map an object of any class that contains polygons and provides its own plot method
 (e.g., "SpatialPolygons" from package sp).
-imp_index a logical-vector indicating which values of ‘x’ have been imputed. If given, it is
-used for highlighting and the colors are adjusted according to the given colors
+imp_index a logical-vector indicating which values of ‘x’ have been imputed. If given, it is used for highlighting and the colors are adjusted according to the given colors
 for imputed variables (see col).16
 colormapMiss
 prop
@@ -56,21 +62,15 @@ horizontal
 a logical indicating whether the proportion of missing/imputed values should be
 used rather than the total amount.
 a numeric vector specifying the region that each polygon belongs to.
-a numeric vector of length two specifying the range (minimum and maximum)
-of the proportion or amount of missing/imputed values to be used for the color
+a numeric vector of length two specifying the range (minimum and maximum) of the proportion or amount of missing/imputed values to be used for the color
 scheme.
 for colormapMiss, the number of equally spaced cut-off points for a discretized
 color scheme. If this is not a positive integer, a continuous color scheme is used
-(the default). In the latter case, the number of rectangles to be drawn in the
-legend can be specified in colormapMissLegend. A reasonably large number
-makes it appear continuously.
-the color range (start end end) to be used. RGB colors may be specified as
-character strings or as objects of class "RGB". HCL colors need to be specified
-as objects of class "polarLUV". If only one color is supplied, it is used as end
-color, while the start color is taken to be transparent for RGB or white for HCL.
+(the default). In the latter case, the number of rectangles to be drawn in the legend can be specified in colormapMissLegend. A reasonably large number makes it appear continuously.
+the color range (start end end) to be used. RGB colors may be specified as character strings or as objects of class "RGB". HCL colors need to be specified
+as objects of class "polarLUV". If only one color is supplied, it is used as end color, while the start color is taken to be transparent for RGB or white for HCL.
 numeric; the display gamma value (see hex).
-a logical indicating whether the colors should be corrected to valid RGB values
-(see hex).
+a logical indicating whether the colors should be corrected to valid RGB values (see hex).
 a matrix or data.frame with two columns giving the coordinates for the labels.
 a logical indicating whether the corresponding proportions or numbers of miss-
 ing/imputed values should be used as labels for the regions.
