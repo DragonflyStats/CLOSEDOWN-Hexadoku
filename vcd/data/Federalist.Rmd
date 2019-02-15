@@ -1,3 +1,12 @@
+---
+title: "``vcd::Federalist``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
 Federalist ‘May’ in Federalist Papers
 
 #### Desription
@@ -18,12 +27,7 @@ A 1-way table giving the number of occurrences of ‘may’ in 262 blocks of tex
 its levels are
 No Name Levels
 1 nMay 0, 1. , 6
-Source
-* Michael Friendly (2000), Visualizing Categorical Data, page 19.
-References
-F. Mosteller & D. L. Wallace (1984), Applied Bayesian and Classical Inference: The Case of the
-Federalist Papers. Springer-Verlag, New York, NY.
-M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+
 
 #### Examples
 ```{r}
@@ -32,3 +36,10 @@ data("Federalist")
 gf <- goodfit(Federalist, type = "nbinomial")
 summary(gf)
 plot(gf)
+```
+Source
+* Michael Friendly (2000), Visualizing Categorical Data, page 19.
+References
+F. Mosteller & D. L. Wallace (1984), Applied Bayesian and Classical Inference: The Case of the
+Federalist Papers. Springer-Verlag, New York, NY.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
