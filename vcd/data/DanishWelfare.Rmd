@@ -1,5 +1,11 @@
-
-DanishWelfare 31
+---
+title: "``vcd::DanishWelfare``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
 DanishWelfare Danish Welfare Study Data
 
 #### Desription
@@ -23,14 +29,17 @@ Status factor indicating marriage status (Widow, Married, Unmarried).
 Urban factor indicating urbanization: Copenhagen (Copenhagen), Suburbian Copenhagen (Sub-
 Copenhagen), three largest cities (LargeCity), other cities (City), countryside (Country).
 
-#### Source
-E. B. Andersen (1991), The Statistical Analysis of Categorical Data, page 205.
-References
-E. B. Andersen (1991), The Statistical Analysis of Categorical Data. 2nd edition. Springer-Verlag,
-Berlin.
+
 
 #### Examples
 ```{r}
 
 data("DanishWelfare")
 ftable(xtabs(Freq ~ ., data = DanishWelfare))
+```
+
+#### Source
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data, page 205.
+References
+E. B. Andersen (1991), The Statistical Analysis of Categorical Data. 2nd edition. Springer-Verlag,
+Berlin.
