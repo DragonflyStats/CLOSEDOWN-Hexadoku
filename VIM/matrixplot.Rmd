@@ -1,3 +1,13 @@
+---
+title: "``VIM::matrixplot``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
 matrixplot
 Matrix plot
 
