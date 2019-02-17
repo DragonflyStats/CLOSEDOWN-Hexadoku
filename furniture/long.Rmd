@@ -1,5 +1,17 @@
-long
-Wide to Long Data Reshaping
+---
+title: "``furniture::long``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+```
+
+
+## Wide to Long Data Reshaping
 
 #### Description
 
@@ -14,10 +26,7 @@ times = NULL, sep = "")
 
 #### Arguments
 * data the data.frame containing the wide format data
-* ... the variables that are time-varying that are to be placed in long format, needs
-to be in the format c("x1", "x2"), c("z1", "z2"), etc.. If the data is
-unbalanced (e.g., there are three time points measured for one variable but only
-two for another), using the placeholder variable miss, helps fix this.
+* ... the variables that are time-varying that are to be placed in long format, needs to be in the format c("x1", "x2"), c("z1", "z2"), etc.. If the data is unbalanced (e.g., there are three time points measured for one variable but only two for another), using the placeholder variable miss, helps fix this.
 * v.names a vector of the names for the newly created variables (length same as number of
 vectors in varying)
 
