@@ -1,32 +1,52 @@
+---
+title: "``htmlwidget``"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 
 as.htmlwidget Generic function to create an htmlwidget
-Description
+
+#### Description
 This function is a generic function to create an htmlwidget to allow HTML/JS from R in multiple
 contexts.
-Usage
+
+#### Usage
 as.htmlwidget(x, ...)
-Arguments
+
+#### Arguments
 x an object.
 ... arguments to be passed to methods.
-Value
+
+#### Value
 a htmlwidget object
-as.htmlwidget.formattable
+
+## as.htmlwidget.formattable
 Convert formattable to an htmlwidget
-Description
+
+#### Description
 formattable was originally designed to work in rmarkdown environments. Conversion of a formattable
 to a htmlwidget will allow use in other contexts such as console, RStudio Viewer, and Shiny.
-Usage
+
+#### Usage
 ## S3 method for class 'formattable'
 as.htmlwidget(x, width = "100%", height = NULL, ...)
-Arguments
-x a formattable object to convert
-width a valid CSS width
-height a valid CSS height
-... reserved for more parameters
-color_bar 7
-Value
+
+#### Arguments
+* x a formattable object to convert
+* width a valid CSS width
+* height a valid CSS height
+* ... reserved for more parameters
+
+#### Value
 a htmlwidget object
-Examples
+
+#### Examples
+<pre><code>
 ## Not run:
 library(formattable)
 # mtcars (mpg background in gradient: the higher, the redder)
@@ -58,5 +78,7 @@ tags$div( class="jumbotron"
 )
 )
 )
+
 )
-## End(Not run)
+
+</code></pre>
