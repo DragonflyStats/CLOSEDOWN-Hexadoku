@@ -1,7 +1,5 @@
 ---
 title: "strucplot"
-author: "Kevin O'Brien"
-date: "5 February 2019"
 output: html_document
 ---
 
@@ -12,8 +10,7 @@ strucplot Structured Displays of Contingency Tables
 
 #### Desription
 
-This modular function visualizes certain aspects of high-dimensional contingency tables in a hierarchical
-way.
+This modular function visualizes certain aspects of high-dimensional contingency tables in a hierarchical way.
 
 #### Usage
 <pre><code>
@@ -63,59 +60,34 @@ residuals_type a character string indicating the type of residuals to be compute
 supplied. If residuals is NULL, residuals_type must be one of "pearson"
 (default; giving components of Pearson's chi-squared), "deviance" (giving components
 of the likelihood ratio chi-squared), or "FT" for the Freeman-Tukey
-residuals. The value of this argument can be abbreviated. If residuals are
-specified, the value of residuals_type is just passed "as is" to the legend function.
-type a character string indicating whether the observed or the expected 
+residuals. The value of this argument can be abbreviated. If residuals are specified, the value of residuals_type is just passed "as is" to the legend function.
+* type a character string indicating whether the observed or the expected 
 #### Value 
  of the
 table should be visualized.
 split_vertical vector of logicals of length k, where k is the number of margins of x (
 #### Value 
 
-are recycled as needed). A TRUE component indicates that the tile(s) of the corresponding
-dimension should be split vertically, FALSE means horizontal splits.
+are recycled as needed). A TRUE component indicates that the tile(s) of the corresponding dimension should be split vertically, FALSE means horizontal splits.
 Default is FALSE.
-spacing spacing object, spacing function, or a corresponding generating function (see
+* spacing spacing object, spacing function, or a corresponding generating function (see
 details and spacings).
-spacing_args list of 
-</code></pre>
-#### Arguments
- for the spacing-generating function, if specified.
-gp object of class "gpar", shading function or a corresponding generating function
-(see details and shadings). Components of "gpar" objects are recycled as
+spacing_args list of arguments  for the spacing-generating function, if specified.
+gp object of class "gpar", shading function or a corresponding generating function (see details and shadings). Components of "gpar" objects are recycled as
 needed along the last splitting dimension. Ignored if shade = FALSE.
-gp_args list of 
-</code></pre>
-#### Arguments
- for the shading-generating function, if specified.
-labeling either a logical, or a labeling function, or a corresponding generating function
-(see details and labelings. If FALSE or NULL, no labeling is produced.
+* gp_args list of arguments for the shading-generating function, if specified.
+* labeling either a logical, or a labeling function, or a corresponding generating function (see details and labelings. If FALSE or NULL, no labeling is produced.
 strucplot 117
-labeling_args list of 
-</code></pre>
-#### Arguments
- for the labeling-generating function, if specified.
-core either a core function, or a corresponding generating function (see details). Currently,
-generating functions for mosaic plots (struc_mosaic), association plots
+* labeling_args list of arguments for the labeling-generating function, if specified.
+* core either a core function, or a corresponding generating function (see details). Currently, generating functions for mosaic plots (struc_mosaic), association plots
 (struc_assoc), and sieve plots (struc_sieve) are provided.
-core_args list of 
-</code></pre>
-#### Arguments
+core_argslist of arguments 
  for the core-generating function, if specified.
-legend either a legend-generating function, or a legend function (see details and legends),
-or a logical. If legend is NULL or TRUE and gp is a function, legend defaults to
-legend_resbased.
-legend_args list of 
-</code></pre>
-#### Arguments
- for the legend-generating function, if specified.
-main either a logical, or a character string used for plotting the main title. If main is a
-logical and TRUE, the name of the object supplied as x is used.
-sub a character string used for plotting the subtitle. If sub is a logical and TRUE and
-main is unspecified, the name of the object supplied as x is used.
-margins either an object of class "unit" of length 4, or a numeric vector of length 4.
-The elements are recycled as needed. The four components specify the top,
-right, bottom, and left margin of the plot, respectively. When a numeric vector
+legend either a legend-generating function, or a legend function (see details and legends), or a logical. If legend is NULL or TRUE and gp is a function, legend defaults to legend_resbased.
+legend_args list of arguments for the legend-generating function, if specified.
+main either a logical, or a character string used for plotting the main title. If main is a logical and TRUE, the name of the object supplied as x is used.
+* sub a character string used for plotting the subtitle. If sub is a logical and TRUE and main is unspecified, the name of the object supplied as x is used.
+* margins either an object of class "unit" of length 4, or a numeric vector of length 4. The elements are recycled as needed. The four components specify the top,right, bottom, and left margin of the plot, respectively. When a numeric vector
 is supplied, the numbers are interpreted as "lines" units. In addition, the
 unit or numeric vector may have named 
 </code></pre>
@@ -125,24 +97,19 @@ and 'left'), in which case the non-named
 </code></pre>
 #### Arguments
  specify the default 
-#### Value 
+Value 
 
-(recycled as needed), overloaded by the named 
-</code></pre>
-#### Arguments
+(recycled as needed), overloaded by the named arguments
 .
 title_margins either an object of class "unit" of length 2, or a numeric vector of length 2. The
 elements are recycled as needed. The two components specify the top and bottom
-title margin of the plot, respectively. The default for each specified title are
-2 lines (and 0 else), except when a legend is plotted and keep_aspect_ratio
+title margin of the plot, respectively. The default for each specified title are 2 lines (and 0 else), except when a legend is plotted and keep_aspect_ratio
 is TRUE: in this case, the default 
 #### Value 
  of both margins are set as to align the
 heights of legend and actual plot. When a numeric vector is supplied, the numbers
 are interpreted as "lines" units. In addition, the unit or numeric vector may
-have named 
-</code></pre>
-#### Arguments
+have named arguments
  ('top' and 'bottom'), in which case the non-named argument
 specify the default value (recycled as needed), overloaded by the named
 
