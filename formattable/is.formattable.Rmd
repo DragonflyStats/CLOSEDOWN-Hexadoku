@@ -1,13 +1,18 @@
-is.formattable 25
+## is.formattable 
 is.formattable Test for objects of ’formattable’ class
-Description
+
+#### Description
 Test for objects of ’formattable’ class
-Usage
+
+#### Usage
 is.formattable(x)
-Arguments
+
+#### Arguments
 x an object
-Value
+
+#### Value
 TRUE if x has class ’formattable’; FALSE otherwise.
-Examples
+
+#### Examples
 is.formattable(10)
 is.formattable(formattable(10))
