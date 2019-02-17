@@ -1,13 +1,31 @@
-proportion_bar Create a color-bar formatter using proportion
-Description
+---
+title: "``proportion_bar``"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
 Create a color-bar formatter using proportion
-Usage
+
+#### Description
+Create a color-bar formatter using proportion
+
+#### Usage
+<pre><code>
 proportion_bar(color = "lightgray", ...)
-Arguments
-color the background color of the bars
-... additional parameters passed to proportion
-See Also
+</code></pre>
+
+#### Arguments
+* color the background color of the bars
+* ... additional parameters passed to proportion
+
+#### See Also
 color_bar, proportion
-Examples
+
+#### Examples
 formattable(mtcars, list(mpg = proportion_bar()))
 
