@@ -1,0 +1,38 @@
+PivotCalculationGroups
+A class that contains multiple calculation groups.
+
+#### Description
+
+The PivotCalculationGroups class stores all of the calculation groups for a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotCalculationGroups
+Format
+R6Class object.
+Value
+Object of R6Class.
+Fields
+parentPivot Owning pivot table.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new container for pivot table calculation groups, specifying the field values
+documented above.
+isExistingCalculationGroup(calculationGroupName) Check if a calculation group exists with
+the specified name.
+getCalculationGroup(calculationGroupName) Get the calculation group with the specified
+name.
+addCalculationGroup(calculationGroupName) Create a new calculation group with the speci-
+fied name.
+asList() Get a list representation of these calculation groups.
+asJSON() Get a JSON representation of these calculation groups.
+asString() Get a text representation of these calculation groups.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.24
+```
