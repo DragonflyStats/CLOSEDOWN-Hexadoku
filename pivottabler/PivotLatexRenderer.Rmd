@@ -1,0 +1,40 @@
+PivotLatexRenderer
+A class that renders a pivot table in Latex.
+
+#### Description
+
+The PivotLatexRenderer class creates a Latex representation of a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotLatexRenderer
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that render to Latex.
+Fields
+parentPivot Owning pivot table.PivotOpenXlsxRenderer
+37
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot table renderer, specifying the field value documented above.
+clearIsRenderedFlags() Clear the IsRendered flags that exist on the PivotDataGroup class.
+resetVisibleRange() Clears the visible range that has been set, so the next call to getTableLa-
+tex() will render the whole table.
+setVisibleRange(fromRow=NULL, toRow=NULL, fromColumn=NULL, toColumn=NULL) Specifies
+a subset of the pivot table to be rendered, e.g. for use when a pivot table will not fit into a
+single A4 page.
+clearIsRenderedFlags()
+getTableLatex = function(caption=NULL, label=NULL, boldHeadings=FALSE, italicHeadings=FALSE, exportO
+Get a Latex representation of the pivot table, specifying the caption to appear above the ta-
+ble, the label to use when referring to the table elsewhere in the document and how headings
+should be styled.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
