@@ -1,0 +1,98 @@
+PivotDataGroup
+29
+A class that defines a row or column heading.
+
+#### Description
+
+The PivotDataGroup class represents one row or column heading in a pivot table. PivotDataGroups
+have a parent-child relationship, i.e. each PivotDataGroup can have one or more child PivotData-
+Groups.
+
+#### Usage
+<pre><code>
+
+PivotDataGroup
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that help define the row and column headings in a
+pivot table.
+Fields
+parentGroup Parent PivotDataGroup.
+parentPivot Owning pivot table.
+rowOrColumn "row" or "column" indicating which axis this data group exists on.
+caption The friendly display name for this data group.
+variableName The name of the related column in the data frame(s) of the pivot table.
+values The data value(s) which this data group represents. Can be a vector of values.
+sortValue The data value used when sorting the data groups.
+isTotal Whether this data group is a total group.
+isLevelSubTotal Whether this data group is a sub-total group in the current level.
+isLevelTotal Whether this data group is a total group in the current level.
+visualTotals Whether visual totals are enabled for this data group.
+calculationGroupName The name of the calculation group applied to this data group.
+calculationName The name of the calculation applied to this data group.
+rowColumnNumber The row or column number of this data group, i.e. where it exists in the pivot
+table.
+baseStyleName The name of the style applied to this data group (i.e. this row/column heading).
+The style must exist in the PivotStyles object associated with the PivotTable.
+fixedWidthSize the width of this data group in characters. Only applies to column data groups,
+not row data groups.30
+PivotDataGroup
+style A PivotStyle object that can apply overrides to the base style for this data group.
+isMatch Whether or not this data group matches the criteria of the last find.
+isRendered Whether or not this data group has been rendered yet (used as part of the rendering
+routines).
+isWithinVisibleRange whether or not this data group is visible (used as part of the rendering
+routines).
+visibleChildGroupCount The number of visible child groups (used as part of the rendering rou-
+tines)
+visibleDescendantGroupCount The number of visible descendant groups (used as part of the
+rendering routines).
+visibleLeafGroupCount The number of visible leaf groups beneath this group (used as part of
+the rendering routines).
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot data group, specifying the field values documented above.
+getLevelNumber() Get the level number of this data group, where level 1 is the top data group.
+getAncestorGroups(ancestors, includeCurrentGroup=FALSE) Get all of the data groups above
+the current data group in the parent-child data group hierarchy.
+getDescendantGroups(descendants, includeCurrentGroup=FALSE) Get all of the data groups
+below the current data group in the parent-child data group hierarchy.
+getLeafGroups(leafGroups) Get all of the data groups across the bottom level of the data group
+hierarchy.
+getLevelCount(includeCurrentLevel=FALSE) Count the number of levels in the data group
+hierarchy.
+getLevelGroups(level, levelGroups) Get all of the data groups at a specific level in the data
+group hierarchy.
+addChildGroup(variableName, values, caption, isTotal=FALSE, isLevelSubTotal=FALSE, isLevelTotal=FALS
+Add a new data group as the child of the current data group.
+addDataGroups(variableName, atLevel, fromData=TRUE, dataName, dataSortOrder="asc", dataFormat, onlyC
+Generate new data groups based on the distinct values in a data frame or using explicitly spec-
+ified data values.
+sortDataGroups(levelNumber=1, orderBy="calculation", sortOrder="desc", calculationGroupName="default
+Sort data groups either by the data group data value, caption or based on calculation result val-
+ues.
+addCalculationGroups(calculationGroupName, atLevel) Add a calculation group to the data
+group hierarchy.
+normaliseDataGroup() Normalise the data group hierarchy so that all branches have the same
+number of levels - accomplished by adding empty child data groups where needed.
+getNetFilters() Get a PivotFilters object that contains all of the filters applied in this data group
+and all of its ancestors.PivotFilter
+31
+getNetCalculationName() Get the calculation name applied in this data group or its nearest an-
+cestor.
+isFindMatch(matchMode="simple", variableNames=NULL, variableValues=NULL, totals="include", calculati
+Tests whether this data group matches the specified criteria.
+findDataGroups(matchMode="simple", variableNames=NULL, variableValues=NULL, totals="include", calcul
+Searches all data groups underneath this data group to find groups that match the specified cri-
+teria.
+asList() Get a list representation of the data group(s).
+asJSON() Get a JSON representation of the data group(s).
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
