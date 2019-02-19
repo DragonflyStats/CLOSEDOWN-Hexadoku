@@ -1,0 +1,76 @@
+PivotCalculator
+PivotCalculator
+A class that computes the value of a cell.
+
+#### Description
+
+The PivotCalculator class has various functions and methods that assist with calculating the value
+of a cell in a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotCalculator
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that help calculate the value of a pivot table cell.
+Fields
+parentPivot Owning pivot table.
+batchInfo Get a summary of the batch calculations.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot table calculator, specifying the field value documented above.
+getDataFrame(dataName) Gets a data frame with the specified name from the data frames added
+to the pivot table.
+getCalculationGroup(calculationGroupName) Gets a calculation group with the specified name
+from the calculation groups added to the pivot table.
+getCalculation(calculationGroupName, calculationName) Gets a calculation with the spec-
+ified name and group from the calculation groups added to the pivot table.
+generateBatchesForCellEvaluation() Examines the cells in the pivot table to generate one or
+more batch calculations.
+evaluateBatches() Evaluate batch calculations using the batch calculator.
+newFilter(variableName, values) Creates a new PivotFilter object associated with the speci-
+fied data frame column name and column values.
+newFilters(variableName, values) Creates a new PivotFilters object associated with the spec-
+ified data frame column name and column values.
+setFilters(filters1, filters2, action="replace") Combines two PivotFilters objects (e.g.
+to intersect the filters coming from the row and column headings for a particular cell).PivotCell
+25
+setFilterValues(filters, variableName, values, action="replace") Updates a PivotFil-
+ters object based on a PivotFilter object (e.g. to union the filter criteria arising from multiple
+row headers).
+getFilteredDataFrame(dataFrame, filters) Applies a PivotFilters object to a data frame, re-
+turning a new data frame.
+getDistinctValues(dataFrame, variableName) Gets the distinct values from the specified col-
+umn of a data frame.
+formatValue(value, format) Formats a numerical value using either an sprintf string, a list of
+arguments for the base::format() function or using a custom R function.
+getCombinedFilters = function(rowColFilters=NULL, calcFilters=NULL, cell=NULL) Get
+the working filters for a calculation.
+getFiltersForNamedCalculation = function(calculationName=NULL, calculationGroupName=NULL, rowColFilt
+Get the working filters for a named calculation.
+setWorkingData = function(cell=NULL) Set the working filters for a cell.
+evaluateSingleValue(dataFrame, workingFilters, valueName, format, noDataValue, noDataCaption)
+Get a single value from a data frame.
+evaluateSummariseExpression(dataName=NULL, dataFrame=NULL, workingFilters=NULL, calculationName=NULL
+Calculate a summary value, either using a batch or sequential calculation.
+evaluateCalculationExpression(values, calculationExpression, format, noDataValue, noDataCaption)
+Evaluates an R expression in order to combine the results of other calculations.
+evaluateCalculateFunction(workingFilters, calculationFunction, format, baseValues, cell)
+Invokes a user-provided custom R function to aggregate data and perform calculations.
+evaluateNamedCalculationWD(calculationName, calculationGroupName, workingData, cell)
+Invokes the relevant calculation function based upon the calculation type.
+evaluateNamedCalculation(calculationName, calculationGroupName, rowColFilters) Determines
+the working filters and invokes the relevant calculation function based upon the calculation
+type.
+evaluateCell(cell) Top-level calculation function responsible for calculating the value of a
+pivot table cell.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
