@@ -1,0 +1,32 @@
+
+
+renderBasicTable
+Output a table into a package vignette.
+
+#### Description
+
+renderBasicTable is utility function that renders a basic table into a package vignette. This func-
+tion is primarily intended for internal use by the pivottabler package.
+
+#### Usage
+<pre><code>
+
+renderBasicTable(matrix = NULL, stylePrefix = NULL,
+rowNamesAsHeader = FALSE)
+
+</code></pre>
+#### Arguments
+
+matrix
+Tabular data to render.
+stylePrefix
+Text prefix for CSS style declarations.
+rowNamesAsHeader
+Include row names in output.
+Value
+A basic table rendered as a HTML widget.
+
+#### Examples
+```{r}
+
+renderBasicTable(matrix(c(1:12), nrow=3))
