@@ -1,0 +1,19 @@
+
+pivottablerOutput
+Standard function for Shiny scaffolding.
+
+#### Description
+
+Standard function for Shiny scaffolding.
+
+#### Usage
+<pre><code>
+
+pivottablerOutput(outputId, width = "100%", height = "100%")
+
+</code></pre>
+#### Arguments
+
+outputId The id of the html element that will contain the htmlwidget.
+width The target width of the htmlwidget.
+height The target height of the htmlwidget.
