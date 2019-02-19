@@ -1,0 +1,23 @@
+processIdentifiers
+Handle identifiers that may be illegal (e.g. containing spaces).
+
+#### Description
+
+processIdentifiers is a utility function that wraps illegal identifiers in backticks.
+
+#### Usage
+<pre><code>
+
+processIdentifiers(identifiers)
+
+</code></pre>
+#### Arguments
+
+identifiers
+The identifiers that may be illegal.
+Value
+The identifiers wrapped in backticks (if illegal) or unchanged.
+
+
+
+
