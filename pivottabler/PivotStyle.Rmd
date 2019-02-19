@@ -1,0 +1,43 @@
+PivotStyle
+41
+A class that specifies styling.
+
+#### Description
+
+The PivotStyle class specifies the styling for headers and cells in a pivot table. Styles are specified
+in the form of Cascading Style Sheet (CSS) name-value pairs.
+
+#### Usage
+<pre><code>
+
+PivotStyle
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that help define styles.
+Fields
+parentPivot Owning pivot table.
+styleName Style unique name.
+declarations CSS style declarations.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new style declaration, specifying the field values documented above.
+setPropertyValue(property, value) Set a single style property.
+setPropertyValues(declarations) Set multiple style properties, where declarations is a list
+similar to the code example below.
+getPropertyValue(property) Get the style declarations for a single property.
+asCSSRule(selector) Get this style definition in the form of a CSS rule.
+asNamedCSSStyle(styleNamePrefix) Get this style definition in the form of a named CSS style.
+getCopy(newStyleName) Get a copy of this style.
+asList() Get a list representation of this style.
+asJSON() Get a JSON representation of this style.
+
+#### Examples
+```{r}
+
+# PivotStyle objects are normally created indirectly via one of the helper
+# methods.
+# For an example, see the PivotStyles class.42
+```
+
