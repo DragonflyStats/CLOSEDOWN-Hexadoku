@@ -1,0 +1,33 @@
+PivotHtmlRenderer
+A class that renders a pivot table in HTML.
+
+#### Description
+
+The PivotHtmlRenderer class creates a HTML representation of a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotHtmlRenderer36
+PivotLatexRenderer
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that render to HTML.
+Fields
+parentPivot Owning pivot table.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot table renderer, specifying the field value documented above.
+clearIsRenderedFlags() Clear the IsRendered flags that exist on the PivotDataGroup class.
+getTableHtml(styleNamePrefix=NULL, includeHeaderValues=FALSE, includeRCFilters=FALSE, includeCalcula
+Get a HTML representation of the pivot table, optionally including additional detail for de-
+bugging purposes.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
