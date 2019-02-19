@@ -1,0 +1,63 @@
+PivotStyles
+PivotStyles
+A class that defines a collection of styles.
+
+#### Description
+
+The PivotStyles class defines all of the base styles needed to style/theme a pivot table. It also defines
+the names of the styles that are used for styling the different parts of the pivot table.
+
+#### Usage
+<pre><code>
+
+PivotStyles
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that define styles/a theme for a pivot table.
+Fields
+parentPivot Owning pivot table.
+themeName The name of the theme.
+allowExternalStyles Enables integration scenarios where an external system is supplying the
+CSS definitions.
+tableStyle The name of the style for the HTML table element.
+rootStyle The name of the style for the HTML cell at the top left of the pivot table.
+rowHeaderStyle The name of the style for the row headers in the pivot table.
+colHeaderStyle The name of the style for the column headers in the pivot table.
+cellStyle The name of the cell style for the non-total cells in the body of the pivot table.
+totalStyle The name of the cell style for the total cells in the pivot table.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new set of styles, specifying the field values documented above.
+isExistingStyle(styleName) Check whether the specified style exists.
+getStyle(styleName) Get the specified style.
+addStyle(styleName, declarations) Add a new style to the collection of styles.
+copyStyle(styleName, newStyleName) Create a copy of a style with the specified name.
+asCSSRule(styleName, selector) Get a style definition in the form of a CSS rule.PivotTable
+43
+asNamedCSSStyle(styleName, styleNamePrefix) Get a style definition in the form of a named
+CSS style.
+asList() Get a list representation of the styles.
+asJSON() Get a JSON representation of the styles.
+asString() Get a text representation of the styles.
+
+#### Examples
+```{r}
+
+pt <- PivotTable$new()
+# ...
+pivotStyles <- PivotStyles$new(pt, themeName="compact")
+pivotStyles$addStyle(styleName="MyNewStyle", list(
+font="0.75em arial",
+padding="2px",
+border="1px solid lightgray",
+"vertical-align"="middle",
+"text-align"="center",
+"font-weight"="bold",
+"background-color"="#F2F2F2"
+))
+```
+
+
+
