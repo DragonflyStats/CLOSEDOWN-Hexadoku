@@ -1,0 +1,37 @@
+PivotCells
+A class that contains the cells from a pivot table.
+
+#### Description
+
+The PivotCells class contains all of the PivotCell objects that comprise the body of a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotCells
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods relating to the cells of a pivot table.
+Fields
+parentPivot Owning pivot table.
+rowGroups The row data groups that represent the row headings in the pivot table.
+columnGroups The column data groups that represent the column headings in the pivot table.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new set of pivot table cells, specifying the field values documented above.
+getCell(r, c)) Get the PivotCell at the specified row and column coordinates in the pivot table.
+setCell(r, c, cell)) Set the PivotCell at the specified row and column coordinates in the pivot
+table.
+getCells(specifyCellsAsList=FALSE, rowNumbers=NULL, columnNumbers=NULL, cellCoordinates=NULL)
+Retrieve cells by a combination of row and/or column numbers.
+findCells(variableNames=NULL, variableValues=NULL, totals="include", calculationNames=NULL, minValu28
+PivotData
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
