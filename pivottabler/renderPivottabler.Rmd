@@ -1,0 +1,20 @@
+
+renderPivottabler
+Standard function for Shiny scaffolding.
+
+#### Description
+
+Standard function for Shiny scaffolding.
+
+#### Usage
+<pre><code>
+
+renderPivottabler(expr, env = parent.frame(), quoted = FALSE)
+
+</code></pre>
+#### Arguments
+
+expr The R expression to execute and render in the Shiny web application.
+env Standard shiny argument for a render function.
+quoted Standard shiny argument for a render function.skipExportingValue
+55
