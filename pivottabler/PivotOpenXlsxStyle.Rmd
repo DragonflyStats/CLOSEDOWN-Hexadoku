@@ -1,0 +1,69 @@
+PivotOpenXlsxStyle
+A class that specifies Excel styling as used by the openxlsx package.
+
+#### Description
+
+The PivotOpenXlsxStyle class specifies the styling for cells in an Excel worksheet.
+
+#### Usage
+<pre><code>
+
+PivotOpenXlsxStyle
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that help define styles.
+Fields
+parentPivot Owning pivot table.
+baseStyleName The name of the base style in the pivot table.
+isBaseStyle TRUE when this style is the equivalent of a named style in the pivot table, FALSE if
+this style has additional settings over and above the base style of the same name.
+fontName The name of the font (single font name, not a CSS style list).
+fontSize The size of the font (units: point).
+bold TRUE if text is bold.PivotOpenXlsxStyle
+39
+italic TRUE if text is italic.
+underline TRUE if text is underlined.
+strikethrough TRUE if text has a line through it.
+superscript TRUE if text is small and raised.
+subscript TRUE if text is small and lowered.
+fillColor The background colour for the cell (as a hex value, e.g. #00FF00).
+textColor The color of the text (as a hex value).
+hAlign The horizontal alignment of the text: left, center or right.
+vAlign The vertical alignment of the text: top, middle or bottom.
+wrapText TRUE if the text is allowed to wrap onto multiple lines.
+textRotation The rotation angle of the text or 255 for vertical.
+border A list (with elements style and color) specifying the border settings for all four sides of
+each cell at once.
+borderLeft A list (with elements style and color) specifying the border settings for the left border
+of each cell.
+borderRight A list (with elements style and color) specifying the border settings for the right
+border of each cell.
+borderTop A list (with elements style and color) specifying the border settings for the top border
+of each cell.
+borderBottom A list (with elements style and color) specifying the border settings for the bottom
+border of each cell.
+valueFormat The Excel formatting applied to the field value. One of the following values: GEN-
+ERAL, NUMBER, CURRENCY, ACCOUNTING, DATE, LONGDATE, TIME, PERCENT-
+AGE, FRACTION, SCIENTIFIC, TEXT, COMMA. Or for dates/datetimes, a combination of
+d, m, y. Or for numeric values, use 0.00 etc.
+minColumnWidth The minimum width of this column.
+minRowHeight The minimum height of this row.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new Excel style, specifying the field values documented above.
+isBasicStyleNameMatch(baseStyleName=NULL) Find a matching base style by name.
+isFullStyleDetailMatch = function(baseStyleName=NULL, isBaseStyle=NULL, fontName=NULL, fontSize=NULL
+Find a matching style matching on all the attributes of the style.
+createOpenXslxStyle() Create the openxlsx style.
+asList() Get a list representation of this style.
+asJSON() Get a JSON representation of this style.
+asString() Get a text representation of this style.
+
+#### Examples
+```{r}
+
+# PivotOpenXlsxStyle objects are created by the PivotOpenXlsxRenderer class.
+# See that class for details.40
+```
