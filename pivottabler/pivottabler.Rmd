@@ -1,0 +1,46 @@
+pivottabler
+pivottabler
+47
+Render a pivot table as a HTML widget.
+
+#### Description
+
+The pivottabler function is primarily intended for use with Shiny web applications.
+
+#### Usage
+<pre><code>
+
+pivottabler(pt, width = NULL, height = NULL, styleNamePrefix = NULL,
+includeRCFilters = FALSE, includeCalculationFilters = FALSE,
+includeWorkingData = FALSE, includeEvaluationFilters = FALSE,
+includeCalculationNames = FALSE, includeRawValue = FALSE)
+
+</code></pre>
+#### Arguments
+
+pt The pivot table to render.
+width The target width.
+height
+The target height.
+styleNamePrefix
+A text prefix to be prepended to the CSS declarations (to ensure uniqueness).
+includeRCFilters
+Show/hide filter detail for debugging.
+includeCalculationFilters
+Show/hide filter detail for debugging.
+includeWorkingData
+Show/hide working data detail for debugging.
+includeEvaluationFilters
+Show/hide filter detail for debugging.
+includeCalculationNames
+Show/hide filter detail for debugging.
+includeRawValue
+Show/hide filter detail for debugging.
+Value
+A HTML widget.
+
+#### Examples
+```{r}
+
+# See the Shiny vignette in this package for examples.48
+processIdentifier
