@@ -1,0 +1,47 @@
+PivotFilter
+A class that defines a filter condition.
+
+#### Description
+
+The PivotFilter class represents a single filter condition. The condition relates to one column and
+is of the form [ColumnName] IN c(Value1, Value2, Value3, ...). Often in a pivot table, each filter
+specifies only one data value, as typically each distinct data value exists in a separate row or column.
+
+#### Usage
+<pre><code>
+
+PivotFilter
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that define a single pivot table filter.
+Fields
+parentPivot Owning pivot table.
+variableName The name of the column in the data frame that this filter will apply to.
+safeVariableName The name of the column, surrounded by back-ticks, if the name is not legal.
+values A single data value or a vector of data values that could/can be found in the data frame
+column.32
+PivotFilterOverrides
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot filter, specifying the field values documented above.
+intersect(filter) Update this PivotFilter by intersecting the allowed values in this filter with
+the allowed values in the specified filter.
+union(filter) Update this PivotFilter by unioning the allowed values in this filter with the al-
+lowed values in the specified filter.
+replace(filter) Update this PivotFilter by replacing the allowed values in this filter with the
+allowed values from the specified filter.
+getCopy() Get a copy of this PivotFilter.
+asList() Get a list representation of this PivotFilter.
+asJSON() Get a list representation of this PivotFilter.
+asString(includeVariableName=TRUE, seperator=" ") Get a text representation of this Piv-
+otFilter.
+
+#### Examples
+```{r}
+
+pt <- PivotTable$new()
+# ...
+PivotFilter$new(pt, variableName="Country", values="England")
+```
