@@ -1,0 +1,22 @@
+skipExportingValue
+Should the current value be skipped during export?
+
+#### Description
+
+skipExportingValue is a utility function that returns true if the current value should be skipped
+when exporting.
+
+#### Usage
+<pre><code>
+
+skipExportingValue(rawValue, exportOptions)
+
+</code></pre>
+#### Arguments
+
+rawValue
+exportOptions
+The value to check.
+A list of options controlling export behaviour.
+Value
+TRUE or FALSE indicating whether the current value should be skipped.
