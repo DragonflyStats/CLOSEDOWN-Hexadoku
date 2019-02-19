@@ -1,0 +1,67 @@
+PivotFilterOverrides
+A class that defines a set of filter overrides
+
+#### Description
+
+The PivotFilterOverrides class contains multiple PivotFilter objects that can be used later to
+override a set of filters, e.g. in a pivot table calculation.
+
+#### Usage
+<pre><code>
+
+PivotFilterOverrides
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that define a set of filters and associated override
+actionsPivotFilterOverrides
+33
+Fields
+parentPivot Owning pivot table.
+removeAllFilters TRUE to remove all existing filters before applying any other and/replace/or
+filters.
+keepOnlyFiltersFor Specify the names of existing variables to retain the filters for. All other
+filters will be removed.
+removeFiltersFor Specify the names of variables to remove filters for.
+overrideFunction A custom function to amend the filters in each cell.
+countIntersect The number of PivotFilters that will be combined with other pivot filters by in-
+tersecting their lists of allowed values.
+countReplace The number of PivotFilters that will be combined with other pivot filters by entirely
+replacing existing PivotFilter objects.
+countUnion The number of PivotFilters that will be combined with other pivot filters by unioning
+their lists of allowed values.
+countTotal The total number of PivotFilters that will be combined with other pivot filters.
+intersectFilters The PivotFilters that will be combined with other pivot filters by intersecting
+their lists of allowed values.
+replaceFilters The PivotFilters that will be combined with other pivot filters by entirely replac-
+ing existing PivotFilter objects.
+unionFilters The PivotFilters that will be combined with other pivot filters by unioning their lists
+of allowed values.
+allFilters The complete set of PivotFilters that will be combined with other pivot filters.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot filter overrides object, specifying the field values documented above.
+add(filter=NULL, variableName=NULL, type="ALL", values=NULL, action="intersect")
+Add a pivot filter override, either from an existing PivotFilter object or by specifying a vari-
+ableName and values.
+apply(filters) Apply the filter overrides to a PivotFilters object.
+asList() Get a list representation of this PivotFilterOverrides object.
+asJSON() Get a JSON representation of this PivotFilterOverrides object.
+asString(includeVariableName=TRUE, seperator=", ") Get a text representation of this Piv-
+otFilterOverrides object.
+
+#### Examples
+```{r}
+
+pt <- PivotTable$new()
+# ...
+# PivotFilterOverrides constructor allows a filter to be defined
+# e.g. to enable %of row or column type calculations34
+PivotFilters
+filterOverrides <- PivotFilterOverrides$new(pt, keepOnlyFiltersFor="Volume")
+# Alternatively/in addition, create a new filter
+filter <- PivotFilter$new(pt, variableName="Country", values="England")
+# Add the filter to the set of overrides
+filterOverrides$add(filter=filter, action="replace")
+```
