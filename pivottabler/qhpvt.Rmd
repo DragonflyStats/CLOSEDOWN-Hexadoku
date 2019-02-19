@@ -1,0 +1,63 @@
+
+
+qhpvt
+qhpvt
+51
+Quickly render a basic pivot table in HTML.
+
+#### Description
+
+The qhpvt function renders a basic pivot table as a HTML widget with one line of R.
+
+#### Usage
+<pre><code>
+
+qhpvt(dataFrame, rows = NULL, columns = NULL, calculations = NULL,
+theme = NULL, replaceExistingStyles = FALSE, tableStyle = NULL,
+headingStyle = NULL, cellStyle = NULL, totalStyle = NULL, ...)
+
+</code></pre>
+#### Arguments
+
+The data frame containing the data to be summarised in the pivot table.
+A character vector of variable names to be plotted on the rows of the pivot table,
+or "=" to specify the position of the calculations.
+columns
+A character vector of variable names to be plotted on the columns of the pivot
+table, or "=" to specify the position of the calculations.
+calculations
+One or more summary calculations to use to calculate the values of the cells in
+the pivot table.
+theme
+Either the name of a built-in theme (default, largeplain, compact or blank/none)
+or a list which specifies the default formatting for the table.
+replaceExistingStyles
+TRUE to completely replace the default styling with the specified tableStyle,
+headingStyle, cellStyle and/or totalStyle
+tableStyle
+A list of CSS style declarations that apply to the table.
+headingStyle
+A list of CSS style declarations that apply to the heading cells in the table.
+cellStyle
+A list of CSS style declarations that apply to the normal cells in the table.
+totalStyle
+A list of CSS style declarations that apply to the total cells in the table.
+...
+Additional arguments, currently format, formats, totals, styleNamePrefix, com-
+patibility and/or argumentCheckMode.
+dataFrame
+rows
+Value
+A HTML widget.
+
+#### Examples
+```{r}
+
+qhpvt(bhmtrains, "TOC", "TrainCategory", "n()")
+qhpvt(bhmtrains, "TOC", "TrainCategory",
+c("Mean Speed"="mean(SchedSpeedMPH, na.rm=TRUE)",
+"Std Dev Speed"="sd(SchedSpeedMPH, na.rm=TRUE)"),
+formats=list("%.0f", "%.1f"),
+totals=list("TOC"="All TOCs",
+"TrainCategory"="All Categories"))52
+qpvt
