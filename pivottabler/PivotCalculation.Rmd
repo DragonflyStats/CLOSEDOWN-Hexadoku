@@ -1,0 +1,56 @@
+PivotCalculation
+A class that defines a calculation.
+
+#### Description
+
+The PivotCalculation class defines one calculation in a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotCalculation
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that define a single pivot table calculation.PivotCalculation
+21
+Fields
+parentPivot Owning pivot table.
+calculationName Calculation unique name.
+caption Calculation display name - i.e. the name shown in the pivot table.
+visible Show or hide the calculation. Hidden calculations are typically used as base values for
+other calculations.
+displayOrder The order the calculations are displayed in the pivot table.
+filters Any additional data filters specific to this calculation. This can be a PivotFilters object
+that further restrict the data for the calculation of a list of individual PivotFilter objects that
+provide more flexibility (and/or/replace). See the Calculations vignette for details.
+format A character, list or custom function to format the calculation result.
+dataName Specifies which data frame in the pivot table is used for this calculation.
+type The calculation type: "summary", "calculation", "function" or "value".
+valueName For type="value", the name of the column containing the value to display in the pivot
+table.
+summariseExpression For type="summary", either the dplyr expression to use with dplyr::summarise()
+or a data.table calculation expression.
+calculationExpression For type="calculation", an expression to combine aggregate values.
+calculationFunction For type="function", a reference to a custom R function that will carry out
+the calculation.
+basedOn A character vector specifying the names of one or more calculations that this calculation
+depends on.
+noDataValue An integer or numeric value specifying the value to use if no data exists for a partic-
+ular cell.
+noDataCaption A character value that will be displayed by the pivot table if no data exists for a
+particular cell.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new pivot calculation, specifying the field values documented above.
+asList() Get a list representation of this calculation.
+asJSON() Get a JSON representation of this calculation.
+asString() Get a text representation of this calculation.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.22
+```
