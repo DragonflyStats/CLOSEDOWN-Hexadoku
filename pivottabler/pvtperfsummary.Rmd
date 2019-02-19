@@ -1,0 +1,33 @@
+pvtperfsummary
+pvtperfsummary
+Performance Comparison Summary
+
+#### Description
+
+A reference dataset containing summary results of an example performance comparison for different
+pivot table test cases.
+
+#### Usage
+<pre><code>
+
+pvtperfsummary
+Format
+A data frame with 36 rows and 18 variables:
+id A unique identifier for this test case.
+evaluationMode The pivot table evaluation mode used for this test case.
+rowCount The number of rows in the data frame used for this test case.
+cellCount The number of cells in the pivot table used for this test case.
+argumentCheckMode The pivot table argument check mode used this test case.
+processingLibrary The pivot table processing library used this test case.
+description A description of this test case.
+userTimeAvg The average user time for this test case.
+systemTimeAvg The average system time for this test case.
+elapsedTimeAvg The average elapsed time for this test case.
+userTimeMin The minimum user time for this test case.
+userTimeMax The maximum user time for this test case.
+systemTimeMin The minimum system time for this test case.
+systemTimeMax The maximum system time for this test case.
+elapsedTimeMin The minimum elapsed time for this test case.
+elapsedTimeMax The maximum elapsed time for this test case.
+testName A short name for this test case.
+testIndex An index for this test case.
