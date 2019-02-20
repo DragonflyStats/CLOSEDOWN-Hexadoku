@@ -1,0 +1,43 @@
+parseCssSizeToPt
+Convert a CSS size value into points.
+
+#### Description
+
+parseCssSizeToPt will take a CSS style and convert it to points. Supported input size units are in,
+cm, mm, pt, pc, px, em, are converted exactly: in, cm, mm, pt, pc: using 1in = 2.54cm = 25.4mm =
+72pt = 6pc. The following are converted approximately: px, em, approx 1em=16px=12pt and 100
+
+#### Usage
+<pre><code>
+
+parseCssSizeToPt(size)
+
+</code></pre>
+#### Arguments
+
+size
+A size specified in common CSS units.
+Value
+The size converted to points.16
+parseCssString
+parseCssSizeToPx
+Convert a CSS size value into pixels
+
+#### Description
+
+parseCssSizeToPx will take a CSS style and convert it to pixels Supported input size units are in,
+cm, mm, pt, pc, px, em, are converted exactly: in, cm, mm, pt, pc: using 1in = 2.54cm = 25.4mm =
+72pt = 6pc. The following are converted approximately: px, em, approx 1em=16px=12pt and 100
+
+#### Usage
+<pre><code>
+
+parseCssSizeToPx(size)
+
+</code></pre>
+#### Arguments
+
+size
+A size specified in common CSS units.
+Value
+The size converted to pixels.
