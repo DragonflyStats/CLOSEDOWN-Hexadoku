@@ -1,0 +1,47 @@
+parseCssString
+Split a CSS attribute value into a vector/array.
+
+#### Description
+
+parseCssString is a utility function that splits a string into a vector/array. The function pays
+attention to text qualifiers (single and double quotes) so won’t split if the delimiter occurs inside a
+value.
+
+#### Usage
+<pre><code>
+
+parseCssString(text, separator = ",", removeEmptyString = TRUE)
+
+</code></pre>
+#### Arguments
+
+text
+The text to split.
+separator
+The field separator, default comma.
+removeEmptyString
+TRUE to not return empty string / whitespace values.
+Value
+An R vector containing the values from text split up.parseXlBorder
+17
+Parse an xl-border value.
+parseXlBorder
+
+#### Description
+
+parseXlBorder parses the combined xl border declarations (i.e. xl-border, xl-border-left, xl-
+border-right, xl-border-top, xl-border-bottom) and returns a list containing style and color as sepa-
+rate elements.
+
+#### Usage
+<pre><code>
+
+parseXlBorder(text)
+
+</code></pre>
+#### Arguments
+
+text
+The border declaration to parse.
+Value
+A list containing two elements: style and color.
