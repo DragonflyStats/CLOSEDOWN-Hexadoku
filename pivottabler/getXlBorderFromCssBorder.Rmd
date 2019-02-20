@@ -1,0 +1,43 @@
+getXlBorderFromCssBorder
+Convert CSS border values to those used by the openxlsx package.
+
+#### Description
+
+getXlBorderFromCssBorder parses the CSS combined border declarations (i.e. border, border-
+left, border-right, border-top, border-bottom) and returns a list containing an openxlsx border style
+and color as separate elements.
+
+#### Usage
+<pre><code>
+
+getXlBorderFromCssBorder(text)
+
+</code></pre>
+#### Arguments
+
+text
+The border declaration to parse.
+Value
+A list containing two elements: style and color.getXlBorderStyleFromCssBorder
+13
+getXlBorderStyleFromCssBorder
+Convert CSS border values to those used by the openxlsx package.
+
+#### Description
+
+getXlBorderStyleFromCssBorder takes border parameters expressed as a list (containing ele-
+ments: width and style) and returns a border style that is compatible with the openxlsx package.
+
+#### Usage
+<pre><code>
+
+getXlBorderStyleFromCssBorder(border)
+
+</code></pre>
+#### Arguments
+
+border
+A list containing elements width and style.
+Value
+An openxlsx border style.
+Check whether a numeric value is present.
