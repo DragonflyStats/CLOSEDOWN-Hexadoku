@@ -1,0 +1,35 @@
+bhmtrains
+bhmtrains
+Birmingham Trains, Dec 2016-Feb 2017.
+
+#### Description
+
+A dataset containing all of the trains that either originated at, passed through or terminated at Birm-
+ingham New Street railway station in the UK between 1st December 2016 and 28th February 2017
+inclusive.
+
+#### Usage
+<pre><code>
+
+bhmtrains
+Format
+A data frame with 83710 rows and 16 variables:
+ServiceId Unique train identifier
+Status Train status: A=Active, C=Cancelled, R=Reinstated
+TOC Train operating company
+TrainCategory Express Passenger or Ordinary Passenger
+PowerType DMU=Diesel Multiple Unit, EMU=Electrical Multiple Unit, HST=High Speed Train
+SchedSpeedMPH Scheduled maximum speed (in miles per hour)
+Origin 3-letter code denoting the scheduled origin of the train
+OriginGbttDeparture Scheduled departure time in the Great Britain Train Timetable (GBTT)
+from the origin station
+OriginActualDeparture Actual departure time from the origin station
+GbttArrival Scheduled arrival time in Birmingham in the GBTT
+ActualArrival Actual arrival time in Birmingham in the GBTT
+GbttDeparture Scheduled departure time from Birmingham in the GBTT
+ActualDeparture Actual departure time from Birmingham in the GBTT
+Destination 3-letter code denoting the scheduled destination of the train
+DestinationGbttArrival Scheduled arrival time in the GBTT at the destination station
+DestinationActualArrival Actual arrival time at the destination station
+Source
+http://www.recenttraintimes.co.uk/checkArgument
