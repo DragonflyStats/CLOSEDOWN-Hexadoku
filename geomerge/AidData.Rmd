@@ -1,60 +1,41 @@
-AidData Point dataset to illustrate the functionality of geomerge
+---
+title: "``geomerge::AidData``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(geomerge)
+```
+
+Point dataset to illustrate the functionality of geomerge
+
 #### Description
-AidData aid project locations for projects in Nigeria with start date in 2011 used as example for a
-SpatialPointsDataFrame. The dataset is available from http://aiddata.org. The dataset contains
+
+AidData aid project locations for projects in Nigeria with start date in 2011 used as example for a SpatialPointsDataFrame. The dataset is available from http://aiddata.org. The dataset contains
 timestamped and geo-coded information on individual aid projects.
+
 #### Usage
+<pre><code>
 data(geomerge)
-Format
+</code></pre>
+
+#### Format
 A SpatialPointsDataFrame containing observations.
-Details
-The original AidData "start_date" column has been relabeled as "timestamp" in accordance with
-geomerge conventions.
-Author(s)
+
+#### Details
+The original AidData "start_date" column has been relabeled as "timestamp" in accordance with geomerge conventions.
+
+#### Author(s)
 Karsten Donnay and Andrew M. Linke
-Source
+
+#### Source
 http://aiddata.org
 Citation: AidData. 2016. NigeriaAIMS_GeocodedResearchRelease_Level1_v1.3.1 geocoded dataset.
 Williamsburg, VA and Washington, DC: AidData. Accessed on August 23, 2017. http://aiddata.org/researchdatasets.
-References
+
+#### References
 Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
 Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
 Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
 Baltimore.
-generateGrid 5
-generateGrid Generates a grid in a given local CRS that is, by default, returned as
-SpatialPolygonsDataFrame in WGS84.
-#### Description
-Implementation of a simple grid generation function producing a SpatialPolygonsDataFrame to
-be used as target in geomerge.
-#### Usage
-generateGrid(extent, size, local.CRS, makeWGS84 = TRUE, silent = FALSE)
-#### Arguments
-extent SpatialPolygonsDataFrame that defines the (minimum) extent of the grid to
-be generated.
-size size of the grid cells in m.
-local.CRS definition of the local (projected) CRS the grid is spanned in. Has to be class
-"CRS".
-makeWGS84 Boolean switch indicating whether or not the grid is returned in WGS84. Default
-= TRUE.
-silent Boolean switch to suppress any (non-critical) warnings and messages. Default
-= FALSE.
-Value
-Returns an object of SpatialPolygonsDataFrame that spans the grid with spatial resolution given
-by size.
-Author(s)
-Karsten Donnay and Andrew M. Linke.
-References
-Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
-Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
-Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
-Baltimore.
-See Also
-geomerge-package, geomerge
-6 geoEPR
-#### Examples 
-require(sp)
-data(geomerge)
-# Generate grid with 10 km cell size in local CRS for Nigeria
-states.grid <- generateGrid(states,10000,local.CRS=CRS("+init=epsg:26391"),
-silent=TRUE)

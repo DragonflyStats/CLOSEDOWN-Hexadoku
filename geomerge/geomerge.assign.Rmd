@@ -1,5 +1,13 @@
+---
+title: "``geomerge::geomerge.assign``"
+output: html_document
+---
 
-geomerge.assign Implements different assignment rules using SQL [Auxiliary Function]
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(geomerge)
+```
+Implements different assignment rules using SQL [Auxiliary Function]
 
 #### Description
 
@@ -12,12 +20,13 @@ geomerge.assign(polygon_input,target,assignment,population.data,optional.inputs,
 </code></pre>
 
 #### Arguments
-* polygon_input input SpatialPolygonsDataFrame parsed from geomerge main function.
-target SpatialPolygonsDataFrame representing desired units of analysis. See Details of geomerge.
-* assignment identification of either population- or area-weighting assignment rules when handling SpatialPolygonsDataFrame joins to target. Default = "``max(area)``". See Details in geomerge.
-* population.data: specifies data used for weighting if a population-based assignment rule is selected. See Details in geomerge.
-* optional.inputs: Any optional inputs compatible with the extract function in raster.
-silent Boolean switch to suppress any (non-critical) warnings and messages. Default = FALSE.
+* ``polygon_input``: input SpatialPolygonsDataFrame parsed from geomerge main function.
+* ``target``: SpatialPolygonsDataFrame representing desired units of analysis. See Details of geomerge.
+* ``assignment``: identification of either population- or area-weighting assignment rules when handling SpatialPolygonsDataFrame joins to target. 
+Default = "``max(area)``". See Details in geomerge.
+* ``population.data``: specifies data used for weighting if a population-based assignment rule is selected. See Details in geomerge.
+* ``optional.inputs``: Any optional inputs compatible with the extract function in raster.
+* ``silent``: Boolean switch to suppress any (non-critical) warnings and messages. Default = FALSE.
 
 #### Details
 For details on different input parameters, please refer to the detailed documentation in geomerge.

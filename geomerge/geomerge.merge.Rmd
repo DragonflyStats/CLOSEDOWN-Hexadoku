@@ -1,34 +1,43 @@
+---
+title: "``geomerge::geomerge.merge``"
+output: html_document
+---
 
-geomerge.merge Performing dataset merger [Auxiliary Function]
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(geomerge)
+```
+
+## Performing dataset merger [Auxiliary Function]
 
 #### Description
 
 Auxiliary function that performs the actual integration of the target frame with specified input data. The routine proceeds on dataset at a time.
+
 #### Usage
+
 <pre><code>
-geomerge.merge(data,data.name,target,standard.CRS,outdata,wghts,
-time, time.lag,spat.lag,zonal.fun,assignment,
+geomerge.merge(data,data.name,target,standard.CRS,outdata,wghts, time, time.lag,spat.lag,zonal.fun,assignment,
 population.data,point.agg, t_unit,silent,optional.inputs)
 </code></pre>
 
 #### Arguments
-* data input da;taset. See Details in geomerge.
-* ``data.name`` name of input dataset
-* target SpatialPolygonsDataFrame representing desired units of analysis. See Details in geomerge.
-* standard.CRS Defines the CRS used. Default used in geomerge is WGS84.
-* outdata data.frame containing integrated data relative to the SpatialPolygonsDataFrame target.
+* ``data``: input dataset. See Details in geomerge.
+* ``data.name``: name of input dataset
+* ``target``: SpatialPolygonsDataFrame representing desired units of analysis. See Details in geomerge.
+* ``standard.CRS``: Defines the CRS used. Default used in geomerge is WGS84.
+* ``outdata``: data.frame containing integrated data relative to the SpatialPolygonsDataFrame target.
 * ``wghts``: spatial weights calculated by link{geomerge.neighbor}.
-* time specification of temporal window for temporal binning of point data by c(start_date, end_date, interval_length).
-Default = NA. See Details in geomerge.
-* time.lag Boolean indicating whether or not first and second order temporal lag values of all variables are returned. Default = TRUE.
+* ``time``: specification of temporal window for temporal binning of point data by c(start_date, end_date, interval_length). Default = NA. See Details in geomerge.
+* ``time.lag``: Boolean indicating whether or not first and second order temporal lag values of all variables are returned. Default = TRUE.
 * ``spat.lag``: Boolean indicating whether or not first and second order spatial lag values of all variables are returned. Default = TRUE.
-* zonal.fun object of class function applied to values of RasterLayer when generating zonal statistics for each target polygon. Default = sum. See Details in geomerge.
-* assignment identification of either population- or area-weighting assignment rules when handling SpatialPolygonsDataFrame joins to target. Default = "area.assign". See Details in geomerge.
+* ``zonal.fun``: object of class function applied to values of RasterLayer when generating zonal statistics for each target polygon. Default = sum. See Details in geomerge.
+* ``assignment``: identification of either population- or area-weighting assignment rules when handling SpatialPolygonsDataFrame joins to target. Default = "area.assign". See Details in geomerge.
 * ``population.data``: specifies data used for weighting if a population-based assignment rule is selected. See Details in geomerge.
-* ``point.agg`` specification of aggregation format for data of type SpatialPointsDataFrame. Default = "cnt". See Details in geomerge.
-* t_unit temporal unit used for dynamic point aggregation. Default = "days".
-silent Boolean switch to suppress any (non-critical) warnings and messages. Default = FALSE.
-optional.inputs Any optional inputs compatible with the extract function in raster.
+* ``point.agg``: specification of aggregation format for data of type SpatialPointsDataFrame. Default = "cnt". See Details in geomerge.
+* ``t_unit``: temporal unit used for dynamic point aggregation. Default = "days".
+* ``silent``: Boolean switch to suppress any (non-critical) warnings and messages. Default = FALSE.
+* ``optional.inputs``: Any optional inputs compatible with the extract function in raster.
 
 #### Details
 For details on different input parameters, please refer to the detailed documentation in geomerge.
@@ -40,9 +49,8 @@ Returns an object of class data.frame that contains all information from merger 
 Karsten Donnay and Andrew M. Linke.
 
 #### References
-Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of
-Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
-Paper presented at the International Studies Association Annual Meeting, February 22-25 2017,
-Baltimore.
-See Also
+Andrew M. Linke, Karsten Donnay. (2017). "Scale Variability Misclassification: The Impact of Spatial Resolution on Effect Estimates in the Geographic Analysis of Foreign Aid and Conflict."
+Paper presented at the International Studies Association Annual Meeting, February 22-25 2017, Baltimore.
+
+#### See Also
 geomerge-package, geomerge, generateGrid

@@ -1,5 +1,14 @@
+---
+title: "``geomerge::states``"
+output: html_document
+---
 
-states Polygon dataset to illustrate the functionality of geomerge
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(geomerge)
+```
+
+ Polygon dataset to illustrate the functionality of geomerge
 #### Description
 Nigeria administrative units (ADM1) dataset used as example for the target SpatialPolygonsDataFrame
 data are merged. The dataset is available at http://www.arcgis.com/home/item.html?id=0e58995046b74254911c1dc0eb756fa4.
