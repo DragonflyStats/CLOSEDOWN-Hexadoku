@@ -17,16 +17,17 @@ rowNamesAsHeader = FALSE)
 </code></pre>
 #### Arguments
 
-matrix
+* matrix:
 Tabular data to render.
-stylePrefix
+* stylePrefix:
 Text prefix for CSS style declarations.
-rowNamesAsHeader
+* rowNamesAsHeader:
 Include row names in output.
-Value
+* Value:
 A basic table rendered as a HTML widget.
 
 #### Examples
 ```{r}
 
 renderBasicTable(matrix(c(1:12), nrow=3))
+```
