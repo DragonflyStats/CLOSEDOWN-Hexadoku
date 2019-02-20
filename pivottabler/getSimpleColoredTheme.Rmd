@@ -1,0 +1,42 @@
+getSimpleColoredTheme Get a simple coloured theme.
+
+#### Description
+
+Get a simple coloured theme that can be used to style a pivot table into a custom colour scheme.
+
+#### Usage
+<pre><code>
+
+getSimpleColoredTheme(parentPivot, themeName = "coloredTheme", colors,
+fontName)
+
+</code></pre>
+#### Arguments
+
+parentPivot Owning pivot table.
+themeName The name to use as the new theme name.
+colors The set of colours to use when generating the theme (see the Styling vignette for
+details).
+fontName The name of the font to use, or a comma separated list (for font-fall-back).
+Value
+A PivotStyles object.12
+getXlBorderFromCssBorder
+Get a built-in theme for styling a pivot table.
+getTheme
+
+#### Description
+
+getTheme returns the specified theme.
+
+#### Usage
+<pre><code>
+
+getTheme(parentPivot, themeName = NULL)
+
+</code></pre>
+#### Arguments
+
+parentPivot Owning pivot table.
+themeName The name of the theme to retrieve.
+Value
+A PivotStyles object.
