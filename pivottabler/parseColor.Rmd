@@ -1,0 +1,43 @@
+parseColor
+
+#### Description
+
+parseColor converts a colour value specified in CSS to a hex based colour code. Example sup-
+ported input values/formats/named colours are: #0080FF, rgb(0, 128, 255), rgba(0, 128, 255, 0.5)
+and red, green, etc.
+
+#### Usage
+<pre><code>
+
+parseColor(color)
+
+</code></pre>
+#### Arguments
+
+color
+The colour to convert.
+Value
+The colour as a hex code, e.g. #FF00A0.parseCssBorder
+15
+Parse a CSS border value.
+parseCssBorder
+
+#### Description
+
+parseCssBorder parses the CSS combined border declarations (i.e. border, border-left, border-
+right, border-top, border-bottom) and returns a list containing the width, style and color as separate
+elements.
+
+#### Usage
+<pre><code>
+
+parseCssBorder(text)
+
+</code></pre>
+#### Arguments
+
+text
+The border declaration to parse.
+Value
+A list containing three elements: width, style and color.
+
