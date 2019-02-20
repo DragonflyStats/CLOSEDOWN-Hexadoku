@@ -1,0 +1,30 @@
+---
+title: "``formattable::formattable.POSIXct ``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+formattable.POSIXct Create a formattable POSIXct vector
+Description
+Create a formattable POSIXct vector
+Usage
+## S3 method for class 'POSIXct'
+formattable(x, ..., formatter = "format.POSIXct",
+preproc = NULL, postproc = NULL)
+Arguments
+x a vector of class POSIXct.
+... arguments to be passed to formatter.
+formatter formatting function, format.POSIXct in default.
+preproc pre-processor function that prepares x for formatting function.
+postproc post-processor function that transforms formatted output for printing.
+Value
+a formattable POSIXct vector
+Examples
+times <- as.POSIXct("2015-04-10 09:30:15") + 1:5
+ftimes <- formattable(times, format = "%Y%m%dT%H%M%S")
+ftimes
+ftimes + 30

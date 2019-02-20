@@ -1,0 +1,31 @@
+formattable.POSIXlt 19
+formattable.POSIXlt Create a formattable POSIXlt vector
+Description
+Create a formattable POSIXlt vector
+Usage
+## S3 method for class 'POSIXlt'
+formattable(x, ..., formatter = "format.POSIXlt",
+preproc = NULL, postproc = NULL)
+Arguments
+x a vector of class POSIXlt.
+... arguments to be passed to formatter.
+formatter formatting function, format.POSIXlt in default.
+preproc pre-processor function that prepares x for formatting function.
+postproc post-processor function that transforms formatted output for printing.
+Value
+a formattable POSIXlt vector
+Examples
+times <- as.POSIXlt("2015-04-10 09:30:15") + 1:5
+ftimes <- formattable(times, format = "%Y%m%dT%H%M%S")
+ftimes
+ftimes + 30
+formattableOutput Widget output function for use in Shiny
+Description
+Widget output function for use in Shiny
+Usage
+formattableOutput(outputId, width = "100%", height = "0")
+20 formatter
+Arguments
+outputId output variable to read from
+width a valid CSS width or a number
+height valid CSS height or a number

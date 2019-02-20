@@ -1,0 +1,33 @@
+---
+title: "``formattable::formattable.logical ``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+formattable.logical Create a formattable logical vector
+Description
+Create a formattable logical vector
+Usage
+## S3 method for class 'logical'
+formattable(x, ..., formatter = "ifelse", preproc = NULL,
+postproc = NULL)
+formattable.numeric 17
+Arguments
+x a logical vector.
+... arguments to be passed to formatter.
+formatter formatting function, formattable::ifelse in default.
+preproc pre-processor function that prepares x for formatting function.
+postproc post-processor function that transforms formatted output for printing.
+Value
+a formattable logical vector.
+Examples
+logi <- c(TRUE, TRUE, FALSE)
+flogi <- formattable(logi, "yes", "no")
+flogi
+!flogi
+any(flogi)
+all(flogi)

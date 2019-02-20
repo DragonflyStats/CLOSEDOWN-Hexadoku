@@ -1,0 +1,36 @@
+---
+title: "``formattable::formattable.Date ``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+
+
+formattable.Date Create a formattable Date vector
+Description
+Create a formattable Date vector
+Usage
+## S3 method for class 'Date'
+formattable(x, ..., formatter = "format.Date",
+preproc = NULL, postproc = NULL)
+formattable.default 15
+Arguments
+x a vector of class Date.
+... arguments to be passed to formatter.
+formatter formatting function, format.Date in default.
+preproc pre-processor function that prepares x for formatting function.
+postproc post-processor function that transforms formatted output for printing.
+Value
+a formattable Date vector
+Examples
+dates <- as.Date("2015-04-10") + 1:5
+fdates <- formattable(dates, format = "%m/%d/%Y")
+fdates
+fdates + 30
+```
+
+herits from the original object.

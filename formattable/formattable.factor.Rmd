@@ -1,0 +1,28 @@
+---
+title: "``formattable::formattable.factor``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+formattable.factor Create a formattable factor object
+Description
+Create a formattable factor object
+Usage
+## S3 method for class 'factor'
+formattable(x, ..., formatter = "vmap", preproc = NULL,
+postproc = NULL)
+Arguments
+x a factor object.
+... arguments to be passed to formatter.
+formatter formatting function, vmap in default.
+preproc pre-processor function that prepares x for formatting function.
+postproc post-processor function that transforms formatted output for printing.
+Value
+a formattable factor object.
+Examples
+formattable(as.factor(c("a", "b", "b", "c")),
+a = "good", b = "fair", c = "bad")

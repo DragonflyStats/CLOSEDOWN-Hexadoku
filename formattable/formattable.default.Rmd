@@ -1,0 +1,37 @@
+---
+title: "``formattable::formattable.default ``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+
+
+#### Description
+
+Create a formattable object
+
+#### Usage
+
+<pre><code>
+## Default S3 method:
+formattable(x, ..., formatter, preproc = NULL,
+postproc = NULL)
+</code></pre>
+
+#### Arguments
+
+* x an object.
+* ... arguments to be passed to formatter.
+* formatter formatting function, formatC in default.
+* preproc pre-processor function that prepares x for formatting function.
+* postproc post-processor function that transforms formatted output for printing.
+
+#### Examples
+formattable(rnorm(10), formatter = "formatC", digits = 1)
+
+#### Value
+a formattable object that inherits from the original object.

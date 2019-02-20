@@ -1,0 +1,36 @@
+---
+title: "``formattable::formattable.POSIXct ``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+
+formattable.numeric Create a formattable numeric vector
+Description
+Create a formattable numeric vector
+Usage
+## S3 method for class 'numeric'
+formattable(x, ..., formatter = "formatC", preproc = NULL,
+postproc = NULL)
+Arguments
+x a numeric vector.
+... arguments to be passed to formatter.
+formatter formatting function, formatC in default.
+preproc pre-processor function that prepares x for formatting function.
+postproc post-processor function that transforms formatted output for printing.
+Value
+a formattable numeric vector.
+18 formattable.POSIXct
+Examples
+formattable(rnorm(10), format = "f", digits = 1)
+formattable(rnorm(10), format = "f",
+flag="+", digits = 1)
+formattable(1:10,
+postproc = function(str, x) paste0(str, "px"))
+formattable(1:10,
+postproc = function(str, x)
+paste(str, ifelse(x <= 1, "unit", "units")))

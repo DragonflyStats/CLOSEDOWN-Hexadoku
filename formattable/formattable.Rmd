@@ -1,0 +1,25 @@
+---
+title: "``formattable::formattable``: "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(formattable)
+```
+
+ Generic function to create formattable object
+
+#### Description
+This function is a generic function to create formattable object, i.e. an object to which a formatting
+function and related attribute are attached. The object works as ordinary object yet has specially
+defined behavior as being printed or converted to a string representation.
+
+#### Usage
+formattable(x, ...)
+Arguments
+x an object.
+... arguments to be passed to methods.
+
+#### Value
+a formattable object

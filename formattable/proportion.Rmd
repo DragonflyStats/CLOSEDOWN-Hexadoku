@@ -1,3 +1,12 @@
+---
+title``: "``formattable::proportion``"
+output``: html_document
+---
+
+```{r setup, include=FALSE}
+knitr``:``:opts_chunk$set(echo = TRUE)
+library(formattable)
+```
 
 proportion Rescale a vector relative to the maximal absolute value in the vector
 
@@ -5,12 +14,15 @@ proportion Rescale a vector relative to the maximal absolute value in the vector
 Rescale a vector relative to the maximal absolute value in the vector
 
 #### Usage
+<pre><code>
 proportion(x, na.rm = FALSE)
-28 qrank
+</code></pre>
 
 #### Arguments
-x a numeric vector
-na.rm a logical indicating whether missing values should be removed
+* ``x``: a numeric vector
+* ``na.rm``: a logical indicating whether missing values should be removed
 
 #### Examples
+```{r}
 proportion(mtcars$mpg)
+```
