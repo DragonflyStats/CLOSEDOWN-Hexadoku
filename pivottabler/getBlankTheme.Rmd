@@ -1,0 +1,40 @@
+getBlankTheme
+
+#### Description
+
+Get an empty theme for applying no styling to a table.
+
+#### Usage
+<pre><code>
+
+getBlankTheme(parentPivot, themeName = "blank")
+
+</code></pre>
+#### Arguments
+
+parentPivot Owning pivot table.
+themeName The name to use as the new theme name.
+Value
+A TableStyles object.getCompactTheme
+9
+Get the compact theme for styling a pivot table.
+getCompactTheme
+
+#### Description
+
+Get the compact theme for styling a pivot table.
+
+#### Usage
+<pre><code>
+
+getCompactTheme(parentPivot, themeName = "compact")
+
+</code></pre>
+#### Arguments
+
+parentPivot Owning pivot table.
+themeName The name to use as the new theme name.
+Value
+A PivotStyles object.
+Get the default theme for styling a pivot table.
+
