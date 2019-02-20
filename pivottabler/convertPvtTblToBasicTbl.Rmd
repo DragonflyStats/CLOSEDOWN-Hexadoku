@@ -1,0 +1,22 @@
+convertPvtTblToBasicTbl
+Convert a pivot table to a basic table.
+
+#### Description
+
+convertPvtTblToBasicTbl is a utility function that converts a pivot table to a basic table from the
+basictabler package.
+
+#### Usage
+<pre><code>
+
+convertPvtTblToBasicTbl(pvt = NULL, exportOptions = NULL)
+
+</code></pre>
+#### Arguments
+
+pvt The pivot table to convert.
+exportOptions Options specifying how values are exported.
+Value
+a basictabler table.8
+getBlankTheme
+Replace the current value with a placeholder during export.
