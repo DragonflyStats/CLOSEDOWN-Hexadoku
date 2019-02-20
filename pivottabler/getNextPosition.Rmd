@@ -1,0 +1,39 @@
+getNextPosition
+Find the first value in an array that is larger than the specified value.
+
+#### Description
+
+getNextPosition is a utility function that helps when parsing strings that contain delimiters.
+
+#### Usage
+<pre><code>
+
+getNextPosition(positions, afterPosition)
+
+</code></pre>
+#### Arguments
+
+positions An ordered numeric vector.
+afterPosition The value to start searching after.
+Value
+The first value in the array larger than afterPosition.getPvtStyleDeclarations
+11
+getPvtStyleDeclarations
+Get pivot table style declarations from a pivot table style.
+
+#### Description
+
+getPvtStyleDeclarations is a utility function that reads the styles from a pivot table style.
+
+#### Usage
+<pre><code>
+
+getPvtStyleDeclarations(pvtStyle = NULL)
+
+</code></pre>
+#### Arguments
+
+pvtStyle
+The pivot table style to read.
+Value
+a list of style declarations.
