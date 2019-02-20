@@ -1,6 +1,6 @@
 
-grouped_proptest
-Function to run proportion test on grouped data.
+``groupedstats::grouped_proptest``
+
 
 #### Description
 
@@ -12,28 +12,22 @@ Function to run proportion test on grouped data.
 grouped_proptest(data, grouping.vars, measure)
 
 </code></pre>
+
 #### Arguments 
-* data
-Dataframe from which variables are to be drawn.
-* grouping.vars
-List of grouping variables
-* measure
-A variable for which proportion test needs to be carried out for each combination
-of levels of factors entered in
-grouping.vars
-.
-10
-grouped_robustslr
+* ``data``: Dataframe from which variables are to be drawn.
+* ``grouping.vars``: List of grouping variables
+* ``measure``: A variable for which proportion test needs to be carried out for each combination
+of levels of factors entered in ``grouping.vars``.
 
 
 #### Examples
 ```{r}
 
 groupedstats::grouped_proptest(
-data = mtcars,
-grouping.vars = cyl,
-measure = am
-)
+  data = mtcars,
+  grouping.vars = cyl,
+  measure = am
+  )
 ```
 
 
