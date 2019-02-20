@@ -1,0 +1,41 @@
+containsText
+Check whether a text value is present in another text value.
+
+#### Description
+
+containsText is a utility function returns TRUE if one text value is present in another. Case
+sensitive. If textToSearch is a vector, returns TRUE if any element contains textToFind.
+
+#### Usage
+<pre><code>
+
+containsText(textToSearch, textToFind)
+
+</code></pre>
+#### Arguments
+
+textToSearch The value to be searched.
+textToFind The value to find.
+Value
+TRUE if the textToFind value is found.convertPvtStyleToBasicStyle
+7
+convertPvtStyleToBasicStyle
+Convert a pivot table style to a basictabler style.
+
+#### Description
+
+convertPvtStyleToBasicStyle is a utility function that converts a pivot table style to a basictabler
+style from the basictabler package.
+
+#### Usage
+<pre><code>
+
+convertPvtStyleToBasicStyle(btbl = NULL, pvtStyle = NULL)
+
+</code></pre>
+#### Arguments
+
+btbl The basic table that will own the new style.
+pvtStyle The pivot style to convert.
+Value
+a basictabler style.
