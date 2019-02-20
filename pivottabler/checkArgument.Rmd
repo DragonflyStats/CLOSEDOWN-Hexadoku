@@ -1,0 +1,49 @@
+checkArgument
+5
+Perform basic checks on a function argument.
+
+#### Description
+
+checkArgument is a utility function that provides basic assurances about function argument values
+and generates standardised error messages when invalid values are encountered.
+
+#### Usage
+<pre><code>
+
+checkArgument(argumentCheckMode, checkDataTypes, className, methodName,
+argumentValue, isMissing, allowMissing = FALSE, allowNull = FALSE,
+allowedClasses = NULL, mustBeAtomic = FALSE,
+allowedListElementClasses = NULL, listElementsMustBeAtomic = FALSE,
+allowedValues = NULL, minValue = NULL, maxValue = NULL,
+maxLength = NULL)
+
+</code></pre>
+#### Arguments
+
+argumentCheckMode
+A number between 0 and 4 specifying the checks to perform.
+checkDataTypes A logical value specifying whether the data types should be checked when ar-
+gumentCheckMode=3
+className The name of the calling class, for inclusion in error messages.
+methodName The name of the calling method, for inclusion in error messages.
+argumentValue The value to check.
+isMissing Whether the argument is missing in the calling function.
+allowMissing Whether missing values are permitted.
+allowNull Whether null values are permitted.
+allowedClasses The names of the allowed classes for argumentValue.
+mustBeAtomic
+Whether the argument value must be atomic.
+allowedListElementClasses
+For argument values that are lists(), the names of the allowed classes for the
+elements in the list.
+listElementsMustBeAtomic
+For argument values that are lists(), whether the list elements must be atomic.
+allowedValues For argument values that must be one value from a set list, the list of allowed
+values.
+minValue For numerical values, the lowest allowed value.
+maxValue For numerical values, the highest allowed value.
+maxLength For character values, the maximum allowed length (in characters) of the value.6
+containsText
+Value
+No return value. If invalid values are encountered, the stop() function is used to interrupt execu-
+tion.
