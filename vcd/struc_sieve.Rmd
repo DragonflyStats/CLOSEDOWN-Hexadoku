@@ -1,5 +1,5 @@
 ---
-title: "``struc_sieve``"
+title: "``vcd::struc_sieve``"
 output: html_document
 ---
 
@@ -41,22 +41,23 @@ used by strucplot to produce sieve plots.
 
 #### Value
 A function with Arguments:
-residuals table of residuals.
-observed table of observed Value.
-expected not used by struc_sieve.
-spacing object of class "unit" specifying the space between the tiles.
-gp list of gpar objects used for the drawing the tiles.
-split_vertical vector of logicals indicating, for each dimension of the table, the split direction.
-Author(s)
+
+* ``residuals``: table of residuals.
+* ``observed``: table of observed Value.
+* ``expected``: not used by ``struc_sieve``.
+* ``spacing``: object of class "unit" specifying the space between the tiles.
+* ``gp``: list of gpar objects used for the drawing the tiles.
+* ``split_vertical``: vector of logicals indicating, for each dimension of the table, the split direction.
+
+#### Author(s)
 David Meyer <David.Meyer@R-project.org>
-126 Suicide
+
 
 #### References
-Riedwyl, H., and SchÃ¼pbach, M. (1994), Parquet diagram to plot contingency tables. In F. Faulbaum
-(ed.), Softstat â€™93: Advances in Statistical Software, 293â€“299. Gustav Fischer, New York.
-Friendly, M. (2000), Visualizing Categorical Data, SAS Institute, Cary, NC.
-Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
-tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+* Riedwyl, H., and Schüpbach, M. (1994), Parquet diagram to plot contingency tables. In F. Faulbaum (ed.), Softstat ’93: Advances in Statistical Software, 293–299. Gustav Fischer, New York.
+* Friendly, M. (2000), Visualizing Categorical Data, SAS Institute, Cary, NC.
+* Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
 and available as vignette("strucplot").
-See Also
+
+#### See Also
 sieve, strucplot, structable
