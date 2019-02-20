@@ -1,4 +1,5 @@
-PivotBatchStatistics
+``PivotBatchStatistics``
+
 A class that provides summary statistics for batch calculations.
 
 #### Description
@@ -8,24 +9,18 @@ are batch compatible/incompatible.
 
 #### Usage
 <pre><code>
-
-PivotBatchStatistics20
 PivotCalculation
-Format
+</code></pre>
+
+#### Format
 R6Class object.
-Value
+
+#### Value
 Object of R6Class with properties and methods that help to (do xyz).
-Fields
-parentPivot Owning pivot table.
-asString A text description of the batch statistics.
-Methods
-Documentation For more complete explanations and examples please see the extensive vignettes
-supplied with this package.
-new(...) Create a new Pivot Batch Statistics.
-reset() Clear the batch statistics.
-incrementNoData() Increment the noData count for a batch.
-incrementCompatible() Increment the compatible count for a batch.
-incrementIncompatible() Increment the incompatible count for a batch.
+
+#### Fields
+* ``parentPivot``: Owning pivot table.
+* ``asString``: A text description of the batch statistics.
 
 #### Examples
 ```{r}
@@ -33,3 +28,12 @@ incrementIncompatible() Increment the incompatible count for a batch.
 # This class should only be created by the pivot table.
 # It is not intended to be created outside of the pivot table.
 ```
+
+#### Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+* ``new(...)``: Create a new Pivot Batch Statistics.
+* ``reset()`` : Clear the batch statistics.
+* ``incrementNoData()`` : Increment the noData count for a batch.
+* ``incrementCompatible()`` : Increment the compatible count for a batch.
+* ``incrementIncompatible()``: Increment the incompatible count for a batch.
