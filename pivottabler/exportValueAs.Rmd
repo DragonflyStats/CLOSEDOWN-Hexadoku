@@ -1,0 +1,24 @@
+exportValueAs
+
+#### Description
+
+exportValueAs is a utility function that returns either the original value or a replacement place-
+holder value for export.
+
+#### Usage
+<pre><code>
+
+exportValueAs(rawValue, formattedValue, exportOptions,
+blankValue = character(0))
+
+</code></pre>
+#### Arguments
+
+rawValue
+The raw value to check.
+formattedValue The formatted value to be exported.
+exportOptions A list of options controlling export behaviour.
+blankValue The ’placeholder’ value to be exported when skipping the value.
+Value
+Either the original value or a placeholder value.
+Get an empty theme for applying no styling to a table.
