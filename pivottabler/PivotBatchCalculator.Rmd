@@ -1,0 +1,45 @@
+PivotBatchCalculator
+A class that calculates the values for multiple cells.
+
+#### Description
+
+The PivotBatchCalculator class calculates the values for multiple cells in the pivot table in one
+evaluation step.
+
+#### Usage
+<pre><code>
+
+PivotBatchCalculator
+Format
+R6Class object.PivotBatchStatistics
+19
+Value
+Object of R6Class with properties and methods that help to perform calculations in batch.
+Fields
+parentPivot Owning pivot table.
+batchCount The number of batches generated for the pivot table.
+calculationSummary A summary of the batch compatibility for each calculation.
+batchSummary A summary of the batches in the pivot table.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new batch calculator.
+reset() Clears any batches that currently exist in the batch calculator.
+isFiltersBatchCompatible(filters=NULL) Determines whether a set of filters are compatible
+with batch calculations.
+generateBatchesForNamedCalculationEvaluation1(dataName=NULL, calculationName=NULL, calculationGroupN
+Generates one or more batches for a named calculation and single working filters object.
+generateBatchesForNamedCalculationEvaluation2(calculationName=NULL, calculationGroupName=NULL, worki
+Generates one or more batches for a named calculation and set of working working data asso-
+ciated with a cell.
+generateBatchesForCellEvaluation() Generates one or batches for a pivot table cell.
+evaluateBatches() Evaluates batch calculations.
+getSummaryValueFromBatch(batchName=NULL, calculationName=NULL, calculationGroupName=NULL, workingFil
+Retrieve a value from a the results of a batch that has been evaluated.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
