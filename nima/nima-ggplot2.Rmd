@@ -1,0 +1,64 @@
+
+scale_color_nima Nima's ggplot2 theme - supplement: scale_color
+
+#### Description
+
+Nima's ggplot2 theme scale_color supplement: colors optimized via ColorBrewer
+
+#### Usage
+<pre><code>
+
+scale_color_nima(...)
+
+</code></pre>
+#### Arguments 
+
+... Passed to ggplot
+scale_fill_nima Nima's ggplot2 theme - supplement: scale_fill
+
+#### Description
+
+Nima's ggplot2 theme scale_fill supplement: colors optimized via ColorBrewer
+
+#### Usage
+<pre><code>
+
+scale_fill_nima(...)
+
+</code></pre>
+#### Arguments 
+
+... Passed to ggplot
+theme_jetblack A jet black ggplot2 theme with inverted colors
+
+#### Description
+
+A jet black ggplot2 theme with inverted colors
+
+#### Usage
+<pre><code>
+
+theme_jetblack(base_size = 12, base_family = "")
+12 theme_nima
+
+</code></pre>
+#### Arguments 
+
+base_size Base font size
+base_family Base font family
+... Passed to theme
+
+#### Value
+
+An object as returned by theme
+See Also
+theme
+
+#### Examples
+```{r}
+
+library(ggplot2)
+p <- ggplot(mtcars, aes(y = mpg, x = disp, color = factor(cyl)))
+p <- p + geom_point() + theme_jetblack()
+p
+```
