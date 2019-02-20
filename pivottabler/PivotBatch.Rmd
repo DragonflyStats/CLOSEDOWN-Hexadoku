@@ -1,0 +1,44 @@
+PivotBatch
+A class that represents a batch calculation.
+
+#### Description
+
+The PivotBatch class represents one combination of variables and calculations that are needed when
+calculating the values of cells in a pivot table.
+
+#### Usage
+<pre><code>
+
+PivotBatch
+Format
+R6Class object.
+Value
+Object of R6Class with properties and methods that help to (do xyz).18
+PivotBatchCalculator
+Fields
+parentPivot Owning pivot table.
+batchId A unique integer identifier for this batch.
+compatibleCount The number of pivot cell calculations that this batch supports.
+evaluated TRUE if this batch has been evaluated.
+results The results (a data frame) of the evaluation of this batch.
+asString A text description of this batch.
+Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+new(...) Create a new Pivot Batch.
+isCompatible(dataName=NULL, variableNames=NULL) Checks whether the specified data name
+and combination of variable names are compatible with this batch.
+addCompatible(values=NULL, calculationName=NULL, calculationGroupName=NULL) Adds
+another cell calculation to this batch.
+getCalculationInternalName(calculationName=NULL, calculationGroupName=NULL) Find
+the internal name for this calculation.
+evaluateBatch() Evaluate this batch.
+getSummaryValueFromBatch(filters=NULL, calculationName=NULL, calculationGroupName=NULL)
+Retrieve a value from a batch that has already been evaluated.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
