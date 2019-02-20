@@ -1,0 +1,41 @@
+isNumericValue
+
+#### Description
+
+isNumericValue is a utility function returns TRUE only when a numeric value is present. NULL,
+NA, numeric(0) and integer(0) all return FALSE.
+
+#### Usage
+<pre><code>
+
+isNumericValue(value)
+
+</code></pre>
+#### Arguments
+
+value
+The value to check.
+Value
+TRUE if a numeric value is present.14
+parseColor
+Check whether a text value is present.
+isTextValue
+
+#### Description
+
+isTextValue is a utility function returns TRUE only when a text value is present. NULL, NA,
+character(0) and "" all return FALSE.
+
+#### Usage
+<pre><code>
+
+isTextValue(value)
+
+</code></pre>
+#### Arguments
+
+value
+The value to check.
+Value
+TRUE if a non-blank text value is present.
+Convert a CSS colour into a hex based colour code.
