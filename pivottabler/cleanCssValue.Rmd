@@ -1,0 +1,21 @@
+cleanCssValue
+Cleans up a CSS attribute value.
+
+#### Description
+
+cleanCssValue is a utility function that performs some basic cleanup on CSS attribute values.
+Leading and trailing whitespace is removed. The CSS values "initial" and "inherit" are blocked.
+The function is vectorised so can be used with arrays.
+
+#### Usage
+<pre><code>
+
+cleanCssValue(cssValue)
+
+</code></pre>
+#### Arguments
+
+cssValue
+The value to cleanup.
+Value
+The cleaned value.
