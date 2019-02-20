@@ -1,3 +1,14 @@
+---
+title``: "``quickregression::reg_y``"
+output``: html_document
+---
+
+```{r setup, include=FALSE}
+knitr``:``:opts_chunk$set(echo = TRUE)
+library(quickregression)
+```
+
+
 ## reg_y
 Build regression models with more than one dependent variable
 #### Description
@@ -11,16 +22,16 @@ model = NULL, time = NULL, confint_glm = "default", cov_show = FALSE)
 
 #### Arguments
 * data A data.frame
-* x Integer column indices or names of the variables to be included in univariate analysis, the default columns are all the variables except â€˜yâ€˜ and â€˜timeâ€˜ and
-â€˜covâ€˜.
+* x Integer column indices or names of the variables to be included in univariate analysis, the default columns are all the variables except ‘y‘ and ‘time‘ and
+‘cov‘.
 * y Integer column indices or name of dependent variable
 * cov Integer column indices or name of covariate variables
 * factors Integer column indices or names of variables to be treated as factor
 * model regression model, see lm, glm, coxph for more details
 * time Integer column indices or name of survival time, used in cox regression, see coxph for more details
-* confint_glm A character, â€™defaultâ€™ or â€™profileâ€™. The default method for â€™glmâ€™ class to compute
+* confint_glm A character, ’default’ or ’profile’. The default method for ’glm’ class to compute
 * confidence intervals assumes asymptotic normality confint, you can also use profile likelihood method confint.glm, but it is pretty slow. In this case you
-could specify â€™defaultâ€™ for speed. cov_show A logical, whether to create covariates result, default FALSE
+could specify ’default’ for speed. cov_show A logical, whether to create covariates result, default FALSE
 
 #### Value
 The return result is a concentrated result in a data.frame.
