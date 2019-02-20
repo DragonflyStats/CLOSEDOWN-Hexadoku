@@ -1,0 +1,38 @@
+getDefaultTheme
+
+#### Description
+
+Get the default theme for styling a pivot table.
+
+#### Usage
+<pre><code>
+
+getDefaultTheme(parentPivot, themeName = "default")
+
+</code></pre>
+#### Arguments
+
+parentPivot Owning pivot table.
+themeName The name to use as the new theme name.
+Value
+A PivotStyles object.10
+getNextPosition
+getLargePlainTheme
+Get the large plain theme for styling a pivot table.
+
+#### Description
+
+Get the large plain theme for styling a pivot table.
+
+#### Usage
+<pre><code>
+
+getLargePlainTheme(parentPivot, themeName = "largeplain")
+
+</code></pre>
+#### Arguments
+
+parentPivot Owning pivot table.
+themeName The name to use as the new theme name.
+Value
+A PivotStyles object.
