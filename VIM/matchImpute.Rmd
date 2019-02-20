@@ -1,35 +1,25 @@
-matchImpute
+``VIM::matchImpute``
+
 Fast matching/imputation based on categorical variable
 
 #### Description 
 
-Suitable donors are searched based on matching of the categorical variables. The variables are
-dropped in reversed order, so that the last element of â€™match_varâ€™ is dropped first and the first
+Suitable donors are searched based on matching of the categorical variables. The variables are dropped in reversed order, so that the last element of ’``match_var``’ is dropped first and the first
 element of the vector is dropped last.
 
 #### Usage 
 <pre><code>
-
 matchImpute(data, variable = colnames(data)[!colnames(data) %in% match_var],
-match_var, imp_var = TRUE, imp_suffix = "imp")
-Arguments
-data data.frame, data.table, survey object or matrix
-variable variables to be imputed
-match_var variables used for matching
-imp_var TRUE/FALSE if a TRUE/FALSE variables for each imputed variable should be
-created show the imputation status
-imp_suffix suffix for the TRUE/FALSE variables showing the imputation statusmatrixplot
-39
+   match_var, imp_var = TRUE, imp_suffix = "imp")
+</code></pre>
 
-#### Details 
+#### Arguments
+* ``data``: data.frame, data.table, survey object or matrix
+* ``variable``: variables to be imputed
+* ``match_var``: variables used for matching
+* ``imp_var``: TRUE/FALSE if a TRUE/FALSE variables for each imputed variable should be created show the imputation status
+* ``imp_suffix``: suffix for the TRUE/FALSE variables showing the imputation status
 
-The method works by sampling values from the suitable donors.
-Value
-the imputed data set.
-Author(s)
-Johannes Gussenbauer, Alexander Kowarik
-See Also
-hotdeck
 
 #### Examples 
 ```{r}
@@ -41,3 +31,12 @@ imp_testdata1 <- matchImpute(testdata$wna,match_var=c("c1","c2","b1","b2"))
 dt <- data.table(testdata$wna)
 imp_testdata2 <- matchImpute(dt,match_var=c("c1","c2","b1","b2"))
 ```
+#### Details 
+
+The method works by sampling values from the suitable donors.
+
+#### Value
+the imputed data set.
+
+#### Author(s)
+Johannes Gussenbauer, Alexander Kowarik

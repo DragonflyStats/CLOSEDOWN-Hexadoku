@@ -1,5 +1,15 @@
-initialise
-Initialization of missing values
+---
+title: "``VIM::initialise``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
+## Initialization of missing values
 
 #### Description 
 
@@ -9,22 +19,25 @@ Rough estimation of missing values in a vector according to its type.
 <pre><code>
 
 initialise(x, mixed, method = "kNN", mixed.constant = NULL)
-Arguments
-x a vector.
-mixed a character vector containing the names of variables of type mixed (semi-continous).
-method Method used for Initialization (median or kNN)
-mixed.constant vector with length equal to the number of semi-continuous variables specifying
-the point of the semi-continuous distribution with non-zero probability
+</code></pre>
+
+#### Arguments
+
+* ``x``: a vector.
+* ``mixed``: a character vector containing the names of variables of type mixed (semi-continous).
+* ``method``: Method used for Initialization (median or kNN) mixed.
+* ``constant``: vector with length equal to the number of semi-continuous variables specifying the point of the semi-continuous distribution with non-zero probability
 
 #### Details 
 
-Missing values are imputed with the mean for vectors of class "numeric", with the median for
-vectors of class "integer", and with the mode for vectors of class "factor". Hence, x should be
-prepared in the following way: assign class "numeric" to numeric vectors, assign class "integer"
-to ordinal vectors, and assign class "factor" to nominal or binary vectors.
-Value
+Missing values are imputed with the mean for vectors of class "numeric", with the median for vectors of class "integer", and with the mode for vectors of class "factor". Hence, x should be
+prepared in the following way: assign class "numeric" to numeric vectors, assign class "integer" to ordinal vectors, and assign class "factor" to nominal or binary vectors.
+
+#### Value
 the initialized vector.
-Note
+
+#### Note
 The function is used internally by some imputation algorithms.
-Author(s)
+
+#### Author(s)
 Matthias Templ, modifications by Andreas Alfons28
