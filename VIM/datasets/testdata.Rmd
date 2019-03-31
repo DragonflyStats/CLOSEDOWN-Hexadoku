@@ -1,0 +1,23 @@
+---
+title: "``VIM::matrixplot``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
+Simulated data set for testing purpose
+
+#### Description 
+
+2 numeric, 2 binary, 2 nominal and 2 mixed (semi-continous) variables
+
+vmGUIenvir
+
+#### Examples 
+```{r}
+data(testdata)
+```
