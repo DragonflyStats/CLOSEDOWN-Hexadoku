@@ -7,8 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(vcd)
 ```
-
-
 hls HLS Color Specification
 
 #### Description
@@ -24,15 +22,10 @@ hls(h = 10.51)
 #### Arguments
 
 * ``h`` : hue value in [0, 1].
-l luminance value in [0, 1].
-s saturation value in [0, 1].
-Details
-HLS colors are a similar specification of colors as HSV colors, but using hue/luminance/saturation
-rather that hue/saturation/value.
-Author(s)
-Achim Zeileis <Achim.Zeileis@R-project.org>
-See Also
-hsv, hcl2hex, polarLUV
+* l luminance value in [0, 1].
+* s saturation value in [0, 1].
+
+
 
 #### Examples
 ```{r}
@@ -42,4 +35,11 @@ pie(rep(1, 12), col = sapply(1:12/12, function(x) hls(x)))
 ```
 
 
+#### Details
+HLS colors are a similar specification of colors as HSV colors, but using hue/luminance/saturation
+rather that hue/saturation/value.
 
+#### Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+See Also
+hsv, hcl2hex, polarLUV
