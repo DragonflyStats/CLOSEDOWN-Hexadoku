@@ -1,6 +1,12 @@
-
-
-``groupedstats::set_cwd``
+---
+title: "``groupedstats::set_cwd``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(groupedstats)
+```
 
 Setting Working Directory in RStudio to where the R Script is.
 
@@ -10,14 +16,15 @@ This function will change the current working directory to whichever directory t
 This preempts the trouble of setting the working directory manually.
 
 #### Usage
-<pre><code>
 
+<pre><code>
 set_cwd()
 </code></pre>
 
 #### Value
 Path to changed working directory.
-Note
+
+#### Note
 This function will work only with RStudio IDE. 
 
 Reference: https://eranraviv.com/r-tips-and-tricks-working-directory/
