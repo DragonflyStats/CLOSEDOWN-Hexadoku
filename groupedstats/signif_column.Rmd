@@ -1,6 +1,14 @@
+---
+title: "``groupedstats::signif_column``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(groupedstats)
+```
 
-
-``groupedstats::signif_column()``
+## ``groupedstats::signif_column()``
 
 Creating a new character type column with significance labels
 
@@ -39,7 +47,6 @@ groupedstats::signif_column(p = c("1", "0.1", "0.0002", "0.03", "0.65"))
 ```
 #### Value
 Returns the originally entered object (either a vector or a dataframe) in tibble format with an additional column corresponding to statistical significance.
-20
-specify_decimal_p
-Author(s)
+
+#### Author(s)
 Indrajeet Patil
