@@ -1,4 +1,11 @@
-
+---
+title: "``vcd::cotab_panel``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
 
 cotab_panel Panel-generating Functions for Contingency Table Coplots
 
@@ -8,7 +15,6 @@ Panel-generating functions visualizing contingency tables that can be passed to 
 
 #### Usage
 <pre><code>
-
 cotab_mosaic(x = NULL, condvars = NULL, ...)
 cotab_assoc(x = NULL, condvars = NULL, ylim = NULL, ...)
 cotab_sieve(x = NULL, condvars = NULL, ...)
@@ -16,24 +22,22 @@ cotab_loddsratio(x = NULL, condvars = NULL, ...)
 cotab_agreementplot(x = NULL, condvars = NULL, ...)
 cotab_fourfold(x = NULL, condvars = NULL, ...)
 cotab_coindep(x, condvars,
-test = c("doublemax", "maxchisq", "sumchisq"),
-level = NULL1000, interpolate = c(2, 4),
-h = NULLNULLNULL, lty = 1,
-type = c("mosaic", "assoc"), legend = FALSE, ylim = NULL, ...)
-cotab_panel 29
+  test = c("doublemax", "maxchisq", "sumchisq"),
+  level = NULL1000, interpolate = c(2, 4),
+  h = NULLNULLNULL, lty = 1,
+  type = c("mosaic", "assoc"), legend = FALSE, ylim = NULL, ...)
 
 </code></pre>
 #### Arguments
 
 * ``x``: a contingency tables in array form.
-* condvars margin name(s) of the conditioning variables.
-* ylim y-axis limits for assoc plot. By default this is computed from x.
-* test character indicating which type of statistic should be used for assessing conditional independence.
-level,n,h,c,l,lty,interpolate
-variables controlling the HCL shading of the residuals, see shadings for more details.
-* type character indicating which type of plot should be produced.
-* legend logical. Should a legend be produced in each panel?
-* ... further arguments passed to the plotting function (such as mosaic or assoc or sieve respectively).
+* ``condvars``: margin name(s) of the conditioning variables.
+* ``ylim``: y-axis limits for assoc plot. By default this is computed from x.
+* ``test``: character indicating which type of statistic should be used for assessing conditional independence.
+* ``level``,``n``,``h``,``c``,``l``,``lty``,``interpolate``: variables controlling the HCL shading of the residuals, see shadings for more details.
+* ``type``: character indicating which type of plot should be produced.
+* ``legend``: logical. Should a legend be produced in each panel?
+* ``...``: further arguments passed to the plotting function (such as mosaic or assoc or sieve respectively).
 
 #### Examples
 ```{r}
