@@ -57,24 +57,22 @@ expected  Value
  and standardized by its maximum value. The equal-spacing weights are defined by
 1????ji????jj=(r????1), r number of columns/rows, and the Fleiss-Cohen weights by 1????ji????jj2=(r????1)2.
 The latter one attaches greater importance to near disagreements.
-54 Kappa
+
 
 #### Value
 An object of class "Kappa" with three components:
-Unweighted numeric vector of length 2 with the kappa statistic (value component), along
-with Approximate Standard Error (ASE component)
-Weighted idem for the weighted kappa.
-Weights numeric matrix with weights used.
+* Unweighted numeric vector of length 2 with the kappa statistic (value component), along with Approximate Standard Error (ASE component)
+* Weighted idem for the weighted kappa.
+* Weights numeric matrix with weights used.
 
 #### Note
 The summary method also prints the weights.
 There is a confint method for computing approximate confidence intervals.
-Author(s)
+
+#### Author(s)
 David Meyer <David.Meyer@R-project.org>
 
 #### References
-Cohen, J. (1960), A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20, 37-46.
-Everitt, B.S. (1968), Moments of statistics kappa and weighted kappa. The British Journal of Mathematical and Statistical Psychology, 21, 97-103.
-Fleiss, J.L., Cohen, J., and Everitt, B.S. (1969), Large sample standard errors of kappa and weighted kappa. Psychological Bulletin, 72, 332-327.
-See Also
-agreementplot, confint
+* Cohen, J. (1960), A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20, 37-46.
+* Everitt, B.S. (1968), Moments of statistics kappa and weighted kappa. The British Journal of Mathematical and Statistical Psychology, 21, 97-103.
+* Fleiss, J.L., Cohen, J., and Everitt, B.S. (1969), Large sample standard errors of kappa and weighted kappa. Psychological Bulletin, 72, 332-327.
