@@ -1,0 +1,29 @@
+
+Birmingham Train Disruptions, Dec 2016-Feb 2017.
+
+#### Description
+
+A dataset containing details of the trains in the bhmtrains dataset that were partially/wholly can-
+celled and/or reinstated.
+
+#### Usage
+<pre><code>
+
+bhmtraindisruption
+</code></pre>
+
+#### Format
+A data frame with 2982 rows and 10 variables:
+ServiceId Unique train identifier
+LastCancellationAt Time of the last cancellation
+LastCancellationLocation 3-letter code denoting the location of the last cancellation
+LastCancellationReasonCategory The broad reason why the train was cancelled
+LastCancellationReasonDesc A more specific reason why the train was cancelled
+LastReinstatedAt Time of the last reinstatement
+LastChangeOfOriginAt Time of the last change of origin
+LastChangeOfOriginLocation 3-letter code denoting the location of the last change of origin
+LastChangeOfOriginReasonCategory The broad reason why the origin was changed
+LastChangeOfOriginReasonDesc A more specific reason why the origin was changed
+
+#### Source
+http://www.recenttraintimes.co.uk/4
