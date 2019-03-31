@@ -25,6 +25,7 @@ data("PreSex")
 
 A 4-dimensional array resulting from cross-tabulating 1036 observations on 4 variables. The variables
 and their levels are as follows:
+
 No Name Levels
 1 MaritalStatus Divorced, Married
 2 ExtramaritalSex Yes, No
@@ -54,10 +55,11 @@ expecteGender * PremaritalSex * ExtramaritalSex
 + MaritalStatus * PremaritalSex * ExtramaritalSex,
 main = "G*P*E + P*E*M")
 ```
-Source
+#### Source
 * Michael Friendly (2000), Visualizing Categorical Data: http://euclid.psych.yorku.ca/ftp/
 sas/vcd/catdata/marital.sas
-References
+
+#### References
 G. N. Gilbert (1981), Modelling Society: An Introduction to Loglinear Analysis for Social Researchers.
 Allen and Unwin, London.
 B. Thornes \& J. Collard (1979), Who Divorces?. Routledge \& Kegan, London.
