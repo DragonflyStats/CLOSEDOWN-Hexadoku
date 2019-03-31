@@ -1,6 +1,12 @@
-
-``groupedstats::grouped_slr``
-
+---
+title: "``groupedstats::grouped_slr``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
 
 #### Description
 
@@ -46,7 +52,4 @@ standardized, i.e. the lm model used is scale(y) ~ scale(x) , and not y ~ x
 
 #### Author(s)
 Indrajeet Patil
-See Also
-grouped_lm
-grouped_ttest
 
