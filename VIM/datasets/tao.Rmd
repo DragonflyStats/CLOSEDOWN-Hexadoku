@@ -1,0 +1,41 @@
+---
+title: "``VIM::tao``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+
+
+Tropical Atmosphere Ocean (TAO) project data
+
+#### Description 
+
+A small subsample of the Tropical Atmosphere Ocean (TAO) project data, derived from the GGOBI
+project.testdata
+65
+Format
+A data frame with 736 observations on the following 8 variables.
+Year a numeric vector
+Latitude a numeric vector
+Longitude a numeric vector
+Sea.Surface.Temp a numeric vector
+Air.Temp a numeric vector
+Humidity a numeric vector
+UWind a numeric vector
+VWind a numeric vector
+
+#### Details 
+
+All cases recorded for five locations and two time periods.
+Source
+http://www.pmel.noaa.gov/tao/
+
+#### Examples 
+```{r}
+data(tao, package = "VIM")
+summary(tao)
+aggr(tao)
