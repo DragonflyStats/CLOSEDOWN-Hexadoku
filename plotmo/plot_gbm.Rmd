@@ -1,0 +1,88 @@
+plot_gbm
+Plot a gbm model
+
+#### Description
+
+Plot a gbm model showing the training and other error curves.
+
+#### Usage
+
+plot_gbm(object=stop("no 'object' argument"),
+smooth = c(0, 0, 0, 1),
+col = c(1, 2, 3, 4), ylim = "auto",
+legend.x = NULL, legend.y = NULL, legend.cex = .8,
+grid.col = NA,
+n.trees = NA, col.n.trees ="darkgray",
+...)
+
+#### Arguments
+
+object The gbm model.
+smooth Four-element vector specifying if smoothing should be applied to the train, test,
+CV, and OOB curves respectively. When smoothing is specified, a smoothed
+curve is plotted and the minimum is calculated from the smoothed curve.
+The default is c(0, 0, 0, 1) meaning apply smoothing only to the OOB curve
+(same as gbm.perf).
+Note that smooth=1 (which gets recyled to c(1,1,1,1)) will smooth all the
+curves.
+col Four-element vector specifying the colors for the train, test, CV, and OOB curves
+respectively.
+The default is c(1, 2, 3, 4).
+Use a color of 0 to remove the corresponding curve, e.g. col=c(1,2,3,0) to
+not display the OOB curve.
+If col=0 (which gets recycled to c(0,0,0,0)) nothing will be plotted, but plot_gbm
+will return the number-of-trees at the minima as usual (as described in the Value
+section below).
+ylim The default ylim="auto" shows more detail around the minima.
+Use ylim=NULL for the full vertical range of the curves.
+Else specify ylim as usual.
+legend.x The x position of the legend. The default positions the legend automatically.
+Use legend.x=NA for no legend.
+See the x and y arguments of xy.coords for other options, for example legend.x="topright".
+legend.y The y position of the legend.16
+plot_gbm
+legend.cex The legend cex (the default is 0.8).
+grid.col Default NA. Color of the optional grid, for example grid.col=1.
+n.trees For use by plotres.
+The x position of the gray vertical line indicating the n.trees passed by plotres
+to predict.gbm to calculate the residuals. Plotres defaults to all trees.
+col.n.trees For use by plotres.
+Color of the vertical line showing the n.trees argument. Default is "darkgray".
+... Dot arguments are passed internally to plot.default.
+Value
+This function returns a four-element vector specifying the number of trees at the train, test, CV, and
+OOB minima respectively.
+The minima are calculated after smoothing as specified by this function’s smooth argument. By
+default, only the OOB curve is smoothed. The smoothing algorithm for the OOB curve differs
+slightly from gbm.perf, so can give a slightly different number of trees.
+Note
+The OOB curve
+The OOB curve is artificially rescaled to force it into the plot. See Chapter 7 in the plotres vignette.
+Interaction with plotres
+When invoking this function via plotres, prefix any argument of plotres with w1. to tell plotres
+to pass the argument to this function. For example give w1.ylim=c(0,10) to plotres (plain
+ylim=c(0,10) in this context gets passed to the residual plots).
+Acknowledgments
+This function is derived from code in the gbm package authored by Greg Ridgeway and others.
+See Also
+Chapter 7 in plotres vignette discusses this function.
+
+#### Examples
+```{r}
+if (require(gbm)) {
+n <- 100
+# toy model for quick demo
+x1 <- 3 * runif(n)
+x2 <- 3 * runif(n)
+x3 <- sample(1:4, n, replace=TRUE)
+y <- x1 + x2 + x3 + rnorm(n, 0, .3)
+data <- data.frame(y=y, x1=x1, x2=x2, x3=x3)
+mod <- gbm(y~., data=data, distribution="gaussian",
+n.trees=300, shrinkage=.1, interaction.depth=3,
+train.fraction=.8, verbose=FALSE)
+plot_gbm(mod)plot_glmnet
+}
+17
+# plotres(mod) # plot residuals
+# plotmo(mod) # plot regression surfaces
+```
