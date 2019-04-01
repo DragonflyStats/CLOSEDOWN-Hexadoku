@@ -1,0 +1,35 @@
+augment
+
+Retrieve augmented dataframe if it exists.
+
+#### Description
+
+Check if a augment method exits for a given object, either in broom or in broom.mixed. If it does,
+return the model summary dataframe, if not, return a NULL.
+
+#### Usage
+
+augment(x, ...)
+
+#### Arguments
+
+x Model object or other R object with information to append to observations.
+... Addition arguments to augment method.
+Value
+A tibble::tibble() with information about data points.
+Methods
+No methods found in currently loaded packages.
+Author(s)
+Indrajeet Patilglance
+3
+
+#### Examples
+```{r}
+set.seed(123)
+library(lme4)
+# mixed-effects models (`broom.mixed` will be used)
+lmm.mod <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+broomExtra::augment(lmm.mod)
+# linear model (`broom` will be used)
+lm.mod <- lm(Reaction ~ Days, sleepstudy)
+broomExtra::augment(lm.mod)
