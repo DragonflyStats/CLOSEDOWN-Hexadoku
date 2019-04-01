@@ -1,0 +1,212 @@
+plotres
+Plot the residuals of a regression model
+
+#### Description
+
+Plot the residuals of a regression model.
+Please see the plotres vignette (also available here).
+
+#### Usage
+
+plotres(object = stop("no 'object' argument"),
+which = 1:4, info = FALSE, versus = 1,
+standardize = FALSE, delever = FALSE, level = 0,
+id.n = 3, labels.id = NULL, smooth.col = 2,
+grid.col = 0, jitter = 0,
+do.par = NULL, caption = NULL, trace = 0,
+npoints = 3000, center = TRUE,
+type = NULL, nresponse = NA,
+object.name = quote.deparse(substitute(object)), ...)
+
+#### Arguments
+
+object The model object.
+which Which plots do draw. Default is 1:4.
+1 Model plot. What gets plotted here depends on the model class. For example,
+for earth models this is a model selection plot. Nothing will be displayed for
+some models. For details, please see the plotres vignette.
+2 Cumulative distribution of abs residualsplotres
+11
+3 Residuals vs fitted
+4 QQ plot
+5 Abs residuals vs fitted
+6 Sqrt abs residuals vs fitted
+7 Abs residuals vs log fitted
+8 Cube root of the squared residuals vs log fitted
+9 Log abs residuals vs log fitted
+info Default is FALSE. Use TRUE to print extra information as follows:
+i) Display the distribution of the residuals along the bottom of the plot.
+ii) Display the training R-Squared.
+iii) Display the Spearman Rank Correlation of the absolute residuals with the
+fitted values. Actually, correlation is measured against the absolute values of
+whatever is on the horizontal axis — by default this is the fitted response, but
+may be something else if the versus argument is used.
+iv) In the Cumulative Distribution plot (which=2), display additional informa-
+tion on the quantiles.
+v) Only for which=5 or 9. Regress the absolute residuals against the fitted values
+and display the regression slope. Robust linear regression is used via rlm in the
+MASS package.
+vi) Add various annotations to the other plots.
+versus What do we plot the residuals against? One of:
+1 Default. Plot the residuals versus the fitted values (or the log values when
+which=7 to 9).
+2 Residuals versus observation number, after observations have been sorted on
+the fitted value. Same as versus=1, except that the residuals are spaced uni-
+formly along the horizontal axis.
+3 Residuals versus the response.
+4 Residuals versus the hat leverages.
+"b:" Residuals versus the basis functions. Currently only supported for earth,
+mda::mars, and gam::gam models. A optional regex can follow the "b:"
+to specify a subset of the terms, e.g. versus="b:wind" will plot terms with
+"wind" in their name.
+Else a character vector specifying which predictors to plot against.
+Example 1: versus="" plots against all predictors (since the regex versus=""
+matches anything).
+Example 2: versus=c("wind", "vis") plots predictors with wind or vis in
+their name.
+Example 3: versus=c("wind|vis") equivalent to the above.
+Note: These are regexs. Thus versus="wind" will match all variables that
+have "wind" in their names. Use "^wind$" to match only the variable named
+"wind".12
+plotres
+standardize Default is FALSE. Use TRUE to standardize the residuals. Only supported for
+some models, an error message will be issued otherwise.
+Each residual is divided by by se_i * sqrt(1 - h_ii), where se_i is the
+standard error of prediction and h_ii is the leverage (the diagonal entry of the
+hat matrix). When the variance model holds, the standardized residuals are ho-
+moscedastic with unity variance.
+The leverages are obtained using hatvalues. (For earth models the leverages
+are for the linear regression of the response on the basis matrix bx.) A standard-
+ized residual with a leverage of 1 is plotted as a star on the axis.
+This argument applies to all plots where the residuals are used (including the
+cumulative distribution and QQ plots, and to annotations displayed by the info
+argument).
+delever Default is FALSE. Use TRUE to “de-lever” the residuals. Only supported for some
+models, an error message will be issued otherwise.
+Each residual is divided by sqrt(1 - h_ii). See the standardize argument
+for details.
+level Draw estimated confidence or prediction interval bands at the given level, if
+the model supports them.
+Default is 0, bands not plotted. Else a fraction, for example level=0.90. Ex-
+ample:
+mod <- lm(log(Volume)~log(Girth), data=trees)
+plotres(mod, level=.90)
+You can modify the color of the bands with level.shade and level.shade2.
+See also “Prediction intervals” in the plotmo vignette (but note that plotmo
+needs prediction intervals on new data, whereas plotres requires only that the
+model supports prediction intervals on the training data).
+id.n The largest id.n residuals will be labeled in the plot. Default is 3. Special val-
+ues TRUE and -1 or mean all.
+If id.n is negative (but not -1) the id.n most positive and most negative resid-
+uals will be labeled in the plot.
+A current implementation restriction is that id.n is ignored when there are more
+than ten thousand cases.
+labels.id Residual labels. Only used if id.n > 0. Default is the case names, or the case
+numbers if the cases are unnamed.
+smooth.col Color of the smooth line through the residual points. Default is 2, red. Use
+smooth.col=0 for no smooth line.
+You can adjust the amount of smoothing with smooth.f. This gets passed as f
+to lowess. The default is 2/3. Lower values make the line more wiggly.
+grid.col Default is 0, no grid. Else add a background grid of the specified color to the
+degree1 plots. The special value grid.col=TRUE is treated as "lightgray".
+jitter Default is 0, no jitter. Passed as factor to jitter to jitter the plotted points
+horizontally and vertically. Useful for discrete variables and responses, where
+the residual points tend to be overlaid.plotres
+13
+do.par One of NULL, FALSE, TRUE, or 2, as follows:
+do.par=NULL (default). Same as do.par=FALSE if the number of plots is one;
+else the same as TRUE.
+do.par=FALSE. Use the current par settings. You can pass additional graphics
+parameters in the “...” argument.
+do.par=TRUE. Start a new page and call par as appropriate to display multiple
+plots on the same page. This automatically sets parameters like mfrow and mar.
+You can pass additional graphics parameters in the “...” argument.
+do.par=2. Like do.par=TRUE but don’t restore the par settings to their original
+state when plotres exits, so you can add something to the plot.
+caption Overall caption. By default create the caption automatically. Use caption=""
+for no caption. (Use main to set the title of an individual plot.)
+trace Default is 0.
+trace=1 (or TRUE) for a summary trace (shows how predict and friends are
+invoked for the model).
+trace=2 for detailed tracing.
+npoints Number of points to be plotted. A sample of npoints is taken; the sample in-
+cludes the biggest twenty or so residuals.
+The default is 3000 (not all, to avoid overplotting on large models). Use npoints=TRUE
+or -1 for all points.
+center Default is TRUE, meaning center the horizontal axis in the residuals plot, so
+asymmetry in the residual distribution is more obvious.
+type Type parameter passed first to residuals and if that fails to predict. For al-
+lowed values see the residuals and predict methods for your object (such as
+residuals.rpart or predict.earth). By default, plotres tries to automati-
+cally select a suitable value for the model in question (usually "response"), but
+this will not always be correct. Use trace=1 to see the type argument passed
+to residuals and predict.
+nresponse Which column to use when residuals or predict returns multiple columns.
+This can be a column index or column name (which may be abbreviated, partial
+matching is used).
+object.name The name of the object for error and trace messages. Used internally by
+plot.earth.
+... Dot arguments are passed to the plot functions. Dot argument names, whether
+prefixed or not, should be specified in full and not abbreviated.
+“Prefixed” arguments are passed directly to the associated function. For ex-
+ample the prefixed argument pt.col="pink" passes col="pink" to points(),
+overriding the global col setting. The prefixes recognized by plotres are:
+residuals.
+passed to residuals14
+plotres
+predict.
+w1.
+pt.
+smooth.
+level.
+legend.
+cum.
+qq.
+qqline
+label.
+cook.
+caption.
+par.
+passed to predict (predict is called if the call to residuals fails)
+sent to the model-dependent plot for which=1 e.g. w1.col=2
+modify the displayed points e.g. pt.col=as.numeric(survived)+2 or pt.cex=.8.
+modify the smooth line e.g. smooth.col=0 or smooth.f=.5.
+modify the interval bands, e.g. level.shade="gray" or level.shade2="lightblue"
+modify the displayed legend e.g. legend.cex=.9
+modify the Cumulative Distribution plot (arguments for plot.stepfun)
+modify the QQ plot, e.g. qq.pch=1
+modify the qqline in the QQ plot, e.g. qqline.col=0
+modify the point labels, e.g. label.cex=.9 or label.font=2
+modify the Cook’s Distance annotations. This affects only the leverage plot (versus=3) for lm models with sta
+modify the overall caption (see the caption argument) e.g. caption.col=2.
+arguments for par (only necessary if a par argument name clashes with a plotres argument)
+The cex argument is relative, so specifying cex=1 is the same as not specifying
+cex.
+For backwards compatibility, some dot arguments are supported but not explic-
+itly documented.
+Value
+If the which=1 plot was plotted, the return value of that plot (model dependent).
+Else if the which=3 plot was plotted, return list(x,y) where x and y are the coordinates of the
+points in that plot (but without jittering even if the jitter argument was used).
+Else return NULL.
+Note
+This function is designed primarily for displaying standard response - fitted residuals for
+models with a single continuous response, although it will work for a few other models.
+In general this function won’t work on models that don’t save the call and data with the model
+in a standard way. It uses the same underlying mechanism to access the model data as plotmo.
+For further discussion please see “Accessing the model data” in the plotmo vignette (also available
+here). Package authors may want to look at Guidelines for S3 Regression Models (also available
+here).
+See Also
+Please see the plotres vignette (also available here).
+plot.lm
+plot.earth
+
+#### Examples
+```{r}
+# we use lm in this example, but plotres is more useful for models
+# that don't have a function like plot.lm for plotting residuals
+lm.model <- lm(Volume~., data=trees)plot_gbm
+15
+plotres(lm.model)
+```
