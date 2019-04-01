@@ -27,15 +27,13 @@ interactive = TRUE, ...)
 </code></pre>
 
 #### Arguments
-* x a matrix or data.frame.
-* delimiter a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used
+* ``x``: a matrix or data.frame.
+* ``delimiter``: a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used
 to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If
-*  such imputation-indices are found, they are used for highlighting and the colors are adjusted according to the given colors for imputed variables (see col).
-sortby a numeric or character value specifying the variable to sort the data matrix by, or NULL to plot without sorting.
-col the colors to be used in the plot. RGB colors may be specified as character strings or as objects of class "RGB". HCL colors need to be specified as objects
-of class "polarLUV". If only one color is supplied, it is used for missing and imputed data and a greyscale is used for available data. If two colors are supplied,
-the first is used for missing and the second for imputed data and a greyscale for available data. If three colors are supplied, the first is used as end color for
-the available data, while the start color is taken to be transparent for RGB or white for HCL. Missing/imputed data is visualized by the second/third color in
+such imputation-indices are found, they are used for highlighting and the colors are adjusted according to the given colors for imputed variables (see ``col``).
+* ``sortby``: a numeric or character value specifying the variable to sort the data matrix by, or NULL to plot without sorting.
+* ``col``: the colors to be used in the plot. RGB colors may be specified as character strings or as objects of class "RGB". HCL colors need to be specified as objects of class "polarLUV". If only one color is supplied, it is used for missing and imputed data and a greyscale is used for available data. If two colors are supplied,
+the first is used for missing and the second for imputed data and a greyscale for available data. If three colors are supplied, the first is used as end color for the available data, while the start color is taken to be transparent for RGB or white for HCL. Missing/imputed data is visualized by the second/third color in
 this case. If four colors are supplied, the first is used as start color and the second as end color for the available data, while the third/fourth color is used for
 missing/imputed data.
 * fixup a logical indicating whether the colors should be corrected to valid RGB values
@@ -43,12 +41,11 @@ missing/imputed data.
 * xlim, ylim axis limits.
 main, sub main and sub title.
 xlab, ylab axis labels.
-* axes a logical indicating whether axes should be drawn on the plot.
-* labels either a logical indicating whether labels should be plotted below each column, or a character vector giving the labels.
-* xpd a logical indicating whether the rectangles should be allowed to go outside the plot region. If NULL, it defaults to TRUE unless axis limits are specified.
-* interactive a logical indicating whether a variable to be used for sorting can be selected interactively (see ‘Details’).
-* ... for matrixplot and iimagMiss, further graphical parameters to be passed to
-* plot.window, title and axis. For TKRmatrixplot, further arguments to be passed to matrixplot.
+* ``axes``: a logical indicating whether axes should be drawn on the plot.
+* ``labels``: either a logical indicating whether labels should be plotted below each column, or a character vector giving the labels.
+* ``xpd`` a logical indicating whether the rectangles should be allowed to go outside the plot region. If NULL, it defaults to TRUE unless axis limits are specified.
+* ``interactive``: a logical indicating whether a variable to be used for sorting can be selected interactively (see ‘Details’).
+* ``...`` for matrixplot and iimagMiss, further graphical parameters to be passed to ``plot.window``, ``title`` and ``axis``. For TKRmatrixplot, further arguments to be passed to matrixplot.
 
 
 #### Examples 
@@ -58,6 +55,9 @@ data(sleep, package = "VIM")
 x <- sleep[, -(8:10)]
 x[,c(1,2,4,6,7)] <- log10(x[,c(1,2,4,6,7)])
 matrixplot(x, sortby = "BrainWgt")
+```
+
+```{r}
 ## for imputed values
 x_imp <- kNN(sleep[, -(8:10)])
 x_imp[,c(1,2,4,6,7)] <- log10(x_imp[,c(1,2,4,6,7)])
@@ -72,7 +72,9 @@ In a matrix plot, all cells of a data matrix are visualized by rectangles. Avail
 possible to use colors in the HCL or RGB color space. A simple way of visualizing the magnitudemosaicMiss 41
 of the available data is to apply a greyscale, which has the advantage that missing/imputed values can easily be distinguished by using a color such as red/orange. Note that -Inf and Inf are always assigned the begin and end color, respectively, of the continuous color scheme.
 Additionally, the observations can be sorted by the magnitude of a selected variable. If interactive is TRUE, clicking in a column redraws the plot with observations sorted by the corresponding variable. Clicking anywhere outside the plot region quits the interactive session.
-Note
+
+
+#### Note
 This is a much more powerful extension to the function imagmiss in the former CRAN package
 dprep.
 iimagMiss is deprecated and may be omitted in future versions of VIM. Use matrixplot instead.
