@@ -1,0 +1,330 @@
+plotmo
+Plot a model’s response over a range of predictor values (the model
+surface)
+
+#### Description
+
+Plot model surfaces for a wide variety of models.
+This function plots the model’s response when varying one or two predictors while holding the other
+predictors constant (a poor man’s partial-dependence plot).
+It can also generate partial-dependence plots (by specifying pmethod="partdep").
+Please see the plotmo vignette (also available here).
+
+#### Usage
+
+plotmo(object=stop("no 'object' argument"),
+type=NULL, nresponse=NA, pmethod="plotmo",
+pt.col=0, jitter=.5, smooth.col=0, level=0,
+func=NULL, inverse.func=NULL, nrug=0, grid.col=0,
+type2="persp",
+degree1=TRUE, all1=FALSE, degree2=TRUE, all2=FALSE,
+do.par=TRUE, clip=TRUE, ylim=NULL, caption=NULL, trace=0,
+grid.func=NULL, grid.levels=NULL, extend=0,
+ngrid1=50, ngrid2=20, ndiscrete=5, npoints=3000,
+center=FALSE, xflip=FALSE, yflip=FALSE, swapxy=FALSE, int.only.ok=TRUE,
+...)
+
+#### Arguments
+
+object The model object.
+type Type parameter passed to predict. For allowed values see the predict method
+for your object (such as predict.earth). By default, plotmo tries to automat-
+ically select a suitable value for the model in question (usually "response") but
+this will not always be correct. Use trace=1 to see the type argument passed
+to predict.
+nresponse Which column to use when predict returns multiple columns. This can be a
+column index, or a column name if the predict method for the model returns
+column names. The column name may be abbreviated, partial matching is used.
+pmethod Plotting method. One of:
+"plotmo" (default) Classic plotmo plots i.e. the background variables are fixed
+at their medians (or first level for factors).
+"partdep" Partial dependence plots, i.e. at each point the effect of the back-
+ground variables is averaged.
+"apartdep" Approximate partial dependence plots. Faster than "partdep" es-
+pecially for big datasets. Like "partdep" but the background variables are av-
+eraged over a subset of ngrid1 cases (default 50), rather than all cases in theplotmo
+3
+training data. The subset is created by selecting rows at equally spaced inter-
+vals from the training data after sorting the data on the response values (ties are
+randomly broken).
+The same background subset of ngrid1 cases is used for both degree1 and de-
+gree2 plots.
+pt.col The color of response points (or response sites in degree2 plots). This refers to
+the response y in the data used to build the model. Note that the displayed points
+are jittered by default (see the jitter argument).
+Default is 0, display no response points.
+This can be a vector, like all such arguments – for example pt.col = as.numeric(survived)+2
+to color points by their survival class.
+You can modify the plotted points with pt.pch, pt.cex, etc. (these get passed
+via plotmo’s “...” argument). For example, pt.cex = weights to size points
+by their weight. To label the points, set pt.pch to a character vector.
+jitter Applies only if pt.col is specified.
+The default is jitter=.5, automatically apply some jitter to the points. Points
+are jittered horizontally and vertically.
+Use jitter=0 to disable this automatic jittering. Otherwise something like
+jitter=1, but the optimum value is data dependent.
+smooth.col Color of smooth line through the response points. (The points themselves will
+not be plotted unless pt.col is specified.) Default is 0, no smooth line.
+Example:
+mod <- lm(Volume~Height, data=trees)
+plotmo(mod, pt.color=1, smooth.col=2)
+You can adjust the amount of smoothing with smooth.f. This gets passed as f
+to lowess. The default is .5. Lower values make the line more wiggly.
+level
+Draw estimated confidence or prediction interval bands at the given level, if
+the predict method for the model supports them.
+Default is 0, bands not plotted. Else a fraction, for example level=.95. See
+“Prediction intervals” in the plotmo vignette. Example:
+mod <- lm(log(Volume)~log(Girth), data=trees)
+plotmo(mod, level=.95)
+You can modify the color of the bands with level.shade and level.shade2.
+func
+Superimpose func(x) on the plot. Example:
+mod <- lm(Volume~Girth, data=trees)
+estimated.volume <- function(x) .17 * x$Girth^2
+plotmo(mod, pt.col=2, func=estimated.volume)
+The func is called for each plot with a single argument which is a dataframe
+with columns in the same order as the predictors in the formula or x used to
+build the model. Use trace=2 to see the column names and first few rows of
+this dataframe.
+inverse.func
+A function applied to the response before plotting. Useful to transform a trans-
+formed response back to the original scale. Example:4
+plotmo
+mod <- lm(log(Volume)~., data=trees)
+plotmo(mod, inverse.func=exp)
+# exp() is inverse of log()
+nrug
+grid.col
+type2
+Number of ticks in the rug along the bottom of the plot
+Default is 0, no rug.
+Use nrug=TRUE for all the points.
+Else specify the number of quantiles e.g. use nrug=10 for ticks at the 0, 10, 20,
+..., 100 percentiles.
+Modify the rug ticks with rug.col, rug.lwd, etc.
+The special value nrug="density" means plot the density of the points along
+the bottom. Modify the density plot with density.adjust (default is .5),
+density.col, density.lty, etc.
+Default is 0, no grid. Else add a background grid of the specified color to the
+degree1 plots. The special value grid.col=TRUE is treated as "lightgray".
+Degree2 plot type. One of "persp" (default), "image", or "contour". You
+can pass arguments to these functions if necessary by using persp., image., or
+contour. as a prefix. 
+#### Examples
+```{r}:
+plotmo(mod, persp.ticktype="detailed", persp.nticks=3)
+plotmo(mod, type2="image")
+plotmo(mod, type2="image", image.col=heat.colors(12))
+plotmo(mod, type2="contour", contour.col=2, contour.labcex=.4)
+degree1
+An index vector specifying which subset of degree1 (main effect) plots to in-
+clude (after selecting the relevant predictors as described in “Which variables
+are plotted?” in the plotmo vignette).
+Default is TRUE, meaning all (the TRUE gets recycled). To plot only the third plot
+use degree1=3. For no degree1 plots use degree1=0.
+Note that degree1 indexes plots on the page, not columns of x. Probably the
+easiest way to use this argument (and degree2) is to first use the default (and
+possibly all1=TRUE) to plot all figures. This shows how the figures are num-
+bered. Then replot using degree1 to select the figures you want, for example
+degree1=c(1,3,4).
+Can also be a character vector specifying which variables to plot. 
+#### Examples
+```{r}:
+degree1="wind"
+degree1=c("wind", "vis").
+all1
+degree2
+Variables names are matched with grep. Thus "wind" will match all variables
+with "wind" anywhere in their name. Use "^wind$" to match only the variable
+named "wind".
+Default is FALSE. Use TRUE to plot all predictors, not just those usually selected
+by plotmo.
+The all1 argument increases the number of plots; the degree1 argument re-
+duces the number of plots.
+An index vector specifying which subset of degree2 (interaction) plots to in-
+clude.plotmo
+5
+Default is TRUE meaning all (after selecting the relevant interaction terms as de-
+scribed in “Which variables are plotted?” in the plotmo vignette).
+all2
+do.par
+clip
+ylim
+caption
+trace
+grid.func
+Can also be a character vector specifying which variables to plot (grep is used
+for matching). 
+#### Examples
+```{r}:
+degree2="wind" plots all degree2 plots for the wind variable.
+degree2=c("wind", "vis") plots just the wind:vis plot.
+Default is FALSE. Use TRUE to plot all pairs of predictors, not just those usually
+selected by plotmo.
+One of NULL, FALSE, TRUE, or 2, as follows:
+do.par=NULL. Same as do.par=FALSE if the number of plots is one; else the
+same as TRUE.
+do.par=FALSE. Use the current par settings. You can pass additional graphics
+parameters in the “...” argument.
+do.par=TRUE (default). Start a new page and call par as appropriate to display
+multiple plots on the same page. This automatically sets parameters like mfrow
+and mar. You can pass additional graphics parameters in the “...” argument.
+do.par=2. Like do.par=TRUE but don’t restore the par settings to their original
+state when plotmo exits, so you can add something to the plot.
+The default is clip=TRUE, meaning ignore very outlying predictions when deter-
+mining the automatic ylim. This keeps ylim fairly compact while still covering
+all or nearly all the data, even if there are a few crazy predicted values. See “The
+ylim and clip arguments” in the plotmo vignette.
+Use clip=FALSE for no clipping.
+Three possibilities:
+ylim=NULL (default). Automatically determine a ylim to use across all graphs.
+ylim=NA. Each graph has its own ylim.
+ylim=c(ymin,ymax). Use the specified limits across all graphs.
+Overall caption. By default create the caption automatically. Use caption=""
+for no caption. (Use main to set the title of individual plots, can be a vector.)
+Default is 0.
+trace=1 (or TRUE) for a summary trace (shows how predict is invoked for the
+current object).
+trace=2 for detailed tracing.
+trace=-1 inhibits the messages usually issued by plotmo, like the plotmo grid:,
+calculating partdep, and nothing to plot messages. Error and warning
+messages will be printed as usual.
+Function applied to columns of the x matrix to pin the values of variables not on
+the axis of the current plot (the “background” variables).
+The default is a function which for numeric variables returns the median and
+for logical and factors variables returns the value occurring most often in the
+training data.
+
+#### Examples
+```{r}:6
+plotmo
+plotmo(mod, grid.func=mean)
+grid.func <- function(x, ...) quantile(x)[2] # 25% quantile
+plotmo(mod, grid.func=grid.func)
+grid.levels
+This argument is not related to the grid.col argument.
+This argument can be overridden for specific variables—see grid.levels be-
+low.
+Default is NULL. Else a list of variables and their fixed value to be used when
+the variable is not on the axis. Supersedes grid.func for variables in the list.
+Names and values can be abbreviated, partial matching is used. Example:
+plotmo(mod, grid.levels=list(sex="m", age=21))
+extend
+ngrid1
+ngrid2
+npoints
+ndiscrete
+int.only.ok
+center
+xflip
+Amount to extend the horizontal axis in each plot. The default is 0, do not
+extend (i.e. use the range of the variable in the training data). Else something
+like extend=.5, which will extend both the lower and upper xlim of each plot
+by 50%.
+This argument is useful if you want to see how the model performs on data that is
+beyond the training data; for example, you want to see how a time-series model
+performs on future data.
+This argument is currently implemented only for degree1 plots. Factors and
+discrete variables (see the ndiscrete argument) are not extended.
+Number of equally spaced x values in each degree1 plot. Default is 50. Also
+used as the number of background cases for pmethod="apartdep".
+Grid size for degree2 plots (ngrid2 x ngrid2 points are plotted). Default is
+20.
+The default will sometimes be too small for contour and image plots.
+With large ngrid2 values, persp plots look better with persp.border=NA.
+Number of response points to be plotted (a sample of npoints points is plotted).
+Applies only if pt.col is specified.
+The default is 3000 (not all, to avoid overplotting on large models). Use npoints=TRUE
+or -1 for all points.
+Default 5 (a somewhat arbitrary value). Variables with no more than ndiscrete
+unique values are plotted as quantized in plots (a staircase rather than a curve).
+Factors are always considered discrete. Variables with non-integer values are
+always considered non-discrete.
+Use ndiscrete=0 if you want to plot the response for a variable with just a few
+integer values as a line or a curve, rather than a staircase.
+Plot the model even if it is an intercept-only model (no predictors are used in the
+model). Do this by plotting a single degree1 plot for the first predictor.
+The default is TRUE. Use int.only.ok=FALSE to instead issue an error message
+for intercept-only models.
+Center the plotted response. Default is FALSE.
+Default FALSE. Use TRUE to flip the direction of the x axis. This argument (and
+yflip and swapxy) is useful when comparing to a plot from another source and
+you want the axes to be the same. (Note that xflip and yflip cannot be used
+on the persp plots, a limitation of the persp function.)plotmo
+7
+yflip Default FALSE. Use TRUE to flip the direction of the y axis of the degree2 graphs.
+swapxy Default FALSE. Use TRUE to swap the x and y axes on the degree2 graphs.
+... Dot arguments are passed to the predict and plot functions. Dot argument names,
+whether prefixed or not, should be specified in full and not abbreviated.
+“Prefixed” arguments are passed directly to the associated function. For exam-
+ple the prefixed argument persp.col="pink" passes col="pink" to persp(),
+overriding the global col setting. To send an argument to predict whose name
+may alias with plotmo’s arguments, use predict. as a prefix. Example:
+plotmo(mod, s=1)
+# error: arg matches multiple formal args
+plotmo(mod, predict.s=1) # ok now: s=1 will be passed to predict()
+The prefixes recognized by plotmo are:
+predict.
+degree1.
+persp.
+contour.
+image.
+pt.
+smooth.
+level.
+func.
+rug.
+density.
+grid.
+caption.
+par.
+passed to the predict method for the model
+modifies degree1 plots e.g. degree1.col=3, degree1.lwd=2
+arguments passed to persp
+arguments passed to contour
+arguments passed to image
+see the pt.col argument (arguments passed to points and text)
+see the smooth.col argument (arguments passed to lines and lowess)
+see the level argument (level.shade, level.shade2, and arguments for polygon)
+see the func argument (arguments passed to lines)
+see the nrug argument (rug.jitter, and arguments passed to rug)
+see the nrug argument (density.adjust, and arguments passed to lines)
+see the grid.col argument (arguments passed to grid)
+see the caption argument (arguments passed to mtext)
+arguments passed to par (only necessary if a par argument name clashes with a plotmo argument)
+The cex argument is relative, so specifying cex=1 is the same as not specifying
+cex.
+For backwards compatibility, some dot arguments are supported but not explic-
+itly documented. For example, the old argument col.response is no longer
+in plotmo’s formal argument list, but is still accepted and treated like the new
+argument pt.col.
+Note
+In general this function won’t work on models that don’t save the call and data with the model in a
+standard way. For further discussion please see “Accessing the model data” in the plotmo vignette.
+Package authors may want to look at Guidelines for S3 Regression Models (also available here).
+By default, plotmo tries to use sensible model-dependent defaults when calling predict. Use
+trace=1 to see the arguments passed to predict. You can change the defaults by using plotmo’s
+type argument, and by using dot arguments prefixed with predict. (see the 
+#### Description
+ of “...”
+above).8
+plotmo.misc
+See Also
+Please see the plotmo vignette (also available here).
+
+#### Examples
+```{r}
+if (require(rpart)) {
+data(kyphosis)
+rpart.model <- rpart(Kyphosis~., data=kyphosis)
+# pass type="prob" to plotmo's internal calls to predict.rpart, and select
+# the column named "present" from the matrix returned by predict.rpart
+plotmo(rpart.model, type="prob", nresponse="present")
+}
+if (require(earth)) {
+data(ozone1)
+earth.model <- earth(O3 ~ ., data=ozone1, degree=2)
+plotmo(earth.model)
+# plotmo(earth.model, pmethod="partdep") # partial dependence plots
+}
