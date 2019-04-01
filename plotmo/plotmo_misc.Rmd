@@ -1,0 +1,87 @@
+plotmo.misc
+Ignore
+
+#### Description
+
+Miscellaneous functions exported for internal use by earth and other packages. You can ignore
+these.
+
+#### Usage
+
+# for earth
+plotmo_fitted(object, trace, nresponse, type, ...)
+plotmo_cum(rinfo, info, nfigs=1, add=FALSE,
+cum.col1, grid.col, jitter=0, cum.grid="percentages", ...)
+plotmo_nresponse(y, object, nresponse, trace, fname, type="response")
+plotmo_rinfo(object, type=NULL, residtype=type, nresponse=1,
+standardize=FALSE, delever=FALSE, trace=0,
+leverage.msg="returned as NA", expected.levs=NULL, labels.id=NULL, ...)
+plotmo_predict(object, newdata, nresponse,
+type, expected.levs, trace, inverse.func=NULL, ...)
+plotmo_prolog(object, object.name, trace, ...)
+plotmo_resplevs(object, plotmo_fitted, yfull, trace)
+plotmo_rsq(object, newdata, trace=0, nresponse=NA, type=NULL, ...)
+plotmo_standardizescale(object)
+plotmo_type(object, trace, fname="plotmo", type, ...)
+plotmo_y(object, nresponse=NULL, trace=0, expected.len=NULL,
+resp.levs=NULL, convert.glm.response=!is.null(nresponse))
+## Default S3 method:
+plotmo.pairs(object, x, nresponse, trace, all2, ...)plotmo.misc
+9
+## Default S3 method:
+plotmo.singles(object, x, nresponse, trace, all1, ...)
+## Default S3 method:
+plotmo.y(object, trace, naked, expected.len, ...)
+# plotmo methods
+plotmo.convert.na.nresponse(object, nresponse, yhat, type="response", ...)
+plotmo.pairs(object, x, nresponse, trace, all2, ...)
+plotmo.pint(object, newdata, type, level, trace, ...)
+plotmo.predict(object, newdata, type, ..., TRACE)
+plotmo.prolog(object, object.name, trace, ...)
+plotmo.residtype(object, ..., TRACE)
+plotmo.singles(object, x, nresponse, trace, all1, ...)
+plotmo.type(object, ..., TRACE)
+plotmo.x(object, trace, ...)
+plotmo.y(object, trace, naked, expected.len, nresponse=1, ...)
+
+#### Arguments
+
+... -
+add -
+all1 -
+all2
+-
+convert.glm.response
+-
+cum.col1 -
+cum.grid -
+delever -
+expected.len -
+expected.levs -
+fname -
+grid.col -
+info -
+inverse.func -
+jitter -
+labels.id -
+level -
+leverage.msg -
+naked -
+newdata -
+nfigs -
+nresponse -
+object.name -10
+plotres
+object -
+plotmo_fitted -
+residtype -
+resp.levs -
+rinfo -
+standardize -
+TRACE -
+trace -
+type -
+x -
+yfull -
+yhat -
+y -
