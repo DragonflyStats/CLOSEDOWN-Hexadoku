@@ -1,0 +1,70 @@
+
+plot_glmnet
+Plot a glmnet model
+
+#### Description
+
+Plot the coefficient paths of a glmnet model.
+An enhanced version of plot.glmnet.
+
+#### Usage
+
+plot_glmnet(x = stop("no 'x' argument"),
+xvar = c("rlambda", "lambda", "norm", "dev"),
+label = 10, nresponse = NA, grid.col = NA, s = NA, ...)
+
+#### Arguments
+
+x The glmnet model.
+xvar What gets plotted along the x axis. One of:
+"rlambda" (default) decreasing log lambda (lambda is the glmnet penalty)
+"lambda" log lambda
+"norm" L1-norm of the coefficients
+"dev" percent deviance explained
+The default xvar differs from plot.glmnet to allow s to be plotted when this
+function is invoked by plotres.
+label Default 10. Number of variable names displayed on the right of the plot. One
+of:
+FALSE display no variables
+TRUE display all variables
+integer (default) number of variables to display (default is 10)
+nresponse Which response to plot for multiple response models.
+grid.col Default NA. Color of the optional grid, for example grid.col="lightgray".
+s For use by plotres. The x position of the gray vertical line indicating the
+lambda s passed by plotres to predict.glmnet to calculate the residuals.
+Plotres defaults to s=0.
+... Dot arguments are passed internally to matplot.
+Use col to change the color of curves; for example col=1:4. The six default
+colors are intended to be distinguishable yet harmonious (to my eye at least),
+with adjacent colors as different as easily possible.18
+plot_glmnet
+Note
+Limitations
+For multiple response models use the nresponse argument to specify which response should be
+plotted. (Currently each response must be plotted one by one.)
+The type.coef argument of plot.glmnet is currently not supported.
+Currently xvar="norm" is not supported for multiple response models (you will get an error mes-
+sage).
+Interaction with plotres
+When invoking this function via plotres, prefix any argument of plotres with w1. to tell plotres
+to pass the argument to this function. For example give w1.col=1:4 to plotres (plain col=1:4 in
+this context gets passed to the residual plots).
+Acknowledgments
+This function is based on plot.glmnet in the glmnet package authored by Jerome Friedman,
+Trevor Hastie, and Rob Tibshirani.
+See Also
+Chapter 6 in plotres vignette discusses this function.
+
+#### Examples
+```{r}
+if (require(glmnet)) {
+x <- matrix(rnorm(100 * 10), 100, 10)
+y <- x[,1] + x[,2] + 2 * rnorm(100)
+mod <- glmnet(x, y)
+# n=100 p=10
+# y depends only on x[,1] and x[,2]
+plot_glmnet(mod)
+}
+# plotres(mod)
+# plot the residuals
+```
