@@ -1,0 +1,2585 @@
+Package ‘yardstick’
+March 8, 2019
+Type Package
+Title Tidy Characterizations of Model Performance
+Version 0.0.3
+Maintainer Max Kuhn <max@rstudio.com>
+
+#### Description
+ Tidy tools for quantifying how well model fits to a data set such as confusion matri-
+ces, class probability curve summaries, and regression metrics (e.g., RMSE).
+URL https://github.com/tidymodels/yardstick
+BugReports https://github.com/tidymodels/yardstick/issues
+License GPL-2
+Encoding UTF-8
+LazyData true
+RoxygenNote 6.1.1
+Depends R (>= 2.10)
+Suggests testthat, covr, purrr, tidyr, ggplot2, knitr, kableExtra,
+rmarkdown
+Imports dplyr, utils, pROC, rlang, tidyselect, Rcpp, generics
+LinkingTo Rcpp
+VignetteBuilder knitr
+NeedsCompilation yes
+Author Max Kuhn [aut, cre],
+Davis Vaughan [aut],
+RStudio [cph]
+Repository CRAN
+Date/Publication 2019-03-08 19:00:03 UTC
+1R topics documented:
+2
+R topics documented:
+accuracy . . . . . . .
+bal_accuracy . . . .
+ccc . . . . . . . . . .
+conf_mat . . . . . .
+detection_prevalence
+f_meas . . . . . . . .
+gain_capture . . . . .
+gain_curve . . . . . .
+get_weights . . . . .
+hpc_cv . . . . . . . .
+huber_loss . . . . . .
+huber_loss_pseudo .
+j_index . . . . . . .
+kap . . . . . . . . . .
+lift_curve . . . . . .
+mae . . . . . . . . .
+mape . . . . . . . . .
+mase . . . . . . . . .
+mcc . . . . . . . . .
+metrics . . . . . . . .
+metric_set . . . . . .
+metric_summarizer .
+metric_vec_template
+mn_log_loss . . . . .
+npv . . . . . . . . .
+pathology . . . . . .
+ppv . . . . . . . . .
+precision . . . . . . .
+pr_auc . . . . . . . .
+pr_curve . . . . . . .
+recall . . . . . . . .
+rmse . . . . . . . . .
+roc_auc . . . . . . .
+roc_curve . . . . . .
+rpd . . . . . . . . . .
+rpiq . . . . . . . . .
+rsq . . . . . . . . . .
+rsq_trad . . . . . . .
+sens . . . . . . . . .
+smape . . . . . . . .
+solubility_test . . . .
+spec . . . . . . . . .
+summary.conf_mat .
+two_class_example .
+get_weights
+hpc_cv
+23
+
+lift_curve
+Lift curve
+
+#### Description
+
+lift_curve() constructs the full lift curve and returns a tibble. See gain_curve() for a closely
+related concept.
+
+#### Usage
+
+lift_curve(data, ...)
+## S3 method for class 'data.frame'
+lift_curve(data, truth, ..., na_rm = TRUE)
+## S3 method for class 'lift_df'
+autoplot(object, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.32
+lift_curve
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+object The lift_df data frame returned from lift_curve().
+Details
+There is a ggplot2::autoplot() method for quickly visualizing the curve. This works for binary
+and multiclass output, and also works with grouped data (i.e. from resamples). See the 
+#### Examples
+```{r}.
+Value
+A tibble with class lift_df or lift_grouped_df having columns:
+• .n - The index of the current sample.
+• .n_events - The index of the current unique sample. Values with repeated estimate values
+are given identical indices in this column.
+• .percent_tested - The cumulative percentage of values tested.
+• .lift - First calculate the cumulative percentage of true results relative to the total number of
+true results. Then divide that by .percent_tested.
+Gain and Lift Curves
+The motivation behind cumulative gain and lift charts is as a visual method to determine the effec-
+tiveness of a model when compared to the results one might expect without a model. As an example,
+without a model, if you were to advertise to a random 10% of your customer base, then you might
+expect to capture 10% of the of the total number of positive responses had you advertised to your
+entire customer base. Given a model that predicts which customers are more likely to respond, the
+hope is that you can more accurately target 10% of your customer base and capture >10% of the
+total number of positive responses.
+The calculation to construct lift curves is as follows:
+1. truth and estimate are placed in descending order by the estimate values (estimate here
+is a single column supplied in ...).
+2. The cumulative number of samples with true results relative to the entire number of true results
+are found.
+3. The cumulative % found is divided by the cumulative % tested to construct the lift value. This
+ratio represents the factor of improvement over an uninformed model. Values >1 represent a
+valuable model. This is the y-axis of the lift chart.
+Multiclass
+If a multiclass truth column is provided, a one-vs-all approach will be taken to calculate multiple
+curves, one per level. In this case, there will be an additional column, .level, identifying the "one"
+column in the one-vs-all calculation.mae
+33
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Author(s)
+Max Kuhn
+See Also
+Other curve metrics: gain_curve, pr_curve, roc_curve
+
+#### Examples
+```{r}
+library(ggplot2)
+library(dplyr)
+# Two class - a tibble is returned
+lift_curve(two_class_example, truth, Class1)
+# Use autoplot to visualize
+autoplot(lift_curve(two_class_example, truth, Class1))
+# Multiclass one-vs-all approach
+# One curve per level
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+lift_curve(obs, VF:L) %>%
+autoplot()
+# Same as above, but will all of the resamples
+hpc_cv %>%
+group_by(Resample) %>%
+lift_curve(obs, VF:L) %>%
+autoplot()
+mae
+Mean absolute error
+
+#### Description
+
+Calculate the mean absolute error. This metric is in the same units as the original data.34
+mae
+
+#### Usage
+
+mae(data, ...)
+## S3 method for class 'data.frame'
+mae(data, truth, estimate, na_rm = TRUE, ...)
+mae_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mae_vec(), a single numeric value (or NA).
+Author(s)
+Max Kuhn
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mape, mase, rmse, rpd, rpiq,
+rsq_trad, rsq, smape
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mape, mase, rmse, smape
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+mae(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100mape
+35
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+mae(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+mape
+Mean absolute percent error
+
+#### Description
+
+Calculate the mean absolute percentage error. This metric is in relative units.
+
+#### Usage
+
+mape(data, ...)
+## S3 method for class 'data.frame'
+mape(data, truth, estimate, na_rm = TRUE, ...)
+mape_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.36
+mape
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+Note that a value of Inf is returned for mape() when the observed value is negative.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mape_vec(), a single numeric value (or NA).
+Author(s)
+Max Kuhn
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mase, rmse, rpd, rpiq,
+rsq_trad, rsq, smape
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mase, rmse, smape
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+mape(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%mase
+37
+mape(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+mase
+Mean absolute scaled error
+
+#### Description
+
+Calculate the mean absolute scaled error. This metric is scale independent and symmetric. It is
+generally used for comparing forecast error in time series settings. Due to the time series nature of
+this metric, it is neccesary to order observations in ascending order by time.
+
+#### Usage
+
+mase(data, ...)
+## S3 method for class 'data.frame'
+mase(data, truth, estimate, m = 1L,
+mae_train = NULL, na_rm = TRUE, ...)
+mase_vec(truth, estimate, m = 1L, mae_train = NULL, na_rm = TRUE,
+...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+m An integer value of the number of lags used to calculate the in-sample seasonal
+naive error. The default is used for non-seasonal time series. If each observation
+was at the daily level and the data showed weekly seasonality, then m = 7L
+would be a reasonable choice for a 7-day seasonal naive calculation.
+mae_train A numeric value which allows the user to provide the in-sample seasonal naive
+mean absolute error. If this value is not provided, then the out-of-sample sea-
+sonal naive mean absolute error will be calculated from truth and will be used
+instead.38
+mase
+na_rm
+A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+mase() is different from most numeric metrics. The original implementation of mase() calls for
+using the in-sample naive mean absolute error to compute scaled errors with. It uses this instead
+of the out-of-sample error because there is a chance that the out-of-sample error cannot be com-
+puted when forecasting a very short horizon (i.e. the out of sample size is only 1 or 2). However,
+yardstick only knows about the out-of-sample truth and estimate values. Because of this, the
+out-of-sample error is used in the computation by default. If the in-sample naive mean absolute er-
+ror is required and known, it can be passed through in the mae_train argument and it will be used
+instead. If the in-sample data is available, the naive mean absolute error can easily be computed
+with mae(data, truth, lagged_truth).
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mase_vec(), a single numeric value (or NA).
+Author(s)
+Alex Hallam
+References
+Rob J. Hyndman (2006). ANOTHER LOOK AT FORECAST-ACCURACY METRICS FOR IN-
+TERMITTENT DEMAND. Foresight, 4, 46.
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, rmse, rpd, rpiq,
+rsq_trad, rsq, smape
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, rmse, smape
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+mase(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(mcc
+39
+)
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+mase(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+mcc
+Matthews correlation coefficient
+
+#### Description
+
+Matthews correlation coefficient
+
+#### Usage
+
+mcc(data, ...)
+## S3 method for class 'data.frame'
+mcc(data, truth, estimate, na_rm = TRUE, ...)
+mcc_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.40
+mcc
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mcc_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+mcc() has a known multiclass generalization and that is computed automatically if a factor with
+more than 2 levels is provided. Because of this, no averaging methods are provided.
+Author(s)
+Max Kuhn
+References
+Giuseppe, J. (2012). "A Comparison of MCC and CEN Error Measures in Multi-Class Prediction".
+PLOS ONE. Vol 7, Iss 8, e41882.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+npv, ppv, precision, recall, sens, spec
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+mcc(two_class_example, truth, predicted)
+# Multiclass
+# mcc() has a natural multiclass extension
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+group_by(Resample) %>%
+mcc(obs, pred)metrics
+41
+metrics
+General Function to Estimate Performance
+
+#### Description
+
+This function estimates one or more common performance estimates depending on the class of
+truth (see Value below) and returns them in a three column tibble.
+
+#### Usage
+
+metrics(data, ...)
+## S3 method for class 'data.frame'
+metrics(data, truth, estimate, ...,
+options = list(), na_rm = TRUE)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns and any columns
+specified by ....
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true results (that is numeric or factor). This
+should be an unquoted column name although this argument is passed by ex-
+pression and support quasiquotation (you can unquote column names).
+estimate The column identifier for the predicted results (that is also numeric or factor).
+As with truth this can be specified different ways but the primary method is to
+use an unquoted variable name.
+options A list of named options to pass to pROC::roc() such as direction or smooth.
+These options should not include response, predictor, or levels.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Value
+A two column tibble.
+• When truth is a factor, there are rows for accuracy() and the Kappa statistic (kap()).
+• When truth has two levels and 1 column of class probabilities is passed to ..., there are
+rows for the two class versions of mn_log_loss() and roc_auc().
+• When truth has more than two levels and a full set of class probabilities are passed to ...,
+there are rows for the multiclass version of mn_log_loss() and the Hand Till generalization
+of roc_auc().
+• When truth is numeric, there are rows for rmse(), rsq(), and mae().42
+metric_set
+See Also
+metric_set()
+
+#### Examples
+```{r}
+# Accuracy and kappa
+metrics(two_class_example, truth, predicted)
+# Add on multinomal log loss and ROC AUC by specifying class prob columns
+metrics(two_class_example, truth, predicted, Class1)
+# Regression metrics
+metrics(solubility_test, truth = solubility, estimate = prediction)
+# Multiclass metrics work, but you cannot specify any averaging
+# for roc_auc() besides the default, hand_till. Use the specific function
+# if you need more customization
+library(dplyr)
+hpc_cv %>%
+group_by(Resample) %>%
+metrics(obs, pred, VF:L) %>%
+print(n = 40)
+metric_set
+Combine metric functions
+
+#### Description
+
+metric_set() allows you to combine multiple metric functions together into a new function that
+calculates all of them at once.
+
+#### Usage
+
+metric_set(...)
+
+#### Arguments
+
+...
+The bare names of the functions to be included in the metric set.
+Details
+All functions must be either:
+• Only numeric metrics
+• A mix of class metrics or class prob metricsmetric_set
+43
+For instance, rmse() can be used with mae() because they are numeric metrics, but not with
+accuracy() because it is a classification metric. But accuracy() can be used with roc_auc().
+The returned metric function will have a different argument list depending on whether numeric
+metrics or a mix of class/prob metrics were passed in.
+Numeric metrics will have a signature like: fn(data, truth, estimate, na_rm = TRUE, ...).
+Class/prob metrics have a signature of fn(data, truth, ..., estimate, na_rm = TRUE).
+When mixing class and class prob metrics, pass in the hard predictions (the factor column) as the
+named argument estimate, and the soft predictions (the class probability columns) as bare column
+names or tidyselect selectors to ....
+See Also
+metrics()
+
+#### Examples
+```{r}
+library(dplyr)
+# Multiple regression metrics
+multi_metric <- metric_set(rmse, rsq, ccc)
+# The returned function has arguments:
+# fn(data, truth, estimate, na_rm = TRUE, ...)
+multi_metric(solubility_test, truth = solubility, estimate = prediction)
+# Groups are respected on the new metric function
+class_metrics <- metric_set(accuracy, kap)
+hpc_cv %>%
+group_by(Resample) %>%
+class_metrics(obs, estimate = pred)
+# ---------------------------------------------------------------------------
+# If you need to set options for certain metrics,
+# do so by wrapping the metric and setting the options inside the wrapper,
+# passing along truth and estimate as quoted arguments.
+# Then add on the function class of the underlying wrapped function.
+ccc_with_bias <- function(data, truth, estimate, na_rm = TRUE, ...) {
+ccc(
+data = data,
+truth = !! rlang::enquo(truth),
+estimate = !! rlang::enquo(estimate),
+# set bias = TRUE
+bias = TRUE,
+na_rm = na_rm,
+...
+)
+}44
+metric_summarizer
+# Add on the underlying function class (here, "numeric_metric")
+class(ccc_with_bias) <- class(ccc)
+multi_metric2 <- metric_set(rmse, rsq, ccc_with_bias)
+multi_metric2(solubility_test, truth = solubility, estimate = prediction)
+# ---------------------------------------------------------------------------
+# A class probability example:
+#
+#
+#
+#
+Note that, when given class or class prob functions,
+metric_set() returns a function with signature:
+fn(data, truth, ..., estimate)
+to be able to mix class and class prob metrics.
+# You must provide the `estimate` column by explicitly naming
+# the argument
+class_and_probs_metrics <- metric_set(roc_auc, pr_auc, accuracy)
+hpc_cv %>%
+group_by(Resample) %>%
+class_and_probs_metrics(obs, VF:L, estimate = pred)
+metric_summarizer
+Developer function for summarizing new metrics
+
+#### Description
+
+metric_summarizer() is useful alongside metric_vec_template() for implementing new cus-
+tom metrics. metric_summarizer() calls the metric function inside dplyr::summarise(). metric_vec_template()
+is a generalized function that calls the core implementation of a metric function, and includes a num-
+ber of checks on the types, lengths, and argument inputs. See vignette("custom-metrics", "yardstick")
+for more information.
+
+#### Usage
+
+metric_summarizer(metric_nm, metric_fn, data, truth, estimate,
+estimator = NULL, na_rm = TRUE, ..., metric_fn_options = list())
+
+#### Arguments
+
+metric_nm A single character representing the name of the metric to use in the tibble
+output. This will be modified to include the type of averaging if appropriate.
+metric_fn The vector version of your custom metric function. It generally takes truth,
+estimate, na_rm, and any other extra arguments needed to calculate the metric.
+data The data frame with truth and estimate columns passed in from the data frame
+version of your metric function that called metric_summarizer().metric_vec_template
+45
+truth The unquoted column name corresponding to the truth column.
+estimate Generally, the unquoted column name corresponding to the estimate column.
+For metrics that take multiple columns through ... like class probability met-
+rics, this is a result of dots_to_estimate().
+estimator For numeric metrics, this is left as NA so averaging is not passed on to the metric
+function implementation. For classification metrics, this can either be NULL for
+the default auto-selection of averaging ("binary" or "macro"), or a single char-
+acter to pass along to the metric implementation describing the kind of averaging
+to use.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds. The removal is executed in metric_vec_template().
+... Currently not used. Metric specific options are passed in through metric_fn_options.
+metric_fn_options
+A named list of metric specific options. These are spliced into the metric func-
+tion call using !!! from rlang. The default results in nothing being spliced into
+the call.
+Details
+metric_summarizer() is generally called from the data frame version of your metric function. It
+knows how to call your metric over grouped data frames and returns a tibble consistent with other
+metrics.
+See Also
+metric_vec_template() finalize_estimator() dots_to_estimate()
+metric_vec_template
+Developer function for calling new metrics
+
+#### Description
+
+metric_vec_template() is useful alongside metric_summarizer() for implementing new cus-
+tom metrics. metric_summarizer() calls the metric function inside dplyr::summarise(). metric_vec_template()
+is a generalized function that calls the core implementation of a metric function, and includes a
+number of checks on the types, lengths, and argument inputs.
+
+#### Usage
+
+metric_vec_template(metric_impl, truth, estimate, na_rm = TRUE,
+cls = "numeric", estimator = NULL, ...)46
+mn_log_loss
+
+#### Arguments
+
+metric_impl The core implementation function of your custom metric. This core implemen-
+tation function is generally defined inside the vector method of your metric func-
+tion.
+truth The realized vector of truth. This is either a factor or a numeric.
+estimate The realized estimate result. This is either a numeric vector, a factor vector, or
+a numeric matrix (in the case of multiple class probability columns) depending
+on your metric function.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds. NA values are removed before getting to your core im-
+plementation function so you do not have to worry about handling them yourself.
+If na_rm=FALSE and any NA values exist, then NA is automatically returned.
+cls A character vector of length 1 or 2 corresponding to the class that truth and
+estimate should be, respectively. If truth and estimate are of the same class,
+just supply a vector of length 1. If they are different, supply a vector of length
+2. For matrices, it is best to supply "numeric" as the class to check here.
+estimator The type of averaging to use. By this point, the averaging type should be
+finalized, so this should be a character vector of length 1. By default, this
+character value is required to be one of: "binary", "macro", "micro", or
+"macro_weighted". If your metric allows more or less averaging methods,
+override this with averaging_override.
+... Extra arguments to your core metric function, metric_impl, can technically be
+passed here, but generally the extra args are added through R’s scoping rules
+because the core metric function is created on the fly when the vector method is
+called.
+Details
+metric_vec_template() is called from the vector implementation of your metric. Also defined
+inside your vector implementation is a separate function performing the core implementation of the
+metric function. This core function is passed along to metric_vec_template() as metric_impl.
+See Also
+metric_summarizer() finalize_estimator() dots_to_estimate()
+mn_log_loss
+Mean log loss
+
+#### Description
+
+Compute the logarithmic loss of a classification model.mn_log_loss
+47
+
+#### Usage
+
+mn_log_loss(data, ...)
+## S3 method for class 'data.frame'
+mn_log_loss(data, truth, ..., na_rm = TRUE,
+sum = FALSE)
+mn_log_loss_vec(truth, estimate, na_rm = TRUE, sum = FALSE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+sum A logical. Should the sum of the likelihood contributions be returned (instead
+of the mean value)?
+estimate If truth is binary, a numeric vector of class probabilities corresponding to the
+"relevant" class. Otherwise, a matrix with as many columns as factor levels of
+truth. It is assumed that these are in the same order as the levels of truth.
+Details
+Log loss is a measure of the performance of a classification model. A perfect model has a log loss
+of 0.
+Compared with accuracy(), log loss takes into account the uncertainty in the prediction and gives
+a more detailed view into the actual performance. For example, given two input probabilities of
+.6 and .9 where both are classified as predicting a positive value, say, "Yes", the accuracy metric
+would interpret them as having the same value. If the true output is "Yes", log loss penalizes .6
+because it is "less sure" of it’s result compared to the probability of .9.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mn_log_loss_vec(), a single numeric value (or NA).48
+mn_log_loss
+Multiclass
+Log loss has a known multiclass extension, and is simply the sum of the log loss values for each
+class prediction. Because of this, no averaging types are supported.
+Author(s)
+Max Kuhn
+See Also
+Other class probability metrics: gain_capture, pr_auc, roc_auc
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+mn_log_loss(two_class_example, truth, Class1)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+# You can use the col1:colN tidyselect syntax
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+mn_log_loss(obs, VF:L)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+mn_log_loss(obs, VF:L)
+# Vector version
+# Supply a matrix of class probabilities
+fold1 <- hpc_cv %>%
+filter(Resample == "Fold01")
+mn_log_loss_vec(
+truth = fold1$obs,
+matrix(
+c(fold1$VF, fold1$F, fold1$M, fold1$L),
+ncol = 4
+)
+)
+# Supply `...` with quasiquotation
+prob_cols <- levels(two_class_example$truth)
+mn_log_loss(two_class_example, truth, Class1)
+mn_log_loss(two_class_example, truth, !! prob_cols[1])npv
+49
+npv
+Negative predictive value
+
+#### Description
+
+These functions calculate the npv() (negative predictive value) of a measurement system compared
+to a reference result (the "truth" or gold standard). Highly related functions are spec(), sens(),
+and ppv().
+
+#### Usage
+
+npv(data, ...)
+## S3 method for class 'data.frame'
+npv(data, truth, estimate, prevalence = NULL,
+estimator = NULL, na_rm = TRUE, ...)
+npv_vec(truth, estimate, prevalence = NULL, estimator = NULL,
+na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.
+prevalence A numeric value for the rate of the "positive" class of the data.
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The positive predictive value (ppv()) is defined as the percent of predicted positives that are actually
+positive while the negative predictive value (npv()) is defined as the percent of negative positives
+that are actually negative.50
+npv
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For npv_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+Macro, micro, and macro-weighted averaging is available for this metric. The default is to select
+macro averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Implementation
+Suppose a 2x2 table with notation:
+Predicted
+Positive
+Negative
+Reference
+Positive
+A
+C
+Negative
+B
+D
+The formulas used here are:
+Sensitivity = A/(A + C)
+Specif icity = D/(B + D)
+P revalence = (A + C)/(A + B + C + D)
+P P V = (Sensitivity∗P revalence)/((Sensitivity∗P revalence)+((1−Specif icity)∗(1−P revalence)))
+N P V = (Specif icity∗(1−P revalence))/(((1−Sensitivity)∗P revalence)+((Specif icity)∗(1−P revalence)))
+See the references for discussions of the statistics.
+Author(s)
+Max Kuhnpathology
+51
+References
+Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 2: predictive values,” British Medical Journal,
+vol 309, 102.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, ppv, precision, recall, sens, spec
+Other sensitivity metrics: ppv, sens, spec
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+npv(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+npv(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+npv(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+npv(obs, pred, estimator = "macro_weighted")
+# Vector version
+npv_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+npv_vec(two_class_example$truth, two_class_example$predicted)
+options(yardstick.event_first = TRUE)
+pathology
+
+#### Description
+
+Liver Pathology Data
+Liver Pathology Data52
+ppv
+Details
+These data have the results of a x-ray examination to determine whether liver is abnormal or not
+(in the scan column) versus the more extensive pathology results that approximate the truth (in
+pathology).
+Value
+pathology
+a data frame
+Source
+Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 1: sensitivity and specificity,” British Medical
+Journal, vol 308, 1552.
+
+#### Examples
+```{r}
+data(pathology)
+str(pathology)
+ppv
+Positive predictive value
+
+#### Description
+
+These functions calculate the ppv() (positive predictive value) of a measurement system compared
+to a reference result (the "truth" or gold standard). Highly related functions are spec(), sens(),
+and npv().
+
+#### Usage
+
+ppv(data, ...)
+## S3 method for class 'data.frame'
+ppv(data, truth, estimate, prevalence = NULL,
+estimator = NULL, na_rm = TRUE, ...)
+ppv_vec(truth, estimate, prevalence = NULL, estimator = NULL,
+na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.ppv
+53
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.
+prevalence A numeric value for the rate of the "positive" class of the data.
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The positive predictive value (ppv()) is defined as the percent of predicted positives that are actually
+positive while the negative predictive value (npv()) is defined as the percent of negative positives
+that are actually negative.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For ppv_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+Macro, micro, and macro-weighted averaging is available for this metric. The default is to select
+macro averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Implementation
+Suppose a 2x2 table with notation:
+Predicted
+Positive
+Negative
+Reference
+Positive
+A
+C
+Negative
+B
+D54
+ppv
+The formulas used here are:
+Sensitivity = A/(A + C)
+Specif icity = D/(B + D)
+P revalence = (A + C)/(A + B + C + D)
+P P V = (Sensitivity∗P revalence)/((Sensitivity∗P revalence)+((1−Specif icity)∗(1−P revalence)))
+N P V = (Specif icity∗(1−P revalence))/(((1−Sensitivity)∗P revalence)+((Specif icity)∗(1−P revalence)))
+See the references for discussions of the statistics.
+Author(s)
+Max Kuhn
+References
+Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 2: predictive values,” British Medical Journal,
+vol 309, 102.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, npv, precision, recall, sens, spec
+Other sensitivity metrics: npv, sens, spec
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+ppv(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+ppv(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+ppv(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+ppv(obs, pred, estimator = "macro_weighted")precision
+55
+# Vector version
+ppv_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+ppv_vec(two_class_example$truth, two_class_example$predicted)
+options(yardstick.event_first = TRUE)
+# But what if we think that Class 1 only occurs 40% of the time?
+ppv(two_class_example, truth, predicted, prevalence = 0.40)
+precision
+Precision
+
+#### Description
+
+These functions calculate the precision() of a measurement system for finding relevant docu-
+ments compared to reference results (the truth regarding relevance). Highly related functions are
+recall() and f_meas().
+
+#### Usage
+
+precision(data, ...)
+## S3 method for class 'data.frame'
+precision(data, truth, estimate, estimator = NULL,
+na_rm = TRUE, ...)
+precision_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.56
+precision
+na_rm
+A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The precision is the percentage of predicted truly relevant results of the total number of predicted
+relevant results and characterizes the "purity in retrieval performance" (Buckland and Gey, 1994).
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For precision_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+Macro, micro, and macro-weighted averaging is available for this metric. The default is to select
+macro averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Implementation
+Suppose a 2x2 table with notation:
+Predicted
+Relevant
+Irrelevant
+Reference
+Relevant
+A
+C
+Irrelevant
+B
+D
+The formulas used here are:
+recall = A/(A + C)
+precision = A/(A + B)
+F m eas β = (1 + β 2 ) ∗ precision ∗ recall/((β 2 ∗ precision) + recall)
+See the references for discussions of the statistics.precision
+57
+Author(s)
+Max Kuhn
+References
+Buckland, M., & Gey, F. (1994). The relationship between Recall and Precision. Journal of the
+American Society for Information Science, 45(1), 12-19.
+Powers, D. (2007). Evaluation: From Precision, Recall and F Factor to ROC, Informedness,
+Markedness and Correlation. Technical Report SIE-07-001, Flinders University
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, npv, ppv, recall, sens, spec
+Other relevance metrics: f_meas, recall
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+precision(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+precision(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+precision(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+precision(obs, pred, estimator = "macro_weighted")
+# Vector version
+precision_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+precision_vec(two_class_example$truth, two_class_example$predicted)
+options(yardstick.event_first = TRUE)58
+pr_auc
+pr_auc
+Area under the precision recall curve
+
+#### Description
+
+pr_auc() is a metric that computes the area under the precision recall curve. See pr_curve() for
+the full curve.
+
+#### Usage
+
+pr_auc(data, ...)
+## S3 method for class 'data.frame'
+pr_auc(data, truth, ..., estimator = NULL,
+na_rm = TRUE)
+pr_auc_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimator One of "binary", "macro", or "macro_weighted" to specify the type of aver-
+aging to be done. "binary" is only relevant for the two class case. The other
+two are general methods for calculating multiclass metrics. The default will
+automatically choose "binary" or "macro" based on truth.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+estimate If truth is binary, a numeric vector of class probabilities corresponding to the
+"relevant" class. Otherwise, a matrix with as many columns as factor levels of
+truth. It is assumed that these are in the same order as the levels of truth.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For pr_auc_vec(), a single numeric value (or NA).pr_auc
+59
+Multiclass
+Macro and macro-weighted averaging is available for this metric. The default is to select macro
+averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Author(s)
+Max Kuhn
+See Also
+pr_curve() for computing the full precision recall curve.
+Other class probability metrics: gain_capture, mn_log_loss, roc_auc
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+pr_auc(two_class_example, truth, Class1)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+# You can use the col1:colN tidyselect syntax
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+pr_auc(obs, VF:L)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+pr_auc(obs, VF:L)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+pr_auc(obs, VF:L, estimator = "macro_weighted")
+# Vector version
+# Supply a matrix of class probabilities
+fold1 <- hpc_cv %>%60
+pr_curve
+filter(Resample == "Fold01")
+pr_auc_vec(
+truth = fold1$obs,
+matrix(
+c(fold1$VF, fold1$F, fold1$M, fold1$L),
+ncol = 4
+)
+)
+pr_curve
+Precision recall curve
+
+#### Description
+
+pr_curve() constructs the full precision recall curve and returns a tibble. See pr_auc() for the
+area under the precision recall curve.
+
+#### Usage
+
+pr_curve(data, ...)
+## S3 method for class 'data.frame'
+pr_curve(data, truth, ..., na_rm = TRUE)
+## S3 method for class 'pr_df'
+autoplot(object, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+object The pr_df data frame returned from pr_curve().pr_curve
+61
+Details
+pr_curve() computes the precision at every unique value of the probability column (in addition to
+infinity).
+There is a ggplot2::autoplot() method for quickly visualizing the curve. This works for binary
+and multiclass output, and also works with grouped data (i.e. from resamples). See the 
+#### Examples
+```{r}.
+Value
+A tibble with class pr_df or pr_grouped_df having columns .threshold, recall, and precision.
+Multiclass
+If a multiclass truth column is provided, a one-vs-all approach will be taken to calculate multiple
+curves, one per level. In this case, there will be an additional column, .level, identifying the "one"
+column in the one-vs-all calculation.
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Author(s)
+Max Kuhn
+See Also
+Compute the area under the precision recall curve with pr_auc().
+Other curve metrics: gain_curve, lift_curve, roc_curve
+
+#### Examples
+```{r}
+library(ggplot2)
+library(dplyr)
+# Two class - a tibble is returned
+pr_curve(two_class_example, truth, Class1)
+# Visualize the curve using ggplot2 manually
+pr_curve(two_class_example, truth, Class1) %>%
+ggplot(aes(x = recall, y = precision)) +
+geom_path() +
+coord_equal() +
+theme_bw()
+# Or use autoplot62
+recall
+autoplot(pr_curve(two_class_example, truth, Class1))
+# Multiclass one-vs-all approach
+# One curve per level
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+pr_curve(obs, VF:L) %>%
+autoplot()
+# Same as above, but will all of the resamples
+hpc_cv %>%
+group_by(Resample) %>%
+pr_curve(obs, VF:L) %>%
+autoplot()
+recall
+Recall
+
+#### Description
+
+These functions calculate the recall() of a measurement system for finding relevant documents
+compared to reference results (the truth regarding relevance). Highly related functions are precision()
+and f_meas().
+
+#### Usage
+
+recall(data, ...)
+## S3 method for class 'data.frame'
+recall(data, truth, estimate, estimator = NULL,
+na_rm = TRUE, ...)
+recall_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.recall
+63
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The recall (aka sensitivity) is defined as the proportion of relevant results out of the number of
+samples which were actually relevant. When there are no relevant results, recall is not defined and
+a value of NA is returned.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For recall_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+Macro, micro, and macro-weighted averaging is available for this metric. The default is to select
+macro averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Implementation
+Suppose a 2x2 table with notation:
+Predicted
+Relevant
+Irrelevant
+Reference
+Relevant
+A
+C
+Irrelevant
+B
+D
+The formulas used here are:
+recall = A/(A + C)
+precision = A/(A + B)64
+recall
+F m eas β = (1 + β 2 ) ∗ precision ∗ recall/((β 2 ∗ precision) + recall)
+See the references for discussions of the statistics.
+Author(s)
+Max Kuhn
+References
+Buckland, M., & Gey, F. (1994). The relationship between Recall and Precision. Journal of the
+American Society for Information Science, 45(1), 12-19.
+Powers, D. (2007). Evaluation: From Precision, Recall and F Factor to ROC, Informedness,
+Markedness and Correlation. Technical Report SIE-07-001, Flinders University
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, npv, ppv, precision, sens, spec
+Other relevance metrics: f_meas, precision
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+recall(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+recall(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+recall(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+recall(obs, pred, estimator = "macro_weighted")
+# Vector version
+recall_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+recall_vec(two_class_example$truth, two_class_example$predicted)rmse
+65
+options(yardstick.event_first = TRUE)
+rmse
+Root mean squared error
+
+#### Description
+
+Calculate the root mean squared error. rmse() is a metric that is in the same units as the original
+data.
+
+#### Usage
+
+rmse(data, ...)
+## S3 method for class 'data.frame'
+rmse(data, truth, estimate, na_rm = TRUE, ...)
+rmse_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For rmse_vec(), a single numeric value (or NA).
+Author(s)
+Max Kuhn66
+roc_auc
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rpd, rpiq,
+rsq_trad, rsq, smape
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, smape
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+rmse(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+rmse(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+roc_auc
+Area under the receiver operator curve
+
+#### Description
+
+roc_auc() is a metric that computes the area under the ROC curve. See roc_curve() for the full
+curve.roc_auc
+67
+
+#### Usage
+
+roc_auc(data, ...)
+## S3 method for class 'data.frame'
+roc_auc(data, truth, ..., options = list(),
+estimator = NULL, na_rm = TRUE)
+roc_auc_vec(truth, estimate, options = list(), estimator = NULL,
+na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+options A list of named options to pass to pROC::roc() such as direction or smooth.
+These options should not include response, predictor, or levels.
+estimator One of "binary", "hand_till", "macro", or "macro_weighted" to specify
+the type of averaging to be done. "binary" is only relevant for the two class
+case. The others are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "hand_till" based on truth.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+estimate If truth is binary, a numeric vector of class probabilities corresponding to the
+"relevant" class. Otherwise, a matrix with as many columns as factor levels of
+truth. It is assumed that these are in the same order as the levels of truth.
+Details
+For most methods, roc_auc() makes no effort to ensure that the supplied class probabilities result
+in a AUC value above 0.5 (random guessing). However, the Hand, Till (2001) method assumes
+that the individual AUCs are all above 0.5, so if an AUC value below 0.5 is computed, then 1 is
+subtracted from it to get the correct result.
+Generally, an ROC AUC value is between 0.5 and 1, with 1 being a perfect prediction model. If
+your value is between 0 and 0.5, then this implies that you have meaningful information in your
+model, but it is being applied incorrectly because doing the opposite of what the model predicts
+would result in an AUC >0.5.68
+roc_auc
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For roc_auc_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+The default multiclass method for computing roc_auc() is to use the method from Hand, Till,
+(2001). Unlike macro-averaging, this method is insensitive to class distributions like the binary
+ROC AUC case.
+Macro and macro-weighted averaging are still provided, even though they are not the default. In
+fact, macro-weighted averaging corresponds to the same definition of multiclass AUC given by
+Provost and Domingos (2001).
+Author(s)
+Max Kuhn
+References
+Hand, Till (2001). "A Simple Generalisation of the Area Under the ROC Curve for Multiple Class
+Classification Problems". Machine Learning. Vol 45, Iss 2, pp 171-186.
+Fawcett (2005). "An introduction to ROC analysis". Pattern Recognition Letters. 27 (2006), pp
+861-874.
+Provost, F., Domingos, P., 2001. "Well-trained PETs: Improving probability estimation trees",
+CeDER Working Paper #IS-00-04, Stern School of Business, New York University, NY, NY 10012.
+See Also
+roc_curve() for computing the full ROC curve.
+Other class probability metrics: gain_capture, mn_log_loss, pr_auc
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+roc_auc(two_class_example, truth, Class1)
+# Multiclassroc_curve
+69
+library(dplyr)
+data(hpc_cv)
+# You can use the col1:colN tidyselect syntax
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+roc_auc(obs, VF:L)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+roc_auc(obs, VF:L)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+roc_auc(obs, VF:L, estimator = "macro_weighted")
+# Vector version
+# Supply a matrix of class probabilities
+fold1 <- hpc_cv %>%
+filter(Resample == "Fold01")
+roc_auc_vec(
+truth = fold1$obs,
+matrix(
+c(fold1$VF, fold1$F, fold1$M, fold1$L),
+ncol = 4
+)
+)
+# passing options via a list and _not_ `...`
+roc_auc(two_class_example, truth = truth, Class1,
+options = list(smooth = TRUE))
+roc_curve
+Receiver operator curve
+
+#### Description
+
+roc_curve() constructs the full ROC curve and returns a tibble. See roc_auc() for the area under
+the ROC curve.
+
+#### Usage
+
+roc_curve(data, ...)
+## S3 method for class 'data.frame'
+roc_curve(data, truth, ..., options = list(),70
+roc_curve
+na_rm = TRUE)
+## S3 method for class 'roc_df'
+autoplot(object, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+options A list of named options to pass to pROC::roc() such as direction or smooth.
+These options should not include response, predictor, or levels.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+object The roc_df data frame returned from roc_curve().
+Details
+roc_curve() computes the sensitivity at every unique value of the probability column (in addition
+to infinity and minus infinity). If a smooth ROC curve was produced, the unique observed values of
+the specificity are used to create the curve points. In either case, this may not be efficient for large
+data sets.
+There is a ggplot2::autoplot() method for quickly visualizing the curve. This works for binary
+and multiclass output, and also works with grouped data (i.e. from resamples). See the 
+#### Examples
+```{r}.
+Value
+A tibble with class roc_df or roc_grouped_df having columns specificity and sensitivity.
+If an ordinary (i.e. non-smoothed) curve is used, there is also a column for .threshold.
+Multiclass
+If a multiclass truth column is provided, a one-vs-all approach will be taken to calculate multiple
+curves, one per level. In this case, there will be an additional column, .level, identifying the "one"
+column in the one-vs-all calculation.
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This canroc_curve
+71
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Author(s)
+Max Kuhn
+See Also
+Compute the area under the ROC curve with roc_auc().
+Other curve metrics: gain_curve, lift_curve, pr_curve
+
+#### Examples
+```{r}
+library(ggplot2)
+library(dplyr)
+# Two class - a tibbble is returned
+roc_curve(two_class_example, truth, Class1)
+# Visualize the curve using ggplot2 manually
+roc_curve(two_class_example, truth, Class1) %>%
+ggplot(aes(x = 1 - specificity, y = sensitivity)) +
+geom_path() +
+geom_abline(lty = 3) +
+coord_equal() +
+theme_bw()
+# Or use autoplot
+autoplot(roc_curve(two_class_example, truth, Class1))
+## Not run:
+# Multiclass one-vs-all approach
+# One curve per level
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+roc_curve(obs, VF:L) %>%
+autoplot()
+# Same as above, but will all of the resamples
+hpc_cv %>%
+group_by(Resample) %>%
+roc_curve(obs, VF:L) %>%
+autoplot()
+## End(Not run)72
+rpd
+rpd
+Ratio of performance to deviation
+
+#### Description
+
+These functions are appropriate for cases where the model outcome is a numeric. The ratio of
+performance to deviation (rpd()) and the ratio of performance to inter-quartile (rpiq()) are both
+measures of consistency/correlation between observed and predicted values (and not of accuracy).
+
+#### Usage
+
+rpd(data, ...)
+## S3 method for class 'data.frame'
+rpd(data, truth, estimate, na_rm = TRUE, ...)
+rpd_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data
+...
+truth
+estimate
+na_rm
+A data.frame containing the truth and estimate columns.
+Not currently used.
+The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+In the field of spectroscopy in particular, the ratio of performance to deviation (RPD) has been used
+as the standard way to report the quality of a model. It is the ratio between the standard deviation
+of a variable and the standard error of prediction of that variable by a given model. However, its
+systematic use has been criticized by several authors, since using the standard deviation to represent
+the spread of a variable can be misleading on skewed dataset. The ratio of performance to inter-
+quartile has been introduced by Bellon-Maurel et al. (2010) to address some of these issues, and
+generalise the RPD to non-normally distributed variables.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For rpd_vec(), a single numeric value (or NA).rpd
+73
+Author(s)
+Pierre Roudier
+References
+Williams, P.C. (1987) Variables affecting near-infrared reflectance spectroscopic analysis. In: Near
+Infrared Technology in the Agriculture and Food Industries. 1st Ed. P.Williams and K.Norris, Eds.
+Am. Cereal Assoc. Cereal Chem., St. Paul, MN.
+Bellon-Maurel, V., Fernandez-Ahumada, E., Palagos, B., Roger, J.M. and McBratney, A., (2010).
+Critical review of chemometric indicators commonly used for assessing the quality of the prediction
+of soil attributes by NIR spectroscopy. TrAC Trends in Analytical Chemistry, 29(9), pp.1073-1081.
+See Also
+The closely related inter-quartile metric: rpiq()
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpiq,
+rsq_trad, rsq, smape
+Other consistency metrics: ccc, rpiq, rsq_trad, rsq
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+rpd(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+rpd(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))74
+rpiq
+rpiq
+Ratio of performance to inter-quartile
+
+#### Description
+
+These functions are appropriate for cases where the model outcome is a numeric. The ratio of
+performance to deviation (rpd()) and the ratio of performance to inter-quartile (rpiq()) are both
+measures of consistency/correlation between observed and predicted values (and not of accuracy).
+
+#### Usage
+
+rpiq(data, ...)
+## S3 method for class 'data.frame'
+rpiq(data, truth, estimate, na_rm = TRUE, ...)
+rpiq_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data
+...
+truth
+estimate
+na_rm
+A data.frame containing the truth and estimate columns.
+Not currently used.
+The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+In the field of spectroscopy in particular, the ratio of performance to deviation (RPD) has been used
+as the standard way to report the quality of a model. It is the ratio between the standard deviation
+of a variable and the standard error of prediction of that variable by a given model. However, its
+systematic use has been criticized by several authors, since using the standard deviation to represent
+the spread of a variable can be misleading on skewed dataset. The ratio of performance to inter-
+quartile has been introduced by Bellon-Maurel et al. (2010) to address some of these issues, and
+generalise the RPD to non-normally distributed variables.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For rpd_vec(), a single numeric value (or NA).rpiq
+75
+Author(s)
+Pierre Roudier
+References
+Williams, P.C. (1987) Variables affecting near-infrared reflectance spectroscopic analysis. In: Near
+Infrared Technology in the Agriculture and Food Industries. 1st Ed. P.Williams and K.Norris, Eds.
+Am. Cereal Assoc. Cereal Chem., St. Paul, MN.
+Bellon-Maurel, V., Fernandez-Ahumada, E., Palagos, B., Roger, J.M. and McBratney, A., (2010).
+Critical review of chemometric indicators commonly used for assessing the quality of the prediction
+of soil attributes by NIR spectroscopy. TrAC Trends in Analytical Chemistry, 29(9), pp.1073-1081.
+See Also
+The closely related deviation metric: rpd()
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd,
+rsq_trad, rsq, smape
+Other consistency metrics: ccc, rpd, rsq_trad, rsq
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+rpd(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+rpd(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))76
+rsq
+rsq
+R squared
+
+#### Description
+
+Calculate the coefficient of determination using correlation. For the traditional measure of R
+squared, see rsq_trad().
+
+#### Usage
+
+rsq(data, ...)
+## S3 method for class 'data.frame'
+rsq(data, truth, estimate, na_rm = TRUE, ...)
+rsq_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The two estimates for the coefficient of determination, rsq() and rsq_trad(), differ by their for-
+mula. The former guarantees a value on (0, 1) while the latter can generate inaccurate values when
+the model is non-informative (see the 
+#### Examples
+```{r}). Both are measures of consistency/correlation and
+not of accuracy.
+rsq() is simply the squared correlation between truth and estimate.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For rsq_vec(), a single numeric value (or NA).rsq
+77
+Author(s)
+Max Kuhn
+References
+Kvalseth. Cautionary note about R 2 . American Statistician (1985) vol. 39 (4) pp. 279-285.
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd, rpiq,
+rsq_trad, smape
+Other consistency metrics: ccc, rpd, rpiq, rsq_trad
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+rsq(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+rsq(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+# With uninformitive data, the traditional version of R^2 can return
+# negative values.
+set.seed(2291)
+solubility_test$randomized <- sample(solubility_test$prediction)
+rsq(solubility_test, solubility, randomized)
+rsq_trad(solubility_test, solubility, randomized)78
+rsq_trad
+rsq_trad
+R squared - traditional
+
+#### Description
+
+Calculate the coefficient of determination using the traditional definition of R squared using sum of
+squares. For a measure of R squared that is strictly between (0, 1), see rsq().
+
+#### Usage
+
+rsq_trad(data, ...)
+## S3 method for class 'data.frame'
+rsq_trad(data, truth, estimate, na_rm = TRUE, ...)
+rsq_trad_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The two estimates for the coefficient of determination, rsq() and rsq_trad(), differ by their for-
+mula. The former guarantees a value on (0, 1) while the latter can generate inaccurate values when
+the model is non-informative (see the 
+#### Examples
+```{r}). Both are measures of consistency/correlation and
+not of accuracy.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For rsq_trad_vec(), a single numeric value (or NA).rsq_trad
+79
+Author(s)
+Max Kuhn
+References
+Kvalseth. Cautionary note about R 2 . American Statistician (1985) vol. 39 (4) pp. 279-285.
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd, rpiq,
+rsq, smape
+Other consistency metrics: ccc, rpd, rpiq, rsq
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+rsq_trad(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+rsq_trad(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+# With uninformitive data, the traditional version of R^2 can return
+# negative values.
+set.seed(2291)
+solubility_test$randomized <- sample(solubility_test$prediction)
+rsq(solubility_test, solubility, randomized)
+rsq_trad(solubility_test, solubility, randomized)80
+sens
+sens
+Sensitivity
+
+#### Description
+
+These functions calculate the sens() (sensitivity) of a measurement system compared to a reference
+result (the "truth" or gold standard). Highly related functions are spec(), ppv(), and npv().
+
+#### Usage
+
+sens(data, ...)
+## S3 method for class 'data.frame'
+sens(data, truth, estimate, estimator = NULL,
+na_rm = TRUE, ...)
+sens_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+The sensitivity (sens()) is defined as the proportion of positive results out of the number of samples
+which were actually positive. When there are no positive results, sensitivity is not defined and a
+value of NA is returned.sens
+81
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For sens_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+Macro, micro, and macro-weighted averaging is available for this metric. The default is to select
+macro averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Implementation
+Suppose a 2x2 table with notation:
+Predicted
+Positive
+Negative
+Reference
+Positive
+A
+C
+Negative
+B
+D
+The formulas used here are:
+Sensitivity = A/(A + C)
+Specif icity = D/(B + D)
+P revalence = (A + C)/(A + B + C + D)
+P P V = (Sensitivity∗P revalence)/((Sensitivity∗P revalence)+((1−Specif icity)∗(1−P revalence)))
+N P V = (Specif icity∗(1−P revalence))/(((1−Sensitivity)∗P revalence)+((Specif icity)∗(1−P revalence)))
+See the references for discussions of the statistics.
+Author(s)
+Max Kuhn82
+smape
+References
+Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 1: sensitivity and specificity,” British Medical
+Journal, vol 308, 1552.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, npv, ppv, precision, recall, spec
+Other sensitivity metrics: npv, ppv, spec
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+sens(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+sens(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+sens(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+sens(obs, pred, estimator = "macro_weighted")
+# Vector version
+sens_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+sens_vec(two_class_example$truth, two_class_example$predicted)
+options(yardstick.event_first = TRUE)
+smape
+Symmetric mean absolute percentage error
+
+#### Description
+
+Calculate the symmetric mean absolute percentage error. This metric is in relative units.smape
+83
+
+#### Usage
+
+smape(data, ...)
+## S3 method for class 'data.frame'
+smape(data, truth, estimate, na_rm = TRUE, ...)
+smape_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+This implementation of smape() is the "usual definition" where the denominator is divided by two.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For smape_vec(), a single numeric value (or NA).
+Author(s)
+Max Kuhn, Riaz Hedayati
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd, rpiq,
+rsq_trad, rsq
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse84
+solubility_test
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+smape(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+smape(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
+solubility_test
+Solubility Predictions from MARS Model
+
+#### Description
+
+Solubility Predictions from MARS Model
+Details
+For the solubility data in Kuhn and Johnson (2013), these data are the test set results for the MARS
+model. The observed solubility (in column solubility) and the model results (prediction) are
+contained in the data.
+Value
+solubility_test
+a data framespec
+85
+Source
+Kuhn, M., Johnson, K. (2013) Applied Predictive Modeling, Springer
+
+#### Examples
+```{r}
+data(solubility_test)
+str(solubility_test)
+spec
+Specificity
+
+#### Description
+
+These functions calculate the spec() (specificity) of a measurement system compared to a reference
+result (the "truth" or gold standard). Highly related functions are sens(), ppv(), and npv().
+
+#### Usage
+
+spec(data, ...)
+## S3 method for class 'data.frame'
+spec(data, truth, estimate, estimator = NULL,
+na_rm = TRUE, ...)
+spec_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+
+#### Arguments
+
+data Either a data.frame containing the truth and estimate columns, or a table/matrix
+where the true class results should be in the columns of the table.
+... Not currently used.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimate The column identifier for the predicted class results (that is also factor). As
+with truth this can be specified different ways but the primary method is to use
+an unquoted variable name. For _vec() functions, a factor vector.
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.86
+spec
+Details
+The specificity measures the proportion of negatives that are correctly identified as negatives. When
+there are no negative results, specificity is not defined and a value of NA is returned.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For spec_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+Macro, micro, and macro-weighted averaging is available for this metric. The default is to select
+macro averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Implementation
+Suppose a 2x2 table with notation:
+Predicted
+Positive
+Negative
+Reference
+Positive
+A
+C
+Negative
+B
+D
+The formulas used here are:
+Sensitivity = A/(A + C)
+Specif icity = D/(B + D)
+P revalence = (A + C)/(A + B + C + D)
+P P V = (Sensitivity∗P revalence)/((Sensitivity∗P revalence)+((1−Specif icity)∗(1−P revalence)))
+N P V = (Specif icity∗(1−P revalence))/(((1−Sensitivity)∗P revalence)+((Specif icity)∗(1−P revalence)))
+See the references for discussions of the statistics.spec
+87
+Author(s)
+Max Kuhn
+References
+Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 1: sensitivity and specificity,” British Medical
+Journal, vol 308, 1552.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, npv, ppv, precision, recall, sens
+Other sensitivity metrics: npv, ppv, sens
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+spec(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+spec(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+spec(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+spec(obs, pred, estimator = "macro_weighted")
+# Vector version
+spec_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+spec_vec(two_class_example$truth, two_class_example$predicted)
+options(yardstick.event_first = TRUE)88
+summary.conf_mat
+summary.conf_mat
+Summary Statistics for Confusion Matrices
+
+#### Description
+
+Various statistical summaries of confusion matrices are produced and returned in a tibble. These
+include those shown in the help pages for sens(), recall(), and accuracy(), among others.
+
+#### Usage
+
+## S3 method for class 'conf_mat'
+summary(object, prevalence = NULL, beta = 1,
+estimator = NULL, ...)
+
+#### Arguments
+
+object An object of class conf_mat().
+prevalence A number in (0, 1) for the prevalence (i.e. prior) of the event. If left to the
+default, the data are used to derive this value.
+beta A numeric value used to weight precision and recall for f_meas().
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+... Not currently used.
+Value
+A tibble containing various classification metrics.
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+See Also
+conf_mat()two_class_example
+89
+
+#### Examples
+```{r}
+data("two_class_example")
+cmat <- conf_mat(two_class_example, truth = "truth", estimate = "predicted")
+summary(cmat)
+summary(cmat, prevalence = 0.70)
+library(dplyr)
+library(purrr)
+library(tidyr)
+data("hpc_cv")
+# Compute statistics per resample then summarize
+all_metrics <- hpc_cv %>%
+group_by(Resample) %>%
+conf_mat(obs, pred) %>%
+mutate(summary_tbl = map(conf_mat, summary)) %>%
+unnest(summary_tbl)
+all_metrics %>%
+group_by(.metric) %>%
+summarise(
+mean = mean(.estimate, na.rm = TRUE),
+sd = sd(.estimate, na.rm = TRUE)
+)
+two_class_example
+Two Class Predictions
+
+#### Description
+
+Two Class Predictions
+Details
+These data are a test set form a model built for two classes ("Class1" and "Class2"). There are
+columns for the true and predicted classes and column for the probabilities for each class.
+Value
+two_class_example
+a data frame
+
+#### Examples
+```{r}
+data(two_class_example)
+str(two_class_example)Index
+finalize_estimator_internal
+(get_weights), 21
+∗Topic datasets
+hpc_cv, 23
+pathology, 51
+solubility_test, 84
+two_class_example, 89
+gain_capture, 15, 48, 59, 68
+gain_capture(), 18, 20
+gain_capture_vec (gain_capture), 15
+gain_curve, 18, 33, 61, 71
+gain_curve(), 17, 31
+get_weights, 21
+ggplot2::autoplot(), 9, 19, 32, 61, 70
+accuracy, 3, 6, 12, 15, 28, 30, 40, 51, 54, 57,
+64, 82, 87
+accuracy(), 29, 41, 47, 88
+accuracy_vec (accuracy), 3
+autoplot.conf_mat (conf_mat), 8
+autoplot.gain_df (gain_curve), 18
+autoplot.lift_df (lift_curve), 31
+autoplot.pr_df (pr_curve), 60
+autoplot.roc_df (roc_curve), 69
+hpc_cv, 23
+huber_loss, 7, 23, 26, 34, 36, 38, 66, 73, 75,
+77, 79, 83
+huber_loss(), 25
+huber_loss_pseudo, 7, 24, 25, 34, 36, 38, 66,
+73, 75, 77, 79, 83
+huber_loss_pseudo_vec
+(huber_loss_pseudo), 25
+huber_loss_vec (huber_loss), 23
+bal_accuracy, 4, 4, 12, 15, 28, 30, 40, 51, 54,
+57, 64, 82, 87
+bal_accuracy_vec (bal_accuracy), 4
+base::table(), 9
+ccc, 6, 24, 26, 34, 36, 38, 66, 73, 75, 77, 79, 83
+ccc(), 7
+ccc_vec (ccc), 6
+conf_mat, 8
+conf_mat(), 9, 88
+j_index, 4, 6, 12, 15, 27, 30, 40, 51, 54, 57,
+64, 82, 87
+j_index_vec (j_index), 27
+kap, 4, 6, 12, 15, 28, 29, 40, 51, 54, 57, 64, 82,
+87
+kap(), 41
+kap_vec (kap), 29
+detection_prevalence, 4, 6, 10, 15, 28, 30,
+40, 51, 54, 57, 64, 82, 87
+detection_prevalence_vec
+(detection_prevalence), 10
+developer-helpers (get_weights), 21
+dots_to_estimate (get_weights), 21
+dots_to_estimate(), 45, 46
+lift_curve, 20, 31, 61, 71
+lift_curve(), 18
+mae, 7, 24, 26, 33, 36, 38, 66, 73, 75, 77, 79, 83
+mae(), 41
+mae_vec (mae), 33
+mape, 7, 24, 26, 34, 35, 38, 66, 73, 75, 77, 79,
+83
+mape_vec (mape), 35
+mase, 7, 24, 26, 34, 36, 37, 66, 73, 75, 77, 79,
+83
+f_meas, 4, 6, 12, 13, 28, 30, 40, 51, 54, 57, 64,
+82, 87
+f_meas(), 13, 55, 62, 88
+f_meas_vec (f_meas), 13
+finalize_estimator (get_weights), 21
+finalize_estimator(), 45, 46
+90INDEX
+mase_vec (mase), 37
+mcc, 4, 6, 12, 15, 28, 30, 39, 51, 54, 57, 64, 82,
+87
+mcc_vec (mcc), 39
+metric_set, 42
+metric_set(), 42
+metric_summarizer, 44
+metric_summarizer(), 21, 22, 45, 46
+metric_vec_template, 45
+metric_vec_template(), 21, 22, 44, 45
+metrics, 41
+metrics(), 43
+mn_log_loss, 17, 46, 59, 68
+mn_log_loss(), 41
+mn_log_loss_vec (mn_log_loss), 46
+npv, 4, 6, 12, 15, 28, 30, 40, 49, 54, 57, 64, 82,
+87
+npv(), 49, 52, 53, 80, 85
+npv_vec (npv), 49
+pathology, 51
+ppv, 4, 6, 12, 15, 28, 30, 40, 51, 52, 57, 64, 82,
+87
+ppv(), 49, 52, 53, 80, 85
+ppv_vec (ppv), 52
+pr_auc, 17, 48, 58, 68
+pr_auc(), 60, 61
+pr_auc_vec (pr_auc), 58
+pr_curve, 20, 33, 60, 71
+pr_curve(), 58, 59
+precision, 4, 6, 12, 15, 28, 30, 40, 51, 54, 55,
+64, 82, 87
+precision(), 13, 55, 62
+precision_vec (precision), 55
+pROC::roc(), 41, 67, 70
+quasiquotation, 3, 5, 7, 9, 11, 13, 16, 19, 24,
+25, 27, 30, 32, 34, 35, 37, 39, 41, 47,
+49, 52, 55, 58, 60, 62, 65, 67, 70, 72,
+74, 76, 78, 80, 83, 85
+recall, 4, 6, 12, 15, 28, 30, 40, 51, 54, 57, 62,
+82, 87
+recall(), 13, 55, 62, 88
+recall_vec (recall), 62
+rmse, 7, 24, 26, 34, 36, 38, 65, 73, 75, 77, 79,
+83
+rmse(), 7, 23, 25, 41
+91
+rmse_vec (rmse), 65
+roc_auc, 17, 48, 59, 66
+roc_auc(), 41, 69, 71
+roc_auc_vec (roc_auc), 66
+roc_curve, 20, 33, 61, 69
+roc_curve(), 66, 68
+rpd, 7, 24, 26, 34, 36, 38, 66, 72, 75, 77, 79, 83
+rpd(), 72, 74, 75
+rpd_vec (rpd), 72
+rpiq, 7, 24, 26, 34, 36, 38, 66, 73, 74, 77, 79,
+83
+rpiq(), 72–74
+rpiq_vec (rpiq), 74
+rsq, 7, 24, 26, 34, 36, 38, 66, 73, 75, 76, 79, 83
+rsq(), 7, 41, 76, 78
+rsq_trad, 7, 24, 26, 34, 36, 38, 66, 73, 75, 77,
+78, 83
+rsq_trad(), 76, 78
+rsq_trad_vec (rsq_trad), 78
+rsq_vec (rsq), 76
+sens, 4, 6, 12, 15, 28, 30, 40, 51, 54, 57, 64,
+80, 87
+sens(), 4, 27, 49, 52, 80, 85, 88
+sens_vec (sens), 80
+smape, 7, 24, 26, 34, 36, 38, 66, 73, 75, 77, 79,
+82
+smape_vec (smape), 82
+solubility_test, 84
+spec, 4, 6, 12, 15, 28, 30, 40, 51, 54, 57, 64,
+82, 85
+spec(), 4, 27, 49, 52, 80, 85
+spec_vec (spec), 85
+summary.conf_mat, 88
+summary.conf_mat(), 9
+tidy.conf_mat (conf_mat), 8
+two_class_example, 89
+validate_estimator (get_weights), 21
