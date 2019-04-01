@@ -1,0 +1,33 @@
+tidy
+Retrieve tidy dataframe if it exists.
+
+#### Description
+
+Checks if a tidy method exits for a given object, either in broom or in broom.mixed. If it does, it
+turn an object into a tidy tibble, if not, return a NULL.
+
+#### Usage
+
+tidy(x, ...)
+
+#### Arguments
+
+x An object to be converted into a tidy tibble::tibble().
+... Additional arguments to tidying method.
+Value
+A tibble::tibble() with information about model components.
+Methods
+No methods found in currently loaded packages.
+Author(s)
+Indrajeet Patil
+
+#### Examples
+```{r}
+set.seed(123)
+library(lme4)
+# mixed-effects models (`broom.mixed` will be used)
+lmm.mod <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+broomExtra::tidy(lmm.mod, effects = "fixed", exponentiate = TRUE)
+# linear model (`broom` will be used)
+lm.mod <- lm(Reaction ~ Days, sleepstudy)
+broomExtra::tidy(lm.mod, conf.int = TRUE)Index
