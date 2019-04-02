@@ -1,0 +1,79 @@
+Package ‘yardstick’
+March 8, 2019
+Type Package
+Title Tidy Characterizations of Model Performance
+Version 0.0.3
+Maintainer Max Kuhn <max@rstudio.com>
+
+#### Description
+ Tidy tools for quantifying how well model fits to a data set such as confusion matri-
+ces, class probability curve summaries, and regression metrics (e.g., RMSE).
+URL https://github.com/tidymodels/yardstick
+BugReports https://github.com/tidymodels/yardstick/issues
+License GPL-2
+Encoding UTF-8
+LazyData true
+RoxygenNote 6.1.1
+Depends R (>= 2.10)
+Suggests testthat, covr, purrr, tidyr, ggplot2, knitr, kableExtra,
+rmarkdown
+Imports dplyr, utils, pROC, rlang, tidyselect, Rcpp, generics
+LinkingTo Rcpp
+VignetteBuilder knitr
+NeedsCompilation yes
+Author Max Kuhn [aut, cre],
+Davis Vaughan [aut],
+RStudio [cph]
+Repository CRAN
+Date/Publication 2019-03-08 19:00:03 UTC
+1R topics documented:
+2
+R topics documented:
+accuracy . . . . . . .
+bal_accuracy . . . .
+ccc . . . . . . . . . .
+conf_mat . . . . . .
+detection_prevalence
+f_meas . . . . . . . .
+gain_capture . . . . .
+gain_curve . . . . . .
+get_weights . . . . .
+hpc_cv . . . . . . . .
+huber_loss . . . . . .
+huber_loss_pseudo .
+j_index . . . . . . .
+kap . . . . . . . . . .
+lift_curve . . . . . .
+mae . . . . . . . . .
+mape . . . . . . . . .
+mase . . . . . . . . .
+mcc . . . . . . . . .
+metrics . . . . . . . .
+metric_set . . . . . .
+metric_summarizer .
+metric_vec_template
+mn_log_loss . . . . .
+npv . . . . . . . . .
+pathology . . . . . .
+ppv . . . . . . . . .
+precision . . . . . . .
+pr_auc . . . . . . . .
+pr_curve . . . . . . .
+recall . . . . . . . .
+rmse . . . . . . . . .
+roc_auc . . . . . . .
+roc_curve . . . . . .
+rpd . . . . . . . . . .
+rpiq . . . . . . . . .
+rsq . . . . . . . . . .
+rsq_trad . . . . . . .
+sens . . . . . . . . .
+smape . . . . . . . .
+solubility_test . . . .
+spec . . . . . . . . .
+summary.conf_mat .
+two_class_example .
+get_weights
+hpc_cv
+23
+
