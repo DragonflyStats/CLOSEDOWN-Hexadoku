@@ -1,0 +1,91 @@
+mase
+Mean absolute scaled error
+
+#### Description
+
+Calculate the mean absolute scaled error. This metric is scale independent and symmetric. It is
+generally used for comparing forecast error in time series settings. Due to the time series nature of
+this metric, it is neccesary to order observations in ascending order by time.
+
+#### Usage
+
+mase(data, ...)
+## S3 method for class 'data.frame'
+mase(data, truth, estimate, m = 1L,
+mae_train = NULL, na_rm = TRUE, ...)
+mase_vec(truth, estimate, m = 1L, mae_train = NULL, na_rm = TRUE,
+...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+m An integer value of the number of lags used to calculate the in-sample seasonal
+naive error. The default is used for non-seasonal time series. If each observation
+was at the daily level and the data showed weekly seasonality, then m = 7L
+would be a reasonable choice for a 7-day seasonal naive calculation.
+mae_train A numeric value which allows the user to provide the in-sample seasonal naive
+mean absolute error. If this value is not provided, then the out-of-sample sea-
+sonal naive mean absolute error will be calculated from truth and will be used
+instead.38
+mase
+na_rm
+A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+mase() is different from most numeric metrics. The original implementation of mase() calls for
+using the in-sample naive mean absolute error to compute scaled errors with. It uses this instead
+of the out-of-sample error because there is a chance that the out-of-sample error cannot be com-
+puted when forecasting a very short horizon (i.e. the out of sample size is only 1 or 2). However,
+yardstick only knows about the out-of-sample truth and estimate values. Because of this, the
+out-of-sample error is used in the computation by default. If the in-sample naive mean absolute er-
+ror is required and known, it can be passed through in the mae_train argument and it will be used
+instead. If the in-sample data is available, the naive mean absolute error can easily be computed
+with mae(data, truth, lagged_truth).
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mase_vec(), a single numeric value (or NA).
+Author(s)
+Alex Hallam
+References
+Rob J. Hyndman (2006). ANOTHER LOOK AT FORECAST-ACCURACY METRICS FOR IN-
+TERMITTENT DEMAND. Foresight, 4, 46.
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, rmse, rpd, rpiq,
+rsq_trad, rsq, smape
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, rmse, smape
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+mase(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(mcc
+39
+)
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+mase(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
