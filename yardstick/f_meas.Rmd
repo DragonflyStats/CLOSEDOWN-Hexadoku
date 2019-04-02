@@ -1,27 +1,36 @@
+---
+title: "``yardstick::f_meas"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 f_meas
 F Measure
 
 #### Description
 
-These functions calculate the f_meas() of a measurement system for finding relevant documents
-compared to reference results (the truth regarding relevance). Highly related functions are recall()
-and precision().
+These functions calculate the ``f_meas()`` of a measurement system for finding relevant documents compared to reference results (the truth regarding relevance). Highly related functions are ``recall()`` and ``precision()``.
 
 #### Usage
-
+<pre><code>
 f_meas(data, ...)
 ## S3 method for class 'data.frame'
 f_meas(data, truth, estimate, beta = 1,
 estimator = NULL, na_rm = TRUE, ...)
 f_meas_vec(truth, estimate, beta = 1, estimator = NULL, na_rm = TRUE,
 ...)
+</code></pre>
 
 #### Arguments
 
-data Either a data.frame containing the truth and estimate columns, or a table/matrix
+* data Either a data.frame containing the truth and estimate columns, or a table/matrix
 where the true class results should be in the columns of the table.
-... Not currently used.
-truth The column identifier for the true class results (that is a factor). This should be
+* ... Not currently used.
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
@@ -37,7 +46,8 @@ The other three are general methods for calculating multiclass metrics. The
 default will automatically choose "binary" or "macro" based on estimate.
 na_rm A logical value indicating whether NA values should be stripped before the
 computation proceeds.
-Details
+
+#### Details
 The measure "F" is a combination of precision and recall (see below).14
 f_meas
 Value
@@ -73,18 +83,7 @@ precision = A/(A + B)
 2
 F m eas β = (1 + β ) ∗ precision ∗ recall/((β 2 ∗ precision) + recall)
 See the references for discussions of the statistics.
-Author(s)
-Max Kuhn
-References
-Buckland, M., & Gey, F. (1994). The relationship between Recall and Precision. Journal of the
-American Society for Information Science, 45(1), 12-19.
-Powers, D. (2007). Evaluation: From Precision, Recall and F Factor to ROC, Informedness,
-Markedness and Correlation. Technical Report SIE-07-001, Flinders Universitygain_capture
-15
-See Also
-Other class metrics: accuracy, bal_accuracy, detection_prevalence, j_index, kap, mcc, npv,
-ppv, precision, recall, sens, spec
-Other relevance metrics: precision, recall
+
 
 #### Examples
 ```{r}
@@ -111,3 +110,16 @@ f_meas_vec(two_class_example$truth, two_class_example$predicted)
 options(yardstick.event_first = FALSE)
 f_meas_vec(two_class_example$truth, two_class_example$predicted)
 options(yardstick.event_first = TRUE)
+```
+Author(s)
+Max Kuhn
+References
+Buckland, M., & Gey, F. (1994). The relationship between Recall and Precision. Journal of the
+American Society for Information Science, 45(1), 12-19.
+Powers, D. (2007). Evaluation: From Precision, Recall and F Factor to ROC, Informedness,
+Markedness and Correlation. Technical Report SIE-07-001, Flinders Universitygain_capture
+15
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, j_index, kap, mcc, npv,
+ppv, precision, recall, sens, spec
+Other relevance metrics: precision, recall
