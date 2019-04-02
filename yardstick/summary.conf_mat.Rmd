@@ -1,0 +1,62 @@
+
+summary.conf_mat
+Summary Statistics for Confusion Matrices
+
+#### Description
+
+Various statistical summaries of confusion matrices are produced and returned in a tibble. These
+include those shown in the help pages for sens(), recall(), and accuracy(), among others.
+
+#### Usage
+
+## S3 method for class 'conf_mat'
+summary(object, prevalence = NULL, beta = 1,
+estimator = NULL, ...)
+
+#### Arguments
+
+object An object of class conf_mat().
+prevalence A number in (0, 1) for the prevalence (i.e. prior) of the event. If left to the
+default, the data are used to derive this value.
+beta A numeric value used to weight precision and recall for f_meas().
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
+type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "macro" based on estimate.
+... Not currently used.
+Value
+A tibble containing various classification metrics.
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+See Also
+conf_mat()two_class_example
+89
+
+#### Examples
+```{r}
+data("two_class_example")
+cmat <- conf_mat(two_class_example, truth = "truth", estimate = "predicted")
+summary(cmat)
+summary(cmat, prevalence = 0.70)
+library(dplyr)
+library(purrr)
+library(tidyr)
+data("hpc_cv")
+# Compute statistics per resample then summarize
+all_metrics <- hpc_cv %>%
+group_by(Resample) %>%
+conf_mat(obs, pred) %>%
+mutate(summary_tbl = map(conf_mat, summary)) %>%
+unnest(summary_tbl)
+all_metrics %>%
+group_by(.metric) %>%
+summarise(
+mean = mean(.estimate, na.rm = TRUE),
+sd = sd(.estimate, na.rm = TRUE)
+)
+```
