@@ -1,0 +1,117 @@
+roc_auc
+Area under the receiver operator curve
+
+#### Description
+
+roc_auc() is a metric that computes the area under the ROC curve. See roc_curve() for the full
+curve.roc_auc
+67
+
+#### Usage
+
+roc_auc(data, ...)
+## S3 method for class 'data.frame'
+roc_auc(data, truth, ..., options = list(),
+estimator = NULL, na_rm = TRUE)
+roc_auc_vec(truth, estimate, options = list(), estimator = NULL,
+na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+options A list of named options to pass to pROC::roc() such as direction or smooth.
+These options should not include response, predictor, or levels.
+estimator One of "binary", "hand_till", "macro", or "macro_weighted" to specify
+the type of averaging to be done. "binary" is only relevant for the two class
+case. The others are general methods for calculating multiclass metrics. The
+default will automatically choose "binary" or "hand_till" based on truth.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+estimate If truth is binary, a numeric vector of class probabilities corresponding to the
+"relevant" class. Otherwise, a matrix with as many columns as factor levels of
+truth. It is assumed that these are in the same order as the levels of truth.
+Details
+For most methods, roc_auc() makes no effort to ensure that the supplied class probabilities result
+in a AUC value above 0.5 (random guessing). However, the Hand, Till (2001) method assumes
+that the individual AUCs are all above 0.5, so if an AUC value below 0.5 is computed, then 1 is
+subtracted from it to get the correct result.
+Generally, an ROC AUC value is between 0.5 and 1, with 1 being a perfect prediction model. If
+your value is between 0 and 0.5, then this implies that you have meaningful information in your
+model, but it is being applied incorrectly because doing the opposite of what the model predicts
+would result in an AUC >0.5.68
+roc_auc
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For roc_auc_vec(), a single numeric value (or NA).
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Multiclass
+The default multiclass method for computing roc_auc() is to use the method from Hand, Till,
+(2001). Unlike macro-averaging, this method is insensitive to class distributions like the binary
+ROC AUC case.
+Macro and macro-weighted averaging are still provided, even though they are not the default. In
+fact, macro-weighted averaging corresponds to the same definition of multiclass AUC given by
+Provost and Domingos (2001).
+Author(s)
+Max Kuhn
+References
+Hand, Till (2001). "A Simple Generalisation of the Area Under the ROC Curve for Multiple Class
+Classification Problems". Machine Learning. Vol 45, Iss 2, pp 171-186.
+Fawcett (2005). "An introduction to ROC analysis". Pattern Recognition Letters. 27 (2006), pp
+861-874.
+Provost, F., Domingos, P., 2001. "Well-trained PETs: Improving probability estimation trees",
+CeDER Working Paper #IS-00-04, Stern School of Business, New York University, NY, NY 10012.
+See Also
+roc_curve() for computing the full ROC curve.
+Other class probability metrics: gain_capture, mn_log_loss, pr_auc
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+roc_auc(two_class_example, truth, Class1)
+# Multiclassroc_curve
+69
+library(dplyr)
+data(hpc_cv)
+# You can use the col1:colN tidyselect syntax
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+roc_auc(obs, VF:L)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+roc_auc(obs, VF:L)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+roc_auc(obs, VF:L, estimator = "macro_weighted")
+# Vector version
+# Supply a matrix of class probabilities
+fold1 <- hpc_cv %>%
+filter(Resample == "Fold01")
+roc_auc_vec(
+truth = fold1$obs,
+matrix(
+c(fold1$VF, fold1$F, fold1$M, fold1$L),
+ncol = 4
+)
+)
+# passing options via a list and _not_ `...`
+roc_auc(two_class_example, truth = truth, Class1,
+options = list(smooth = TRUE))
+```
