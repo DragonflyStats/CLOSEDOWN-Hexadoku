@@ -1,0 +1,88 @@
+mn_log_loss
+Mean log loss
+
+#### Description
+
+Compute the logarithmic loss of a classification model.mn_log_loss
+47
+
+#### Usage
+
+mn_log_loss(data, ...)
+## S3 method for class 'data.frame'
+mn_log_loss(data, truth, ..., na_rm = TRUE,
+sum = FALSE)
+mn_log_loss_vec(truth, estimate, na_rm = TRUE, sum = FALSE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+sum A logical. Should the sum of the likelihood contributions be returned (instead
+of the mean value)?
+estimate If truth is binary, a numeric vector of class probabilities corresponding to the
+"relevant" class. Otherwise, a matrix with as many columns as factor levels of
+truth. It is assumed that these are in the same order as the levels of truth.
+Details
+Log loss is a measure of the performance of a classification model. A perfect model has a log loss
+of 0.
+Compared with accuracy(), log loss takes into account the uncertainty in the prediction and gives
+a more detailed view into the actual performance. For example, given two input probabilities of
+.6 and .9 where both are classified as predicting a positive value, say, "Yes", the accuracy metric
+would interpret them as having the same value. If the true output is "Yes", log loss penalizes .6
+because it is "less sure" of it’s result compared to the probability of .9.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mn_log_loss_vec(), a single numeric value (or NA).48
+mn_log_loss
+Multiclass
+Log loss has a known multiclass extension, and is simply the sum of the log loss values for each
+class prediction. Because of this, no averaging types are supported.
+Author(s)
+Max Kuhn
+See Also
+Other class probability metrics: gain_capture, pr_auc, roc_auc
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+mn_log_loss(two_class_example, truth, Class1)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+# You can use the col1:colN tidyselect syntax
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+mn_log_loss(obs, VF:L)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+mn_log_loss(obs, VF:L)
+# Vector version
+# Supply a matrix of class probabilities
+fold1 <- hpc_cv %>%
+filter(Resample == "Fold01")
+mn_log_loss_vec(
+truth = fold1$obs,
+matrix(
+c(fold1$VF, fold1$F, fold1$M, fold1$L),
+ncol = 4
+)
+)
+# Supply `...` with quasiquotation
+prob_cols <- levels(two_class_example$truth)
+mn_log_loss(two_class_example, truth, Class1)
+mn_log_loss(two_class_example, truth, !! prob_cols[1])npv
+49
+```
