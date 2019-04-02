@@ -1,0 +1,92 @@
+pr_auc
+pr_auc
+Area under the precision recall curve
+
+#### Description
+
+pr_auc() is a metric that computes the area under the precision recall curve. See pr_curve() for
+the full curve.
+
+#### Usage
+
+pr_auc(data, ...)
+## S3 method for class 'data.frame'
+pr_auc(data, truth, ..., estimator = NULL,
+na_rm = TRUE)
+pr_auc_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... A set of unquoted column names or one or more dplyr selector functions to
+choose which variables contain the class probabilities. If truth is binary, only
+1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+truth The column identifier for the true class results (that is a factor). This should be
+an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() func-
+tions, a factor vector.
+estimator One of "binary", "macro", or "macro_weighted" to specify the type of aver-
+aging to be done. "binary" is only relevant for the two class case. The other
+two are general methods for calculating multiclass metrics. The default will
+automatically choose "binary" or "macro" based on truth.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+estimate If truth is binary, a numeric vector of class probabilities corresponding to the
+"relevant" class. Otherwise, a matrix with as many columns as factor levels of
+truth. It is assumed that these are in the same order as the levels of truth.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For pr_auc_vec(), a single numeric value (or NA).pr_auc
+59
+Multiclass
+Macro and macro-weighted averaging is available for this metric. The default is to select macro
+averaging if a truth factor with more than 2 levels is provided. Otherwise, a standard binary
+calculation is done. See vignette("multiclass", "yardstick") for more information.
+Relevant level
+There is no common convention on which factor level should automatically be considered the
+"event" or "positive" result. In yardstick, the default is to use the first level. To change this, a
+global option called yardstick.event_first is set to TRUE when the package is loaded. This can
+be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
+extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+Author(s)
+Max Kuhn
+See Also
+pr_curve() for computing the full precision recall curve.
+Other class probability metrics: gain_capture, mn_log_loss, roc_auc
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+pr_auc(two_class_example, truth, Class1)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+# You can use the col1:colN tidyselect syntax
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+pr_auc(obs, VF:L)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+pr_auc(obs, VF:L)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+pr_auc(obs, VF:L, estimator = "macro_weighted")
+# Vector version
+# Supply a matrix of class probabilities
+fold1 <- hpc_cv %>%60
+pr_curve
+filter(Resample == "Fold01")
+pr_auc_vec(
+truth = fold1$obs,
+matrix(
+c(fold1$VF, fold1$F, fold1$M, fold1$L),
+ncol = 4
+)
+)
+```
