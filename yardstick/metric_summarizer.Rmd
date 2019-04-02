@@ -1,0 +1,47 @@
+metric_summarizer
+Developer function for summarizing new metrics
+
+#### Description
+
+metric_summarizer() is useful alongside metric_vec_template() for implementing new cus-
+tom metrics. metric_summarizer() calls the metric function inside dplyr::summarise(). metric_vec_template()
+is a generalized function that calls the core implementation of a metric function, and includes a num-
+ber of checks on the types, lengths, and argument inputs. See vignette("custom-metrics", "yardstick")
+for more information.
+
+#### Usage
+
+metric_summarizer(metric_nm, metric_fn, data, truth, estimate,
+estimator = NULL, na_rm = TRUE, ..., metric_fn_options = list())
+
+#### Arguments
+
+metric_nm A single character representing the name of the metric to use in the tibble
+output. This will be modified to include the type of averaging if appropriate.
+metric_fn The vector version of your custom metric function. It generally takes truth,
+estimate, na_rm, and any other extra arguments needed to calculate the metric.
+data The data frame with truth and estimate columns passed in from the data frame
+version of your metric function that called metric_summarizer().metric_vec_template
+45
+truth The unquoted column name corresponding to the truth column.
+estimate Generally, the unquoted column name corresponding to the estimate column.
+For metrics that take multiple columns through ... like class probability met-
+rics, this is a result of dots_to_estimate().
+estimator For numeric metrics, this is left as NA so averaging is not passed on to the metric
+function implementation. For classification metrics, this can either be NULL for
+the default auto-selection of averaging ("binary" or "macro"), or a single char-
+acter to pass along to the metric implementation describing the kind of averaging
+to use.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds. The removal is executed in metric_vec_template().
+... Currently not used. Metric specific options are passed in through metric_fn_options.
+metric_fn_options
+A named list of metric specific options. These are spliced into the metric func-
+tion call using !!! from rlang. The default results in nothing being spliced into
+the call.
+Details
+metric_summarizer() is generally called from the data frame version of your metric function. It
+knows how to call your metric over grouped data frames and returns a tibble consistent with other
+metrics.
+See Also
+metric_vec_template() finalize_estimator() dots_to_estimate()
