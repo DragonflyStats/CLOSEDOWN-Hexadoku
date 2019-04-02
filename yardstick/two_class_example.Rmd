@@ -1,0 +1,20 @@
+
+two_class_example
+Two Class Predictions
+
+#### Description
+
+Two Class Predictions
+
+#### Details
+These data are a test set form a model built for two classes ("Class1" and "Class2"). There are
+columns for the true and predicted classes and column for the probabilities for each class.
+Value
+two_class_example
+a data frame
+
+#### Examples
+```{r}
+data(two_class_example)
+str(two_class_example)
+```
