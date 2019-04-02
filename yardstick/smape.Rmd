@@ -1,0 +1,67 @@
+smape
+Symmetric mean absolute percentage error
+
+#### Description
+
+Calculate the symmetric mean absolute percentage error. This metric is in relative units.smape
+83
+
+#### Usage
+
+smape(data, ...)
+## S3 method for class 'data.frame'
+smape(data, truth, estimate, na_rm = TRUE, ...)
+smape_vec(truth, estimate, na_rm = TRUE, ...)
+
+#### Arguments
+
+data A data.frame containing the truth and estimate columns.
+... Not currently used.
+truth The column identifier for the true results (that is numeric). This should be an
+unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a
+numeric vector.
+estimate The column identifier for the predicted results (that is also numeric). As with
+truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For _vec() functions, a numeric vector.
+na_rm A logical value indicating whether NA values should be stripped before the
+computation proceeds.
+Details
+This implementation of smape() is the "usual definition" where the denominator is divided by two.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For smape_vec(), a single numeric value (or NA).
+Author(s)
+Max Kuhn, Riaz Hedayati
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd, rpiq,
+rsq_trad, rsq
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse84
+solubility_test
+
+#### Examples
+```{r}
+# Supply truth and predictions as bare column names
+smape(solubility_test, solubility, prediction)
+library(dplyr)
+set.seed(1234)
+size <- 100
+times <- 10
+# create 10 resamples
+solubility_resampled <- bind_rows(
+replicate(
+n = times,
+expr = sample_n(solubility_test, size, replace = TRUE),
+simplify = FALSE
+),
+.id = "resample"
+)
+# Compute the metric by group
+metric_results <- solubility_resampled %>%
+group_by(resample) %>%
+smape(solubility, prediction)
+metric_results
+# Resampled mean estimate
+metric_results %>%
+summarise(avg_estimate = mean(.estimate))
