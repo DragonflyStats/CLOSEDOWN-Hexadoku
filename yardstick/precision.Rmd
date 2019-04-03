@@ -1,3 +1,13 @@
+---
+title: "``yardstick::precision"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 precision
 Precision
 
@@ -8,23 +18,24 @@ ments compared to reference results (the truth regarding relevance). Highly rela
 recall() and f_meas().
 
 #### Usage
-
+<pre><code>
 precision(data, ...)
 ## S3 method for class 'data.frame'
 precision(data, truth, estimate, estimator = NULL,
 na_rm = TRUE, ...)
 precision_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data Either a data.frame containing the truth and estimate columns, or a table/matrix
+* data Either a data.frame containing the truth and estimate columns, or a table/matrix
 where the true class results should be in the columns of the table.
-... Not currently used.
-truth The column identifier for the true class results (that is a factor). This should be
+* ... Not currently used.
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
-estimate The column identifier for the predicted class results (that is also factor). As
+* estimate The column identifier for the predicted class results (that is also factor). As
 with truth this can be specified different ways but the primary method is to use
 an unquoted variable name. For _vec() functions, a factor vector.
 estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
