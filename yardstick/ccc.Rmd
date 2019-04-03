@@ -1,3 +1,11 @@
+---
+title: "``yardstick::ccc``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
 
 ccc
 Concordance correlation coefficient
@@ -7,14 +15,14 @@ Concordance correlation coefficient
 Calculate the concordance correlation coefficient.
 
 #### Usage
-
+<pre><code>
 ccc(data, ...)
 ## S3 method for class 'data.frame'ccc
 7
 ccc(data, truth, estimate, bias = FALSE,
 na_rm = TRUE, ...)
 ccc_vec(truth, estimate, bias = FALSE, na_rm = TRUE, ...)
-
+</code></pre>
 #### Arguments
 
 data
@@ -35,26 +43,7 @@ unquoted variable name. For _vec() functions, a numeric vector.
 A logical; should the biased estimate of variance be used (as is Lin (1989))?
 A logical value indicating whether NA values should be stripped before the
 computation proceeds.
-Details
-ccc() is a metric of both consistency/correlation and accuracy, while metrics such as rmse() are
-strictly for accuracy and metrics such as rsq() are strictly for consistency/correlation
-Value
-A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
-For grouped data frames, the number of rows returned will be the same as the number of groups.
-For ccc_vec(), a single numeric value (or NA).
-Author(s)
-Max Kuhn
-References
-Lin, L. (1989). A concordance correlation coefficient to evaluate reproducibility. Biometrics, 45
-(1), 255-268.
-Nickerson, C. (1997). A note on "A concordance correlation coefficient to evaluate reproducibility".
-Biometrics, 53(4), 1503-1507.
-See Also
-Other numeric metrics: huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd, rpiq,
-rsq_trad, rsq, smape
-Other consistency metrics: rpd, rpiq, rsq_trad, rsq
-Other accuracy metrics: huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, smape8
-conf_mat
+
 
 #### Examples
 ```{r}
@@ -81,3 +70,27 @@ metric_results
 # Resampled mean estimate
 metric_results %>%
 summarise(avg_estimate = mean(.estimate))
+```
+
+#### Details
+ccc() is a metric of both consistency/correlation and accuracy, while metrics such as rmse() are
+strictly for accuracy and metrics such as rsq() are strictly for consistency/correlation
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For ccc_vec(), a single numeric value (or NA).
+
+#### Author(s)
+Max Kuhn
+References
+Lin, L. (1989). A concordance correlation coefficient to evaluate reproducibility. Biometrics, 45
+(1), 255-268.
+Nickerson, C. (1997). A note on "A concordance correlation coefficient to evaluate reproducibility".
+Biometrics, 53(4), 1503-1507.
+
+#### See Also
+Other numeric metrics: huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd, rpiq,
+rsq_trad, rsq, smape
+Other consistency metrics: rpd, rpiq, rsq_trad, rsq
+Other accuracy metrics: huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, smape8
+conf_mat
