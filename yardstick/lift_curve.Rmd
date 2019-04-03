@@ -1,4 +1,14 @@
-lift_curve
+---
+title: "``yardstick::lift_curve``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
+
 Lift curve
 
 #### Description
@@ -7,34 +17,55 @@ lift_curve() constructs the full lift curve and returns a tibble. See gain_curve
 related concept.
 
 #### Usage
-
+<pre><code>
 lift_curve(data, ...)
 ## S3 method for class 'data.frame'
 lift_curve(data, truth, ..., na_rm = TRUE)
 ## S3 method for class 'lift_df'
 autoplot(object, ...)
+</code></pre>
 
 #### Arguments
 
-data A data.frame containing the truth and estimate columns.
-... A set of unquoted column names or one or more dplyr selector functions to
+* data A data.frame containing the truth and estimate columns.
+* ... A set of unquoted column names or one or more dplyr selector functions to
 choose which variables contain the class probabilities. If truth is binary, only
 1 column should be selected. Otherwise, there should be as many columns as
 factor levels of truth.32
 lift_curve
-truth The column identifier for the true class results (that is a factor). This should be
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
-na_rm A logical value indicating whether NA values should be stripped before the
+* na_rm A logical value indicating whether NA values should be stripped before the
 computation proceeds.
 object The lift_df data frame returned from lift_curve().
+
+#### Examples
+```{r}
+library(ggplot2)
+library(dplyr)
+# Two class - a tibble is returned
+lift_curve(two_class_example, truth, Class1)
+# Use autoplot to visualize
+autoplot(lift_curve(two_class_example, truth, Class1))
+# Multiclass one-vs-all approach
+# One curve per level
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+lift_curve(obs, VF:L) %>%
+autoplot()
+# Same as above, but will all of the resamples
+hpc_cv %>%
+group_by(Resample) %>%
+lift_curve(obs, VF:L) %>%
+autoplot()
+```
 Details
 There is a ggplot2::autoplot() method for quickly visualizing the curve. This works for binary
-and multiclass output, and also works with grouped data (i.e. from resamples). See the 
-#### Examples
-```{r}.
-Value
+and multiclass output, and also works with grouped data (i.e. from resamples). See the Examples.
+
+#### Value
 A tibble with class lift_df or lift_grouped_df having columns:
 • .n - The index of the current sample.
 • .n_events - The index of the current unique sample. Values with repeated estimate values
@@ -74,24 +105,3 @@ Author(s)
 Max Kuhn
 See Also
 Other curve metrics: gain_curve, pr_curve, roc_curve
-
-#### Examples
-```{r}
-library(ggplot2)
-library(dplyr)
-# Two class - a tibble is returned
-lift_curve(two_class_example, truth, Class1)
-# Use autoplot to visualize
-autoplot(lift_curve(two_class_example, truth, Class1))
-# Multiclass one-vs-all approach
-# One curve per level
-hpc_cv %>%
-filter(Resample == "Fold01") %>%
-lift_curve(obs, VF:L) %>%
-autoplot()
-# Same as above, but will all of the resamples
-hpc_cv %>%
-group_by(Resample) %>%
-lift_curve(obs, VF:L) %>%
-autoplot()
-```
