@@ -1,43 +1,35 @@
-mape
-Mean absolute percent error
+---
+title: "``yardstick::mape``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+## ``mape``: Mean absolute percent error
 
 #### Description
 
 Calculate the mean absolute percentage error. This metric is in relative units.
 
 #### Usage
-
+<pre><code>
 mape(data, ...)
 ## S3 method for class 'data.frame'
 mape(data, truth, estimate, na_rm = TRUE, ...)
 mape_vec(truth, estimate, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data A data.frame containing the truth and estimate columns.
-... Not currently used.
-truth The column identifier for the true results (that is numeric). This should be an
-unquoted column name although this argument is passed by expression and sup-
-ports quasiquotation (you can unquote column names). For _vec() functions, a
-numeric vector.36
-mape
-estimate The column identifier for the predicted results (that is also numeric). As with
-truth this can be specified different ways but the primary method is to use an
-unquoted variable name. For _vec() functions, a numeric vector.
-na_rm A logical value indicating whether NA values should be stripped before the
-computation proceeds.
-Details
-Note that a value of Inf is returned for mape() when the observed value is negative.
-Value
-A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
-For grouped data frames, the number of rows returned will be the same as the number of groups.
-For mape_vec(), a single numeric value (or NA).
-Author(s)
-Max Kuhn
-See Also
-Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mase, rmse, rpd, rpiq,
-rsq_trad, rsq, smape
-Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mase, rmse, smape
+* data A data.frame containing the truth and estimate columns.
+* ... Not currently used.
+* truth The column identifier for the true results (that is numeric). This should be an unquoted column name although this argument is passed by expression and supports quasiquotation (you can unquote column names). For ``_vec()`` functions, a
+numeric vector.
+* estimate The column identifier for the predicted results (that is also numeric). As with truth this can be specified different ways but the primary method is to use an unquoted variable name. For`` _vec()`` functions, a numeric vector.
+* na_rm A logical value indicating whether NA values should be stripped before the computation proceeds.
+
 
 #### Examples
 ```{r}
@@ -66,3 +58,15 @@ metric_results
 metric_results %>%
 summarise(avg_estimate = mean(.estimate))
 ```
+Details
+Note that a value of Inf is returned for mape() when the observed value is negative.
+Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For mape_vec(), a single numeric value (or NA).
+Author(s)
+Max Kuhn
+See Also
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mase, rmse, rpd, rpiq,
+rsq_trad, rsq, smape
+Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mase, rmse, smape
