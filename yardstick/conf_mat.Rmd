@@ -1,3 +1,12 @@
+---
+title: "``yardstick::conf_mat``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
 
 conf_mat
 Confusion Matrix for Categorical Data
@@ -7,7 +16,7 @@ Confusion Matrix for Categorical Data
 Calculates a cross-tabulation of observed and predicted classes.
 
 #### Usage
-
+<pre><code>
 conf_mat(data, ...)
 ## S3 method for class 'data.frame'
 conf_mat(data, truth, estimate,
@@ -17,13 +26,14 @@ tidy(x, ...)conf_mat
 9
 ## S3 method for class 'conf_mat'
 autoplot(object, type = "mosaic", ...)
+</code></pre>
 
 #### Arguments
 
-data A data frame or a base::table().
-... Options to pass to base::table() (not including dnn). This argument is not
+* data A data frame or a base::table().
+* ... Options to pass to base::table() (not including dnn). This argument is not
 currently used for the tidy method.
-truth The column identifier for the true class results (that is a factor). This should be
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
@@ -34,22 +44,7 @@ dnn A character vector of dimnames for the table.
 x A conf_mat object.
 object The conf_mat data frame returned from conf_mat().
 type Type of plot desired, must be "mosaic" or "heatmap", defaults to "mosaic".
-Details
-For conf_mat() objects, a broom tidy() method has been created that collapses the cell counts by
-cell into a data frame for easy manipulation.
-There is also a summary() method that computes various classification metrics at once. See summary.conf_mat()
-There is a ggplot2::autoplot() method for quickly visualizing the matrix. Both a heatmap and
-mosaic type is implemented.
-The function requires that the factors have exactly the same levels.
-Value
-conf_mat() produces an object with class conf_mat. This contains the table and other objects.
-tidy.conf_mat() generates a tibble with columns name (the cell identifier) and value (the cell
-count).
-When used on a grouped data frame, conf_mat() returns a tibble containing columns for the groups
-along with conf_mat, a list-column where each element is a conf_mat object.
-See Also
-summary.conf_mat() for computing a large number of metrics from one confusion matrix.10
-detection_prevalence
+
 
 #### Examples
 ```{r}
@@ -90,3 +85,20 @@ round(mean_cmat, 3)
 library(ggplot2)
 autoplot(cm, type = "mosaic")
 autoplot(cm, type = "heatmap")
+```
+Details
+For conf_mat() objects, a broom tidy() method has been created that collapses the cell counts by
+cell into a data frame for easy manipulation.
+There is also a summary() method that computes various classification metrics at once. See summary.conf_mat()
+There is a ggplot2::autoplot() method for quickly visualizing the matrix. Both a heatmap and
+mosaic type is implemented.
+The function requires that the factors have exactly the same levels.
+Value
+conf_mat() produces an object with class conf_mat. This contains the table and other objects.
+tidy.conf_mat() generates a tibble with columns name (the cell identifier) and value (the cell
+count).
+When used on a grouped data frame, conf_mat() returns a tibble containing columns for the groups
+along with conf_mat, a list-column where each element is a conf_mat object.
+See Also
+summary.conf_mat() for computing a large number of metrics from one confusion matrix.10
+detection_prevalence
