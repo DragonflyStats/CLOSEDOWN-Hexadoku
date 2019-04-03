@@ -1,6 +1,13 @@
-pr_auc
-pr_auc
-Area under the precision recall curve
+---
+title: "``yardstick::pr_auc``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+## ``pr_auc``: Area under the precision recall curve
 
 #### Description
 
@@ -9,24 +16,26 @@ the full curve.
 
 #### Usage
 
+<pre><code>
 pr_auc(data, ...)
 ## S3 method for class 'data.frame'
 pr_auc(data, truth, ..., estimator = NULL,
 na_rm = TRUE)
 pr_auc_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data A data.frame containing the truth and estimate columns.
-... A set of unquoted column names or one or more dplyr selector functions to
+* data A data.frame containing the truth and estimate columns.
+* ... A set of unquoted column names or one or more dplyr selector functions to
 choose which variables contain the class probabilities. If truth is binary, only
 1 column should be selected. Otherwise, there should be as many columns as
 factor levels of truth.
-truth The column identifier for the true class results (that is a factor). This should be
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
-estimator One of "binary", "macro", or "macro_weighted" to specify the type of aver-
+* estimator One of "binary", "macro", or "macro_weighted" to specify the type of aver-
 aging to be done. "binary" is only relevant for the two class case. The other
 two are general methods for calculating multiclass metrics. The default will
 automatically choose "binary" or "macro" based on truth.
@@ -51,11 +60,7 @@ global option called yardstick.event_first is set to TRUE when the package is lo
 be changed to FALSE if the last level of the factor is considered the level of interest. For multiclass
 extensions involving one-vs-all comparisons (such as macro averaging), this option is ignored and
 the "one" level is always the relevant result.
-Author(s)
-Max Kuhn
-See Also
-pr_curve() for computing the full precision recall curve.
-Other class probability metrics: gain_capture, mn_log_loss, roc_auc
+
 
 #### Examples
 ```{r}
@@ -90,3 +95,8 @@ ncol = 4
 )
 )
 ```
+Author(s)
+Max Kuhn
+See Also
+pr_curve() for computing the full precision recall curve.
+Other class probability metrics: gain_capture, mn_log_loss, roc_auc
