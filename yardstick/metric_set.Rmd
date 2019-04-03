@@ -1,3 +1,13 @@
+---
+title: "``yardstick::metric_set``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 metric_set
 Combine metric functions
 
