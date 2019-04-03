@@ -1,4 +1,14 @@
-roc_curve
+---
+title: "``yardstick::roc_curve``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
+
 Receiver operator curve
 
 #### Description
