@@ -1,4 +1,15 @@
-pr_curve
+
+---
+title: "``yardstick::pr_curve``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
+
 Precision recall curve
 
 #### Description
