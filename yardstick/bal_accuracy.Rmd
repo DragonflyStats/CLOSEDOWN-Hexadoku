@@ -1,3 +1,12 @@
+---
+title: "``yardstick::bal_accuracy``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
 
 bal_accuracy
 Balanced accuracy
