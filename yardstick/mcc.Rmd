@@ -1,4 +1,12 @@
-mcc
+---
+title: "``yardstick::mcc"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
 Matthews correlation coefficient
 
 #### Description
