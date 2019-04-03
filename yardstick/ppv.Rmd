@@ -1,3 +1,12 @@
+---
+title: "``yardstick::ppv"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
 ppv
 Positive predictive value
 
@@ -8,25 +17,26 @@ to a reference result (the "truth" or gold standard). Highly related functions a
 and npv().
 
 #### Usage
-
+<pre><code>
 ppv(data, ...)
 ## S3 method for class 'data.frame'
 ppv(data, truth, estimate, prevalence = NULL,
 estimator = NULL, na_rm = TRUE, ...)
 ppv_vec(truth, estimate, prevalence = NULL, estimator = NULL,
 na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data Either a data.frame containing the truth and estimate columns, or a table/matrix
+* data Either a data.frame containing the truth and estimate columns, or a table/matrix
 where the true class results should be in the columns of the table.
-... Not currently used.
-truth The column identifier for the true class results (that is a factor). This should be
+* ... Not currently used.
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.ppv
 53
-estimate The column identifier for the predicted class results (that is also factor). As
+* estimate The column identifier for the predicted class results (that is also factor). As
 with truth this can be specified different ways but the primary method is to use
 an unquoted variable name. For _vec() functions, a factor vector.
 prevalence A numeric value for the rate of the "positive" class of the data.
