@@ -1,5 +1,15 @@
 
 
+---
+title: "``yardstick::huber_loss_pseudo``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 huber_loss_pseudo
 Psuedo-Huber Loss
 
@@ -9,13 +19,13 @@ Calculate the Pseudo-Huber Loss, a smooth approximation of huber_loss(). Like hu
 this is less sensitive to outliers than rmse().
 
 #### Usage
-
+<pre><code>
 huber_loss_pseudo(data, ...)
 ## S3 method for class 'data.frame'
 huber_loss_pseudo(data, truth, estimate, delta = 1,
 na_rm = TRUE, ...)
 huber_loss_pseudo_vec(truth, estimate, delta = 1, na_rm = TRUE, ...)
-
+</code></pre>
 #### Arguments
 
 data
