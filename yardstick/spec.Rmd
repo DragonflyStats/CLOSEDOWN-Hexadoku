@@ -1,5 +1,14 @@
-spec
-Specificity
+---
+title: "``yardstick::spec``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
+## ``spec``: Specificity
 
 #### Description
 
@@ -7,23 +16,24 @@ These functions calculate the spec() (specificity) of a measurement system compa
 result (the "truth" or gold standard). Highly related functions are sens(), ppv(), and npv().
 
 #### Usage
-
+<pre><code>
 spec(data, ...)
 ## S3 method for class 'data.frame'
 spec(data, truth, estimate, estimator = NULL,
 na_rm = TRUE, ...)
 spec_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data Either a data.frame containing the truth and estimate columns, or a table/matrix
+* data Either a data.frame containing the truth and estimate columns, or a table/matrix
 where the true class results should be in the columns of the table.
-... Not currently used.
-truth The column identifier for the true class results (that is a factor). This should be
+* ... Not currently used.
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
 supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
-estimate The column identifier for the predicted class results (that is also factor). As
+* estimate The column identifier for the predicted class results (that is also factor). As
 with truth this can be specified different ways but the primary method is to use
 an unquoted variable name. For _vec() functions, a factor vector.
 estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
@@ -31,9 +41,9 @@ type of averaging to be done. "binary" is only relevant for the two class case.
 The other three are general methods for calculating multiclass metrics. The
 default will automatically choose "binary" or "macro" based on estimate.
 na_rm A logical value indicating whether NA values should be stripped before the
-computation proceeds.86
-spec
-Details
+computation proceeds.
+
+#### Details
 The specificity measures the proportion of negatives that are correctly identified as negatives. When
 there are no negative results, specificity is not defined and a value of NA is returned.
 Value
@@ -71,15 +81,7 @@ P P V = (Sensitivity∗P revalence)/((Sensitivity∗P revalence)+((1−Specif ic
 N P V = (Specif icity∗(1−P revalence))/(((1−Sensitivity)∗P revalence)+((Specif icity)∗(1−P revalence)))
 See the references for discussions of the statistics.spec
 87
-Author(s)
-Max Kuhn
-References
-Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 1: sensitivity and specificity,” British Medical
-Journal, vol 308, 1552.
-See Also
-Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
-mcc, npv, ppv, precision, recall, sens
-Other sensitivity metrics: npv, ppv, sens
+
 
 #### Examples
 ```{r}
@@ -107,3 +109,12 @@ options(yardstick.event_first = FALSE)
 spec_vec(two_class_example$truth, two_class_example$predicted)
 options(yardstick.event_first = TRUE)88
 ```
+#### Author(s)
+Max Kuhn
+References
+Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 1: sensitivity and specificity,” British Medical
+Journal, vol 308, 1552.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, kap,
+mcc, npv, ppv, precision, recall, sens
+Other sensitivity metrics: npv, ppv, sens
