@@ -1,3 +1,13 @@
+---
+title: "``yardstick::rmse"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 rmse
 Root mean squared error
 
@@ -8,19 +18,19 @@ data.
 
 #### Usage
 
+<pre><code>
 rmse(data, ...)
 ## S3 method for class 'data.frame'
 rmse(data, truth, estimate, na_rm = TRUE, ...)
 rmse_vec(truth, estimate, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data A data.frame containing the truth and estimate columns.
-... Not currently used.
-truth The column identifier for the true results (that is numeric). This should be an
-unquoted column name although this argument is passed by expression and sup-
-ports quasiquotation (you can unquote column names). For _vec() functions, a
-numeric vector.
+* data A data.frame containing the truth and estimate columns.
+* ... Not currently used.
+* truth The column identifier for the true results (that is numeric). This should be an unquoted column name although this argument is passed by expression and sup-
+ports quasiquotation (you can unquote column names). For _vec() functions, a numeric vector.
 estimate The column identifier for the predicted results (that is also numeric). As with
 truth this can be specified different ways but the primary method is to use an
 unquoted variable name. For _vec() functions, a numeric vector.
