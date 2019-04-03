@@ -1,4 +1,14 @@
-get_weights
+---
+title: "``yardstick::get_weights"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
+
 21
 Developer helpers
 
