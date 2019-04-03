@@ -1,5 +1,13 @@
+---
+title: "``yardstick::rpiq"
+output: html_document
+---
 
-rpiq
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 Ratio of performance to inter-quartile
 
 #### Description
@@ -9,11 +17,12 @@ performance to deviation (rpd()) and the ratio of performance to inter-quartile 
 measures of consistency/correlation between observed and predicted values (and not of accuracy).
 
 #### Usage
-
+<pre><code>
 rpiq(data, ...)
 ## S3 method for class 'data.frame'
 rpiq(data, truth, estimate, na_rm = TRUE, ...)
 rpiq_vec(truth, estimate, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
@@ -46,20 +55,7 @@ A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
 For grouped data frames, the number of rows returned will be the same as the number of groups.
 For rpd_vec(), a single numeric value (or NA).rpiq
 75
-Author(s)
-Pierre Roudier
-References
-Williams, P.C. (1987) Variables affecting near-infrared reflectance spectroscopic analysis. In: Near
-Infrared Technology in the Agriculture and Food Industries. 1st Ed. P.Williams and K.Norris, Eds.
-Am. Cereal Assoc. Cereal Chem., St. Paul, MN.
-Bellon-Maurel, V., Fernandez-Ahumada, E., Palagos, B., Roger, J.M. and McBratney, A., (2010).
-Critical review of chemometric indicators commonly used for assessing the quality of the prediction
-of soil attributes by NIR spectroscopy. TrAC Trends in Analytical Chemistry, 29(9), pp.1073-1081.
-See Also
-The closely related deviation metric: rpd()
-Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd,
-rsq_trad, rsq, smape
-Other consistency metrics: ccc, rpd, rsq_trad, rsq
+
 
 #### Examples
 ```{r}
@@ -87,3 +83,17 @@ metric_results
 metric_results %>%
 summarise(avg_estimate = mean(.estimate))76
 ```
+Author(s)
+Pierre Roudier
+References
+Williams, P.C. (1987) Variables affecting near-infrared reflectance spectroscopic analysis. In: Near
+Infrared Technology in the Agriculture and Food Industries. 1st Ed. P.Williams and K.Norris, Eds.
+Am. Cereal Assoc. Cereal Chem., St. Paul, MN.
+Bellon-Maurel, V., Fernandez-Ahumada, E., Palagos, B., Roger, J.M. and McBratney, A., (2010).
+Critical review of chemometric indicators commonly used for assessing the quality of the prediction
+of soil attributes by NIR spectroscopy. TrAC Trends in Analytical Chemistry, 29(9), pp.1073-1081.
+See Also
+The closely related deviation metric: rpd()
+Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpd,
+rsq_trad, rsq, smape
+Other consistency metrics: ccc, rpd, rsq_trad, rsq
