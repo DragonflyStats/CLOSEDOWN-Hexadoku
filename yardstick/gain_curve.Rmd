@@ -1,4 +1,12 @@
 
+---
+title: "``yardstick::f_meas"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
 
 gain_curve
 Gain curve
