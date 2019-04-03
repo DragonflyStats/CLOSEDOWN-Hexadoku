@@ -1,4 +1,13 @@
-sens
+---
+title: "``yardstick::sens``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
+
 sens
 Sensitivity
 
@@ -8,32 +17,60 @@ These functions calculate the sens() (sensitivity) of a measurement system compa
 result (the "truth" or gold standard). Highly related functions are spec(), ppv(), and npv().
 
 #### Usage
-
+<pre><code>
 sens(data, ...)
 ## S3 method for class 'data.frame'
 sens(data, truth, estimate, estimator = NULL,
 na_rm = TRUE, ...)
 sens_vec(truth, estimate, estimator = NULL, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data Either a data.frame containing the truth and estimate columns, or a table/matrix
+* data Either a data.frame containing the truth and estimate columns, or a table/matrix
 where the true class results should be in the columns of the table.
-... Not currently used.
-truth The column identifier for the true class results (that is a factor). This should be
+* ... Not currently used.
+* truth The column identifier for the true class results (that is a factor). This should be
 an unquoted column name although this argument is passed by expression and
-supports quasiquotation (you can unquote column names). For _vec() func-
-tions, a factor vector.
+supports quasiquotation (you can unquote column names). For _vec() functions, a factor vector.
 estimate The column identifier for the predicted class results (that is also factor). As
 with truth this can be specified different ways but the primary method is to use
 an unquoted variable name. For _vec() functions, a factor vector.
-estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the
-type of averaging to be done. "binary" is only relevant for the two class case.
-The other three are general methods for calculating multiclass metrics. The
-default will automatically choose "binary" or "macro" based on estimate.
+estimator One of: "binary", "macro", "macro_weighted", or "micro" to specify the type of averaging to be done. "binary" is only relevant for the two class case.
+The other three are general methods for calculating multiclass metrics. The default will automatically choose "binary" or "macro" based on estimate.
 na_rm A logical value indicating whether NA values should be stripped before the
 computation proceeds.
-Details
+
+
+#### Examples
+```{r}
+# Two class
+data("two_class_example")
+sens(two_class_example, truth, predicted)
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+hpc_cv %>%
+filter(Resample == "Fold01") %>%
+sens(obs, pred)
+# Groups are respected
+hpc_cv %>%
+group_by(Resample) %>%
+sens(obs, pred)
+# Weighted macro averaging
+hpc_cv %>%
+group_by(Resample) %>%
+sens(obs, pred, estimator = "macro_weighted")
+# Vector version
+sens_vec(two_class_example$truth, two_class_example$predicted)
+# Making Class2 the "relevant" level
+options(yardstick.event_first = FALSE)
+sens_vec(two_class_example$truth, two_class_example$predicted)
+options(yardstick.event_first = TRUE)
+```
+
+
+#### Details
 The sensitivity (sens()) is defined as the proportion of positive results out of the number of samples
 which were actually positive. When there are no positive results, sensitivity is not defined and a
 value of NA is returned.sens
@@ -83,29 +120,3 @@ Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_ind
 mcc, npv, ppv, precision, recall, spec
 Other sensitivity metrics: npv, ppv, spec
 
-#### Examples
-```{r}
-# Two class
-data("two_class_example")
-sens(two_class_example, truth, predicted)
-# Multiclass
-library(dplyr)
-data(hpc_cv)
-hpc_cv %>%
-filter(Resample == "Fold01") %>%
-sens(obs, pred)
-# Groups are respected
-hpc_cv %>%
-group_by(Resample) %>%
-sens(obs, pred)
-# Weighted macro averaging
-hpc_cv %>%
-group_by(Resample) %>%
-sens(obs, pred, estimator = "macro_weighted")
-# Vector version
-sens_vec(two_class_example$truth, two_class_example$predicted)
-# Making Class2 the "relevant" level
-options(yardstick.event_first = FALSE)
-sens_vec(two_class_example$truth, two_class_example$predicted)
-options(yardstick.event_first = TRUE)
-```
