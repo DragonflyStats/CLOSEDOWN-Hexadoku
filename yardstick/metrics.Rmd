@@ -1,4 +1,12 @@
-41
+---
+title: "``yardstick::metrics``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(yardstick)
+```
+
 metrics
 General Function to Estimate Performance
 
@@ -8,42 +16,32 @@ This function estimates one or more common performance estimates depending on th
 truth (see Value below) and returns them in a three column tibble.
 
 #### Usage
-
+<pre><code>
 metrics(data, ...)
 ## S3 method for class 'data.frame'
 metrics(data, truth, estimate, ...,
 options = list(), na_rm = TRUE)
+</code></pre>
 
 #### Arguments
 
-data A data.frame containing the truth and estimate columns and any columns
+* data A data.frame containing the truth and estimate columns and any columns
 specified by ....
-... A set of unquoted column names or one or more dplyr selector functions to
+* ... A set of unquoted column names or one or more dplyr selector functions to
 choose which variables contain the class probabilities. If truth is binary, only
 1 column should be selected. Otherwise, there should be as many columns as
 factor levels of truth.
-truth The column identifier for the true results (that is numeric or factor). This
+* truth The column identifier for the true results (that is numeric or factor). This
 should be an unquoted column name although this argument is passed by ex-
 pression and support quasiquotation (you can unquote column names).
-estimate The column identifier for the predicted results (that is also numeric or factor).
+* estimate The column identifier for the predicted results (that is also numeric or factor).
 As with truth this can be specified different ways but the primary method is to
-use an unquoted variable name.
-options A list of named options to pass to pROC::roc() such as direction or smooth.
+* use an unquoted variable name.
+* options A list of named options to pass to pROC::roc() such as direction or smooth.
 These options should not include response, predictor, or levels.
 na_rm A logical value indicating whether NA values should be stripped before the
 computation proceeds.
-Value
-A two column tibble.
-• When truth is a factor, there are rows for accuracy() and the Kappa statistic (kap()).
-• When truth has two levels and 1 column of class probabilities is passed to ..., there are
-rows for the two class versions of mn_log_loss() and roc_auc().
-• When truth has more than two levels and a full set of class probabilities are passed to ...,
-there are rows for the multiclass version of mn_log_loss() and the Hand Till generalization
-of roc_auc().
-• When truth is numeric, there are rows for rmse(), rsq(), and mae().42
-metric_set
-See Also
-metric_set()
+
 
 #### Examples
 ```{r}
@@ -62,3 +60,15 @@ group_by(Resample) %>%
 metrics(obs, pred, VF:L) %>%
 print(n = 40)
 ```
+Value
+A two column tibble.
+• When truth is a factor, there are rows for accuracy() and the Kappa statistic (kap()).
+• When truth has two levels and 1 column of class probabilities is passed to ..., there are
+rows for the two class versions of mn_log_loss() and roc_auc().
+• When truth has more than two levels and a full set of class probabilities are passed to ...,
+there are rows for the multiclass version of mn_log_loss() and the Hand Till generalization
+of roc_auc().
+• When truth is numeric, there are rows for rmse(), rsq(), and mae().42
+metric_set
+See Also
+metric_set()
