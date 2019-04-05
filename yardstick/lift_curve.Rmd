@@ -13,8 +13,7 @@ Lift curve
 
 #### Description
 
-lift_curve() constructs the full lift curve and returns a tibble. See gain_curve() for a closely
-related concept.
+``lift_curve()`` constructs the full lift curve and returns a tibble. See gain_curve() for a closely related concept.
 
 #### Usage
 <pre><code>
@@ -27,19 +26,14 @@ autoplot(object, ...)
 
 #### Arguments
 
-* data A data.frame containing the truth and estimate columns.
-* ... A set of unquoted column names or one or more dplyr selector functions to
-choose which variables contain the class probabilities. If truth is binary, only
-1 column should be selected. Otherwise, there should be as many columns as
-factor levels of truth.32
-lift_curve
-* truth The column identifier for the true class results (that is a factor). This should be
-an unquoted column name although this argument is passed by expression and
-supports quasiquotation (you can unquote column names). For _vec() func-
+* ``data``: A data.frame containing the truth and estimate columns.
+* ``...``: A set of unquoted column names or one or more dplyr selector functions to choose which variables contain the class probabilities. If truth is binary, only 1 column should be selected. Otherwise, there should be as many columns as
+factor levels of truth.
+* ``truth``: The column identifier for the true class results (that is a factor). This should be an unquoted column name although this argument is passed by expression and supports quasiquotation (you can unquote column names). For _vec() func-
 tions, a factor vector.
-* na_rm A logical value indicating whether NA values should be stripped before the
+* ``na_rm``: A logical value indicating whether NA values should be stripped before the
 computation proceeds.
-object The lift_df data frame returned from lift_curve().
+* ``object``: The lift_df data frame returned from lift_curve().
 
 #### Examples
 ```{r}
