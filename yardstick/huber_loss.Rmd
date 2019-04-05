@@ -7,38 +7,32 @@ output: html_document
 library(yardstick)
 ```
 
-Huber loss
+## Huber loss
 
 #### Description
 
-Calculate the Huber loss, a loss function used in robust regression. This loss function is less sensitive
-to outliers than rmse(). This function is quadratic for small residual values and linear for large
-residual values.
+Calculate the Huber loss, a loss function used in robust regression. This loss function is less sensitive to outliers than ``rmse()``. This function is quadratic for small residual values and linear for large residual values.
 
 #### Usage
-
+<pre><code>
 huber_loss(data, ...)
 ## S3 method for class 'data.frame'
 huber_loss(data, truth, estimate, delta = 1,
 na_rm = TRUE, ...)
-huber_loss_vec(truth, estimate, delta = 1, na_rm = TRUE, ...)24
-huber_loss
+huber_loss_vec(truth, estimate, delta = 1, na_rm = TRUE, ...)
+</code></pre>
 
 #### Arguments
 
-data A data.frame containing the truth and estimate columns.
-... Not currently used.
-truth The column identifier for the true results (that is numeric). This should be an
-unquoted column name although this argument is passed by expression and sup-
-ports quasiquotation (you can unquote column names). For _vec() functions, a
+* data A data.frame containing the truth and estimate columns.
+* ... Not currently used.
+* truth The column identifier for the true results (that is numeric). This should be an unquoted column name although this argument is passed by expression and supports quasiquotation (you can unquote column names). For _vec() functions, a
 numeric vector.
-* estimate The column identifier for the predicted results (that is also numeric). As with
-truth this can be specified different ways but the primary method is to use an
-unquoted variable name. For _vec() functions, a numeric vector.
-delta A single numeric value. Defines the boundary where the loss function transi-
+* ``estimate``: The column identifier for the predicted results (that is also numeric). As with truth this can be specified different ways but the primary method is to use an
+unquoted variable name. For ``_vec()`` functions, a numeric vector.
+* ``delta``: A single numeric value. Defines the boundary where the loss function transi-
 tions from quadratic to linear. Defaults to 1.
-* na_rm A logical value indicating whether NA values should be stripped before the
-computation proceeds.
+* ``na_rm``: A logical value indicating whether NA values should be stripped before the computation proceeds.
 
 #### Examples
 ```{r}
@@ -48,8 +42,7 @@ library(dplyr)
 set.seed(1234)
 size <- 100
 times <- 10
-# create 10 resampleshuber_loss_pseudo
-25
+# create 10 resamples
 solubility_resampled <- bind_rows(
 replicate(
 n = times,
@@ -67,13 +60,14 @@ metric_results
 metric_results %>%
 summarise(avg_estimate = mean(.estimate))
 ```
-Value
+#### Value
 A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
 For grouped data frames, the number of rows returned will be the same as the number of groups.
 For huber_loss_vec(), a single numeric value (or NA).
 Author(s)
 James Blair
-References
+
+#### References
 Huber, P. (1964). Robust Estimation of a Location Parameter. Annals of Statistics, 53 (1), 73-101.
 See Also
 Other numeric metrics: ccc, huber_loss_pseudo, mae, mape, mase, rmse, rpd, rpiq, rsq_trad,
