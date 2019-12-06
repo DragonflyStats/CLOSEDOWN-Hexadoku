@@ -1,0 +1,101 @@
+---
+title: "``plot_normality.tbl_dbi``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+
+Plot distribution information of numerical data
+
+### Description 
+
+The plot_normality() visualize distribution information for normality test of the numerical(INTEGER,
+NUMBER, etc.) column of the DBMS table through tbl_dbi.
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'tbl_dbi'
+plot_normality(.data, ..., ``in_database = FALSE``,
+collect_size = Inf)
+
+</code></pre>
+### Arguments
+ 
+* ``.data``:   a tbl_dbi.
+* ``...``: one or more unquoted expressions separated by commas. You can treat variable names like they are positions. Positive values select variables; negative values to drop variables. If the first expression is negative, ``plot_normality()`` will automatically
+start with all variables. These arguments are automatically quoted and evaluated in a context where column names represent column positions. They
+support unquoting and splicing.
+* ``in_database``: Specifies whether to perform in-database operations. If TRUE, most operations are performed in the DBMS. if FALSE, table data is taken in R and operated
+in-memory. Not yet supported in_database = TRUE.
+* ``collect_size``: a integer. The number of data samples from the DBMS to R. Applies only if ``in_database = FALSE``.
+See vignette("EDA") for an introduction to these concepts.
+
+### Details 
+
+The scope of the visualization is the provide a distribution information. Since the plot is drawn for
+each variable, if you specify more than one variable in the ... argument, the specified number of
+plots are drawn.
+Distribution information
+The plot derived from the numerical data vizualization is as follows.
+*  histogram by original data
+*  q-q plot by original data
+*  histogram by log transfer data
+*  histogram by square root transfer data
+
+### See Also
+ 
+plot_normality.data.frame, plot_outlier.tbl_dbi.
+
+### Examples
+```{r}
+
+library(dplyr)
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# connect DBMS
+con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+# copy carseats to the DBMS with a table named TB_CARSEATS
+copy_to(con_sqlite, carseats, name = "TB_CARSEATS", overwrite = TRUE)
+```
+```{r}
+# Using pipes ---------------------------------
+# Visualization of all numerical variables
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+plot_normality()
+# Positive values select variables, and In-memory mode and collect size is 200
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+plot_normality(Income, Price, collect_size = 200)
+```
+
+```{r}
+# Positions values select variables
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+plot_normality(1)
+```
+```{r}
+# Using pipes & dplyr -------------------------
+# Plot 'Sales' variable by 'ShelveLoc' and 'US'
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+group_by(ShelveLoc, US) %>%
+plot_normality(Sales)
+```
+```{r}
+# extract only those with 'ShelveLoc' variable level is "Good",
+# and plot 'Income' by 'US'
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+filter(ShelveLoc == "Good") %>%
+group_by(US) %>%
+plot_normality(Income)
+```

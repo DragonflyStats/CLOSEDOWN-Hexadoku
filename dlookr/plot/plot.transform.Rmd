@@ -1,0 +1,59 @@
+---
+title: "``dlookr::plot.transform ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+ Visualize Information for an "transform" Object
+
+### Description 
+
+Visualize two kinds of plot by attribute of 'transform' class. The Transformation of a numerical
+variable is a density plot.
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'transform'
+plot(x, ...)
+
+</code></pre>
+### Arguments
+ 
+x an object of class "transform", usually, a result of a call to transform().
+* ``...``: arguments to be passed to methods. such as graphical parameters (see par).
+
+### See Also
+ 
+transform, summary.transform.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+```
+
+
+```{r}
+# Standardization ------------------------------
+advertising_minmax <- transform(carseats$Advertising, method = "minmax")
+advertising_minmax
+summary(advertising_minmax)
+plot(advertising_minmax)
+```
+
+
+```{r}
+# Resolving Skewness 
+advertising_log <- transform(carseats$Advertising, method = "log")
+advertising_log
+summary(advertising_log)
+plot(advertising_log)
+```
