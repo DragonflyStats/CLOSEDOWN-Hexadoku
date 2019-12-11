@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dlookr)
 ```
 
-binning Binning the Numeric Data
+Binning the Numeric Data
 
 ### Description 
 
@@ -25,40 +25,23 @@ binning(x, nbins,
 </code></pre>
 ### Arguments
  
-* x numeric vector for binning.
-* nbins number of classes. required. if missing, nclass.Sturges is used.
-* type binning method. one of "quantile", "equal", "equal", "pretty", "kmeans", "bclust"
-The "quantile" style provides quantile breaks. The "equal" style divides the range of the variable into nbins parts. The "pretty" style chooses a number of breaks not necessarily equal to nbins using base::pretty function. The "kmeans" style uses stats::kmeans function to generate the breaks. The "bclust" style uses e1071::bclust function to generate the breaks using bagged clustering. "kmeans" and "bclust" type logic was implemented by ``classInt::classIntervals`` function.
+* ``x``: numeric vector for binning.
+* ``nbins``: number of classes. required. if missing, nclass.Sturges is used.
+* ``type``: binning method. one of "quantile", "equal", "equal", "pretty", "kmeans", "bclust"
+ - The "quantile" style provides quantile breaks. 
+ - The "equal" style divides the range of the variable into nbins parts. 
+ - The "pretty" style chooses a number of breaks not necessarily equal to nbins using base::pretty function. 
+ - The "kmeans" style uses stats::kmeans function to generate the breaks.
+ - The "bclust" style uses e1071::bclust function to generate the breaks using bagged clustering. 
+ - "kmeans" and "bclust" type logic was implemented by ``classInt::classIntervals`` function.
 
-* ordered whether to build an ordered factor or not.
-* labels the label names to use for each of the bins.
+* ``ordered``: whether to build an ordered factor or not.
+* ``labels``: the label names to use for each of the bins.
 
-### Details 
 
-This function is useful when used with the mutate/transmute function of the dplyr package.
-
-### Value 
-
-An object of bins class. Attributes of bins class is as follows.
-*  type : binning type, "quantile", "equal", "pretty", "kmeans", "bclust".
-*  breaks : the number of intervals into which x is to be cut.
-*  levels : levels of binned value.
-*  raw : raw data, x argument value.
-"bins" class attributes information
-Attributes of the "bins" classs that is as follows.
-*  class : "bins".
-*  levels : factor or ordered factor levels
-binning 5
-*  type : binning method
-*  breaks : breaks for binning
-*  raw : before the binned the raw data
-See vignette("transformation") for an introduction to these concepts.
-
-### See Also
- 
-binning_by, print.bins, summary.bins.
 
 ### Examples
+
 ```{r}
 
 # Generate data for the example
@@ -108,3 +91,28 @@ summarise(freq = n()) %>%
 arrange(desc(freq)) %>%
 head(10)
 ```
+
+### Details 
+
+This function is useful when used with the mutate/transmute function of the dplyr package.
+
+### Value 
+
+An object of bins class. Attributes of bins class is as follows.
+*  type : binning type, "quantile", "equal", "pretty", "kmeans", "bclust".
+*  breaks : the number of intervals into which x is to be cut.
+*  levels : levels of binned value.
+*  raw : raw data, x argument value.
+"bins" class attributes information
+Attributes of the "bins" classs that is as follows.
+*  class : "bins".
+*  levels : factor or ordered factor levels
+binning 5
+*  type : binning method
+*  breaks : breaks for binning
+*  raw : before the binned the raw data
+See vignette("transformation") for an introduction to these concepts.
+
+### See Also
+ 
+binning_by, print.bins, summary.bins.

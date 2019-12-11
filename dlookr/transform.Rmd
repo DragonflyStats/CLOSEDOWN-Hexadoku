@@ -7,7 +7,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(dlookr)
 ```
-transform Data Transformations
+
+## Data Transformations
 
 ### Description 
 
@@ -16,41 +17,15 @@ Performs variable transformation for standardization and resolving skewness of n
 ### Usage 
 <pre><code>
 
-transform(x, method = c("zscore", "minmax", "log", "log+1", "sqrt",
-"1/x", "x^2", "x^3"))
+transform(x, method = c("zscore", "minmax", "log", "log+1", "sqrt","1/x", "x^2", "x^3"))
 
 </code></pre>
 ### Arguments
  
-x numeric vector for transformation.
-method method of transformations.
+* ``x``: numeric vector for transformation.
+* ``method``: method of transformations.
 
-### Details 
 
-transform() creates an transform class. The 'transform' class includes original data, transformed
-data, and method of transformation.
-See vignette("transformation") for an introduction to these concepts.
-transform 87
-
-### Value 
-
-An object of transform class. Attributes of transform class is as follows.
-
-*  method : method of transformation data.
-
-- Standardization
-
-* "zscore" : z-score transformation. (x - mu) / sigma
-* "minmax" : minmax transformation. (x - min) / (max - min)
-
-- Resolving Skewness
-
-* "log" : log transformation. log(x)
-* "log+1" : log transformation. log(x + 1). Used for values that contain 0.
-* "sqrt" : square root transformation.
-* "1/x" : 1 / x transformation
-* "x^2" : x square transformation
-* "x^3" : x^3 square transformation
 
 ### See Also
  
@@ -81,10 +56,41 @@ summary(advertising_log)
 plot(advertising_log)
 ```
 
+### Using dplyr
+
 ```{r}
-# Using dplyr ----------------------------------
+
 library(dplyr)
+
 carseats %>%
-mutate(Advertising_log = transform(Advertising, method = "log+1")) %>%
-lm(Sales ~ Advertising_log, data = .)
+  mutate(Advertising_log = transform(Advertising, method = "log+1")) %>%
+  lm(Sales ~ Advertising_log, data = .)
 ```
+
+
+### Value 
+
+An object of transform class. Attributes of transform class is as follows.
+
+*  method : method of transformation data.
+
+####  Standardization
+
+* "zscore" : z-score transformation. (x - mu) / sigma
+* "minmax" : minmax transformation. (x - min) / (max - min)
+
+#### Resolving Skewness
+
+* "log" : log transformation. log(x)
+* "log+1" : log transformation. log(x + 1). Used for values that contain 0.
+* "sqrt" : square root transformation.
+* "1/x" : 1 / x transformation
+* "x^2" : x square transformation
+* "x^3" : x^3 square transformation
+
+### Details 
+
+transform() creates an transform class. The 'transform' class includes original data, transformed
+data, and method of transformation.
+See vignette("transformation") for an introduction to these concepts.
+transform 87

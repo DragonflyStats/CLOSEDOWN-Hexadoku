@@ -1,7 +1,5 @@
 ---
-title: "Untitled"
-author: "Kevin O Brien"
-date: "6 September 2019"
+title: "``dlookr::relate``"
 output: html_document
 ---
 
@@ -9,7 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(dlookr)
 ```
-relate 
 
 Relationship between target variable and variable of interest
 
@@ -19,58 +16,17 @@ The relationship between the target variable and the variable of interest (predi
 
 ### Usage 
 <pre><code>
-
 relate(.data, predictor)
-
 </code></pre>
+
 ### Arguments
  
-.data A target_df.
-predictor variable of interest. predictor.
+* ``.data``: A target_df.
+* ``predictor``: variable of interest. predictor.
+
 See vignette("relate") for an introduction to these concepts.
 
-### Details 
 
-Returns the four types of results that correspond to the combination of the target variable and the
-data type of the variable of interest.
-*  target variable: categorical variable
-- predictor: categorical variable
-* contegency table
-* c("xtabs", "table") class
-- predictor: numerical variable
-* descriptive statistic for each levles and total observation.
-78 relate
-*  target variable: numerical variable
-- predictor: categorical variable
-* ANOVA test. "lm" class.
-- predictor: numerical variable
-* simple linear model. "lm" class.
-
-### Value 
-
-An object of the class as relate. Attributes of relate class is as follows.
-*  target : name of target variable
-*  predictor : name of predictor
-*  model : levels of binned value.
-*  raw : table_df with two variables target and predictor.
-Descriptive statistic information
-The information derived from the numerical data describe is as follows.
-*  mean : arithmetic average
-*  sd : standard devation
-*  se_mean : standrd error mean. sd/sqrt(n)
-*  IQR : interqurtle range (Q3-Q1)
-*  skewness : skewness
-*  kurtosis : kurtosis
-*  p25 : Q1. 25% percentile
-*  p50 : median. 50% percentile
-*  p75 : Q3. 75% percentile
-*  p01, p05, p10, p20, p30 : 1%, 5%, 20%, 30% percentiles
-*  p40, p60, p70, p80 : 40%, 60%, 70%, 80% percentiles
-*  p90, p95, p99, p100 : 90%, 95%, 99%, 100% percentiles
-
-### See Also
- 
-print.relate, plot.relate.
 
 ### Examples
 ```{r}
@@ -116,4 +72,46 @@ summary(num_cat)
 plot(num_cat)
 ```
 
+### Details 
+
+Returns the four types of results that correspond to the combination of the target variable and the
+data type of the variable of interest.
+*  target variable: categorical variable
+- predictor: categorical variable
+* contegency table
+* c("xtabs", "table") class
+- predictor: numerical variable
+* descriptive statistic for each levles and total observation.
+78 relate
+*  target variable: numerical variable
+- predictor: categorical variable
+* ANOVA test. "lm" class.
+- predictor: numerical variable
+* simple linear model. "lm" class.
+
+### Value 
+
+An object of the class as relate. Attributes of relate class is as follows.
+*  target : name of target variable
+*  predictor : name of predictor
+*  model : levels of binned value.
+*  raw : table_df with two variables target and predictor.
+Descriptive statistic information
+The information derived from the numerical data describe is as follows.
+*  mean : arithmetic average
+*  sd : standard devation
+*  se_mean : standrd error mean. sd/sqrt(n)
+*  IQR : interqurtle range (Q3-Q1)
+*  skewness : skewness
+*  kurtosis : kurtosis
+*  p25 : Q1. 25% percentile
+*  p50 : median. 50% percentile
+*  p75 : Q3. 75% percentile
+*  p01, p05, p10, p20, p30 : 1%, 5%, 20%, 30% percentiles
+*  p40, p60, p70, p80 : 40%, 60%, 70%, 80% percentiles
+*  p90, p95, p99, p100 : 90%, 95%, 99%, 100% percentiles
+
+### See Also
+ 
+print.relate, plot.relate.
 
