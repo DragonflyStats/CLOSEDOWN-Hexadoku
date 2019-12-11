@@ -1,0 +1,63 @@
+---
+title: "``inspectdf::inspect_cat``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(inspectdf)
+library(magrittr)
+library(dplyr)
+```
+
+
+inspect_cat Summarise and compare the levels within each categorical feature in
+one or two dataframes.
+
+#### Description
+
+Summarise and compare the levels within each categorical feature in one or two dataframes.
+
+#### Usage
+<pre><code>
+inspect_cat(df1, df2 = NULL, show_plot = FALSE)
+</code></pre>
+
+#### Arguments
+* ``df1``: A dataframe
+* ``df2``: An optional second data frame for comparing categorical levels. Defaults to
+NULL.
+* ``show_plot``: (Deprecated) Logical flag indicating whether a plot should be shown. Superseded by the function ``show_plot()`` and will be dropped in a future version.
+
+#### Details
+
+When only df1 is specified, a tibble is returned which contains summaries of the categorical levels in df1.
+
+*  ``col_name``: character vector containing column names of df1.
+*  ``cnt`` integer column containing count of unique levels found in each column (including NA).
+*  ``common character``: column containing the name of the most common level.
+*  ``common_pcnt``: percentage of each column occupied by the most common level shown in common.
+*  ``levels``: relative frequency of levels in each column.
+
+When both df1 and df2 are specified, the relative frequencies of levels across columns common both dataframes are compared. 
+In particular, the population stability index, and Fisher's exact test
+are performed as part of the comparison.
+
+*  ``col_name``: character vector containing column names of df1 and df2.
+*  ``jsd``: numeric column containing the Jensen-Shannon divergence. This measures the difference
+in distribution of a pair of categorical features. Values near to 0 indicate agreement of the distributions, while 1 indicates disagreement.
+*  ``fisher_p``: p-value corresponding to Fisher's exact test. A small p indicates evidence that the two sets of relative frequencies are actually different.
+*  ``lvls_1``, ``lvls_2``: relative frequency of levels in each of df1 and df2.
+
+#### Value
+
+A tibble summarising and comparing the categorical features in one or a pair of data frames.
+
+#### Examples 
+
+```{r}
+data("starwars", package = "dplyr")
+inspect_cat(starwars)
+# compare the levels in two data frames
+inspect_cat(starwars, starwars[1:20, ])
+```
