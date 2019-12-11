@@ -1,0 +1,69 @@
+---
+title: "``inspectdf::inspect_cor``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(inspectdf)
+library(magrittr)
+library(dplyr)
+```
+
+#### Description
+
+Summarise and compare Pearson's correlation coefficients for numeric columns in one or two dataframes.
+
+#### Usage
+<pre><code>
+  inspect_cor(df1, df2 = NULL, with_col = NULL, alpha = 0.05,  show_plot = FALSE)
+</code></pre>
+  
+#### Arguments
+
+* ``df1``: A data frame
+* ``df2``: An optional second data frame for comparing correlation coefficients. Defaults to NULL.
+* ``with_col``: Character vector of columns to calculate correlations with. When set to the default, NULL, all pairs of correlations are returned.
+* ``alpha``: Alpha level for correlation confidence intervals. Defaults to 0.05.
+* ``show_plot``: (Deprecated) Logical flag indicating whether a plot should be shown. 
+ - Superseded by the function ``show_plot()`` and will be dropped in a future version.
+
+
+
+#### Examples 
+
+```{r}
+data("starwars", package = "dplyr")
+# correlations in numeric columns
+inspect_cor(starwars)
+```
+
+
+```{r}
+# only show correlations with 'mass' column
+inspect_cor(starwars, with_col = "mass")
+```
+
+```{r}
+# compare correlations with a different data frame
+inspect_cor(starwars, starwars[1:10, ])
+```
+
+#### Details
+
+When only df1 is specified, a tibble is returned which contains correlation coefficients 
+
+*  ``col_1``, ``co1_2``: character vectors containing names of numeric columns in df1.
+*  ``corr``: numeric values of Pearson's correlation coefficient.
+*  ``lower``, ``upper```: lower and upper values of the confidence interval for the correlations.
+*  ``p_value``: p-value associated with the null hypothesis of 0 correlation, small values indicate evidence that the true correlation is not equal to 0.
+
+When both df1 and df2 are specified, the tibble returned performs a comparison of the correlation coefficients across the dataframes.
+
+*  ``col_1``, ``co1_2`` character vectors containing names of numeric columns in either df1 or df2.
+*  ``corr_1``, ``corr_2`` numeric values of Pearson's correlation coefficient observed in df1 and df2, respectively.
+*  ``p_value``: p-value associated with the null hypothesis that the two correlation coefficients are the same. Small values indicate that the true correlation coefficients differ between the two dataframes.
+
+#### Value
+A tibble summarising and comparing the correlations for each numeric column in one or a pair of
+data frames.
