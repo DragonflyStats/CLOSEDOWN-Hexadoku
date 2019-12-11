@@ -37,13 +37,13 @@ spine(formula, data = list(),
 #### Arguments
   
 * ``x``: an object, the default method expects either a single variable (interpreted to be the explanatory variable) or a 2-way table. See details.
-* ``y a "factor" interpreted to be the dependent variable
+* ``y`` a "factor" interpreted to be the dependent variable
 * ``formula``: a "formula" of typx with a single dependent "factor" and a single explanatory variable.
 * ``data``: an optional data frame.
 * ``breaks``: if the explanatory variable is numeric, this controls how it is discretized. breaks is passed to hist and can be a list of arguments.
 * ``ylab_tol``: convenience tolerance parameter for y-axis annotation. If the distance between two labels drops under this threshold, they are plotted equidistantly.
 * ``off``: vertical offset between the bars (in per cent). It is fixed to 0 for spinograms and defaults to 2 for spine plots.
-* ``main, xlab, ylab : character strings for annotation
+* ``main``, ``xlab``, ``ylab`` : character strings for annotation
 * ``ylim``: limits for the y axis
 * ``margins``: margins when calling plotViewport
 * ``gp``: a "gpar" object controlling the grid graphical parameters of the rectangles. It should specify in particular a vector of fill colors of the same length as

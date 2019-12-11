@@ -63,7 +63,9 @@ plot(fm, labeling_args = list(abbreviate = c(Admit = 3)))
 plot(fm, panel = assoc)
 assoc(fm)
 ```
+
 #### Details
+
 The plot method for "loglm" objects by default visualizes the model using a mosaic plot (can be changed to an association plot by setting ``panel = assoc``) with a shading based on the residuals of this model. The legend also reports the corresponding p value of the associated goodness-of-fit test. The mosaic and assoc methods are simple convenience interfaces to this plot method, setting the panel argument accordingly.
 
 #### Value
