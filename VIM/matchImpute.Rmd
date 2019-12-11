@@ -1,16 +1,28 @@
-``VIM::matchImpute``
+---
+title: "``VIM::matchImpute``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+library(magrittr)
+```
 
 Fast matching/imputation based on categorical variable
 
 #### Description 
 
-Suitable donors are searched based on matching of the categorical variables. The variables are dropped in reversed order, so that the last element of ’``match_var``’ is dropped first and the first
-element of the vector is dropped last.
+Suitable donors are searched based on matching of the categorical variables. 
+The variables are dropped in reversed order, so that the last element of ``match_var`` is dropped first and the first element of the vector is dropped last.
 
 #### Usage 
 <pre><code>
-matchImpute(data, variable = colnames(data)[!colnames(data) %in% match_var],
-   match_var, imp_var = TRUE, imp_suffix = "imp")
+matchImpute(data, 
+   variable = colnames(data)[!colnames(data) %in% match_var],
+   match_var, 
+   imp_var = TRUE, 
+   imp_suffix = "imp")
 </code></pre>
 
 #### Arguments
@@ -26,6 +38,10 @@ matchImpute(data, variable = colnames(data)[!colnames(data) %in% match_var],
 data(sleep,package="VIM")
 imp_data <- matchImpute(sleep,variable=c("NonD","Dream","Sleep","Span","Gest"),
 match_var=c("Exp","Danger"))
+```
+
+
+```{r}
 data(testdata,package="VIM")
 imp_testdata1 <- matchImpute(testdata$wna,match_var=c("c1","c2","b1","b2"))
 dt <- data.table(testdata$wna)

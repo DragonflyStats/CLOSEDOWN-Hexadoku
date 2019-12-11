@@ -1,23 +1,26 @@
 ---
-title: "``VIM::Hot-Deck Imputation``"
+title: "``VIM::hotdeck``"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(VIM)
+library(magrittr)
 ```
+
+## Hot-Deck Imputation
 
 #### Description 
 
 Implementation of the popular Sequential, Random (within a domain) hot-deck algorithm for imputation.
 
 #### Usage 
-<pre><code>
 
+<pre><code>
 hotdeck(data, variable = NULL, ord_var = NULL, domain_var = NULL,
-makeNA = NULL, NAcond = NULL, impNA = TRUE, donorcond = NULL,
-imp_var = TRUE, imp_suffix = "imp")
+        makeNA = NULL, NAcond = NULL, impNA = TRUE, donorcond = NULL,
+        imp_var = TRUE, imp_suffix = "imp")
 </code></pre>
 
 #### Arguments
@@ -39,20 +42,57 @@ imp_var = TRUE, imp_suffix = "imp")
 data(sleep)
 sleepI <- hotdeck(sleep)
 sleepI2 <- hotdeck(sleep,ord_var="BodyWgt",domain_var="Pred")
-set.seed(132)
-nRows <- 1e3
+
+```
+
+```{r}
+
+set.seed(1337)
+nRows <- 1000
+
 # Generate a data set with nRows rows and several variables
-x<-data.frame(x=rnorm(nRows),y=rnorm(nRows),z=sample(LETTERS,nRows,replace=TRUE),
-d1=sample(LETTERS[1:3],nRows,replace=TRUE),d2=sample(LETTERS[1:2],nRows,replace=TRUE),
-o1=rnorm(nRows),o2=rnorm(nRows),o3=rnorm(100))
+x<-data.frame(x=rnorm(nRows),
+              y=rnorm(nRows),
+              z=sample(LETTERS,nRows,replace=TRUE),
+              d1=sample(LETTERS[1:3],nRows,replace=TRUE),
+              d2=sample(LETTERS[1:2],nRows,replace=TRUE),
+              o1=rnorm(nRows),
+              o2=rnorm(nRows),
+              o3=rnorm(100))
 origX <- x
+```
+
+
+```{r}
+origX %>% head(12)
+```
+
+```{r}
+sample(1:nRows,nRows/10) %>% sort()
+```
+
+```{r}
+set.seed(1234)
 
 x[sample(1:nRows,nRows/10),1] <- NA
 x[sample(1:nRows,nRows/10),2] <- NA
 x[sample(1:nRows,nRows/10),3] <- NA
 x[sample(1:nRows,nRows/10),4] <- NA
+```
+
+```{r}
+x %>% head(12)
+```
+
+
+```{r}
 xImp <- hotdeck(x,ord_var = c("o1","o2","o3"),domain_var="d2")
 ```
+
+```{r}
+xImp %>% head(12)
+```
+
 
 #### Value
 the imputed data set.
@@ -64,5 +104,4 @@ If the sequential hotdeck does not lead to a suitable, a random donor in the gro
 Alexander Kowarik
 
 #### References
-A. Kowarik, M. Templ (2016) Imputation with R package VIM. Journal of Statistical Software,
-74(7), 1-16.
+* A. Kowarik, M. Templ (2016) Imputation with R package VIM. Journal of Statistical Software, 74(7), 1-16.
