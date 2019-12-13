@@ -1,23 +1,40 @@
-pathology
+---
+title: "``yardstick::pathology``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(yardstick)
+library(janitor)
+library(magrittr)
+```
 
 #### Description
 
 Liver Pathology Data
-Liver Pathology Data52
-ppv
-Details
-These data have the results of a x-ray examination to determine whether liver is abnormal or not
-(in the scan column) versus the more extensive pathology results that approximate the truth (in
-pathology).
-Value
-pathology
-a data frame
-Source
-Altman, D.G., Bland, J.M. (1994) “Diagnostic tests 1: sensitivity and specificity,” British Medical
-Journal, vol 308, 1552.
+
 
 #### Examples
 ```{r}
 data(pathology)
 str(pathology)
 ```
+```{r}
+head(pathology)
+```
+```{r}
+pathology %>% tabyl(pathology ,  scan)
+```
+
+
+#### Details
+These data have the results of a x-ray examination to determine whether liver is abnormal or not (in the scan column) versus the more extensive pathology results that approximate the truth (in pathology).
+
+#### Value
+* pathology - a data frame
+
+#### Source
+Altman, D.G., Bland, J.M. (1994) "Diagnostic tests 1: sensitivity and specificity," British Medical Journal, vol 308, 1552.
+
+

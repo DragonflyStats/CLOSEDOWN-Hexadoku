@@ -1,3 +1,12 @@
+---
+title: "``yardstick``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 mase
 Mean absolute scaled error
 
@@ -9,12 +18,14 @@ this metric, it is neccesary to order observations in ascending order by time.
 
 #### Usage
 
+<pre><code>
 mase(data, ...)
 ## S3 method for class 'data.frame'
 mase(data, truth, estimate, m = 1L,
 mae_train = NULL, na_rm = TRUE, ...)
 mase_vec(truth, estimate, m = 1L, mae_train = NULL, na_rm = TRUE,
 ...)
+</code></pre>
 
 #### Arguments
 
@@ -62,7 +73,6 @@ See Also
 Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, rmse, rpd, rpiq,
 rsq_trad, rsq, smape
 Other accuracy metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, rmse, smape
-
 #### Examples
 ```{r}
 # Supply truth and predictions as bare column names

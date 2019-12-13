@@ -1,5 +1,5 @@
 ---
-title: "``yardstick::mae``"
+title: "``yardstick::mae`` - Mean absolute error"
 output: html_document
 ---
 
@@ -7,13 +7,12 @@ output: html_document
 library(yardstick)
 ```
 
-mae
-Mean absolute error
+
+
 
 #### Description
 
-Calculate the mean absolute error. This metric is in the same units as the original data.34
-mae
+Calculate the mean absolute error. This metric is in the same units as the original data.
 
 #### Usage
 <pre><code>
@@ -25,13 +24,12 @@ mae_vec(truth, estimate, na_rm = TRUE, ...)
 
 #### Arguments
 
-* data A data.frame containing the truth and estimate columns.
-* ... Not currently used.
-* truth The column identifier for the true results (that is numeric). This should be an
-* unquoted column name although this argument is passed by expression and supports quasiquotation (you can unquote column names). For ``_vec()`` functions, a numeric vector.
-* estimate The column identifier for the predicted results (that is also numeric). As with truth this can be specified different ways but the primary method is to use an unquoted variable name. For _vec() functions, a numeric vector.
-na_rm A logical value indicating whether NA values should be stripped before the
-computation proceeds.
+* ``data`` A data.frame containing the truth and estimate columns.
+* ``...`` Not currently used.
+* ``truth`` The column identifier for the true results (that is numeric). This should be an
+* ``unquoted`` column name although this argument is passed by expression and supports quasiquotation (you can unquote column names). For ``_vec()`` functions, a numeric vector.
+* ``estimate`` The column identifier for the predicted results (that is also numeric). As with truth this can be specified different ways but the primary method is to use an unquoted variable name. For ``_vec()`` functions, a numeric vector.
+* ``na_rm`` A logical value indicating whether NA values should be stripped before the computation proceeds.
 
 
 #### Examples
@@ -40,26 +38,31 @@ computation proceeds.
 mae(solubility_test, solubility, prediction)
 library(dplyr)
 set.seed(1234)
-size <- 100mape
-35
+size <- 100
 times <- 10
 # create 10 resamples
 solubility_resampled <- bind_rows(
-replicate(
-n = times,
-expr = sample_n(solubility_test, size, replace = TRUE),
-simplify = FALSE
-),
-.id = "resample"
-)
+   replicate(
+      n = times,
+      expr = sample_n(solubility_test, size, replace = TRUE),
+      simplify = FALSE
+      ),
+   .id = "resample"
+   )
+
+```
+
+```{r}
 # Compute the metric by group
 metric_results <- solubility_resampled %>%
-group_by(resample) %>%
-mae(solubility, prediction)
+  group_by(resample) %>%
+  mae(solubility, prediction)
+
 metric_results
+
 # Resampled mean estimate
 metric_results %>%
-summarise(avg_estimate = mean(.estimate))
+  summarise(avg_estimate = mean(.estimate))
 ```
 
 #### Value

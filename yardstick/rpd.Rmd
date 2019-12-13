@@ -7,15 +7,11 @@ output: html_document
 library(yardstick)
 ```
 
-
-
 ## ``rpd``: Ratio of performance to deviation
 
 #### Description
 
-These functions are appropriate for cases where the model outcome is a numeric. The ratio of
-performance to deviation (rpd()) and the ratio of performance to inter-quartile (rpiq()) are both
-measures of consistency/correlation between observed and predicted values (and not of accuracy).
+These functions are appropriate for cases where the model outcome is a numeric. The ratio of performance to deviation (``rpd()``) and the ratio of performance to inter-quartile (``rpiq()``) are both measures of consistency/correlation between observed and predicted values (and not of accuracy).
 
 #### Usage
 
@@ -28,35 +24,18 @@ rpd_vec(truth, estimate, na_rm = TRUE, ...)
 
 #### Arguments
 
-data
-...
-truth
-estimate
-na_rm
-A data.frame containing the truth and estimate columns.
-Not currently used.
-The column identifier for the true results (that is numeric). This should be an
-unquoted column name although this argument is passed by expression and sup-
-ports quasiquotation (you can unquote column names). For _vec() functions, a
-numeric vector.
-The column identifier for the predicted results (that is also numeric). As with
-truth this can be specified different ways but the primary method is to use an
-unquoted variable name. For _vec() functions, a numeric vector.
-A logical value indicating whether NA values should be stripped before the
-computation proceeds.
-Details
-In the field of spectroscopy in particular, the ratio of performance to deviation (RPD) has been used
-as the standard way to report the quality of a model. It is the ratio between the standard deviation
-of a variable and the standard error of prediction of that variable by a given model. However, its
-systematic use has been criticized by several authors, since using the standard deviation to represent
-the spread of a variable can be misleading on skewed dataset. The ratio of performance to inter-
-quartile has been introduced by Bellon-Maurel et al. (2010) to address some of these issues, and
-generalise the RPD to non-normally distributed variables.
-Value
-A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
-For grouped data frames, the number of rows returned will be the same as the number of groups.
-For rpd_vec(), a single numeric value (or NA).rpd
-73
+*``	data	``:	A data.frame containing the truth and estimate columns.
+*``	...	``:	Not currently used.
+*``	truth	``:	The column identifier for the true results (that is numeric). This should be an
+			unquoted column name although this argument is passed by expression and sup-
+			ports quasiquotation (you can unquote column names). For ``_vec()`` functions, a
+			numeric vector.
+*``	estimate	``:	The column identifier for the predicted results (that is also numeric). As with
+			truth, this can be specified different ways but the primary method is to use an
+			unquoted variable name. For ``_vec()`` functions, a numeric vector.
+*``	na_rm	``:	A logical value indicating whether NA values should be stripped before the
+			computation proceeds.
+
 
 #### Examples
 ```{r}
@@ -66,6 +45,10 @@ library(dplyr)
 set.seed(1234)
 size <- 100
 times <- 10
+```
+
+
+```{r}
 # create 10 resamples
 solubility_resampled <- bind_rows(
 replicate(
@@ -75,25 +58,42 @@ simplify = FALSE
 ),
 .id = "resample"
 )
+```
+
+
+```{r}
 # Compute the metric by group
 metric_results <- solubility_resampled %>%
 group_by(resample) %>%
 rpd(solubility, prediction)
 metric_results
+```
+
+
+```{r}
 # Resampled mean estimate
 metric_results %>%
-summarise(avg_estimate = mean(.estimate))74
+summarise(avg_estimate = mean(.estimate))
 ```
-Author(s)
+
+#### Details
+In the field of spectroscopy in particular, the ratio of performance to deviation (RPD) has been used as the standard way to report the quality of a model. It is the ratio between the standard deviation of a variable and the standard error of prediction of that variable by a given model. However, its systematic use has been criticized by several authors, since using the standard deviation to represent the spread of a variable can be misleading on skewed dataset. The ratio of performance to interquartile has been introduced by Bellon-Maurel et al. (2010) to address some of these issues, and generalise the RPD to non-normally distributed variables.
+
+#### Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For ``rpd_vec()``, a single numeric value (or NA).
+
+#### Author(s)
 Pierre Roudier
-References
-Williams, P.C. (1987) Variables affecting near-infrared reflectance spectroscopic analysis. In: Near
-Infrared Technology in the Agriculture and Food Industries. 1st Ed. P.Williams and K.Norris, Eds.
+
+#### References
+* Williams, P.C. (1987) Variables affecting near-infrared reflectance spectroscopic analysis. In: Near Infrared Technology in the Agriculture and Food Industries. 1st Ed. P.Williams and K.Norris, Eds.
 Am. Cereal Assoc. Cereal Chem., St. Paul, MN.
-Bellon-Maurel, V., Fernandez-Ahumada, E., Palagos, B., Roger, J.M. and McBratney, A., (2010).
-Critical review of chemometric indicators commonly used for assessing the quality of the prediction
-of soil attributes by NIR spectroscopy. TrAC Trends in Analytical Chemistry, 29(9), pp.1073-1081.
-See Also
+* Bellon-Maurel, V., Fernandez-Ahumada, E., Palagos, B., Roger, J.M. and McBratney, A., (2010).
+Critical review of chemometric indicators commonly used for assessing the quality of the prediction of soil attributes by NIR spectroscopy. TrAC Trends in Analytical Chemistry, 29(9), pp.1073-1081.
+
+#### See Also
 The closely related inter-quartile metric: rpiq()
 Other numeric metrics: ccc, huber_loss_pseudo, huber_loss, mae, mape, mase, rmse, rpiq,
 rsq_trad, rsq, smape
