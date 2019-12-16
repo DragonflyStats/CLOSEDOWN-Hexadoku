@@ -1,0 +1,21 @@
+dyDependency Add external assets as a dygraph dependency
+
+#### Description
+
+Add external assets as a dygraph dependency
+
+####
+Usage
+<pre><code>
+
+dyDependency(dygraph, dependency)
+
+<code><pre>
+#### Arguments
+
+* ``dygraph``: Dygraph to add dependency to
+dependency An HTML dependency
+
+#### Value
+
+A dygraph with the specified dependency added.
