@@ -1,0 +1,34 @@
+dyRoller dygraph rolling average period text box
+
+#### Description
+
+Add a rolling average period text box to the bottom left of the plot. Y values are averaged over the
+specified number of time scale units.
+
+####
+Usage
+<pre><code>
+
+dyRoller(dygraph, showRoller = TRUE, rollPeriod = 1)
+
+<code><pre>
+#### Arguments
+
+* ``dygraph``: Dygraph to add roller to
+showRoller Whether to show the roller
+rollPeriod Number of time scale units (e.g. days, months, years) to average values over.
+
+#### Value
+
+A dygraph that displays a range selector
+Note
+See the online documentation for additional details and examples.
+30 dySeries
+
+#### Examples
+```{r}
+
+library(dygraphs)
+dygraph(discoveries, main = "Important Discoveries") %>%
+dyRoller(rollPeriod = 5)
+```
