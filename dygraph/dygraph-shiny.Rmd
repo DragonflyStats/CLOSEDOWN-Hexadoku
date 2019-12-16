@@ -1,0 +1,30 @@
+
+dygraph-shiny Shiny bindings for dygraph
+
+#### Description
+
+Output and render functions for using dygraph within Shiny applications and interactive Rmd documents.
+
+#### Usage
+
+<pre><code>
+dygraphOutput(outputId, width = "100%", height = "400px")
+renderDygraph(expr, env = parent.frame(), quoted = FALSE)
+<code><pre>
+
+#### Arguments
+
+outputId output variable to read from
+width, height Must be a valid CSS unit (like "100%", "400px", "auto") or a number, which
+will be coerced to a string and have "px" appended.
+expr An expression that generates a dygraph
+env The environment in which to evaluate expr.
+quoted Is expr a quoted expression (with quote())? This is useful if you want to save an expression in a variable.
+dygraphs-exports dygraph exported operators and S3 methods
+
+#### Description
+
+The following functions are imported and then re-exported from the dygraphs package to avoid
+listing the magrittr and zoo packages as Depends of dygraphs.
+
+
