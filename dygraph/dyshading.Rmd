@@ -1,0 +1,41 @@
+dyShading dygraph region shading
+
+#### Description
+
+Specify that a region of a dygraph be drawn with a background shading
+
+#### Usage
+
+<pre><code>
+dyShading(dygraph, from, to, color = "#EFEFEF", axis = "x")
+</code>/<pre>
+
+#### Arguments
+
+* ``dygraph``: Dygraph to add shading to
+* from Date/time or numeric to shade from (for date/time this must be a as.POSIXct object or another object convertible via as.POSIXct).
+* to Date/time or numeric to shade to (for date/time this must be a as.POSIXct object or another object convertible via as.POSIXct).
+color Color of shading. This can be of the form "#AABBCC" or "rgb(255,100,200)"
+or "yellow". Defaults to a very light gray.
+* axis Axis to apply shading. Choices are "x" or "y".
+
+
+
+#### Examples
+```{r}
+
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>%
+dyShading(from = "1920-1-1", to = "1930-1-1") %>%
+dyShading(from = "1940-1-1", to = "1950-1-1")
+dygraph(nhtemp, main = "New Haven Temperatures") %>%
+dyShading(from = "48", to = "52", axis = "y") %>%
+dyShading(from = "50", to = "50.1", axis = "y", color = "black")
+```
+
+#### Value
+
+A dygraph with the specified shading
+Note
+See the online documentation for additional details and examples.
+dyUnzoom 33
