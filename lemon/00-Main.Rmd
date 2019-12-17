@@ -1,29 +1,35 @@
 Package ‘lemon’
+=====================
+
 October 30, 2018
-Type Package
-Title Freshing Up your 'ggplot2' Plots
-URL https://github.com/stefanedwards/lemon
-BugReports https://github.com/stefanedwards/lemon/issues
-Version 0.4.2
-Date 2018-10-30
-Description Functions for working with legends and axis lines of 'ggplot2',
-facets that repeat axis lines on all panels, and some 'knitr' extensions.
-Depends R (>= 3.1.0)
-Imports ggplot2 (>= 2.2.0), plyr, grid, gridExtra, gtable, knitr (>=
+
+* Type Package
+* Title Freshing Up your 'ggplot2' Plots
+* URL https://github.com/stefanedwards/lemon
+* BugReports https://github.com/stefanedwards/lemon/issues
+* Version 0.4.2
+* Date 2018-10-30
+
+#### Description 
+Functions for working with legends and axis lines of 'ggplot2', facets that repeat axis lines on all panels, and some 'knitr' extensions.
+
+* Depends R (>= 3.1.0)
+* Imports ggplot2 (>= 2.2.0), plyr, grid, gridExtra, gtable, knitr (>=
 1.12), lattice, scales
-License GPL-3
-Encoding UTF-8
-LazyData true
-RoxygenNote 6.1.0.9000
-Collate 'ggplot2.r' 'lemon-plot.r' 'axis-annotation.r' 'brackets.R'
-'coord-flex.r' 'coord-capped.r' 'dot.r' 'facet-rep-lab.r'
-'facet-wrap.r' 'geom-pointline.r' 'lemon_print.r'
-'geom-siderange.r' 'grob_utils.r' 'gtable_show-.r'
-'guides-axis.r' 'legends.r' 'lemon.r' 'scale-symmetric.r'
-Suggests rmarkdown, stringr, dplyr, testthat
-VignetteBuilder knitr
-NeedsCompilation no
-Author Stefan McKinnon Edwards [aut, ctb, cre]
+* License GPL-3
+* Encoding UTF-8
+* LazyData true
+* RoxygenNote 6.1.0.9000
+* Collate 'ggplot2.r' 'lemon-plot.r' 'axis-annotation.r' 'brackets.R' 'coord-flex.r' 'coord-capped.r' 'dot.r' 'facet-rep-lab.r'
+'facet-wrap.r' 'geom-pointline.r' 'lemon_print.r' 'geom-siderange.r' 'grob_utils.r' 'gtable_show-.r'
+'guides-axis.r' 'legends.r' 'lemon.r' 'scale-symmetric.r' Suggests rmarkdown, stringr, dplyr, testthat
+
+* VignetteBuilder knitr
+* NeedsCompilation no
+
+#### Authors 
+
+Stefan McKinnon Edwards [aut, ctb, cre]
 (<https://orcid.org/0000-0002-4628-8148>),
 Baptiste Auguie [ctb] (For g_legend and grid_arrange_shared_legend),
 Shaun Jackman [ctb] (For grid_arrange_shared_legend),
@@ -55,32 +61,6 @@ lemon_print . . . . . . . . .
 remove_labels_from_axis . .
 reposition_legend . . . . . .
 scale_x_symmetric . . . . 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -143,89 +123,3 @@ grid.arrange(d + theme(legend.position='hidden'),
 d2 + theme(legend.position='hidden'),
 bottom=legend2$grobs[[1]]$grobs[[1]])
 # Above fails with more than one guide
-Index
-g_legend, 16, 18, 19, 21, 22, 25
-geom_path, 10
-geom_point, 10
-geom_pointline (geom_pointpath), 10
-geom_pointpath, 10
-geom_pointrangeline (geom_pointpath), 10
-geom_rug, 15
-geom_siderange, 13
-get_panel_params (get_panel_range), 15
-get_panel_range, 15
-get_panel_x_range (get_panel_range), 15
-get_panel_y_range (get_panel_range), 15
-ggplotGrob, 17, 18, 25
-gpar, 9, 17
-grid.draw, 16, 19, 25
-grid.grob, 9
-grid_arrange_shared_legend, 16, 19, 21,
-22, 25
-gtable, 18
-gtable_add_grob, 24
-gtable_filter, 19
-gtable_show_grill, 17
-gtable_show_layout, 17
-gtable_show_names, 25
-gtable_show_names (gtable_show_grill),
-17
-guide_legend, 24
-guidebox_as_column, 18
-∗Topic interal
-remove_labels_from_axis, 23
-.dot, 2, 21
-.dot2 (.dot), 2
-absoluteGrob, 8
-aes, 11, 13
-aes_, 11, 13
-annotate_x_axis (annotate_y_axis), 3
-annotate_y_axis, 3
-arrangeGrob, 16, 19
-arrow, 12, 14
-brackets_horisontal
-(brackets_horizontal), 5
-brackets_horizontal, 5, 6–8, 21
-brackets_vertical, 21
-brackets_vertical
-(brackets_horizontal), 5
-capped_horisontal (coord_capped_cart), 6
-capped_horizontal, 6–8, 21
-capped_horizontal (coord_capped_cart), 6
-capped_vertical, 21
-capped_vertical (coord_capped_cart), 6
-coord_capped_cart, 5, 6, 21
-coord_capped_flip (coord_capped_cart), 6
-coord_cartesian, 6
-coord_flex_cart, 5, 7, 7, 21
-coord_flex_fixed (coord_flex_cart), 7
-coord_flex_flip, 7
-coord_flex_flip (coord_flex_cart), 7
-coord_flip, 6
-is.small, 20
-kable, 21–23
-knit_print, 21, 23
-element_render, 9
-layer, 12, 14
-lemon, 21
-lemon-package (lemon), 21
-lemon_print, 21, 22
-facet_grid, 10, 21
-facet_rep_grid, 10, 21
-facet_rep_wrap, 21
-facet_rep_wrap (facet_rep_grid), 10
-facet_wrap, 10, 21
-plotmath, 4
-2728
-points, 14
-position_jitter, 11, 14
-remove_labels_from_axis, 23
-render_gpar (element_render), 9
-reposition_legend, 16, 19, 21, 24
-scale_continuous, 26
-scale_x_symmetric, 25
-scale_y_symmetric (scale_x_symmetric),
-25
-theme, 5, 9, 10
-unit, 5, 11
-INDEX
