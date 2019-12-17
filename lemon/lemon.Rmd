@@ -1,0 +1,43 @@
+
+lemon
+Freshing up your ggplots
+
+#### Description
+
+Collection of misc. functions for changing subtle aspects of ggplots. Works mostly on gtables
+produced prior to printing.
+Functions for axis
+See coord_capped_cart and coord_flex_cart. The latter is a shorthand version of the former. It
+automatically uses capped_horizontal and capped_vertical, but both accepts these as well as
+brackets_horizontal and brackets_vertical.
+Legends
+Extract legend g_legend
+Many plots, one legend grid_arrange_shared_legend
+Place legend exactly on plot reposition_legend
+Facets
+facet_rep_grid and facet_rep_wrap are extensions to the wellknown facet_grid and facet_wrap
+where axis lines and labels are drawn on all panels.
+Extending knitr
+We automatically load knitr’s knit_print for data frames and dplyr tables to provide automatic
+pretty printing of data frame using kable.
+See lemon_print or vignette('lemon_print', 'lemon').
+Relative paths safe from hanging directory: .dot.22
+lemon_print
+Author(s)
+Stefan McKinnon Edwards <sme@iysik.com>
+Contributions from Baptiste Auguié on g_legend and grid_arrange_shared_legend.
+Contributions from Shaun Jackman on grid_arrange_shared_legend.
+Source
+https://github.com/stefanedwards/lemon
+See Also
+Useful links:
+• https://github.com/stefanedwards/lemon
+• Report bugs at https://github.com/stefanedwards/lemon/issues
+
+
+
+
+
+
+
+
