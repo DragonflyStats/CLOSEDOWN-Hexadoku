@@ -1,0 +1,17 @@
+
+remove_labels_from_axis
+Removes labels from axis grobs.
+
+#### Description
+
+Called from FacetGridRepeatLabels.
+
+#### Usage
+
+remove_labels_from_axis(axisgrob)
+
+#### Arguments
+
+axisgrob
+
+Grob with an axis.
