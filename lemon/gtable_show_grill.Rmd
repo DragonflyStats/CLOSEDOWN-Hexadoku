@@ -1,7 +1,5 @@
 ---
 title: "``gtable_show_grill``: Visualise underlying gtable layout."
-author: "Kevin O'Brien"
-date: "11 November 2018"
 output: html_document
 ---
 
@@ -18,24 +16,18 @@ Visualises the table structure or the names of the gtable’s components.
 #### Usage
 <pre><code>
 gtable_show_grill(x, plot = TRUE)
-gtable_show_names(x, plot = TRUE, rect.gp = grid::gpar(col = "black",
-fill = "white", alpha = 1/4))
+
+gtable_show_names(x, plot = TRUE, rect.gp = grid::gpar(col = "black", fill = "white", alpha = 1/4))
 </code></pre>
 
 #### Arguments
 
-* x A gtable object. If given a ggplot object, it is converted to a gtable object with
+* ``x`` A gtable object. If given a ggplot object, it is converted to a gtable object with
 ggplotGrob.
-* plot Logical. When TRUE (default), draws resulting gtable object on a new page.
-* rect.gp Graphical parameters (gpar) for background drop.
+* ``plot`` Logical. When TRUE (default), draws resulting gtable object on a new page.
+* ``rect.gp`` Graphical parameters (gpar) for background drop.
 
-#### Details
 
-These functions are highly similar to gtable_show_layout. gtable_show_grill draws the grid
-of the underlying table, and places row and column indicies in the margin. gtable_show_names
-replaces the grobs with a semi-transparent rectangle and the components name.
-#### Value
-Modified gtable object, invisibly.
 
 #### Examples
 
@@ -54,3 +46,10 @@ library(grid)
 p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 gtable_show_names(p)
 ```
+#### Details
+
+These functions are highly similar to gtable_show_layout. gtable_show_grill draws the grid
+of the underlying table, and places row and column indicies in the margin. gtable_show_names
+replaces the grobs with a semi-transparent rectangle and the components name.
+#### Value
+Modified gtable object, invisibly.
