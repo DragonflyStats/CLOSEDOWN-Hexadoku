@@ -1,0 +1,67 @@
+
+reposition_legend
+Reposition a legend onto a panel
+
+#### Description
+
+Repositions a legend onto a panel, by either taking it from the same ggplot, or by using another.
+Works on both ggplot2 and gtable objects, and can accept any grob as legend.
+
+#### Usage
+
+reposition_legend(aplot, position = NULL, legend = NULL,
+panel = "panel", x = NULL, y = NULL, just = NULL, name = "guide-box", clip = "on", offset = c(0, 0), z = Inf,
+plot = TRUE)
+
+#### Arguments
+
+aplot a ggplot2 or gtable object.
+position Where to place the legend in the panel. Overrules just argument.
+legend The legend to place, if NULL (default), it is extracted from aplot if this is a
+ggplot2 object.
+panel Name of panel in gtable. See description.
+x horisontal coordinate of legend, with 0 at left.
+y vertical coordiante of legend, with 0 at bottom.
+just ’Anchor point’ of legend; it is this point of the legend that is placed at the x and
+y coordinates.
+name, clip, z Parameters forwarded to gtable_add_grob.
+offset Numeric vector, sets distance from edge of panel. First element for horisontal
+distance, second for vertical. Not used by arguments x and y.
+plot Logical, when TRUE (default), draws plot with legend repositioned on a new
+page.
+Details
+To modify the look of the legend, use themes and the natural ggplot functions found in guide_legend.
+Positioning is done by argument position which places the panel relative in panel (see below).
+position resolves to three variables, x, y, and just. x and y is the coordinate in panel, where the
+anchorpoint of the legend (set via just) is placed. In other words, just='bottom right' places
+the bottom right corner of the legend at coordinates (x,y).scale_x_symmetric
+25
+The positioning can be set by argument position alone, which can be further nudged by setting
+position, x, and y. Alternatively, manually positioning can be obtained by setting arguments. x,
+y, and just.
+Panel name is by default panel, but when using facets it typically takes the form panel-{col}-{row},
+but not for wrapped facets. Either print result from ggplotGrob or use gtable_show_names to dis-
+play all the names of the gtable object.
+panel takes multiple names, and will then use these components’ extremes for placing the legend.
+If panel is an integer vector of length 2 or 4, these elements are used directly for top-left and
+bottom-right coordinates.
+Value
+gtable object, invisibly, with legend repositioned. Can be drawn with grid.draw.
+Author(s)
+Stefan McKinnon Edwards <sme@iysik.com>
+See Also
+g_legend, grid_arrange_shared_legend
+
+#### Examples 
+```{r}
+library(ggplot2)
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+(d <- ggplot(dsamp, aes(carat, price)) +
+geom_point(aes(colour = clarity)))
+reposition_legend(d + theme(legend.position='bottom'), 'bottom right')
+# To change the orientation of the legend, use theme's descriptors.
+reposition_legend(d + theme(legend.position='bottom'), 'top left')
+# Use odd specifications, here offset the legend with half its height from the bottom.
+reposition_legend(d + theme(legend.position='bottom'), x=0.3, y=0, just=c(0, -0.5))
+# For using with facets:
+reposition_legend(d + facet_grid(.~cut), 'top left', panel = 'panel-3-1')
