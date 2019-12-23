@@ -1,5 +1,16 @@
+  
+  
+---
+title: "``dygraph::dyHighlight `` -   dygraph series mouse-over highlighting"
+output: html_document
+---
 
-dyHighlight dygraph series mouse-over highlighting
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+library(tidyverse)
+```
+
 
 #### Description
 
@@ -19,19 +30,19 @@ dyHighlight(dygraph, highlightCircleSize = 3,
 #### Arguments
 
 * ``dygraph``: Dygraph to configure highlighting behavior for.
-* highlightCircleSize The size in pixels of the dot drawn over highlighted points.
-* highlightSeriesBackgroundAlpha Fade the background while highlighting series. 1=fully visible background (disable fading), 0=hidden background (show highlighted series only).
-* highlightSeriesOpts
+* ``highlightCircleSize```: The size in pixels of the dot drawn over highlighted points.
+* ``highlightSeriesBackgroundAlpha``: Fade the background while highlighting series. 1=fully visible background (disable fading), 0=hidden background (show highlighted series only).
+* ``highlightSeriesOpts``:
 When set, the options from this list are applied to the series closest to the mouse pointer for interactive highlighting. 
  - Example: list(strokeWidth = 3). See the documentation on dySeries for additional details on options that can be set.
-* hideOnMouseOut Whether to hide the highlighting effects when the mouse leaves the chart area.
+* ``hideOnMouseOut``: Whether to hide the highlighting effects when the mouse leaves the chart area.
 Note that this also affects the hiding of the dyLegend on mouse out.
 
 
 
 #### Examples
-```{r}
 
+```{r}
 library(dygraphs)
 lungDeaths <- cbind(ldeaths, mdeaths, fdeaths)
 dygraph(lungDeaths, main = "Deaths from Lung Disease (UK)") %>%
@@ -43,5 +54,7 @@ hideOnMouseOut = FALSE)
 #### Value
 
 A dygraph with customized highlighting options
-Note
+
+#### Note
+
 See the online documentation for additional details and examples.
