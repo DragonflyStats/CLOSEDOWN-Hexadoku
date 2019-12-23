@@ -1,4 +1,13 @@
-dyLegend dygraph legend
+---
+title: "``dygraph::dyLegend`` - dygraph legend"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+library(tidyverse)
+```
 
 #### Description
 
@@ -12,7 +21,8 @@ dyLegend(dygraph, show = c("auto", "always", "onmouseover", "follow",
 "never"), width = 250, showZeroValues = TRUE, labelsDiv = NULL,
 labelsSeparateLines = FALSE, hideOnMouseOut = TRUE)
 
-<code><pre>
+</code></pre>
+
 #### Arguments
 
 * ``dygraph``: Dygraph to configure legend options for.
@@ -20,10 +30,9 @@ labelsSeparateLines = FALSE, hideOnMouseOut = TRUE)
 "onmouseover" to only display it when a user mouses over the chart. Specify "follow" to have the legend show as overlay to the chart which follows the mouse. The default behavior is "auto", which results in "always" when more than one series is plotted and "onmouseover" when only a single series is plotted.
 * ``width``: Width (in pixels) of the div which shows the legend.
 * ``showZeroValues``:  Show zero value labels in the legend.
-* labelsDiv Show data labels in an external div, rather than on the graph. This value should be a div element id.
-* labelsSeparateLines: Put a <br/> between lines in the label string. Often used in conjunction with labelsDiv.
-hideOnMouseOut Whether to hide the legend when the mouse leaves the chart area. This option applies when show is set to "onmouseover". Note that this also affects the hiding
-of the dyHighlight on mouse out.
+* ``labelsDiv``: Show data labels in an external div, rather than on the graph. This value should be a div element id.
+* ``labelsSeparateLines``:: Put a <br/> between lines in the label string. Often used in conjunction with labelsDiv.
+hideOnMouseOut Whether to hide the legend when the mouse leaves the chart area. This option applies when show is set to "onmouseover". Note that this also affects the hiding of the dyHighlight on mouse out.
 
 
 
@@ -42,4 +51,4 @@ A dygraph with customized legend options
 
 #### Note
 See the online documentation for additional details and examples.
-20 dyLimit
+
