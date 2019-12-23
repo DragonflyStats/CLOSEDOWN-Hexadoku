@@ -1,4 +1,16 @@
-dyLimit dygraph limit line
+  
+---
+title: "``dygraph::dyLimit `` -  dygraph limit line"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+library(tidyverse)
+```
+
+
 
 #### Description
 
