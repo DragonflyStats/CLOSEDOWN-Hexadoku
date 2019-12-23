@@ -1,28 +1,34 @@
+---
+title: "``dygraph::dyRebase``"
+output: html_document
+---
 
-
-dyRebase Rebase data handler for straw broom charts with Dygraph
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+```
+Rebase data handler for straw broom charts with Dygraph
 
 #### Description
 
 Draw a straw broom chart.
 
-####
-Usage
+#### Usage
+
 <pre><code>
-
 dyRebase(dygraph, value = 100, percent = FALSE)
-
 <code><pre>
+
 #### Arguments
 
 * ``dygraph``: Dygraph to draw chart on
-* value : Value  to rebase to
-* percent If true, ingnore value argument and rebase to percentage difference
+* ``value`` : Value  to rebase to
+* ``percent``: If true, ingnore value argument and rebase to percentage difference
 
 #### Value
 
 Dygraph with specified straw broom chart
-28 dyRibbon
+
 
 #### Examples
 ```{r}
