@@ -1,6 +1,14 @@
-wide
+---
+title: "``furniture::wide``"
+output: html_document
+---
 
-Long to Wide Data Reshaping
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(ggplot2)
+```
+## Long to Wide Data Reshaping
 
 #### Description
 
@@ -21,4 +29,4 @@ wide(data, v.names, timevar, id = NULL)
 Tyson S. Barrett
 
 #### See Also
-stats::reshape(), tidyr::spread()18
+``stats::reshape()``, ``tidyr::spread()``
