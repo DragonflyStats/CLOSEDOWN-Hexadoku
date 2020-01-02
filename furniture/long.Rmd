@@ -15,7 +15,7 @@ library(furniture)
 
 #### Description
 
-long() is a wrapper of stats::reshape() that takes the data from a wide format to a long format.
+``long()`` is a wrapper of ``stats::reshape()`` that takes the data from a wide format to a long format.
 It can also handle unbalanced data (where some measures have different number of "time points").
 
 #### Usage
@@ -25,54 +25,41 @@ times = NULL, sep = "")
 </code></pre>
 
 #### Arguments
-* data the data.frame containing the wide format data
-* ... the variables that are time-varying that are to be placed in long format, needs to be in the format c("x1", "x2"), c("z1", "z2"), etc.. If the data is unbalanced (e.g., there are three time points measured for one variable but only two for another), using the placeholder variable miss, helps fix this.
-* v.names a vector of the names for the newly created variables (length same as number of
-vectors in varying)
-
-* id the ID variable in quotes
-* timevar the column with the "time" labels
-* times the labels of the timevar (default is numeric)
-* sep the separating character between the wide format variable names (default is ""); e.g. "x1" and "x2" would create the variable name of "x"; only applicable if v.names
+* ``data``: the data.frame containing the wide format data
+* ``...``: the variables that are time-varying that are to be placed in long format, needs to be in the format ``c("x1", "x2"), c("z1", "z2")``, etc.. 
+  If the data is unbalanced (e.g., there are three time points measured for one variable but only two for another), using the placeholder variable miss, helps fix this.
+* ``v.names``: a vector of the names for the newly created variables (length same as number of vectors in varying)
+* ``id``: the ID variable in quotes
+* ``timevar``: the column with the "time" labels
+* ``times``: the labels of the timevar (default is numeric)
+* ``sep``: the separating character between the wide format variable names (default is ""); e.g. "x1" and "x2" would create the variable name of "x"; only applicable if v.names
 
 #### Examples
 
 ```{r}
-x1
-x2
-x3
-y1
-y2
-z
-a
-b
-df
-<- runif(1000)
-<- runif(1000)
-<- runif(1000)
-<- rnorm(1000)
-<- rnorm(1000)
-<- factor(sample(c(0,1), 1000, replace=TRUE))
-<- factor(sample(c(1,2), 1000, replace=TRUE))
-<- factor(sample(c(1,2,3,4), 1000, replace=TRUE))
-<- data.frame(x1, x2, x3, y1, y2, z, a, b)
+x1  <- runif(1000)
+ x2 <- runif(1000)
+ x3 <- runif(1000)
+ y1 <- rnorm(1000)
+ y2 <- rnorm(1000)
+ z <- factor(sample(c(0,1), 1000, replace=TRUE))
+ a <- factor(sample(c(1,2), 1000, replace=TRUE))
+ b <- factor(sample(c(1,2,3,4), 1000, replace=TRUE))
+ df <- data.frame(x1, x2, x3, y1, y2, z, a, b)
+
 ```
 
 ```{r}
 ## "Balanced" Data
-ldf1 <- long(df,
-c("x1", "x2"), c("y1", "y2"),
-v.names = c("x", "y"))
+ldf1 <- long(df, c("x1", "x2"), c("y1", "y2"), v.names = c("x", "y"))
 ```
 
 ```{r}
 ## "Unbalanced" Data
-ldf2 = long(df,
-c("x1", "x2", "x3"), c("y1", "y2", "miss"),
-v.names = c("x", "y"))
+ldf2 = long(df, c("x1", "x2", "x3"), c("y1", "y2", "miss"), v.names = c("x", "y"))
 ```
 #### Author(s)
 Tyson S. Barrett
 
 #### See Also
-stats::reshape() and sjmisc::to_long()
+``stats::reshape()`` and ``sjmisc::to_long()``
