@@ -1,5 +1,5 @@
 ---
-title: "timevis::removeItem "
+title: "``timevis::removeItem`` "
 output: html_document
 ---
 
@@ -13,9 +13,11 @@ library(timevis)
 Remove a custom time previously added
 
 #### Usage
+
 <pre><code>
 removeCustomTime(id, itemId)
 <code></pre>
+
 #### Arguments
 
 * ``id``: Timeline id or a timevis object (the output from ``timevis()``)
@@ -23,30 +25,30 @@ removeCustomTime(id, itemId)
 
 #### Examples
 ```{r}
-
 timevis() %>%
-addCustomTime(Sys.Date() - 1, "yesterday") %>%
-addCustomTime(Sys.Date() + 1, "tomorrow") %>%
-removeCustomTime("yesterday")
+  addCustomTime(Sys.Date() - 1, "yesterday") %>%
+  addCustomTime(Sys.Date() + 1, "tomorrow") %>%
+  removeCustomTime("yesterday")
+
 if (interactive()) {
-library(shiny)
-shinyApp(
-ui = fluidPage(
-timevisOutput("timeline"),
-actionButton("btn0", "Add custom time"),
-actionButton("btn", "Remove custom time bar")
-),
-server = function(input, output) {
-output$timeline <- renderTimevis(
-timevis()
-)
-observeEvent(input$btn0, {
-addCustomTime("timeline", Sys.Date() - 1, "yesterday")
-})
-observeEvent(input$btn, {
-removeCustomTime("timeline", "yesterday")
-})
-}
-)
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      timevisOutput("timeline"),
+      actionButton("btn0", "Add custom time"),
+      actionButton("btn", "Remove custom time bar")
+    ),
+    server = function(input, output) {
+      output$timeline <- renderTimevis(
+        timevis()
+      )
+      observeEvent(input$btn0, {
+        addCustomTime("timeline", Sys.Date() - 1, "yesterday")
+      })
+      observeEvent(input$btn, {
+        removeCustomTime("timeline", "yesterday")
+      })
+    }
+  )
 }
 ```
