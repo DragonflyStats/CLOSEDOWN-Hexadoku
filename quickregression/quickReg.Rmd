@@ -1,12 +1,8 @@
----
-title: "quickReg R Package"
-author: "Kevin O'Brien"
-date: "12 November 2018"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(quickReg)
 ```
 
 Build Regression Models Quickly and Display the Results Using 'ggplot2'

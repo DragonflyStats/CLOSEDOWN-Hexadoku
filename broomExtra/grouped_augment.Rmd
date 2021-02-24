@@ -24,8 +24,6 @@ Value
 A tibble::tibble() with information about data points.
 Methods
 No methods found in currently loaded packages.
-Author(s)
-Indrajeet Patil
 
 #### Examples
 ```{r}
@@ -39,12 +37,19 @@ formula = price ~ carat - 1,
 ..f = stats::lm,
 na.action = na.omit
 )
+```
+
+```{r}
 # linear mixed effects model
 broomExtra::grouped_augment(
-data = dplyr::sample_frac(tbl = ggplot2::diamonds, size = 0.5),
-grouping.vars = cut,
-..f = lme4::lmer,grouped_glance
+ data = dplyr::sample_frac(tbl = ggplot2::diamonds, size = 0.5),
+ grouping.vars = cut,
+ ..f = lme4::lmer,grouped_glance
 )
-5
+
 formula = price ~ carat + (carat | color) - 1,
 control = lme4::lmerControl(optimizer = "bobyqa")
+```
+
+Author(s)
+Indrajeet Patil

@@ -1,8 +1,20 @@
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(quickReg)
+```
+
 display_table
+===================================
 Display a table used in paper
 Description
-Display count, frequency or mean, standard deviation and test of normality, etc.
+Display count
+, frequency or mean, standard deviation and test of normality, etc.
+
 #### Usage
+
+<pre><code>
 display_table(data
 mean_or_median =
 discrete_limit =
@@ -11,38 +23,40 @@ normtest = NULL,
 "mean", addNA = TRUE, table_margin = 2,
 10, exclude_discrete = TRUE, save_to_file = NULL,
 fill_variable = FALSE)
+
 display_table_group(data = NULL, variables = NULL, group = NULL,
-super_group = NULL, group_combine = FALSE, mean_or_median = "mean",
-addNA = TRUE, table_margin = 2, discrete_limit = 10,
-exclude_discrete = TRUE, normtest = NULL, fill_variable = FALSE)display_table
-3
-Arguments
+  super_group = NULL, group_combine = FALSE, mean_or_median = "mean",
+  addNA = TRUE, table_margin = 2, discrete_limit = 10,
+  exclude_discrete = TRUE, normtest = NULL, fill_variable = FALSE)
+</code></pre>
+
+#### Arguments
 * ``data``: A data.frame
-variables Column indices or names of the variables in the dataset to display, the default
+* ``variables`` Column indices or names of the variables in the dataset to display, the default
 columns are all the variables except group variable
-group Column indices or names of the first subgroup variables. Must provide.
+* ``group``: Column indices or names of the first subgroup variables. Must provide.
 mean_or_median A character to specify mean or median to used for continuous variables, either
 "mean" or "median". The default is "mean"
-addNA Whether to include NA values in the table, see table for more details
+* ``addNA``: Whether to include NA values in the table, see table for more details
 * `` table_margin``: Index of generate margin for, see prop.table for more details
-* `` discrete_limit ``:Defining the minimal of unique value to display the variable as count and fre-
-quency, the default is 10
+* `` discrete_limit ``:Defining the minimal of unique value to display the variable as count and frequency, the default is 10
 exclude_discrete
 Logical, whether to exclude discrete variables with more unique values specified
-by discrete_limit
+by ``discrete_limit``
 * `` save_to_file `` : A character, containing file name or path
-normtest A character indicating test of normality, the default method is shapiro.test
-when sample size no more than 5000, otherwise lillie.test Kolmogorov-
-Smirnov is used, see package nortest for more methods.Use ’shapiro.test’, ’lil-
+* normtest A character indicating test of normality, the default method is shapiro.test
+when sample size no more than 5000, otherwise lillie.test Kolmogorov-Smirnov is used, see package nortest for more methods.Use ’shapiro.test’, ’lil-
 lie.test’, ’ad.test’, etc to specify methods.
-fill_variable A logical, whether to fill the variable column in result, the default is FALSE
-super_group Column indices or names of the further subgroup variables.
-group_combine A logical, subgroup analysis for combination of variables or for each variable.
+* fill_variable A logical, whether to fill the variable column in result, the default is FALSE
+* super_group Column indices or names of the further subgroup variables.
+* group_combine A logical, subgroup analysis for combination of variables or for each variable.
 The default is FALSE (subgroup analysis for each variable)
-Functions
+
+#### Functions
 • display_table_group: Allow more subgroup analysis, see the package vignette for more
 details
-Note
+
+#### Note
 The return table is a data.frame.
 - P.value1 is ANOVA P value for continuous variables and chi-square test P value for discrete
 variables
@@ -55,19 +69,47 @@ variables if expected counts less than 5
 ## Not run:
 data(diabetes)
 head(diabetes)
-library(dplyr);library(rlang)4
-plot.reg
+library(dplyr);
+#library(rlang)
+```
+
+```{r}
 result_1<-diabetes %>%
 group_by(sex) %>%
 do(display_table(data=.,variables=c("age","smoking"),group="CFHrs2230199")) %>%
 ungroup()
+```
+
+```{r}
+result_1
+```
+
+```{r}
 result_2<-display_table_group(data=diabetes,variables=c("age","smoking"),
 group="CFHrs2230199",super_group = "sex")
 identical(result_1,result_2)
+```
+
+```{r}
+result_2
+```
+
+```{r}
 result_3<-display_table_group(data=diabetes,variables=c("age","education"),
 group=c("smoking"),super_group = c("CFHrs2230199","sex"))
+```
+
+```{r}
+result_3
+```
+
+
+```{r}
 result_4<-display_table_group(data=diabetes,variables=c("age","education"),
 group=c("smoking"),super_group = c("CFHrs2230199","sex"),group_combine=TRUE)
 ## End(Not run)
 ```
 
+```{r}
+result_4
+```
