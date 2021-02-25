@@ -1,0 +1,42 @@
+14 dygraph
+dygraph dygraph interactive plot for time series data
+
+#### Description
+
+R interface to interactive time series plotting using the dygraphs JavaScript library.
+
+#### Usage
+
+<pre><code>
+dygraph(data, main = NULL, xlab = NULL, ylab = NULL, periodicity = NULL, group = NULL, elementId = NULL, width = NULL, height = NULL)
+</code></pre>
+
+#### Arguments
+
+* data Either time series data or numeric data. For time series, this must be an xts
+* object or an object which is convertible to xts. For numeric data, this must be a named list or data frame, where the first element/column provides x-axis values and all subsequent elements/columns provide one or more series of y-values.
+* main Main plot title (optional)
+* xlab X axis label
+* ylab Y axis label
+* periodicity Periodicity of time series data (automatically detected via xts::periodicity if not specified).
+* group Group to associate this plot with. The x-axis zoom level of plots within a group is automatically synchronized.
+elementId Use an explicit element ID for the widget (rather than an automatically generated one). Useful if you have other JavaScript that needs to explicitly discover and interact with a specific widget instance.
+* width Width in pixels (optional, defaults to automatic sizing)
+* height Height in pixels (optional, defaults to automatic sizing)
+
+#### Value
+
+Interactive dygraph plot
+Note
+See the online documentation for additional details and examples.
+dygraph-shiny 15
+
+#### Examples
+```{r}
+
+library(dygraphs)
+lungDeaths <- cbind(mdeaths, fdeaths)
+dygraph(lungDeaths)
+indoConc <- Indometh[Indometh$Subject == 1, c("time", "conc")]
+dygraph(indoConc)
+```

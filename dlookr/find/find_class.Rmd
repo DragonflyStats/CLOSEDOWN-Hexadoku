@@ -1,0 +1,64 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "28 August 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+find_class Extract variable names or indices of a specific class
+
+### Description 
+
+The find_class() extracts variable information having a certain class from an object inheriting
+data.frame.
+
+### Usage 
+<pre><code>
+
+find_class(df, type = c("numerical", "categorical", "categorical2"),
+index = TRUE)
+
+</code></pre>
+### Arguments
+ 
+df a data.frame or objects inheriting from data.frame
+type character. Defines a group of classes to be searched. "numerical" searches for "numeric" and "integer" classes, "categorical" searches for "factor" and "ordered"
+classes. "categorical2" adds "character" class to "categorical".
+* `index``:  logical. If TRUE is return numeric vector that is variables index. and if FALSE is return character vector that is variables name. defalut is TRUE.
+
+### Value 
+
+character vector or numeric vector. The meaning of vector according to data type is as follows.
+*  character vector : variables name
+*  numeric vector : variables index
+44 find_na
+
+### See Also
+ 
+get_class.
+
+### Examples
+```{r}
+
+## Not run:
+# data.frame
+find_class(iris, "numerical")
+find_class(iris, "numerical", index = FALSE)
+find_class(iris, "categorical")
+find_class(iris, "categorical", index = FALSE)
+# tbl_df
+find_class(ISLR::Carseats, "numerical")
+find_class(ISLR::Carseats, "numerical", index = FALSE)
+find_class(ISLR::Carseats, "categorical")
+find_class(ISLR::Carseats, "categorical", index = FALSE)
+# type is "categorical2"
+iris2 <- data.frame(iris, char = "chars",
+stringsAsFactors = FALSE)
+find_class(iris2, "categorical", index = FALSE)
+find_class(iris2, "categorical2", index = FALSE)
+## End(Not run)
+```

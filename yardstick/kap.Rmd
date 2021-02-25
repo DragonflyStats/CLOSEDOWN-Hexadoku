@@ -1,49 +1,38 @@
-kap
-Kappa
+---
+title: "``yardstick::kap`` - kappa"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(yardstick)
+```
 
 #### Description
 
-Kappa is a similar measure to accuracy(), but is normalized by the accuracy that would be ex-
-pected by chance alone and is very useful when one or more classes have large frequency distribu-
-tions.
+Kappa is a similar measure to accuracy(), but is normalized by the accuracy that would be expected by chance alone and is very useful when one or more classes have large frequency distributions.
 
 #### Usage
 
+<pre><code>
 kap(data, ...)
 ## S3 method for class 'data.frame'
 kap(data, truth, estimate, na_rm = TRUE, ...)
 kap_vec(truth, estimate, na_rm = TRUE, ...)30
 kap
+</code></pre>
+
 
 #### Arguments
 
-data Either a data.frame containing the truth and estimate columns, or a table/matrix
-where the true class results should be in the columns of the table.
+data Either a data.frame containing the truth and estimate columns, or a table/matrix where the true class results should be in the columns of the table.
 ... Not currently used.
-truth The column identifier for the true class results (that is a factor). This should be
-an unquoted column name although this argument is passed by expression and
-supports quasiquotation (you can unquote column names). For _vec() func-
-tions, a factor vector.
-estimate The column identifier for the predicted class results (that is also factor). As
-with truth this can be specified different ways but the primary method is to use
-an unquoted variable name. For _vec() functions, a factor vector.
-na_rm A logical value indicating whether NA values should be stripped before the
-computation proceeds.
-Value
-A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
-For grouped data frames, the number of rows returned will be the same as the number of groups.
-For kap_vec(), a single numeric value (or NA).
-Multiclass
-Kappa extends naturally to multiclass scenarios. Because of this, macro and micro averaging are
-not implemented.
-Author(s)
-Max Kuhn
-References
-Cohen, J. (1960). "A coefficient of agreement for nominal scales". Educational and Psychological
-Measurement. 20 (1): 37-46.
-See Also
-Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, mcc,
-npv, ppv, precision, recall, sens, spec
+truth The column identifier for the true class results (that is a factor). This should be an unquoted column name although this argument is passed by expression and
+supports quasiquotation (you can unquote column names). For _vec() functions, a factor vector.
+
+estimate The column identifier for the predicted class results (that is also factor). As with truth this can be specified different ways but the primary method is to use an unquoted variable name. For _vec() functions, a factor vector.
+na_rm A logical value indicating whether NA values should be stripped before the computation proceeds.
+
 
 #### Examples
 ```{r}
@@ -71,3 +60,21 @@ kap_vec(two_class_example$truth, two_class_example$predicted)
 options(yardstick.event_first = FALSE)
 kap_vec(two_class_example$truth, two_class_example$predicted)
 options(yardstick.event_first = TRUE)
+```
+
+#### Value
+A tibble with columns .metric, .estimator, and .estimate and 1 row of values.
+For grouped data frames, the number of rows returned will be the same as the number of groups.
+For kap_vec(), a single numeric value (or NA).
+Multiclass
+Kappa extends naturally to multiclass scenarios. Because of this, macro and micro averaging are
+not implemented.
+
+#### Author(s)
+Max Kuhn
+References
+Cohen, J. (1960). "A coefficient of agreement for nominal scales". Educational and Psychological
+Measurement. 20 (1): 37-46.
+See Also
+Other class metrics: accuracy, bal_accuracy, detection_prevalence, f_meas, j_index, mcc,
+npv, ppv, precision, recall, sens, spec

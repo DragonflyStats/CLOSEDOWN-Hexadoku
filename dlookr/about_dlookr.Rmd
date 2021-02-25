@@ -1,0 +1,135 @@
+Package 'dlookr'
+August 19, 2019
+Type Package
+Title Tools for Data Diagnosis, Exploration, Transformation
+Version 0.3.11
+
+### Description 
+ A collection of tools that support data diagnosis, exploration, and transformation.
+Data diagnostics provides information and visualization of missing values and outliers and
+unique and negative values to help you understand the distribution and quality of your data.
+Data exploration provides information and visualization of the descriptive statistics of
+univariate variables, normality tests and outliers, correlation of two variables, and
+relationship between target variable and predictor. Data transformation supports binning
+for categorizing continuous variables, imputates missing values and outliers, resolving skewness.
+And it creates automated reports that support these three tasks.
+License GPL-2 | file LICENSE
+Encoding UTF-8
+LazyData true
+Depends R (>= 3.2.0), mice
+Imports dplyr, magrittr, tidyr, ggplot2, RcmdrMisc, corrplot, rlang,
+purrr, tibble, tidyselect, classInt, moments, kableExtra,
+prettydoc, smbinning, xtable, knitr, rmarkdown, RColorBrewer,
+gridExtra, tinytex, methods, DMwR, rpart
+Suggests ISLR, nycflights13, randomForest, dbplyr, DBI, RSQLite,
+testthat
+Author Choonghyun Ryu [aut, cre]
+Maintainer Choonghyun Ryu <choonghyun.ryu@gmail.com>
+BugReports https://github.com/choonghyunryu/dlookr/issues
+VignetteBuilder knitr
+RoxygenNote 6.1.1
+NeedsCompilation no
+Repository CRAN
+Date/Publication 2019-08-19 15:10:02 UTC
+1
+2 R topics documented:
+R topics documented:
+dlookr-package . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+binning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+binning_by . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+correlate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+correlate.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+describe . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+describe.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+diagnose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+diagnose.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+diagnose_category . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+diagnose_category.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+diagnose_numeric . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+diagnose_numeric.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+diagnose_outlier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+diagnose_outlier.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+diagnose_report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+diagnose_report.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+eda_report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+eda_report.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+find_class . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+find_na . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+find_outliers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 45
+find_skewness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+get_class . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+get_column_info . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+get_os . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+imputate_na . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+imputate_outlier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+normality . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+normality.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 56
+plot.bins . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+plot.imputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+plot.optimal_bins . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+plot.relate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 61
+plot.transform . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63
+plot_correlate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+plot_correlate.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+plot_normality . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+plot_normality.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 69
+plot_outlier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 71
+plot_outlier.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73
+print.relate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+relate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 77
+summary.bins . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+summary.imputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 80
+summary.transform . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82
+dlookr-package 3
+target_by . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+target_by.tbl_dbi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 84
+transform . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 86
+transformation_report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 88
+Index 90
+dlookr-package dlookr: Tools for Data Diagnosis, Exploration, Transformation
+
+### Description 
+
+dlookr provides data diagnosis, data exploration and transformation of variables during data analysis.
+
+### Details 
+
+It has three main goals:
+*  When data is acquired, it is possible to judge whether data is erroneous or to select a variable
+to be corrected or removed through data diagnosis.
+*  Understand the distribution of data in the EDA process. We can also understand the relationship
+between target variables and predictor variables for the prediction model.
+*  Imputates including missing value and outlier, standardization and resolving skewness, and
+binning of continuous variables.
+To learn more about dlookr, start with the vignettes: 'browseVignettes(package = "dlookr")'
+Author(s)
+Maintainer: Choonghyun Ryu <choonghyun.ryu@gmail.com>
+
+### See Also
+ 
+Useful links:
+*  Report bugs at https://github.com/choonghyunryu/dlookr/issues
+4 binning
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

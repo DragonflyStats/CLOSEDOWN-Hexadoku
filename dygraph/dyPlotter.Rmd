@@ -1,0 +1,33 @@
+---
+title: "``dygraph::dyPlotter`` -   Include a dygraph plotter"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+library(tidyverse)
+```
+
+#### Description
+
+Include a dygraph plotter
+
+#### Usage
+
+<pre><code>
+
+dyPlotter(dygraph, name, path, version = "1.0")
+
+<code><pre>
+
+#### Arguments
+
+* ``dygraph``: Dygraph to add plotter to
+* ``name``: Name of plotter
+* ``path``: Path to plotter JavaScript file
+* ``version``: Plotter version (e.g. version of package which provides the plotter)
+
+#### Value
+
+A dygraph with the specified plotter enabled.

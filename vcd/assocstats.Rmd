@@ -11,7 +11,7 @@ library(vcd)
 
 #### Desription
 
-Computes the Pearson chi-Squared test, the Likelihood Ratio chi-Squared test, the phi coefficient, the contingency coefficient and Cramer’s V for possibly stratified contingency tables.
+Computes the Pearson chi-Squared test, the Likelihood Ratio chi-Squared test, the phi coefficient, the contingency coefficient and Cramer's V for possibly stratified contingency tables.
 
 #### Usage
 
@@ -30,7 +30,19 @@ assocstats(x)
 
 data("Arthritis")
 tab <- xtabs(~Improved + Treatment, data = Arthritis)
+```
+
+```{r}
+tab
+```
+
+
+```{r}
 summary(assocstats(tab))
+```
+
+
+```{r}
 assocstats(UCBAdmissions)
 ```
 
@@ -40,7 +52,7 @@ In case of a 2-dimensional table, a list with components:
 * ``chisq_test``: 3 table with the chi-squared statistics.
 * ``phi``: The absolute value of the phi coefficient (only defined fo2 tables).
 * ``cont``: The contingency coefficient.
-* ``cramer``: Cramer’s V.
+* ``cramer``: Cramer's V.
 
 In case of higher-dimensional tables, a list of the above mentioned structure, each list component representing one stratum defined by the combinations of all levels of the stratum dimensions.
 

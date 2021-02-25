@@ -1,0 +1,61 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "6 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+summary.transform Summarizing transformation information
+
+### Description 
+
+print and summary method for "transform" class.
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'transform'
+summary(object, ...)
+
+</code></pre>
+### Arguments
+ 
+object an object of class "transform", usually, a result of a call to transform().
+... further arguments passed to or from other methods.
+
+### Details 
+
+summary.transform compares the distribution of data before and after data conversion.
+
+### See Also
+ 
+transform, summary.transform.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+```
+
+```{r}
+# Standardization ------------------------------
+advertising_minmax <- transform(carseats$Advertising, method = "minmax")
+advertising_minmax
+summary(advertising_minmax)
+plot(advertising_minmax)
+```
+```{r}
+# Resolving Skewness --------------------------
+advertising_log <- transform(carseats$Advertising, method = "log")
+advertising_log
+summary(advertising_log)
+plot(advertising_log)
+```

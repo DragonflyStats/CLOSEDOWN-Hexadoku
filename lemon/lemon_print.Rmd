@@ -1,0 +1,55 @@
+lemon_print
+
+
+
+knitr extension: Always use ‘kable‘ for data frames.
+
+#### Description
+
+Convenience function for working with R Notebooks that ensures data frames (and dplyr tables) are
+printed with kable while allowing RStudio to render the data frame dynamically for inline display.
+
+#### Usage
+
+lemon_print(x, options, ...)
+## S3 method for class 'data.frame'
+lemon_print(x, options, ...)
+## S3 method for class 'table'
+lemon_print(x, options, ...)
+
+#### Arguments
+
+x an data frame or dplyr table object to be printed
+options Current chunk options are passed through this argument.
+... Ignored for now.
+Details
+These functions divert data frame and summary output to kable for nicely printing the output.
+For options to kable, they can be given directly as chunk-options (see arguments to kable), or
+though as a list to a special chunk-option kable.opts.
+For more examples, see vignette('lemon_print', package='lemon').remove_labels_from_axis
+23
+Knitr usage
+To use for a single chunk, do
+```{r render=lemon_print,caption='My data frame'}
+data.frame
+```
+Note: We are not calling the function, but instead refering to it.
+An alternate route for specifying kable arguments is as:
+```{r render=lemon_print,kable.opts=list(align='l')}
+data.frame
+```
+The option kable.opts takes precendence over arguments given directly as chunk-options.
+To enable as default printing method for all chunks, include
+knit_print.data.frame <- lemon_print
+knit_print.table <- lemon_print
+knit_print.grouped_df <- lemon_print # enableds dplyr results
+knit_print.tibble <- lemon_print
+knit_print.tbl <- lemon_print
+Note: We are not calling the function, but instead assigning the knit_print functions for some
+classes.
+To disable, temporarily, specify chunk option:
+```{r render=normal_print}`
+data.frame
+```
+See Also
+knit_print, kable

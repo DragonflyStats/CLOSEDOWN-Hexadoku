@@ -1,0 +1,88 @@
+---
+title: "``dlookr::imputate_outlier``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+Imputate Outliers
+
+### Description 
+
+Outliers are imputated with some representative values and statistical methods.
+
+### Usage 
+
+<pre><code>
+imputate_outlier(.data, xvar, method)
+</code></pre>
+
+### Arguments
+ 
+* ``.data``: a ``data.frame`` or a ``tbl_df``.
+* ``xvar``: variable name to replace missing value.
+* ``method``: method of missing values imputation.
+
+
+### See Also
+ 
+imputate_na.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# Replace the missing value of the Price variable with median
+imputate_outlier(carseats, Price, method = "median")
+```
+
+```{r}
+# Replace the missing value of the Price variable with rpart
+# The target variable is US.
+imputate_outlier(carseats, Price, method = "capping")
+```
+
+```{r}
+## using dplyr -------------------------------------
+library(dplyr)
+# The mean before and after the imputation of the Price variable
+carseats %>%
+mutate(Price_imp = imputate_outlier(carseats, Price, method = "capping")) %>%
+group_by(US) %>%
+summarise(orig = mean(Price, na.rm = TRUE),
+imputation = mean(Price_imp, na.rm = TRUE))
+```
+
+```{r}
+# If the variable of interest is a numarical variable
+price <- imputate_outlier(carseats, Price)
+price
+summary(price)
+plot(price)
+```
+
+### Details 
+
+``imputate_outlier()`` creates an imputation class. The 'imputation' class includes missing value position,
+imputated value, and method of missing value imputation, etc. The 'imputation' class compares the imputated value with the original value to help determine whether the imputated value is used in the analysis.
+
+See vignette("transformation") for an introduction to these concepts.
+
+### Value 
+
+An object of imputation class. Attributes of imputation class is as follows.
+*  method : method of missing value imputation.
+   - predictor is numerical variable
+* "mean" : arithmetic mean
+* "median" : median
+* "mode" : mode
+* "capping" : Imputate the upper outliers with 95 percentile, and Imputate the bottom outliers with 5 percentile.
+*  outlier_pos : position of outliers in predictor.
+*  outliers : outliers. outliers corresponding to outlier_pos.
+*  type : "outliers". type of imputation.

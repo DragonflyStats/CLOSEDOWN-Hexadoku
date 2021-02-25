@@ -17,8 +17,9 @@ Core-generating function for strucplot returning a function producing sieve plot
 #### Usage
 <pre><code>
 
-struc_sieve(sievetype = c("observed","expected"), gp_tile = gpar(),
-scale = 1)
+struc_sieve(sievetype = c("observed","expected"), 
+  gp_tile = gpar(),
+  scale = 1)
 
 </code></pre>
 #### Arguments
@@ -54,7 +55,7 @@ David Meyer <David.Meyer@R-project.org>
 
 
 #### References
-* Riedwyl, H., and Schüpbach, M. (1994), Parquet diagram to plot contingency tables. In F. Faulbaum (ed.), Softstat ’93: Advances in Statistical Software, 293–299. Gustav Fischer, New York.
+* Riedwyl, H., and Schüpbach, M. (1994), Parquet diagram to plot contingency tables. In F. Faulbaum (ed.), Softstat-93: Advances in Statistical Software, 293-299. Gustav Fischer, New York.
 * Friendly, M. (2000), Visualizing Categorical Data, SAS Institute, Cary, NC.
 * Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
 and available as vignette("strucplot").

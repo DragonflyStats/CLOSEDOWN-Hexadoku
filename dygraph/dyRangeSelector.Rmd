@@ -1,0 +1,59 @@
+---
+title: "``dygraph::dyRangeSelector``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+```
+
+ dygraph interactive range selection and zooming
+
+#### Description
+
+Add a range selector to the bottom of the chart that allows users to pan and zoom to various date ranges.
+
+#### Usage
+
+<pre><code>
+dyRangeSelector(dygraph, dateWindow = NULL, height = 40,
+  fillColor = " #A7B1C4", strokeColor = "#808FAB", keepMouseZoom = TRUE,
+  retainDateWindow = FALSE)
+</code></ pre>
+
+#### Arguments
+
+* ``dygraph``: Dygraph to add range selector to
+* ``dateWindow``: Initially zoom in on a section of the graph. Is a two element vector [earliest, latest], where earliest/latest objects convertible via as.POSIXct.
+* ``height``: Height, in pixels, of the range selector widget.
+* ``fillColor``: The range selector mini plot fill color. This can be of the form "#AABBCC" or "rgb(255,100,200)" or "yellow". You can also specify "" to turn off fill.
+* ``strokeColor``: The range selector mini plot stroke color. This can be of the form "#AABBCC" or "rgb(255,100,200)" or "yellow". You can also specify "" to turn off stroke.
+* ``keepMouseZoom``: Keep mouse zoom when adding a range selector
+* ``retainDateWindow``: Whether to retain the user’s current date window (zoom level) when updating an existing dygraph with new data and/or options.
+
+
+#### Examples
+```{r}
+
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>%
+  dyRangeSelector()
+
+dygraph(nhtemp, main = "New Haven Temperatures") %>%
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+
+dygraph(nhtemp, main = "New Haven Temperatures") %>%
+  dyRangeSelector(height = 20, strokeColor = "")
+
+```
+
+#### Value
+
+A dygraph that displays a range selector
+
+
+### Note
+See the online documentation for additional details and examples.
+
+Shiny applications can respond to changes in the dateWindow via a special date window shiny input value. For example, if the output id of a dygraph is ‘series‘ then the current date window can be read from input$series_date_window as an array of two date values (from and to).

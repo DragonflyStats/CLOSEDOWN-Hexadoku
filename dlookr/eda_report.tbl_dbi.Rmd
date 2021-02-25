@@ -1,0 +1,144 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "28 August 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+eda_report.tbl_dbi Reporting the information of EDA for table of the DBMS
+
+### Description 
+
+The eda_report() report the information of Exploratory data analysis for object inheriting from the
+DBMS table through tbl_dbi
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'tbl_dbi'
+eda_report(.data, target = NULL,
+output_format = c("pdf", "html"), output_file = NULL,
+font_family = NULL, output_dir = tempdir(), ``in_database = FALSE``,
+collect_size = Inf, ...)
+
+</code></pre>
+### Arguments
+ 
+* `.data``:   a tbl_dbi.
+* ``target``: target variable.
+output_format report output type. Choose either "pdf" and "html". "pdf" create pdf file by
+knitr::knit(). "html" create html file by rmarkdown::render().
+output_file name of generated file. default is NULL.
+font_family charcter. font family name for figure in pdf.
+output_dir name of directory to generate report file. default is tempdir().
+* ``in_database``: Specifies whether to perform in-database operations. If TRUE, most operations
+are performed in the DBMS. if FALSE, table data is taken in R and operated
+in-memory. Not yet supported in_database = TRUE.
+* ``collect_size``: a integer. The number of data samples from the DBMS to R. Applies only if
+``in_database = FALSE``.
+* ``...``: arguments to be passed to methods.
+eda_report.tbl_dbi 41
+
+### Details 
+
+Generate generalized data EDA reports automatically. You can choose to output to pdf and html
+files. This is useful for EDA a data frame with a large number of variables than data with a small
+number of variables. For pdf output, Korean Gothic font must be installed in Korean operating
+system.
+Reported information
+The EDA process will report the following information:
+*  Introduction
+- Information of Dataset
+- Information of Variables
+- About EDA Report
+*  Univariate Analysis
+- Descriptive Statistics
+- Normality Test of Numerical Variables
+* Statistics and Visualization of (Sample) Data
+*  Relationship Between Variables
+- Correlation Coefficient
+* Correlation Coefficient by Variable Combination
+* Correlation Plot of Numerical Variables
+*  Target based Analysis
+- Gruoped Descriptive Statistics
+* Gruoped Numerical Variables
+* Gruoped Categorical Variables
+- Gruoped Relationship Between Variables
+* Grouped Correlation Coefficient
+* Grouped Correlation Plot of Numerical Variables
+See vignette("EDA") for an introduction to these concepts.
+
+### See Also
+ 
+eda_report.data.frame.
+
+### Examples
+```{r}
+
+library(dplyr)
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+
+# connect DBMS
+con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+# copy carseats to the DBMS with a table named TB_CARSEATS
+copy_to(con_sqlite, carseats, name = "TB_CARSEATS", overwrite = TRUE)
+## target variable is categorical variable
+# reporting the EDA information
+# create pdf file. file name is EDA_Report.pdf
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(US)
+# create pdf file. file name is EDA.pdf
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report("US", output_file = "EDA.pdf")
+# create html file. file name is EDA_Report.html
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report("US", output_format = "html")
+# create html file. file name is EDA.html
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(US, output_format = "html", output_file = "EDA.html")
+## target variable is numerical variable
+# reporting the EDA information, and collect size is 350
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(Sales, collect_size = 350)
+# create pdf file. file name is EDA2.pdf
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report("Sales", output_file = "EDA2.pdf")
+# create html file. file name is EDA_Report.html
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report("Sales", output_format = "html")
+# create html file. file name is EDA2.html
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(Sales, output_format = "html", output_file = "EDA2.html")
+## target variable is null
+# reporting the EDA information
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+find_class 43
+eda_report()
+# create pdf file. file name is EDA2.pdf
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(output_file = "EDA2.pdf")
+# create html file. file name is EDA_Report.html
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(output_format = "html")
+# create html file. file name is EDA2.html
+con_sqlite %>%
+tbl("TB_CARSEATS") %>%
+eda_report(output_format = "html", output_file = "EDA2.html")
+```

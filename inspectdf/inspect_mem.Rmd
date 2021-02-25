@@ -1,0 +1,56 @@
+---
+title: "``inspectdf::inspect_mem``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(inspectdf)
+library(magrittr)
+library(dplyr)
+```
+
+#### Description
+
+Summarise and compare the memory usage in one or two dataframes.
+
+#### Usage
+<pre><code>
+inspect_mem(df1, df2 = NULL, show_plot = FALSE)
+</code></pre>
+
+#### Arguments
+
+* ``df1``: A data frame.
+* ``df2``: An optional second data frame for comparing column sizes. Defaults to NULL.
+* ``show_plot``: (Deprecated) Logical flag indicating whether a plot should be shown. Superseded by the function ``show_plot()`` and will be dropped in a future version.
+
+#### Details
+
+When a single data frame is specified, a tibble is returned which contains columnwise memory
+usage in descending order of size:
+
+*  ``col_name``: character vector containing column names of df1.
+*  ``size``: character vector containing memory usage of each column.
+*  ``pcnt``: the percentage of total memory usage used by each column.
+
+When both df1 and df2 are specified, column sizes are jointly tabulated for both data frames, by performing a full join by ``col_name``. 
+Rows are sorted in descending order of size as they appear in df1:
+
+*  ``col_name``: character vector containing column names of df1 and df2.
+*  ``size_1``, ``size_2``: character vector containing memory usage of each column in each of df1 and df2.
+*  ``pcnt_1``, ``pcnt_2``: the percentage of total memory usage of each column within each of df1 and df2.
+
+#### Value
+
+A tibble summarising and comparing the columnwise memory usage for one or a pair of data frames.
+
+#### Examples 
+
+````{r}
+data("starwars", package = "dplyr")
+# get tibble of column memory usage for the starwars data
+inspect_mem(starwars)
+# compare memory usage
+inspect_mem(starwars, starwars[1:10, -3])
+```

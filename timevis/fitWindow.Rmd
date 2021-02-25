@@ -27,24 +27,23 @@ For a full list of options, see the "fit" method in the official Timeline docume
 
 #### Examples
 ```{r}
-
 if (interactive()) {
-library(shiny)
-shinyApp(
-ui = fluidPage(
-timevisOutput("timeline"),
-actionButton("btn", "Fit all items")
-),
-server = function(input, output) {
-output$timeline <- renderTimevis(
-timevis(data.frame(
-id = 1:2, start = c(Sys.Date(), Sys.Date() - 1), content = c("1", "2")
-))
-)
-observeEvent(input$btn, {
-fitWindow("timeline", list(animation = FALSE))
-})
-}
-)
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      timevisOutput("timeline"),
+      actionButton("btn", "Fit all items")
+    ),
+    server = function(input, output) {
+      output$timeline <- renderTimevis(
+        timevis(data.frame(
+          id = 1:2, start = c(Sys.Date(), Sys.Date() - 1), content = c("1", "2")
+        ))
+      )
+      observeEvent(input$btn, {
+        fitWindow("timeline", list(animation = FALSE))
+      })
+    }
+  )
 }
 ```

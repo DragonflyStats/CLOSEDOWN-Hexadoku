@@ -1,0 +1,37 @@
+---
+title: "``lemon::is.small``:"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lemon)
+```
+
+is.small
+Is a given unit ’small’?
+
+#### Description
+
+Uses a holistic approach to determine whether a unit is ’small’, i.e. less than 1 cm, 1 line, 10 pt, or
+0.4 in.
+
+#### Usage
+
+is.small(x)
+
+#### Arguments
+
+x
+A unit.lemon
+21
+
+#### Details
+Based on arbitraily chosen definitions of ’small’, this function can return TRUE or FALSE if a unit is
+’small’.
+So far, less than 1 cm, 1 line, 10 pt, or 0.4 inches is defined as being ’small’. Unresolved sizes, suchs as ’grobheight’, ’grobwidth’, or ’null’ are not small. Units based on arithmetic, such as sum of multiple units, are also not small. NAs are returned for undecided sizes.
+
+#### Value
+Logical or NA.
+
+

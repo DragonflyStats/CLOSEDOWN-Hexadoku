@@ -1,0 +1,77 @@
+---
+title: "``dlookr::plot.relate``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+
+plot.relate Visualize Information for an "relate" Object
+
+### Description 
+
+Visualize four kinds of plot by attribute of relate class.
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'relate'
+plot(x, model = FALSE, hex_thres = 1000,
+pal = RColorBrewer::brewer.pal(7, "YlOrRd"), ...)
+62 plot.relate
+
+</code></pre>
+### Arguments
+ 
+* x an object of class "relate", usually, a result of a call to relate().
+* model logical. This argument selects whether to output the visualization result to the visualization of the object of the lm model to grasp the relationship between the numerical variables.
+* hex_thres an integer. Use only when the target and predictor are numeric variables. Used when the number of observations is large. Specify the threshold of the observations to draw hexabin plots that are not scatterplots. The default value is 1000.
+* ``pal``:   Color palette to paint hexabin. Use only when the target and predictor are numeric variables. Applied only when the number of observations is greater than hex_thres.
+* ``...``: arguments to be passed to methods. such as graphical parameters (see par). only
+applies when the model argument is TRUE, and is used for ... of the ``plot.lm()`` function.
+
+### See Also
+ 
+relate, print.relate.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# If the target variable is a categorical variable
+categ <- target_by(carseats, US)
+# If the variable of interest is a numarical variable
+cat_num <- relate(categ, Sales)
+cat_num
+summary(cat_num)
+plot(cat_num)
+# If the variable of interest is a categorical variable
+cat_cat <- relate(categ, ShelveLoc)
+cat_cat
+summary(cat_cat)
+plot(cat_cat)
+```
+
+```{r}
+##---------------------------------------------------
+# If the target variable is a categorical variable
+num <- target_by(carseats, Sales)
+# If the variable of interest is a numarical variable
+num_num <- relate(num, Price)
+num_num
+summary(num_num)
+plot(num_num)
+
+plot(num_num, hex_thres = 400)
+# If the variable of interest is a categorical variable
+num_cat <- relate(num, ShelveLoc)
+num_cat
+summary(num_cat)
+plot(num_cat)
+```

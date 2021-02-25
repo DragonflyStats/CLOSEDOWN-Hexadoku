@@ -15,35 +15,30 @@ Parallel coordinate plot with information about missing/imputed values
 Parallel coordinate plot with adjustments for missing/imputed values. Missing values in the plotted variables may be represented by a point above the corresponding coordinate axis to prevent disconnected lines. In addition, observations with missing/imputed values in selected variables may be highlighted.
 
 #### Usage 
-<pre><code>
 
-parcoordMiss(x, delimiter = NULL, highlight = NULL, selection = c("any",
-"all"), plotvars = NULL, plotNA = TRUE, col = c("skyblue", "red",
-"skyblue4", "red4", "orange", "orange4"), alpha = NULL, lty = par("lty"),
-xlim = NULL, ylim = NULL, main = NULL, sub = NULL, xlab = NULL,
-ylab = NULL, labels = TRUE, xpd = NULL, interactive = TRUE, ...)
+<pre><code>
+parcoordMiss(x, delimiter = NULL, highlight = NULL, 
+  selection = c("any","all"), 
+  plotvars = NULL, plotNA = TRUE, 
+  col = c("skyblue", "red", "skyblue4", "red4", "orange", "orange4"), 
+  alpha = NULL, lty = par("lty"),
+  xlim = NULL, ylim = NULL, main = NULL, sub = NULL, xlab = NULL,
+  ylab = NULL, labels = TRUE, xpd = NULL, interactive = TRUE, ...)
 </code></pre>
 
 #### Arguments
 * x a matrix or data.frame.
-* delimiter a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used to determine the corresponding imputation-index for any imputed variable (a
-logical-vector indicating which values of the variable have been imputed). If
-such imputation-indices are found, they are used for highlighting and the colors
+* delimiter a character-vector to distinguish between variables and imputation-indices for imputed variables (therefore, x needs to have colnames). If given, it is used to determine the corresponding imputation-index for any imputed variable (a logical-vector indicating which values of the variable have been imputed). If such imputation-indices are found, they are used for highlighting and the colors
 are adjusted according to the given colors for imputed variables (see col).
-highlight a vector giving the variables to be used for highlighting. If NULL (the default),
-all variables are used for highlighting.
-selection the selection method for highlighting missing/imputed values in multiple highlight variables. Possible values are "any" (highlighting of missing/imputed val-
-ues in any of the highlight variables) and "all" (highlighting of missing/imputed
-values in all of the highlight variables).46
-parcoordMiss
-plotvars a vector giving the variables to be plotted. If NULL (the default), all variables are plotted.
-plotNA a logical indicating whether missing values in the plot variables should be represented by a point above the corresponding coordinate axis to prevent disconnected lines.
-col if plotNA is TRUE, a vector of length six giving the colors to be used for observations with different combinations of observed and missing/imputed values in the plot variables and highlight variables (vectors of length one or two are recycled). Otherwise, a vector of length two giving the colors for non-highlighted
-and highlighted observations (if a single color is supplied, it is used for both).
-alpha a numeric value between 0 and 1 giving the level of transparency of the colors, or NULL. This can be used to prevent overplotting.
-* lty if plotNA is TRUE, a vector of length four giving the line types to be used for observations with different combinations of observed and missing/imputed values in the plot variables and highlight variables (vectors of length one or two
-are recycled). Otherwise, a vector of length two giving the line types for non-highlighted and highlighted observations (if a single line type is supplied, it is used for both).
-xlim, ylim axis limits.
+highlight a vector giving the variables to be used for highlighting. If NULL (the default), all variables are used for highlighting.
+selection the selection method for highlighting missing/imputed values in multiple highlight variables. Possible values are "any" (highlighting of missing/imputed values in any of the highlight variables) and "all" (highlighting of missing/imputed values in all of the highlight variables).
+
+* plotvars a vector giving the variables to be plotted. If NULL (the default), all variables are plotted.
+* plotNA a logical indicating whether missing values in the plot variables should be represented by a point above the corresponding coordinate axis to prevent disconnected lines.
+* col if plotNA is TRUE, a vector of length six giving the colors to be used for observations with different combinations of observed and missing/imputed values in the plot variables and highlight variables (vectors of length one or two are recycled). Otherwise, a vector of length two giving the colors for non-highlighted and highlighted observations (if a single color is supplied, it is used for both).
+* ``alpha``: a numeric value between 0 and 1 giving the level of transparency of the colors, or NULL. This can be used to prevent overplotting.
+* lty if plotNA is TRUE, a vector of length four giving the line types to be used for observations with different combinations of observed and missing/imputed values in the plot variables and highlight variables (vectors of length one or two are recycled). Otherwise, a vector of length two giving the line types for non-highlighted and highlighted observations (if a single line type is supplied, it is used for both).
+* xlim, ylim axis limits.
 * main, sub main and sub title.
 * xlab, ylab axis labels.
 * labels either a logical indicating whether labels should be plotted below each coordinate axis, or a character vector giving the labels.
@@ -61,6 +56,10 @@ parcoordMiss(chorizonDL[,c(15,101:110)],
 plotvars=2:11, interactive = FALSE)
 legend("top", col = c("skyblue", "red"), lwd = c(1,1),
 legend = c("observed in Bi", "missing in Bi"))
+```
+
+
+```{r}
 ## for imputed values
 parcoordMiss(kNN(chorizonDL[,c(15,101:110)]), delimiter = "_imp" ,
 plotvars=2:11, interactive = FALSE)

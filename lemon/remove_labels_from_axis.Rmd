@@ -1,0 +1,26 @@
+---
+title: "``lemon::remove_labels_from_axis``  - Removes labels from axis grobs."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lemon)
+```
+
+
+#### Description
+
+Called from FacetGridRepeatLabels.
+
+#### Usage
+
+<pre><code>
+remove_labels_from_axis(axisgrob)
+</code></pre>
+
+#### Arguments
+
+axisgrob
+
+Grob with an axis.

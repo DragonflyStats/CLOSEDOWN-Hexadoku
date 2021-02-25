@@ -1,0 +1,108 @@
+---
+title: "``dlookr::target_by.tbl_dbi``"
+author: "Kevin O Brien"
+date: "6 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ Target by one column in the DBMS
+
+### Description 
+
+In the data analysis, a ``target_df`` class is created to identify the relationship between the target column
+and the other column of the DBMS table through ``tbl_dbi``
+
+### Usage 
+
+<pre><code>
+
+## S3 method for class 'tbl_dbi'
+target_by(.data, target, ``in_database = FALSE``,
+collect_size = Inf, ...)
+target_by.tbl_dbi 85
+
+</code></pre>
+
+### Arguments
+ 
+* `.data``:   a tbl_dbi.
+* ``target``: target variable.
+* ``in_database``: Specifies whether to perform in-database operations. If TRUE, most operations
+are performed in the DBMS. if FALSE, table data is taken in R and operated
+in-memory. Not yet supported in_database = TRUE.
+* ``collect_size``: a integer. The number of data samples from the DBMS to R. Applies only if
+``in_database = FALSE``.
+* ``...``: arguments to be passed to methods.
+
+
+
+### Examples
+```{r}
+
+library(dplyr)
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# connect DBMS
+con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+# copy carseats to the DBMS with a table named TB_CARSEATS
+copy_to(con_sqlite, carseats, name = "TB_CARSEATS", overwrite = TRUE)
+# If the target variable is a categorical variable
+categ <- target_by(con_sqlite %>% tbl("TB_CARSEATS") , US)
+```
+
+```{r}
+# If the variable of interest is a numarical variable
+
+cat_num <- relate(categ, Sales)
+cat_num
+summary(cat_num)
+plot(cat_num)
+# If the variable of interest is a categorical column
+cat_cat <- relate(categ, ShelveLoc)
+cat_cat
+summary(cat_cat)
+plot(cat_cat)
+```
+
+```{r}
+##---------------------------------------------------
+# If the target variable is a categorical column,
+# and In-memory mode and collect size is 350
+num <- target_by(con_sqlite %>% tbl("TB_CARSEATS"), Sales, collect_size = 350)
+# If the variable of interest is a numarical column
+num_num <- relate(num, Price)
+num_num
+summary(num_num)
+plot(num_num)
+plot(num_num, hex_thres = 400)
+# If the variable of interest is a categorical column
+num_cat <- relate(num, ShelveLoc)
+num_cat
+summary(num_cat)
+plot(num_cat)
+```
+
+### Details 
+
+Data analysis proceeds with the purpose of predicting target variables that correspond to the facts
+of interest, or examining associations and relationships with other variables of interest. Therefore,
+it is a major challenge for EDA to examine the relationship between the target variable and its corresponding
+variable. Based on the derived relationships, analysts create scenarios for data analysis.
+``target_by()`` inherits the grouped_df class and returns a target_df class containing information about
+the target variable and the variable.
+See vignette("EDA") for an introduction to these concepts.
+
+### Value 
+
+an object of target_df class. Attributes of target_df class is as follows.
+*  type_y : the data type of target variable.
+
+### See Also
+ 
+target_by.data.frame, relate.

@@ -1,0 +1,117 @@
+---
+title: "``dlookr::relate``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+Relationship between target variable and variable of interest
+
+### Description 
+
+The relationship between the target variable and the variable of interest (predictor) is briefly analyzed.
+
+### Usage 
+<pre><code>
+relate(.data, predictor)
+</code></pre>
+
+### Arguments
+ 
+* ``.data``: A target_df.
+* ``predictor``: variable of interest. predictor.
+
+See vignette("relate") for an introduction to these concepts.
+
+
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# If the target variable is a categorical variable
+categ <- target_by(carseats, US)
+```
+```{r}
+# If the variable of interest is a numarical variable
+cat_num <- relate(categ, Sales)
+cat_num
+summary(cat_num)
+plot(cat_num)
+```
+
+```{r}
+# If the variable of interest is a categorical variable
+cat_cat <- relate(categ, ShelveLoc)
+cat_cat
+summary(cat_cat)
+plot(cat_cat)
+```
+```{r}
+##---------------------------------------------------
+# If the target variable is a categorical variable
+num <- target_by(carseats, Sales)
+# If the variable of interest is a numarical variable
+num_num <- relate(num, Price)
+num_num
+summary(num_num)
+plot(num_num)
+```
+
+```{r}
+# If the variable of interest is a categorical variable
+num_cat <- relate(num, ShelveLoc)
+num_cat
+summary(num_cat)
+plot(num_cat)
+```
+
+### Details 
+
+Returns the four types of results that correspond to the combination of the target variable and the
+data type of the variable of interest.
+*  target variable: categorical variable
+- predictor: categorical variable
+* contegency table
+* c("xtabs", "table") class
+- predictor: numerical variable
+* descriptive statistic for each levles and total observation.
+78 relate
+*  target variable: numerical variable
+- predictor: categorical variable
+* ANOVA test. "lm" class.
+- predictor: numerical variable
+* simple linear model. "lm" class.
+
+### Value 
+
+An object of the class as relate. Attributes of relate class is as follows.
+*  target : name of target variable
+*  predictor : name of predictor
+*  model : levels of binned value.
+*  raw : table_df with two variables target and predictor.
+Descriptive statistic information
+The information derived from the numerical data describe is as follows.
+*  mean : arithmetic average
+*  sd : standard devation
+*  se_mean : standrd error mean. sd/sqrt(n)
+*  IQR : interqurtle range (Q3-Q1)
+*  skewness : skewness
+*  kurtosis : kurtosis
+*  p25 : Q1. 25% percentile
+*  p50 : median. 50% percentile
+*  p75 : Q3. 75% percentile
+*  p01, p05, p10, p20, p30 : 1%, 5%, 20%, 30% percentiles
+*  p40, p60, p70, p80 : 40%, 60%, 70%, 80% percentiles
+*  p90, p95, p99, p100 : 90%, 95%, 99%, 100% percentiles
+
+### See Also
+ 
+print.relate, plot.relate.
+

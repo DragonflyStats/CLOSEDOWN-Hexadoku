@@ -1,0 +1,118 @@
+---
+title: "``dlookr::binning``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+Binning the Numeric Data
+
+### Description 
+
+The ``binning()`` converts a numeric variable to a categorization variable.
+
+### Usage 
+<pre><code>
+
+binning(x, nbins, 
+          type = c("quantile", "equal", "pretty", "kmeans", "bclust"), 
+          ordered = TRUE, 
+          labels = NULL)
+
+</code></pre>
+### Arguments
+ 
+* ``x``: numeric vector for binning.
+* ``nbins``: number of classes. required. if missing, nclass.Sturges is used.
+* ``type``: binning method. one of "quantile", "equal", "equal", "pretty", "kmeans", "bclust"
+ - The "quantile" style provides quantile breaks. 
+ - The "equal" style divides the range of the variable into nbins parts. 
+ - The "pretty" style chooses a number of breaks not necessarily equal to nbins using base::pretty function. 
+ - The "kmeans" style uses stats::kmeans function to generate the breaks.
+ - The "bclust" style uses e1071::bclust function to generate the breaks using bagged clustering. 
+ - "kmeans" and "bclust" type logic was implemented by ``classInt::classIntervals`` function.
+
+* ``ordered``: whether to build an ordered factor or not.
+* ``labels``: the label names to use for each of the bins.
+
+
+
+### Examples
+
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# Binning the carat variable. default type argument is "quantile"
+bin <- binning(carseats$Income)
+# Print bins class object
+bin
+```
+
+```{r}
+# Summarise bins class object
+summary(bin)
+```
+
+```{r}
+# Plot bins class object
+plot(bin)
+# Using labels argument
+bin <- binning(carseats$Income, nbins = 4,
+labels = c("LQ1", "UQ1", "LQ3", "UQ3"))
+bin
+```
+
+```{r}
+# Using another type argument
+bin <- binning(carseats$Income, nbins = 5, type = "equal")
+bin
+bin <- binning(carseats$Income, nbins = 5, type = "pretty")
+bin
+bin <- binning(carseats$Income, nbins = 5, type = "kmeans")
+bin
+bin <- binning(carseats$Income, nbins = 5, type = "bclust")
+bin
+```
+
+### Using pipes & dplyr
+
+```{r}
+library(dplyr)
+carseats %>%
+mutate(Income_bin = binning(carseats$Income)) %>%
+group_by(ShelveLoc, Income_bin) %>%
+summarise(freq = n()) %>%
+arrange(desc(freq)) %>%
+head(10)
+```
+
+### Details 
+
+This function is useful when used with the mutate/transmute function of the dplyr package.
+
+### Value 
+
+An object of bins class. Attributes of bins class is as follows.
+*  type : binning type, "quantile", "equal", "pretty", "kmeans", "bclust".
+*  breaks : the number of intervals into which x is to be cut.
+*  levels : levels of binned value.
+*  raw : raw data, x argument value.
+"bins" class attributes information
+Attributes of the "bins" classs that is as follows.
+*  class : "bins".
+*  levels : factor or ordered factor levels
+binning 5
+*  type : binning method
+*  breaks : breaks for binning
+*  raw : before the binned the raw data
+See vignette("transformation") for an introduction to these concepts.
+
+### See Also
+ 
+binning_by, print.bins, summary.bins.

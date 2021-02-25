@@ -1,0 +1,58 @@
+---
+title: "``dygraph::dyEvent`` dygraph event line"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+library(tidyverse)
+```
+
+
+
+#### Description
+
+Add a vertical event line to a dygraph
+
+#### Usage
+<pre><code>
+
+dyEvent(dygraph, x, label = NULL, labelLoc = c("top", "bottom"),
+color = "black", strokePattern = "dashed", date)
+
+<code><pre>
+
+#### Arguments
+
+* ``dygraph``: Dygraph to add event line to
+* x Either numeric or date/time for the event, depending on the format of the xaxis of the dygraph. (For date/time must be a POSIXct object or another object convertible to POSIXct via as.POSIXct)
+* label Label for event. Defaults to blank.
+* ``labelLoc``: Location for label (top or bottom)
+* ``color``: Color of event line. This can be of the form "#AABBCC" or "rgb(255,100,200)" or "yellow". Defaults to black.
+* strokePattern A predefined stroke pattern type ("dotted", "dashed", "dotdash", or "solid") or a
+custom pattern array where the even index is a draw and odd is a space in pixels. Defaults to dashed.
+* date (deprecated) See argument x.
+
+
+
+#### Examples
+```{r}
+
+library(dygraphs)
+dygraph(presidents, main = "Presidential Approval") %>%
+dyAxis("y", valueRange = c(0, 100)) %>%
+dyEvent("1950-6-30", "Korea", labelLoc = "bottom") %>%
+dyEvent("1965-2-09", "Vietnam", labelLoc = "bottom")
+dygraph(presidents, main = "Presidential Approval") %>%
+dyAxis("y", valueRange = c(0, 100)) %>%
+dyEvent(c("1950-6-30", "1965-2-09"), c("Korea", "Vietnam"), labelLoc = "bottom")
+
+```
+
+#### Value
+
+A dygraph with the specified event line.
+
+#### Note
+See the online documentation for additional details and examples.

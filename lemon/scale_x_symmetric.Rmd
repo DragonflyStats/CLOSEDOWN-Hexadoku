@@ -1,0 +1,36 @@
+
+scale_x_symmetric
+Symmetrix position scale for continuous x and y
+
+#### Description
+
+scale_x_symmetric and scale_y_symmetric are like the default scales for continuous x and y,
+but ensures that the resulting scale is centered around mid. Does not work when setting limits on
+the scale.26
+scale_x_symmetric
+
+#### Usage
+
+scale_x_symmetric(mid = 0, ...)
+scale_y_symmetric(mid = 0, ...)
+
+#### Arguments
+
+mid Value to center the scale around.
+... Values passed on to scale_continuous.
+
+#### Examples 
+```{r}
+library(ggplot2)
+df <- expand.grid(a=c(-1,0,1), b=c(-1,0,1))
+rnorm2 <- function(x,y,n,sdx,sdy) {
+if (missing(sdy))
+sdy <- sdx
+data.frame(a=x,b=y,x=rnorm(n,x,sdx), y=rnorm(n,y,sdy))
+}
+df <- mapply(rnorm2,df$a, df$b, MoreArgs=list(n=30,sdx=1),SIMPLIFY=FALSE)
+df <- do.call(rbind, df)
+(p <- ggplot(df, aes(x=x,y=y)) + geom_point() +
+facet_grid(a~b, scales='free_x')
+)
+p + scale_x_symmetric(mid=0)

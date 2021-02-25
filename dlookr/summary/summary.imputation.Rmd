@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "6 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+summary.imputation Summarizing imputation information
+
+### Description 
+
+print and summary method for "imputation" class.
+summary.imputation 81
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'imputation'
+summary(object, ...)
+
+</code></pre>
+### Arguments
+ 
+object an object of class "imputation", usually, a result of a call to ``imputate_na()`` or
+imputate_outlier().
+... further arguments passed to or from other methods.
+
+### Details 
+
+summary.imputation tries to be smart about formatting two kinds of imputation.
+
+### See Also
+ 
+imputate_na, imputate_outlier, summary.imputation.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+```
+
+```{r}
+# Imputate missing values -----------------------------
+# If the variable of interest is a numarical variable
+income <- imputate_na(carseats, Income, US, method = "rpart")
+income
+summary(income)
+plot(income)
+# If the variable of interest is a categorical variable
+urban <- imputate_na(carseats, Urban, US, method = "mice")
+urban
+summary(urban)
+plot(urban)
+```
+```{r}
+# Imputate outliers ----------------------------------
+# If the variable of interest is a numarical variable
+price <- imputate_outlier(carseats, Price, method = "capping")
+price
+summary(price)
+plot(price)
+```

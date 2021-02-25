@@ -1,0 +1,58 @@
+dyAnnotation Annotation for dygraph chart
+
+#### Description
+
+Define a text annotation for a data-point on a dygraph chart.
+
+####
+Usage
+<pre><code>
+
+dyAnnotation(dygraph, x, text, tooltip = NULL, width = NULL,
+height = NULL, cssClass = NULL, tickHeight = NULL,
+attachAtBottom = FALSE, clickHandler = NULL, mouseOverHandler = NULL,
+mouseOutHandler = NULL, dblClickHandler = NULL, series = NULL)
+dyAnnotation 3
+
+<code><pre>
+#### Arguments
+
+* ``dygraph``: Dygraph to add an annotation to
+x Either numeric or date value indicating where to place the annotation. For date
+value, this should be of class POSIXct or convertible to POSIXct.
+text Text to overlay on the chart at the location of x
+tooltip Additional tooltip text to display on mouse hover
+width Width (in pixels) of the annotation flag.
+height Height (in pixels) of the annotation flag.
+cssClass CSS class to use for styling the annotation.
+tickHeight Height of the tick mark (in pixels) connecting the point to its flag or icon.
+attachAtBottom If true, attach annotations to the x-axis, rather than to actual points.
+clickHandler JavaScript function to call when an annotation is clicked.
+mouseOverHandler
+JavaScript function to call when the mouse hovers over an annotation.
+mouseOutHandler
+JavaScript function to call when the mouse exits an annotation.
+dblClickHandler
+JavaScript function to call when an annotation is double clicked.
+series Series to attach the annotation to. By default, the last series defined using
+dySeries.
+
+#### Value
+
+Dygraph with specified annotation
+Note
+Annotations are bound to specific series in the input data. If you have only one series or if you defineannotations immediately after a call to dySeries then you need not specify the series explicitly.
+Otherwise, you should use the series parameter to indicate which series the annotation should be bound to.
+Annotation event handlers can also specified globally (see dyCallbacks).
+See the online documentation for additional details and examples.
+
+#### Examples
+```{r}
+
+library(dygraphs)
+dygraph(presidents, main = "Presidential Approval") %>%
+dyAxis("y", valueRange = c(0, 100)) %>%
+dyAnnotation("1950-7-1", text = "A", tooltip = "Korea") %>%
+dyAnnotation("1965-1-1", text = "B", tooltip = "Vietnam")
+
+```

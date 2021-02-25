@@ -1,0 +1,23 @@
+dySeriesData Add series data to dygraph
+
+#### Description
+
+Add an additional column of series data to a dygraph. This is typically used in the construction of
+custom series types (e.g. log scaled, smoothed, etc.)
+32 dyShading
+
+#### Usage
+
+<pre><code>
+dySeriesData(dygraph, name, values)
+</code></pre>
+
+#### Arguments
+
+* ``dygraph``: Dygraph to add data to
+* ``name``: Name of series
+* ``values``: Data values
+
+#### Value
+
+Dygraph with additional series data

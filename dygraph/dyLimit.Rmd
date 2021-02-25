@@ -1,0 +1,51 @@
+  
+---
+title: "``dygraph::dyLimit `` -  dygraph limit line"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+library(tidyverse)
+```
+
+
+
+#### Description
+
+Add a horizontal limit line to a dygraph
+
+#### Usage
+
+<pre><code>
+dyLimit(dygraph, limit, label = NULL, labelLoc = c("left", "right"),
+color = "black", strokePattern = "dashed")
+</code></pre>
+
+#### Arguments
+
+* ``dygraph``: Dygraph to add limit line to
+* limit Numeric position of limit.
+* label Label for limit. Defaults to blank.
+* labelLoc Location for label (left or right).
+* color Color of limit line. This can be of the form "#AABBCC" or "rgb(255,100,200)" or "yellow". Defaults to black.
+* strokePattern A predefined stroke pattern type ("dotted", "dashed", "dotdash", or "solid") or a
+* custom pattern array where the even index is a draw and odd is a space in pixels.
+* Defaults to dashed.
+
+#### Value
+
+A dygraph with the specified limit line.
+Note
+See the online documentation for additional details and examples.
+
+#### Examples
+```{r}
+
+library(dygraphs)
+dygraph(presidents, main = "Presidential Approval") %>%
+  dyAxis("y", valueRange = c(0, 100)) %>%
+  dyLimit(max(presidents, na.rm = TRUE), "Max",
+  strokePattern = "solid", color = "blue")
+```

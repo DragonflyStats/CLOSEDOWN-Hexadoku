@@ -1,14 +1,20 @@
+---
+title: "dygraph::dyUnzoom "
+output: html_document
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dygraph)
+```
 
 dyUnzoom
-The dyUnzoom plugin adds an "Unzoom" button to the graph when
-it’s displaying in a zoomed state (this is a bit more discoverable than
+The dyUnzoom plugin adds an "Unzoom" button to the graph when it’s displaying in a zoomed state (this is a bit more discoverable than
 the default double- click gesture for unzooming).
 
 #### Description
 
-The dyUnzoom plugin adds an "Unzoom" button to the graph when it’s displaying in a zoomed
-state (this is a bit more discoverable than the default double- click gesture for unzooming).
+The dyUnzoom plugin adds an "Unzoom" button to the graph when it’s displaying in a zoomed state (this is a bit more discoverable than the default double- click gesture for unzooming).
 
 #### Usage
 <pre><code>
@@ -20,15 +26,17 @@ dyUnzoom(dygraph)
 
 dygraph: Dygraph to add plugin to
 
-#### Value
 
-Dygraph with Unzoom plugin enabled
 
 #### Examples
 ```{r}
-
 library(dygraphs)
+
 dygraph(ldeaths) %>%
-dyRangeSelector() %>%
-dyUnzoom()
+  dyRangeSelector() %>%
+  dyUnzoom()
 ```
+
+#### Value
+
+Dygraph with Unzoom plugin enabled
