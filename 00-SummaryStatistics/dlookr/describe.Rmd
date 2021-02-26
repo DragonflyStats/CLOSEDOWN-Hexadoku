@@ -1,0 +1,109 @@
+---
+title: "``dlookr::describe``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+describe Compute descriptive statistic
+
+### Description 
+
+The describe() compute descriptive statistic of numeric variable for exploratory data analysis.
+
+### Usage 
+<pre><code>
+
+describe(.data, ...)
+## S3 method for class 'data.frame'
+describe(.data, ...)
+
+</code></pre>
+### Arguments
+ 
+* ``.data``: a data.frame or a tbl_df.
+* ... one or more unquoted expressions separated by commas. You can treat variable names like they are positions. Positive values select variables; negative values to drop variables. If the first expression is negative, describe() will automatically start with all variables. 
+ - These arguments are automatically quoted and evaluated in a context where column names represent column positions. They support unquoting and splicing.
+ - See vignette("EDA") for an introduction to these concepts.
+
+
+
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# Describe descriptive statistics of numerical variables
+describe(carseats)
+# Select the variable to describe
+describe(carseats, Sales, Price)
+describe(carseats, -Sales, -Price)
+describe(carseats, 5)
+```
+
+```{r}
+# Using dplyr::grouped_dt
+library(dplyr)
+gdata <- group_by(carseats, ShelveLoc, US)
+describe(gdata, "Income")
+# Using pipes ---------------------------------
+# Positive values select variables
+carseats %>%
+describe(Sales, CompPrice, Income)
+# Negative values to drop variables
+carseats %>%
+describe(-Sales, -CompPrice, -Income)
+```
+
+```{r}
+# Using pipes & dplyr -------------------------
+# Find the statistic of all numerical variables by 'ShelveLoc' and 'US',
+# and extract only those with 'ShelveLoc' variable level is "Good".
+carseats %>%
+group_by(ShelveLoc, US) %>%
+describe() %>%
+filter(ShelveLoc == "Good")
+# extract only those with 'Urban' variable level is "Yes",
+# and find 'Sales' statistics by 'ShelveLoc' and 'US'
+carseats %>%
+filter(Urban == "Yes") %>%
+group_by(ShelveLoc, US) %>%
+describe(Sales)
+
+```
+
+### Details 
+
+This function is useful when used with the group_by function of the dplyr package. If you want
+to calculate the statistic by level of the categorical data you are interested in, rather than the whole
+statistic, you can use grouped_df as the group_by() function.
+
+### Value 
+
+An object of the same class as .data.
+Descriptive statistic information
+The information derived from the numerical data describe is as follows.
+*  n : number of observations excluding missing values
+*  na : number of missing values
+*  mean : arithmetic average
+*  sd : standard devation
+*  se_mean : standrd error mean. sd/sqrt(n)
+*  IQR : interquartile range (Q3-Q1)
+*  skewness : skewness
+*  kurtosis : kurtosis
+*  p25 : Q1. 25% percentile
+*  p50 : median. 50% percentile
+*  p75 : Q3. 75% percentile
+*  p01, p05, p10, p20, p30 : 1%, 5%, 20%, 30% percentiles
+*  p40, p60, p70, p80 : 40%, 60%, 70%, 80% percentiles
+*  p90, p95, p99, p100 : 90%, 95%, 99%, 100% percentiles
+
+### See Also
+ 
+describe.tbl_dbi, diagnose_numeric.data.frame.

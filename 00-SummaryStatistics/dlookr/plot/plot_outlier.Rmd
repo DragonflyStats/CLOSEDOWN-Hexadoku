@@ -1,0 +1,105 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "28 August 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+plot_outlier Plot outlier information of numerical data diagnosis
+
+### Description 
+
+The plot_outlier() visualize outlier information for diagnosing the quality of the numerical data.
+
+### Usage 
+<pre><code>
+
+plot_outlier(.data, ...)
+## S3 method for class 'data.frame'
+plot_outlier(.data, ..., col = "lightblue")
+
+</code></pre>
+### Arguments
+ 
+* ``.data``: a data.frame or a tbl_df.
+... one or more unquoted expressions separated by commas. You can treat variable names like they are positions. Positive values select variables; negative values to drop variables. If the first expression is negative, plot_outlier() will automatically start with all variables. These arguments are automatically quoted and
+evaluated in a context where column names represent column positions. They
+support unquoting and splicing.
+col a color to be used to fill the bars. The default is "lightblue".
+
+### Details 
+
+The scope of the diagnosis is the provide a outlier information. Since the plot is drawn for each variable, if you specify more than one variable in the ... argument, the specified number of plots are
+drawn.
+Outlier diagnostic information
+The plot derived from the numerical data diagnosis is as follows.
+*  With outliers box plot
+*  Without outliers box plot
+*  With outliers histogram
+*  Without outliers histogram
+See vignette("diagonosis") for an introduction to these concepts.
+
+### See Also
+ 
+plot_outlier.tbl_dbi, diagnose_outlier.data.frame.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# Visualization of all numerical variables
+plot_outlier(carseats)
+```
+
+```{r}
+# Select the variable to diagnose
+plot_outlier(carseats, Sales, Price)
+plot_outlier(carseats, -Sales, -Price)
+plot_outlier(carseats, "Sales", "Price")
+plot_outlier(carseats, 6)
+# Using the col argument
+plot_outlier(carseats, Sales, col = "gray")
+```
+
+```{r}
+# Using pipes ---------------------------------
+library(dplyr)
+# Visualization of all numerical variables
+carseats %>%
+plot_outlier()
+# Positive values select variables
+carseats %>%
+plot_outlier(Sales, Price)
+```
+
+```{r}
+# Negative values to drop variables
+carseats %>%
+plot_outlier(-Sales, -Price)
+# Positions values select variables
+carseats %>%
+plot_outlier(6)
+# Positions values select variables
+carseats %>%
+plot_outlier(-1, -5)
+```
+
+```{r}
+# Using pipes & dplyr -------------------------
+# Visualization of numerical variables with a ratio of
+# outliers greater than 1%
+carseats %>%
+plot_outlier(carseats %>%
+diagnose_outlier() %>%
+filter(outliers_ratio > 1) %>%
+select(variables) %>%
+pull())
+```

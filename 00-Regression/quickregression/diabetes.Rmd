@@ -1,0 +1,36 @@
+---
+title``: "``quickregression::diabetes``"
+output``: html_document
+---
+
+```{r setup, include=FALSE}
+knitr``:``:opts_chunk$set(echo = TRUE)
+library(quickregression)
+```
+
+A hypothetical dataset
+
+#### Description
+A hypothetical dataset extracted from package ‘PredictABEL‘
+
+#### Usage
+<pre><code>
+diabetes
+</code></pre>
+
+#### Format
+A data frame with 1000 rows and 14 variables:
+
+* `` sex``: 1=male, 2=female
+* `` age``: age of the participants(years)
+* `` smoking``: 0=non smoker, 1=smoker
+* `` education``: 0=without bachelor degree, 1=bachelor degree or above
+* `` diabetes``: diabetes mellitus, 0= health, 1= diabetes
+* `` BMI``: body mass index (kg/cm2)
+* `` systolic``: systolic blood pressure(mmHg)
+* `` diastolic``: diastolic blood pressure(mmHg)
+* `` . . . ``: other genetic information, see the ExampleData in PredictABEL-package .
+
+#### See Also
+ExampleData
+

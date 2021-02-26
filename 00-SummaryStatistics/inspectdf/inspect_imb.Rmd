@@ -1,0 +1,65 @@
+---
+title: "``inspectdf::inspect_imb``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(inspectdf)
+library(magrittr)
+library(dplyr)
+```
+
+
+#### Description
+Summarise and compare columnwise imbalance for non-numeric columns in one or two dataframes.
+
+#### Usage
+
+<pre><code>
+  inspect_imb(df1, df2 = NULL, show_plot = FALSE, include_na = FALSE)
+</code></pre>
+  
+#### Arguments
+  
+* ``df1``: A data frame
+* ``df2``: An optional second data frame for comparing columnwise imbalance. Defaults to NULL.
+* ``show_plot``: (Deprecated) Logical flag indicating whether a plot should be shown. Superseded by the function``show_plot()`` and will be dropped in a future version.
+* ``include_na``: Logical flag, whether to include missing values as a unique level. Default is
+FALSE - to ignore NAs.
+
+#### Details
+
+When a single data frame is specified, a tibble is returned which contains columnwise imbalance,
+with columns
+
+*  ``col_name`` character vector containing column names of df1.
+*  ``value`` character vector containing the most common categorical level in each column of df1.
+*  ``pcnt`` the percentage of each column's entries occupied by the level in value column.
+*  ``cnt`` the number of occurrences of the most common categorical level in each column of df1.
+
+
+When both df1 and df2 are specified, the most common levels in df1 are compared to columns in df2. If a categorical column appears in both dataframes, a simple test is performed to test the null hypothesis that the rate of occurrence of the common level in df1 is the same in both dataframes.
+
+The resulting tibble has columns
+
+*  ``col_name`` character vector containing column names of df1 and df2.
+*  ``value`` character vector containing the most common categorical level in each column of df1.
+*  ``pcnt_`` the percentage of each column's entries occupied by the level in value column.
+*  ``cnt_`` the number of occurrences of the most common categorical level in each column of df1 and df2.
+
+#### Value
+
+A tibble summarising and comparing the imbalance for each non-numeric column in one or a pair
+of data frames.
+
+#### Examples 
+
+```{r}
+data("starwars", package = "dplyr")
+# get tibble of most common levels
+inspect_imb(starwars)
+# compare imbalance
+inspect_imb(starwars, starwars[1:10, -3])
+```
+

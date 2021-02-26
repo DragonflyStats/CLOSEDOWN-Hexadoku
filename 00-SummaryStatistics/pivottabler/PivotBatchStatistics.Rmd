@@ -1,0 +1,39 @@
+``PivotBatchStatistics``
+
+A class that provides summary statistics for batch calculations.
+
+#### Description
+
+The PivotBatchStatistics class contains a set of summary statistics that track how many calculations
+are batch compatible/incompatible.
+
+#### Usage
+<pre><code>
+PivotCalculation
+</code></pre>
+
+#### Format
+R6Class object.
+
+#### Value
+Object of R6Class with properties and methods that help to (do xyz).
+
+#### Fields
+* ``parentPivot``: Owning pivot table.
+* ``asString``: A text description of the batch statistics.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
+
+#### Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+* ``new(...)``: Create a new Pivot Batch Statistics.
+* ``reset()`` : Clear the batch statistics.
+* ``incrementNoData()`` : Increment the noData count for a batch.
+* ``incrementCompatible()`` : Increment the compatible count for a batch.
+* ``incrementIncompatible()``: Increment the incompatible count for a batch.

@@ -1,0 +1,60 @@
+---
+title: "``dlookr::find_na``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+### Description 
+
+Find the variable that contains the missing value in the object that inherits the data.frame or data.frame.
+
+### Usage 
+
+<pre><code>
+
+find_na(.data, index = TRUE, rate = FALSE)
+
+</code></pre>
+
+### Arguments
+ 
+* ``.data``: a data.frame or a ``tbl_df``.
+* `index``:  logical. When representing the information of a variable including missing values,
+specify whether or not the variable is represented by an index. Returns an index if TRUE or a variable names if FALSE.
+* ``rate``: logical. If TRUE, returns the percentage of missing values in the individual variable.
+
+### Value 
+
+Information on variables including missing values.
+find_outliers 45
+
+### See Also
+ 
+imputate_na, find_na.
+
+### Examples
+```{r}
+
+## Not run:
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+find_na(carseats)
+find_na(carseats, index = FALSE)
+find_na(carseats, rate = TRUE)
+```
+
+```{r}
+## using dplyr -------------------------------------
+library(dplyr)
+# Perform simple data quality diagnosis of variables with missing values.
+carseats %>%
+select(find_na(.)) %>%
+diagnose()
+## End(Not run)
+```

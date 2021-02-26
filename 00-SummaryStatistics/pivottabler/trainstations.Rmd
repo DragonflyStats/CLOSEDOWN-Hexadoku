@@ -1,0 +1,29 @@
+
+
+``pivottabler::trainstations``
+
+Train Stations
+
+#### Description
+
+A reference dataset listing the codes, names and locations of trains stations in Great Britain.
+
+#### Usage
+<pre><code>
+
+trainstations
+</code></pre>
+
+#### Format
+A data frame with 2568 rows and 7 variables:
+
+* ``CrsCode``: 3-letter code for the station
+* ``StationName``: The name of the station
+* ``OsEasting``: The UK Ordnance Survey Easting coordinate for the station
+* ``OsNorthing``: The UK Ordnance Survey Northing coordinate for the station
+* ``GridReference``: Grid reference for the station
+* ``Latitude``: Latitude of the station location
+* ``Longitude``: Longitude of the station location
+
+#### Source
+http://www.recenttraintimes.co.uk/

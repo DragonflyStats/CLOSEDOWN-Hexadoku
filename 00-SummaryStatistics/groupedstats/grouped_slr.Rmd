@@ -1,0 +1,55 @@
+---
+title: "``groupedstats::grouped_slr``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VIM)
+```
+
+#### Description
+
+Function to run simple linear regression (slr) on multiple variables across multiple grouping variables.
+
+#### Usage
+<pre><code>
+
+grouped_slr(data, dep.vars, indep.vars, grouping.vars)
+
+</code></pre>
+#### Arguments 
+
+* ``data``: Dataframe from which variables are to be taken.
+* ``dep.vars``: List criterion or dependent variables for simple linear model ( y in y ~ x ).
+* ``indep.vars``: List predictor or independent variables for simple linear model ( x in y ~ x ).
+* ``grouping.vars``: List of grouping variables.
+
+#### Examples
+```{r}
+
+# another possibility
+groupedstats::grouped_summary(
+  data = datasets::iris,
+  grouping.vars = Species,
+  measures = Sepal.Length:Petal.Width,
+  measures.type = "numeric" 
+  )
+# if you have just one variable per argument, you need not use `c()`
+
+groupedstats::grouped_summary(
+  data = datasets::ToothGrowth,
+  grouping.vars = supp,
+  measures = len,
+  measures.type = "numeric"
+  )
+```
+
+#### Value
+A  tibble  dataframe  with  tidy  results  from  simple  linear  regression  analyses.   The  estimates  are
+standardized, i.e. the lm model used is scale(y) ~ scale(x) , and not y ~ x
+.
+
+#### Author(s)
+Indrajeet Patil
+

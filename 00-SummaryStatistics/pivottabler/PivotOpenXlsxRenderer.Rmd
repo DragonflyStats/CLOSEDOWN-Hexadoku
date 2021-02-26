@@ -1,0 +1,42 @@
+``pivottabler::PivotOpenXlsxRenderer``
+
+
+A class that renders a pivot table into an Excel worksheet.
+
+#### Description
+
+The PivotOpenXlsxRenderer class creates a representation of a pivot table in an Excel file using the openxlsx package.
+
+#### Usage
+<pre><code>
+
+PivotOpenXlsxRenderer
+</code></pre>
+
+#### Format
+R6Class object.
+
+#### Value
+Object of R6Class with properties and methods that render to Excel via the openxlsx package
+
+#### Fields
+* ``parentPivot`` Owning pivot table.
+
+#### Examples
+```{r}
+
+# This class should only be created by the pivot table.
+# It is not intended to be created outside of the pivot table.
+```
+
+#### Methods
+Documentation For more complete explanations and examples please see the extensive vignettes
+supplied with this package.
+
+``new(...)``: Create a new pivot table renderer, specifying the field value documented above.
+``clearIsRenderedFlags()`` Clear the IsRendered flags that exist on the PivotDataGroup class.
+``writeToCell(wb=NULL, wsName=NULL, rowNumber=NULL, columnNumber=NULL, value=NULL, ...)`
+Writes a value to a cell and applies styling as needed.
+writeToWorksheet(wb=NULL, wsName=NULL, topRowNumber=NULL, leftMostColumnNumber=NULL, outputValuesAs=
+Output the pivot table into the specified workbook and worksheet at the specified row-column
+location.

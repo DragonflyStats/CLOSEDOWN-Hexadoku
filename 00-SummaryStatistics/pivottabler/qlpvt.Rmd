@@ -1,0 +1,35 @@
+``pivottabler::qlpvt``
+
+Quickly get a Latex representation of a basic pivot table.
+
+#### Description
+
+The qlpvt function returns the Latex for a basic pivot table with one line of R.
+
+#### Usage
+<pre><code>
+
+qlpvt(dataFrame, rows = NULL, columns = NULL, calculations = NULL,...)
+
+</code></pre>
+
+#### Arguments
+
+* ``dataFrame`` The data frame containing the data to be summarised in the pivot table.
+* ``rows`` A character vector of variable names to be plotted on the rows of the pivot table, or "=" to specify the position of the calculations.
+* ``columns`` A character vector of variable names to be plotted on the columns of the pivot table, or "=" to specify the position of the calculations.
+* ``calculations`` One or more summary calculations to use to calculate the values of the cells in the pivot table.
+* ``...`` Additional arguments, currently format, formats, totals, argumentCheckMode, compatibility, caption and/or label. 
+See the Latex output vignette for a description of caption and label.
+
+#### Examples
+
+```{r}
+
+qlpvt(bhmtrains, "TOC", "TrainCategory", "n()")
+qlpvt(bhmtrains, "TOC", "TrainCategory", "n()",
+caption="my caption", label="mylabel")
+```
+
+#### Value
+Latex.

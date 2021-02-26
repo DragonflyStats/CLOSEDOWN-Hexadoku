@@ -1,0 +1,52 @@
+---
+title: "``groupedstats::signif_column``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(groupedstats)
+```
+
+## ``groupedstats::signif_column()``
+
+Creating a new character type column with significance labels
+
+#### Description
+
+This function will add a new column to a dataframe containing p-values
+
+#### Usage
+<pre><code>
+
+signif_column(data = NULL, p, messages = FALSE)
+
+</code></pre>
+#### Arguments 
+
+* ``data``: Data frame from which variables specified are preferentially to be taken.
+* ``p``: The column containing p-values.
+* ``messages``: Logical decides whether to produce notes (Default:TRUE).
+
+
+#### Examples
+```{r}
+
+# vector as input
+groupedstats::signif_column(p = c(0.05, 0.1, 1, 0.00001, 0.001, 0.01))
+# dataframe as input
+# preparing a newdataframe
+df <- cbind.data.frame(
+  x = 1:5,
+  y = 1,
+  p.value = c(0.1, 0.5, 0.00001, 0.05, 0.01)
+  )
+groupedstats::signif_column(data = df, p = p.value)
+# numbers entered as characters are also tolerated
+groupedstats::signif_column(p = c("1", "0.1", "0.0002", "0.03", "0.65"))
+```
+#### Value
+Returns the originally entered object (either a vector or a dataframe) in tibble format with an additional column corresponding to statistical significance.
+
+#### Author(s)
+Indrajeet Patil

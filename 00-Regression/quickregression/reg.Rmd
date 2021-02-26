@@ -1,0 +1,40 @@
+---
+title: "``quickregression::reg``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(quickregression)
+```
+
+Build regression models
+
+####  Description
+Build general linear model, logistic regression model, cox regression model with one or more dependent variables. Allow regression based on subgroup variables.
+
+#### Usage
+<pre><code>
+reg(data = NULL, x = NULL, y = NULL, group = NULL, cov = NULL,
+factors = NULL, model = NULL, time = NULL, cov_show = FALSE,
+confint_glm = "default", group_combine = FALSE)
+</code></pre>
+
+#### Arguments
+
+* ``data``: A data.frame to build the regression model.
+* ``x``: Integer column indices or names of the variables to be included in univariate analysis. If NULL, the default columns are all the variables except ‘y‘, ‘group‘,
+‘time‘ and ‘cov‘.
+y Integer column indice or name of dependent variables, integer or character, allow more than one dependent variables
+* ``group``: Integer column indice or name of subgroup variables.
+* ``cov``: Integer column indices or name of covariate variables
+* ``factors``: Integer column indices or names of variables to be treated as factor model regression model, see lm, glm, coxph for more details
+* ``time``: Integer column indices or name of survival time, used in cox regression, see coxph for more details
+* ``cov_show``: A logical, whether to create covariates result, default FALSE
+* ``confint_glm``: A character, ’default’ or ’profile’. The default method for ’glm’ class to compute confidence intervals assumes asymptotic normality confint, you can also use profile likelihood method ``confint.glm``, but it is pretty slow. In this case you
+could specify ’default’ for speed.
+* ``group_combine``: A logical, subgroup analysis for combination of group variables or each group variables. 
+The default is FALSE (subgroup analysis for each group variable)
+
+#### Value
+The return result is a concentrated result in a data.frame.

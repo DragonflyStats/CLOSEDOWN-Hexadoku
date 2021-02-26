@@ -1,0 +1,90 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "6 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+target_by Target by one variables
+
+### Description 
+
+In the data analysis, a target_df class is created to identify the relationship between the target variable
+and the other variable.
+
+### Usage 
+<pre><code>
+
+target_by(.data, target, ...)
+## S3 method for class 'data.frame'
+target_by(.data, target, ...)
+
+</code></pre>
+### Arguments
+ 
+* ``.data``: a data.frame or a tbl_df.
+* ``target``: target variable.
+* ``...``: arguments to be passed to methods.
+
+### Details 
+
+Data analysis proceeds with the purpose of predicting target variables that correspond to the facts
+of interest, or examining associations and relationships with other variables of interest. Therefore,
+it is a major challenge for EDA to examine the relationship between the target variable and its corresponding
+variable. Based on the derived relationships, analysts create scenarios for data analysis.
+target_by() inherits the grouped_df class and returns a target_df class containing information about
+the target variable and the variable.
+See vignette("EDA") for an introduction to these concepts.
+
+### Value 
+
+an object of target_df class. Attributes of target_df class is as follows.
+*  type_y : the data type of target variable.
+
+### See Also
+ 
+relate.
+84 target_by.tbl_dbi
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+# If the target variable is a categorical variable
+categ <- target_by(carseats, US)
+# If the variable of interest is a numarical variable
+cat_num <- relate(categ, Sales)
+cat_num
+summary(cat_num)
+plot(cat_num)
+```
+```{r}
+# If the variable of interest is a categorical variable
+cat_cat <- relate(categ, ShelveLoc)
+cat_cat
+summary(cat_cat)
+plot(cat_cat)
+```
+```{r}
+##---------------------------------------------------
+# If the target variable is a categorical variable
+num <- target_by(carseats, Sales)
+# If the variable of interest is a numarical variable
+num_num <- relate(num, Price)
+num_num
+summary(num_num)
+plot(num_num)
+```
+```{r}
+# If the variable of interest is a categorical variable
+num_cat <- relate(num, ShelveLoc)
+num_cat
+summary(num_cat)
+plot(num_cat)
+```

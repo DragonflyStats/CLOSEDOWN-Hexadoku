@@ -1,0 +1,69 @@
+---
+title: "``dlookr::plot.imputation``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+
+plot.imputation Visualize Information for an "imputation" Object
+
+### Description 
+
+Visualize two kinds of plot by attribute of 'imputation' class. The imputation of a numerical variable
+is a density plot, and the imputation of a categorical variable is a bar plot.
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'imputation'
+plot(x, ...)
+
+</code></pre>
+### Arguments
+ 
+x an object of class "imputation", usually, a result of a call to imputate_na() or
+imputate_outlier().
+* ``...``: arguments to be passed to methods. such as graphical parameters (see par). only
+applies when the model argument is TRUE, and is used for ... of the plot.lm ()
+function.
+
+### See Also
+ 
+imputate_na, imputate_outlier, summary.imputation.
+60 plot.optimal_bins
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+```
+
+```{r}
+# Imputate missing values -----------------------------
+# If the variable of interest is a numarical variable
+income <- imputate_na(carseats, Income, US, method = "rpart")
+income
+summary(income)
+plot(income)
+# If the variable of interest is a categorical variable
+urban <- imputate_na(carseats, Urban, US, method = "mice")
+urban
+summary(urban)
+plot(urban)
+```
+
+```{r}
+# Imputate outliers ----------------------------------
+# If the variable of interest is a numarical variable
+price <- imputate_outlier(carseats, Price, method = "capping")
+price
+summary(price)
+plot(price)
+```

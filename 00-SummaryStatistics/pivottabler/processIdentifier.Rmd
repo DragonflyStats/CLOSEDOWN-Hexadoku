@@ -1,0 +1,20 @@
+``pivottabler::processIdentifier``
+Handle an identifier that may be illegal (e.g. containing spaces).
+
+#### Description
+
+processIdentifier is a utility function that wraps an illegal identifier in backticks.
+
+#### Usage
+<pre><code>
+
+processIdentifier(identifier)
+
+</code></pre>
+
+#### Arguments
+
+* ``identifier``: The identifier that may be illegal.
+
+#### Value
+The identifier wrapped in backticks (if illegal) or unchanged.

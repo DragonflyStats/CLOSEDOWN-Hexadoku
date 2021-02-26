@@ -1,0 +1,30 @@
+``pivottabler::pvtperfresults``
+
+Performance Comparison Results
+
+#### Description
+
+A reference dataset containing the full results of an example performance comparison for different
+pivot table test cases.
+
+#### Usage
+<pre><code>
+
+pvtperfresults
+</code></pre>
+
+#### Format
+A data frame with 216 rows and 11 variables:
+
+* ``id``: A unique identifier for this test case.
+* ``evaluationMode``: The pivot table evaluation mode used for this test case.
+* ``rowCount``: The number of rows in the data frame used for this test case.
+* ``cellCount``: The number of cells in the pivot table used for this test case.
+* ``argumentCheckMode``: The pivot table argument check mode used this test case.
+* ``processingLibrary``: The pivot table processing library used this test case.
+* ``description``: A description of this test case.
+* ``completed``: A logical value indicating whether this test case completed.
+* ``userTime``: The user time for this test case.
+* ``systemTime``: The system time for this test case.
+* ``elapsedTime``: The elapsed time for this test case.50
+

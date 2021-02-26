@@ -1,0 +1,65 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "28 August 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+find_skewness Finding skewed variables
+
+### Description 
+
+Find the numerical variable that skewed variable that inherits the data.frame or data.frame.
+
+### Usage 
+<pre><code>
+
+find_skewness(.data, index = TRUE, value = FALSE, thres = NULL)
+
+</code></pre>
+### Arguments
+ 
+* ``.data``: a data.frame or a tbl_df.
+* `index``:  logical. When representing the information of a skewed variable, specify whether
+or not the variable is represented by an index. Returns an index if TRUE or a variable names if FALSE.
+value logical. If TRUE, returns the skewness value in the individual variable.
+* thres Returns a skewness threshold value that has an absolute skewness greater than thres. The default is NULL to ignore the threshold. but, If value = TRUE, default to 0.5.
+get_class 47
+
+### Value 
+
+Information on variables including skewness.
+
+### See Also
+ 
+find_na, find_outliers.
+
+### Examples
+```{r}
+
+## Not run:
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+find_skewness(carseats)
+find_skewness(carseats, index = FALSE)
+find_skewness(carseats, thres = 0.1)
+find_skewness(carseats, value = TRUE)
+find_skewness(carseats, value = TRUE, thres = 0.1)
+```
+
+```{r}
+## using dplyr -------------------------------------
+library(dplyr)
+# Perform simple data quality diagnosis of variables with outliers.
+carseats %>%
+select(find_skewness(.)) %>%
+diagnose()
+## End(Not run)
+```

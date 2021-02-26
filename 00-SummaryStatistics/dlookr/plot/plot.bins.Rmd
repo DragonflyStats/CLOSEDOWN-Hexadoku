@@ -1,0 +1,66 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "12 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dlookr)
+```
+
+
+
+plot.bins Visualize Distribution for an "bins" object
+
+### Description 
+
+Visualize both plots on a single screen. The plot at the top is a histogram representing the frequency
+of the level. The plot at the bottom is a bar chart representing the frequency of the level.
+
+### Usage 
+<pre><code>
+
+## S3 method for class 'bins'
+plot(x, ...)
+
+</code></pre>
+### Arguments
+ 
+x an object of class "bins", usually, a result of a call to binning().
+* ``...``: arguments to be passed to methods. such as graphical parameters (see par).
+plot.imputation 59
+
+### See Also
+ 
+binning, print.bins, summary.bins.
+
+### Examples
+```{r}
+
+# Generate data for the example
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+```
+
+
+```{r}
+# Binning the carat variable. default type argument is "quantile"
+bin <- binning(carseats$Income, nbins = 5)
+plot(bin)
+```
+
+
+```{r}
+# Using another type argument
+bin <- binning(carseats$Income, nbins = 5, type = "equal")
+plot(bin)
+bin <- binning(carseats$Income, nbins = 5, type = "pretty")
+plot(bin)
+bin <- binning(carseats$Income, nbins = 5, type = "kmeans")
+plot(bin)
+bin <- binning(carseats$Income, nbins = 5, type = "bclust")
+plot(bin)
+```
