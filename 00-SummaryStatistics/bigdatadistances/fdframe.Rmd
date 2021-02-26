@@ -1,0 +1,35 @@
+---
+title: "``bigdatadist::fdframe``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(bigdatadist)
+```
+
+
+Functional Data Frame
+
+
+#### Description 
+
+
+This function is used to create multivariate functional data frame objects to be used in combination with the functions in the package ***bigdatadist***.
+
+#### Usage
+<pre><code>
+fdframe(t, Y)
+</code></pre>
+
+#### Arguments 
+* ``t``: abscissa values at which observations took place.
+* ``Y``: matrix with functions in columns and observations in rows.
+
+#### Examples 
+
+```{r}
+t = 1:10; Y = cbind(sin(t),cos(t))
+fdata = fdframe(t,Y)
+plot(fdata, xlab='Time', ylab='')
+```

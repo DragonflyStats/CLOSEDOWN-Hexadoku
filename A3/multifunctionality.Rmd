@@ -1,0 +1,37 @@
+---
+title: "``multifunctionality`` Ecosystem Multifunctionality"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+
+
+#### Description
+
+This dataset relates multifunctionality to a number of different biotic and abiotic features in a global survey of drylands. 
+The dataset was obtained from (http://www.sciencemag.org/content/335/6065/214/suppl/DC1). 
+The dataset contains the features listed below.
+
+#### Usage 
+
+<pre><code>
+data(multifunctionality)
+</code></pre>
+  
+#### Details
+* ELE: Elevation of the site
+* LAT & LONG: Location of the site
+* SLO: Site slope
+* SAC: Soil sand content
+* PCA_C1, PCA_C2, PCA_C3, PCA_C4: Principal components of a set of 21 climatic features
+* SR: Species richness
+* MUL: Multifunctionality
+
+#### References
+
+Maestre, F. T., Quero, J. L., Gotelli, N. J., Escudero, A., Ochoa, V., Delgado-Baquerizo, M., et al.
+(2012). Plant Species Richness and Ecosystem Multifunctionality in Global Drylands. Science,
+335(6065), 214-218. doi:10.1126/science.1215442

@@ -1,39 +1,30 @@
 ---
-title: "timevis::addCustomTime"
+title: "``addCustomTime``:  Add a new vertical bar at a time point that can be dragged by the user"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(timeVis)
 ```
 
 
 
-#### Description
 
+### ### Description
 Add a new vertical bar at a time point that can be dragged by the user
-
-#### Usage
-
-<pre><code>
-
+### Usage
 addCustomTime(id, time, itemId)
-
-<code></pre>
-
-#### Arguments
-
-* id Timeline id or a timevis object (the output from timevis())
-* time The date/time to add
-* itemId The id of the custom time bar
-
-#### Examples
-```{r}
-
+#### Arguments 
+id Timeline id or a timevis object (the output from timevis())
+time The date/time to add
+itemId The id of the custom time bar
+Examples
 timevis() %>%
 addCustomTime(Sys.Date() - 1, "yesterday")
 if (interactive()) {
 library(shiny)
+addItem 3
 shinyApp(
 ui = fluidPage(
 timevisOutput("timeline"),
@@ -49,4 +40,3 @@ addCustomTime("timeline", Sys.Date() - 1, "yesterday")
 }
 )
 }
-```

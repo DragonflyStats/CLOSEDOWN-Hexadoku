@@ -1,0 +1,84 @@
+---
+title: "``DataVisualizations::Slopechart``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+Slopechart Slope Chart
+#### Description
+ABC analysis improved slope chart
+56 Slopechart
+
+#### Usage
+
+<pre><code>
+Slopechart(FirstDatavector,
+  SecondDatavector,
+  Names,
+  Labels,
+  MaxNumberOfSlices,
+  TopLabels=c('FirstDatavector','SecondDatavector'),
+  main='Comparision of Descending Frequency')
+</code></pre>
+
+#### Arguments
+FirstDatavector
+[1:n] a vector of n non unique values - a features
+SecondDatavector
+[1:m] a vector of n non unique values - a second feature
+Labels Optional, [1:k] Labels if they are specially named, if not Names are used.
+Names [1:k] names to search for in Datavector, if not set unique of Datavector is calculated.
+MaxNumberOfSlices
+Default is k, integer value defining how many labels will be shown. Everything
+else will be summed up to Other.
+TopLabels Labels of of feature names
+main title of the plot
+Details
+still experimental.
+Value
+silent output by calling invisible of a list with
+Percentages [1:k] percent values visualized in fanplot
+Labels [1:k] see input Labels, only relevant ones
+Author(s)
+Michael Thrun
+
+#### References
+
+[Gohil, 2015] Gohil, Atmajitsinh. R data Visualization cookbook. Packt Publishing Ltd, 2015.
+StatPDEdensity 57
+See Also
+Piechart, Fanplot
+Examples
+## will follow
+StatPDEdensity Pareto Density Estimation
+#### Description
+Density Estimation for ggplot with a clear model behind it.
+Format
+The format is: Classes ’StatPDEdensity’, ’Stat’, ’ggproto’ <ggproto object: Class StatPDEdensity,
+Stat> aesthetics: function compute_group: function compute_layer: function compute_panel: function
+default_aes: uneval extra_params: na.rm finish_layer: function non_missing_aes: parameters:
+function required_aes: x y retransform: TRUE setup_data: function setup_params: function super:
+<ggproto object: Class Stat>
+Details
+PDE was published in [Ultsch, 2005], short explanation in [Thrun, Ultsch 2018] and the PDE
+optimized violin plot was published in [Thrun et al., 2018].
+
+#### References
+
+[Ultsch,2005] Ultsch, A.: Pareto density estimation: A density estimation for knowledge discovery,
+in Baier, D.; Werrnecke, K. D., (Eds), Innovations in classification, data science, and information
+systems, Proc Gfkl 2003, pp 91-100, Springer, Berlin, 2005.
+[Thrun, Ultsch 2018] Thrun, M. C., & Ultsch, A. : Effects of the payout system of income taxes
+to municipalities in Germany, in Papiez, M. & Smiech„ S. (eds.), Proc. 12th Professor Aleksander
+Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, pp.
+533-542, Cracow: Foundation of the Cracow University of Economics, Cracow, Poland, 2018.
+[Thrun et al, 2018] Thrun, M. C., Pape, F., & Ultsch, A. : Benchmarking Cluster Analysis Methods
+using PDE-Optimized Violin Plots, Proc. European Conference on Data Analysis (ECDA),
+accepted, Paderborn, Germany, 2018.
+58 stat_pde_density

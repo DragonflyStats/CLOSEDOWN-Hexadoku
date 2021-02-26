@@ -1,0 +1,67 @@
+cartogram_dorling Calculate Non-Overlapping Circles Cartogram
+
+#### Description
+Construct a cartogram which represents each geographic region as non-overlapping circles (Dorling
+1996).
+
+#### Usage
+<pre><code>
+cartogram_dorling(x, weight, k = 5, m_weight = 1, itermax = 1000)
+## S3 method for class 'sf'
+cartogram_dorling(x, weight, k = 5, m_weight = 1, itermax = 1000)
+
+## S3 method for class 'SpatialPolygonsDataFrame'
+cartogram_dorling(x, weight, k = 5, m_weight = 1, itermax = 1000)
+
+</code></pre>
+
+#### Arguments
+* ``x``: SpatialPolygonsDataFrame, SpatialPointsDataFrame or an sf object
+* ``weight``: Name of the weighting variable in x
+* ``k``: Share of the bounding box of x filled by the larger circle
+* ``m_weight``: Circles’ movements weights. An optional vector of numeric weights (0 to 1 inclusive) to apply to the distance each circle moves during pair-repulsion. A weight of 0 prevents any movement. A weight of 1 gives the default movement
+distance. A single value can be supplied for uniform weights. A vector with length less than the number of circles will be silently extended by repeating the final value. Any values outside the range [0, 1] will be clamped to 0 or 1.
+* ``itermax``: Maximum iterations for the cartogram transformation.
+
+#### Value
+Non overlaping proportional circles of the same class as x.
+References
+Dorling, D. (1996). Area Cartograms: Their Use and Creation. In Concepts and Techniques in
+Modern Geography (CATMOG), 59.
+
+#### Examples
+```{r}
+library(maptools)
+library(cartogram)
+library(rgdal)
+data(wrld_simpl)
+# Remove uninhabited regions
+afr <- spTransform(wrld_simpl[wrld_simpl$REGION==2 & wrld_simpl$POP2005 > 0,],
+CRS("+init=epsg:3395"))
+```
+
+```{r}
+# Create cartogram
+afr_carto <- cartogram_dorling(afr, "POP2005")
+# Plot
+par(mfcol=c(1,2))
+plot(afr, main="original")
+plot(afr, main="distorted (sp)")
+plot(afr_carto, col = "red", add=TRUE)
+```
+
+```{r}
+# Same with sf objects
+library(sf)
+cartogram_ncont 5
+afr_sf = st_as_sf(afr)
+afr_sf_carto <- cartogram_dorling(afr_sf, "POP2005")
+```
+
+```{r}
+# Plot
+par(mfcol=c(1,3))
+plot(afr, main="original")
+plot(afr_carto, main="distorted (sp)")
+plot(st_geometry(afr_sf_carto), main="distorted (sf)")
+```

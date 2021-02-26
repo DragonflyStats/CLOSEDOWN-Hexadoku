@@ -1,0 +1,34 @@
+Postal Codes and AGS of Germany for a Choropleth Map
+#### Description
+Zip Codes and Community Identification Number of Germany which can be used in a Choropleth
+Map.
+#### Usage
+data("ChoroplethPostalCodesAndAGS_Germany")
+Format
+A data frame with 8702 observations on the following 4 variables.
+PLZ German postal codes/zip codes
+Cls Clustering aggregated of germany postal codes by MTY and ITS features
+AGS It is the ’Amtlicher Gemeindeschluessel’ (Community Identification Number) of German municipalities
+Names Names of municipalities
+Details
+CLS are the the labels of a MTS versus ITS Bayesian classification showing two main groups of
+low quota (’1’) and high quota (’2’) municipalities. Additionally, outliers are manually classified
+into two separated groups called sponsors (’3’) and promoted (’4’). In the Bayesian Classification
+non classified data have the label ’0’. If a ’AGS’ code of a ’PLZ’ was unclear than the label is
+’NaN’.
+Class 0 low quota high quota sponsors promoted non classified unclear mapping
+Labels 0 1 2 3 4 5 NaN
+CountPerClass 31 1325 7239 10 95 5 2
+ClassBoxplot 11
+Source
+Generated for [Thrun/Ultsch, 2018] using the approach of [Ultsch/Behnisch, 2017].
+References
+[Thrun/Ultsch, 2018] Thrun, M. C., & Ultsch, A. : Effects of the payout system of income taxes
+to municipalities in Germany, in Papiez, M. & Smiech„ S. (eds.), Proc. 12th Professor Aleksander
+Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, pp.
+533-542, Cracow: Foundation of the Cracow University of Economics, Cracow, Poland, 2018.
+[Ultsch/Behnisch, 2017] Ultsch, A., Behnisch, M.: Effects of the payout system of income taxes to
+municipalities in Germany, Applied Geography, Vol. 81, pp. 21-31, 2017.
+Examples
+data(ChoroplethPostalCodesAndAGS_Germany)
+str(ChoroplethPostalCodesAndAGS_Germany)

@@ -1,0 +1,51 @@
+---
+title: "``timevis::setSelection``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Description
+
+Select one or multiple items on a timeline
+
+#### Usage
+<pre><code>
+
+setSelection(id, itemId, options)
+
+<code></pre>
+
+#### Arguments
+
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``itemId``: A vector (or single value) of the item ids to select
+* ``options``: Named list of options controlling mainly the animation. Most common options are focus = TRUE/FALSE and "animation" = TRUE/FALSE. For a full list of options, see the "setSelection" method in the official Timeline documentation
+
+#### Examples
+```{r}
+
+timevis(data.frame(id = 1:3, start = Sys.Date(), content = 1:3)) %>%
+setSelection(2)
+if (interactive()) {
+library(shiny)
+shinyApp(
+ui = fluidPage(
+timevisOutput("timeline"),
+actionButton("btn", "Select item 2")
+),
+server = function(input, output) {
+output$timeline <- renderTimevis(
+timevis(
+data.frame(id = 1:3, start = Sys.Date(), content = 1:3)
+)
+)
+observeEvent(input$btn, {
+setSelection("timeline", 2)
+})
+}
+)
+}
+```

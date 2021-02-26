@@ -1,0 +1,51 @@
+---
+title: "``arsenal::diffs``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Extract differences
+
+#### Description
+
+Extract differences, number of differences, or number of not-shared observations from a compare
+object.
+
+#### Usage
+<pre><code>
+
+n.diff.obs(object, ...)
+## S3 method for class 'compare.data.frame'
+n.diff.obs(object, ...)
+## S3 method for class 'summary.compare.data.frame'
+n.diff.obs(object, ...)
+n.diffs(object, ...)
+## S3 method for class 'compare.data.frame'
+n.diffs(object, ...)
+## S3 method for class 'summary.compare.data.frame'
+n.diffs(object, ...)
+diffs(object, ...)
+## S3 method for class 'compare.data.frame'
+diffs(object, vars = NULL, ...,
+by.var = FALSE)
+## S3 method for class 'summary.compare.data.frame'
+diffs(object, vars = NULL, ...,
+by.var = FALSE)
+
+</code></pre>
+#### Arguments
+
+object An object of class compare.data.frame or summary.compare.data.frame.
+... Other arguments (not in use at this time).
+vars A character vector of variable names to subset the results to.
+by.var Logical: should the number of differences by variable be reported, or should all
+differences be reported (the default).
+
+#### Author(s)
+Ethan Heinzen
+See Also
+compare.data.frame summary.compare.data.frame

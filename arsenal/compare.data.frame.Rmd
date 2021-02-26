@@ -1,0 +1,57 @@
+---
+title: "``arsenal::compare.data.frame``"
+2output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+
+
+Compare two data.frames and report differences
+
+#### Description
+
+Compare two data.frames and report any differences between them, much like SAS’s PROC COMPARE
+procedure.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'data.frame'
+compare(x, y, by = NULL, by.x = by, by.y = by,
+control = NULL, ...)
+## S3 method for class 'compare.data.frame'
+print(x, ...)
+
+</code></pre>
+#### Arguments
+
+* x, y
+A data.frame to compare
+* by, by.x, by.y Which variables are IDs to merge the two data.frames? If set to "row.names",
+merging will occur over the row.names. If set to NULL (default), merging will
+occur row-by-row.
+* control A list of control parameters from comparison.control.
+* ... Other arguments, passed to comparison.control when appropriate.
+
+
+Author(s)
+Ethan Heinzen, adapted from code from Andrew Hanson
+See Also
+summary.compare.data.frame, n.diffs, n.diff.obs
+
+#### Examples
+```{r}
+df1 <- data.frame(id = paste0("person", 1:3), a = c("a", "b", "c"),
+b = c(1, 3, 4), c = c("f", "e", "d"),
+row.names = paste0("rn", 1:3), stringsAsFactors = FALSE)
+df2 <- data.frame(id = paste0("person", 3:1), a = c("c", "b", "a"),
+b = c(1, 3, 4), d = paste0("rn", 1:3),
+row.names = paste0("rn", c(1,3,2)), stringsAsFactors = FALSE)
+summary(compare(df1, df2))
+summary(compare(df1, df2, by = "id"))
+summary(compare(df1, df2, by = "row.names"))
+```

@@ -1,0 +1,67 @@
+
+---
+title: "``gdata::update.list``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+## ``update.list``
+Update the elements of a list
+
+#### Description
+
+Function to update the elements of a list to contain all of the named elements of a new list, over-
+writing elements with the same name, and (optionally) copying unnamed elements.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'list'
+update(object,
+new,
+unnamed=FALSE,
+...)58
+update.list
+
+</code></pre>
+#### Arguments
+
+object
+new
+unnamed
+...
+Object to be updated.
+List or dataframe containing new elements.
+Logical. If TRUE, unnamed elements of new will be appended to object.
+optional method arguments (ignored)
+
+#### Value
+
+A new list constructed from the elements of object by merging the elements of old and new with
+named items of new replacing the corresponding elements of old. Unnamed elements of new will
+be appened unless unnamed=FALSE.
+Note
+This method can be called directly, or as via the S3 base method for update.
+Author(s)
+Gregory R. Warnes <greg@warnes.net>
+See Also
+update, merge
+
+#### Examples
+```{r}
+
+old <- list(a=1,b="red",c=1.37)
+new <- list(b="green",c=2.4)
+update(old, new)
+update.list(old,new)
+# equivalent
+older <- list(a=0, b="orange", 4, 5, 6)
+newer <- list(b="purple", 7, 8, 9)
+update(older, newer)
+# ignores unnamed elements of newer
+update(older, newer, unnamed=TRUE) # appends unnamed elements of newer
+```
+

@@ -1,0 +1,49 @@
+---
+title: "``timevis::setItems``"
+2output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
+#### Description
+
+Set the items of a timeline
+
+#### Usage
+
+<pre><code>
+
+setItems(id, data)
+
+<code></pre>
+#### Arguments
+
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``data``: A dataframe containing the item data to use.
+
+#### Examples
+```{r}
+
+timevis(data.frame(start = Sys.Date(), content = "Today")) %>%
+setItems(data.frame(start = Sys.Date() - 1, content = "yesterday"))
+if (interactive()) {
+library(shiny)
+shinyApp(
+ui = fluidPage(
+timevisOutput("timeline"),
+actionButton("btn", "Change the data to yesterday")
+),
+server = function(input, output) {
+output$timeline <- renderTimevis(
+timevis(data.frame(start = Sys.Date(), content = "Today"))
+)
+observeEvent(input$btn, {
+setItems("timeline",
+data.frame(start = Sys.Date() - 1, content = "yesterday"))
+})
+}
+)
+}
+```

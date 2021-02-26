@@ -1,0 +1,241 @@
+timevis
+15
+Create a timeline visualization
+
+#### Description
+
+timevis lets you create rich and fully interactive timeline visualizations. Timelines can be included
+in Shiny apps and R markdown documents, or viewed from the R console and RStudio Viewer.
+timevis Includes an extensive API to manipulate a timeline after creation, and supports getting
+data out of the visualization into R. Based on the ’vis.js’ Timeline module and the ’htmlwidgets’ R
+package.
+View a demo Shiny app or see the full README on GitHub.
+
+#### Usage
+<pre><code>
+
+
+timevis(data, groups, showZoom = TRUE, zoomFactor = 0.5, fit = TRUE,
+options, width = NULL, height = NULL, elementId = NULL,
+loadDependencies = TRUE)
+
+<code></pre>
+#### Arguments
+
+data A dataframe containing the timeline items. Each item on the timeline is repre-
+sented by a row in the dataframe. start and content are required for each item,
+while several other variables are also supported. See the Data format section
+below for more details.
+groups A dataframe containing the groups data (optional). See the Groups section
+below for more details.
+showZoom If TRUE (default), then include "Zoom In"/"Zoom Out" buttons on the widget.
+zoomFactor How much to zoom when zooming out. A zoom factor of 0.5 means that when
+zooming out the timeline will show 50 example, if the timeline currently shows
+20 days, then after zooming out with a zoomFactor of 0.5, the timeline will
+show 30 days, and zooming out again will show 45 days. Similarly, zooming
+out from 20 days with a zoomFactor of 1 will results in showing 40 days.
+fit If TRUE, then fit all the data on the timeline when the timeline initializes. Other-
+wise, the timeline will be set to show the current date.
+options A named list containing any extra configuration options to customize the time-
+line. All available options can be found in the official Timeline documentation.
+Note that any options that define a JavaScript function must be wrapped in a call
+to htmlwidgets::JS(). See the examples section below to see example usage.
+width Fixed width for timeline (in css units). Ignored when used in a Shiny app –
+use the width parameter in timevisOutput. It is not recommended to use this
+parameter because the widget knows how to adjust its width automatically.
+height Fixed height for timeline (in css units). It is recommended to not use this pa-
+rameter since the widget knows how to adjust its height automatically.16
+timevis
+elementId
+Use an explicit element ID for the widget (rather than an automatically generated
+one). Ignored when used in a Shiny app.
+loadDependencies
+Whether to load JQuery and bootstrap dependencies (you should only set to
+FALSE if you manually include them)
+Value
+A timeline visualization htmlwidgets object
+Data format
+The data parameter supplies the input dataframe that describes the items in the timeline. The
+following variables are supported for the items dataframe:
+• start - (required) The start date of the item, for example "1988-11-22" or "1988-11-22 16:30:00".
+• content - (required) The contents of the item. This can be plain text or HTML code.
+• end - The end date of the item. The end date is optional. If end date is provided, the item is
+displayed as a range. If not, the item is displayed as a single point on the timeline.
+• id - An id for the item. Using an id is not required but highly recommended. An id is needed
+when removing or selecting items (using removeItem or setSelection).
+• type - The type of the item. Can be ’box’ (default), ’point’, ’range’, or ’background’. Types
+’box’ and ’point’ need only a start date, types ’range’ and ’background’ need both a start and
+end date.
+• title - Add a title for the item, displayed when hovering the mouse over the item. The title
+can only contain plain text.
+• editable - If TRUE, the item can be manipulated with the mouse. Overrides the global
+editable configuration option if it is set. An editable item can be removed or have its start/end
+dates modified by clicking on it.
+• group - The id of a group. When a group is provided, all items with the same group are placed
+on one line. A vertical axis is displayed showing the group names. See more details in the
+Groups section below.
+• subgroup - The id of a subgroup. Groups all items within a group per subgroup, and positions
+them on the same height instead of stacking them on top of each other. See more details in the
+Groups section below.
+• className - A className can be used to give items an individual CSS style.
+• style - A CSS text string to apply custom styling for an individual item, for example color: red;.
+start and content are the only required variables for each item, while the rest of the variables are
+optional. If you include a variable that is only used for some rows, you can use NA for the rows
+where it’s not used. The items data of a timeline can either be set by supplying the data argument
+to timevis, or by calling the setItems function.timevis
+17
+Groups
+The groups parameter must be provided if the data items have groups (if any of the items have
+a group variable). When using groups, all items with the same group are placed on one line. A
+vertical axis is displayed showing the group names. Grouping items can be useful for a wide range
+of applications, for example when showing availability of multiple people, rooms, or other resources
+next to each other. You can also think of groups as "adding a Y axis", if that helps. The following
+variables are supported in the groups dataframe:
+• id - (required) An id for the group. The group will display all items having a group variable
+which matches this id.
+• content - (required) The contents of the group. This can be plain text or HTML code.
+• title - Add a title for the group, displayed when hovering the mouse over the group’s label.
+The title can only contain plain text.
+• subgroupOrder - Order the subgroups by a field name. By default, groups are ordered by
+first-come, first-show
+• className - A className can be used to give groups an individual CSS style.
+• style - A CSS text string to apply custom styling for an individual group label, for example
+color: red;.
+id and content are the only required variables for each group, while the rest of the variables are
+optional. If you include a variable that is only used for some rows, you can use NA for the rows where
+it’s not used. The groups data of a timeline can either be set by supplying the groups argument to
+timevis, or by calling the setGroups function.
+Getting data out of a timeline in Shiny
+When a timeline widget is created in a Shiny app, there are four pieces of information that are
+always accessible as Shiny inputs. These inputs have special names based on the timeline’s id.
+Suppose that a timeline is created with an outputId of "mytime", then the following four input
+variables will be available:
+• input$mytime_data - will return a data.frame containing the data of the items in the timeline.
+The input is updated every time an item is modified, added, or removed.
+• input$mytime_ids - will return the IDs (a vector) of all the items in the timeline. The input
+is updated every time an item is added or removed from the timeline.
+• input$mytime_selected - will return the IDs (a vector) of the selected items in the timeline.
+The input is updated every time an item is selected or unselected by the user. Note that this
+will not get updated if an item is selected programmatically using setSelection.
+• input$mytime_window - will return a 2-element vector containing the minimum and max-
+imum dates currently visible in the timeline. The input is updated every time the viewable
+window of dates is updated (by zooming or moving the window).
+All four inputs will return a value upon initialization of the timeline and every time the correspond-
+ing value is updated.18
+timevis
+Extending timevis
+If you need to perform any actions on the timeline object that are not supported by this package’s
+API, you may be able to do so by manipulating the timeline’s JavaScript object directly. The time-
+line object is available via document.getElementById(id).widget.timeline (replace id with
+the timeline’s id).
+This timeline object is the direct widget that vis.js creates, and you can see the visjs documenta-
+tion to see what actions you can perform on that object.
+See Also
+Demo Shiny app
+
+#### Examples
+```{r}
+
+# For more examples, see http://daattali.com/shiny/timevis-demo/
+#----------------------- Most basic -----------------
+timevis()
+#----------------------- Minimal data -----------------
+timevis(
+data.frame(id = 1:2,
+content = c("one", "two"),
+start = c("2016-01-10", "2016-01-12"))
+)
+#----------------------- Hide the zoom buttons, allow items to be editable -----------------
+timevis(
+data.frame(id = 1:2,
+content = c("one", "two"),
+start = c("2016-01-10", "2016-01-12")),
+showZoom = FALSE,
+options = list(editable = TRUE, height = "200px")
+)
+#----------------------- You can use %>% pipes to create timevis pipelines -----------------
+timevis() %>%
+setItems(data.frame(
+id = 1:2,
+content = c("one", "two"),
+start = c("2016-01-10", "2016-01-12")
+)) %>%
+setOptions(list(editable = TRUE)) %>%
+addItem(list(id = 3, content = "three", start = "2016-01-11")) %>%
+setSelection("3") %>%
+fitWindow(list(animation = FALSE))
+#------- Items can be a single point or a range, and can contain HTML -------
+timevis(
+data.frame(id = 1:2,timevis
+)
+)
+19
+content = c("one", "two<br><h3>HTML is supported</h3>"),
+start = c("2016-01-10", "2016-01-18"),
+end = c("2016-01-14", NA),
+style = c(NA, "color: red;")
+#----------------------- Alternative look for each item -----------------
+timevis(
+data.frame(id = 1:2,
+content = c("one", "two"),
+start = c("2016-01-10", "2016-01-14"),
+end = c(NA, "2016-01-18"),
+type = c("point", "background"))
+)
+#----------------------- Using a function in the configuration options -----------------
+timevis(
+data.frame(id = 1,
+content = "double click anywhere<br>in the timeline<br>to add an item",
+start = "2016-01-01"),
+options = list(
+editable = TRUE,
+onAdd = htmlwidgets::JS('function(item, callback) {
+item.content = "Hello!<br/>" + item.content;
+callback(item);
+}')
+)
+)
+#----------------------- Using groups -----------------
+timevis(data = data.frame(
+start = c(Sys.Date(), Sys.Date(), Sys.Date() + 1, Sys.Date() + 2),
+content = c("one", "two", "three", "four"),
+group = c(1, 2, 1, 2)),
+groups = data.frame(id = 1:2, content = c("G1", "G2"))
+)
+#----------------------- Getting data out of the timeline into Shiny -----------------
+if (interactive()) {
+library(shiny)
+data <- data.frame(
+id = 1:3,
+start = c("2015-04-04", "2015-04-05 11:00:00", "2015-04-06 15:00:00"),
+end = c("2015-04-08", NA, NA),
+content = c("<h2>Vacation!!!</h2>", "Acupuncture", "Massage"),
+style = c("color: red;", NA, NA)
+)
+ui <- fluidPage(20
+timevis-shiny
+)
+timevisOutput("appts"),
+div("Selected items:", textOutput("selected", inline = TRUE)),
+div("Visible window:", textOutput("window", inline = TRUE)),
+tableOutput("table")
+server <- function(input, output) {
+output$appts <- renderTimevis(
+timevis(
+data,
+options = list(editable = TRUE, multiselect = TRUE, align = "center")
+)
+)
+output$selected <- renderText(
+paste(input$appts_selected, collapse = " ")
+)
+output$window <- renderText(
+paste(input$appts_window[1], "to", input$appts_window[2])
+)
+output$table <- renderTable(
+input$appts_data
+)
+}
+shinyApp(ui, server)
+}
+````

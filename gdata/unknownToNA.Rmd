@@ -1,0 +1,95 @@
+
+---
+title: "``gdata::unknownToNA``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+Change unknown values to NA and vice versa
+
+#### Description
+
+Unknown or missing values (NA in R) can be represented in various ways (as 0, 999, etc.) in different
+programs. isUnknown, unknownToNA, and NAToUnknown can help to change unknown values to NA
+and vice versa.
+
+#### Usage
+<pre><code>
+
+isUnknown(x, unknown=NA, ...)
+unknownToNA(x, unknown, warning=FALSE, ...)
+NAToUnknown(x, unknown, force=FALSE, call.=FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+* x generic, object with unknown value(s)
+* unknown generic, value used instead of NA
+* warning logical, issue warning if x already has NA
+* force logical, force to apply already existing value in x
+* ... arguments pased to other methods (as.character for POSIXlt in case of isUnknown)
+* call. logical, look in warningunknownToNA
+
+
+
+#### Examples
+```{r}
+
+xInt <- c(0, 1, 0, 5, 6, 7, 8, 9, NA)
+isUnknown(x=xInt, unknown=0)
+isUnknown(x=xInt, unknown=c(0, NA))
+(xInt <- unknownToNA(x=xInt, unknown=0))
+(xInt <- NAToUnknown(x=xInt, unknown=0))
+xFac <- factor(c("0", 1, 2, 3, NA, "NA"))
+isUnknown(x=xFac, unknown=0)
+isUnknown(x=xFac, unknown=c(0, NA))
+isUnknown(x=xFac, unknown=c(0, "NA"))
+isUnknown(x=xFac, unknown=c(0, "NA", NA))
+(xFac <- unknownToNA(x=xFac, unknown="NA"))
+(xFac <- NAToUnknown(x=xFac, unknown="NA"))
+xList <- list(xFac=xFac, xInt=xInt)
+isUnknown(xList, unknown=c("NA", 0))
+isUnknown(xList, unknown=list("NA", 0))
+tmp <- c(0, "NA")
+names(tmp) <- c(".default", "xFac")
+isUnknown(xList, unknown=tmp)
+tmp <- list(.default=0, xFac="NA")
+isUnknown(xList, unknown=tmp)
+(xList <- unknownToNA(xList, unknown=tmp))
+(xList <- NAToUnknown(xList, unknown=999))
+```
+#### Details
+
+This functions were written to handle different variants of “other NA” like representations that are usually used in various external data sources. unknownToNA can help to change unknown values to
+NA for work in R, while NAToUnknown is meant for the opposite and would usually be used prior to export of data from R. isUnknown is utility function for testing for unknown values.
+All functions are generic and the following classes were tested to work with latest version: “integer”,
+“numeric”, “character”, “factor”, “Date”, “POSIXct”, “POSIXlt”, “list”, “data.frame” and “matrix”.
+For others default method might work just fine.
+unknownToNA and isUnknown can cope with multiple values in unknown, but those should be given
+as a “vector”. If not, coercing to vector is applied. Argument unknown can be feed also with “list”
+in “list” and “data.frame” methods.
+If named “list” or “vector” is passed to argument unknown and x is also named, matching of names will occur.
+Recycling occurs in all “list” and “data.frame” methods, when unknown argument is not of the same length as x and unknown is not named.
+Argument unknown in NAToUnknown should hold value that is not already present in x. If it does, error is produced and one can bypass that with force=TRUE, but be warned that there is no way to
+distinguish values after this action. Use at your own risk! Anyway, warning is issued about new value in x. Additionally, caution should be taken when using NAToUnknown on factors as additional
+level (value of unknown) is introduced. Then, as expected, unknownToNA removes defined level in unknown. If unknown="NA", then "NA" is removed from factor levels in unknownToNA due to
+consistency with conversions back and forth.
+Unknown representation in unknown should have the same class as x in NAToUnknown, except in factors, where unknown value is coerced to character anyway. Silent coercing is also applied, when
+“integer” and “numeric” are in question. Otherwise warning is issued and coercing is tried. If that fails, R introduces NA and the goal of NAToUnknown is not reached.
+NAToUnknown accepts only single value in unknown if x is atomic, while “list” and “data.frame” methods accept also “vector” and “list”.
+“list/data.frame” methods can work on many components/columns. To reduce the number of needed specifications in unknown argument, default unknown value can be specified with component ".de-
+fault". This matches component/column ".default" as well as all other undefined components/columns!
+Look in examples.
+
+#### Value
+
+unknownToNA and NAToUnknown return modified x. isUnknown returns logical values for object x.
+Author(s)
+Gregor Gorjanc
+See Also
+is.na56
+unmatrix

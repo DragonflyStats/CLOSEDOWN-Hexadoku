@@ -1,0 +1,30 @@
+
+NA.operations
+Some functions to handle NAs
+
+#### Description
+
+allNA tests if all elements are NA, and includeNA sets the NAs in a character vector or factor to an explicit label.
+
+#### Usage
+<pre><code>
+
+allNA(x)
+includeNA(x, label, ...)
+## S3 method for class 'factor'
+includeNA(x, label = "(Missing)", first = FALSE, ...)
+## Default S3 method:
+includeNA(x, label = "(Missing)", ...)
+
+</code></pre>
+#### Arguments
+
+* x An object
+* label A character string denoting the label to set NAs to.
+* ... Other arguments (not in use at this time).
+* first Logical; should the new label be the first level?
+
+#### Author(s)
+Ethan Heinzen
+See Also
+is.na, anyNA

@@ -1,0 +1,153 @@
+Package ‘gdata’
+June 6, 2017
+Title Various R Programming Tools for Data Manipulation
+
+#### Description
+ Various R programming tools for data manipulation, including:
+- medical unit conversions ('ConvertMedUnits', 'MedUnits'),
+- combining objects ('bindData', 'cbindX', 'combine', 'interleave'),
+- character vector operations ('centerText', 'startsWith', 'trim'),
+- factor manipulation ('levels', 'reorder.factor', 'mapLevels'),
+- obtaining information about R objects ('object.size', 'elem', 'env', 'humanReadable', 'is.what', 'll', 'keep', 'ls.funs',
+'Args','nPairs', 'nobs'),
+- manipulating MS-Excel formatted files ('read.xls',
+'installXLSXsupport', 'sheetCount', 'xlsFormats'),
+- generating fixed-width format files ('write.fwf'),
+- extricating components of date & time objects ('getYear', 'getMonth', 'getDay', 'getHour', 'getMin', 'getSec'),
+- operations on columns of data frames ('matchcols', 'rename.vars'),
+- matrix operations ('unmatrix', 'upperTriangle', 'lowerTriangle'),
+- operations on vectors ('case', 'unknownToNA', 'duplicated2', 'trimSum'),
+- operations on data frames ('frameApply', 'wideByFactor'),
+- value of last evaluated expression ('ans'), and
+- wrapper for 'sample' that ensures consistent behavior for both
+scalar and vector arguments ('resample').
+Depends R (>= 2.3.0)
+SystemRequirements perl (>= 5.10.0)
+Imports gtools, stats, methods, utils
+Version 2.18.0
+Date 2017-06-05
+Author Gregory R. Warnes, Ben Bolker, Gregor Gorjanc, Gabor
+Grothendieck, Ales Korosec, Thomas Lumley, Don MacQueen, Arni
+Magnusson, Jim Rogers, and others
+Maintainer Gregory R. Warnes <greg@warnes.net>
+License GPL-2
+NeedsCompilation no
+Suggests RUnit
+1R topics documented:
+2
+Repository CRAN
+Date/Publication 2017-06-06 15:34:19 UTC
+R topics documented:
+gdata-package . . .
+ans . . . . . . . . .
+Args . . . . . . . .
+bindData . . . . . .
+case . . . . . . . .
+cbindX . . . . . . .
+centerText . . . . .
+combine . . . . . .
+ConvertMedUnits .
+drop.levels . . . . .
+duplicated2 . . . .
+elem . . . . . . . .
+env . . . . . . . . .
+first . . . . . . . .
+frameApply . . . .
+gdata-defunct . . .
+getYear . . . . . .
+humanReadable . .
+installXLSXsupport
+interleave . . . . .
+is.what . . . . . . .
+keep . . . . . . . .
+left . . . . . . . . .
+ll . . . . . . . . . .
+ls.funs . . . . . . .
+mapLevels . . . . .
+matchcols . . . . .
+MedUnits . . . . .
+mv . . . . . . . . .
+nobs . . . . . . . .
+nPairs . . . . . . .
+object.size . . . . .
+read.xls . . . . . .
+rename.vars . . . .
+reorder.factor . . .
+resample . . . . . .
+sheetCount . . . .
+startsWith . . . . .
+trim . . . . . . . .
+trimSum . . . . . .
+unknownToNA . .
+unmatrix . . . . . .
+
+
+
+
+ans
+3
+update.list . .
+upperTriangle
+wideByFactor
+write.fwf . . .
+xlsFormats . .
+
+gdata-package
+Various R programming tools for data manipulation
+
+#### Description
+
+gdata package provides various R programming tools for data manipulation.
+
+#### Details
+
+The following are sources of information on gdata package:
+DESCRIPTION file library(help="gdata")
+This file package?gdata
+Vignette vignette("unknown")
+vignette("mapLevels")
+Some help files read.xls
+write.fwf
+News file.show(system.file("NEWS", package="gdata"))
+ans
+
+#### Value
+ of Last Evaluated Expression
+
+#### Description
+
+The functon returns the value of the last evaluated top-level expression, which is always assigned to
+.Last.value (in package:base).
+
+#### Usage
+<pre><code>
+
+ans()
+
+#### Details
+
+This function retrieves .Last.value. For more details see .Last.value.4
+Args
+
+#### Value
+
+.Last.value
+Author(s)
+Liviu Andronic
+See Also
+.Last.value, eval
+
+#### Examples
+```{r}
+
+2+2
+ans() # Trivial calculation...
+# See the answer again
+gamma(1:15)
+fac14 <- ans() # Some intensive calculation...
+# store the results into a variable
+rnorm(20)
+ans()^2
+stem(ans()) # Generate some standard normal values
+# Convert to Chi-square(1) values...
+# Now show a stem-and-leaf table

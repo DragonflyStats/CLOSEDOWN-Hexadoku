@@ -1,0 +1,115 @@
+---
+title: "arsenal::write2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+write2
+
+#### Description
+
+Functions to output tables to a single document. (Also the S3 backbone behind the write2* functions.)
+
+#### Usage
+<pre><code>
+
+write2(object, file, ..., output_format)
+## S3 method for class 'arsenal_table'
+write2(object, file, ..., output_format = NULL)
+## S3 method for class 'summary.arsenal_table'
+write2(object, file, ...,
+output_format = NULL)
+## S3 method for class 'compare.data.frame'
+write2(object, file, ...,
+output_format = NULL)
+## S3 method for class 'summary.compare.data.frame'
+write2(object, file, ...,
+output_format = NULL)
+## S3 method for class 'verbatim'
+write2(object, file, ..., output_format = NULL)
+## S3 method for class 'yaml'
+write2(object, file, ..., output_format = NULL)
+## S3 method for class 'code.chunk'
+write2(object, file, ..., output_format = NULL)
+## S3 method for class 'knitr_kable'
+write2(object, file, ..., output_format = NULL)
+## S3 method for class 'xtable'
+write2(object, file, ..., output_format = NULL)46
+write2
+## S3 method for class 'character'
+write2(object, file, ..., output_format = NULL)
+## S3 method for class 'list'
+write2(object, file, ..., append. = FALSE,
+render. = TRUE, keep.rmd = !render., output_format = NULL)
+## Default S3 method:
+write2(object, file, FUN = NULL, ...,
+append. = FALSE, render. = TRUE, keep.rmd = !render.,
+output_format = NULL)
+
+</code></pre>
+#### Arguments
+
+object An object.
+file A single character string denoting the filename for the output document.
+... Additional arguments to be passed to FUN, rmarkdown::render, etc. One pop-
+ular option is to use quiet = TRUE to suppress the command line output.
+output_format One of the following:
+1. An output format object, e.g. rmarkdown::html_document(...).
+2. A character string denoting such a format function, e.g. "html_document".
+In this case, the "..." are NOT passed.
+3. The format function itself, e.g. rmarkdown::html_document. In this case,
+the "..." arguments are passed.
+4. One of "html", "pdf", and "word", shortcuts implemented here. In this
+case, the "..." arguments are passed.
+5. NULL, in which the output is HTML by default.
+See rmarkdown::render for details.
+append. Logical, denoting whether (if a temporary .Rmd file of the same name already
+exists) to append on. Used mostly for write2.list.
+render. Logical, denoting whether to render the temporary .Rmd file. Used mostly for
+write2.list.
+keep.rmd Logical, denoting whether to keep the intermediate .Rmd file. Used mostly for
+write2.list.
+FUN The summary-like or print-like function to use to generate the markdown con-
+tent. Can be passed as a function or a character string. It’s expected that
+FUN(object, ...) looks "good" when put directly in a .Rmd file.
+
+#### Examples
+```{r}
+## Not run:
+data(mockstudy)
+# tableby example
+tab1 <- tableby(arm ~ sex + age, data=mockstudy)
+write2(tab1, tempfile(fileext = ".rtf"),
+toc = TRUE, # passed to rmarkdown::rtf_document, though in this case it's not practical
+quiet = TRUE, # passed to rmarkdown::render
+title = "My cool new title", # passed to summary.tableby
+output_format = rmarkdown::rtf_document)
+## End(Not run)
+write2html(list(
+"# Header 1", # a header
+code.chunk(a <- 1, b <- 2, a + b), # a code chunk
+verbatim("hi there") # verbatim output
+),
+tempfile(fileext = ".html"),
+quite = TRUE)
+```
+
+Details
+write2 is an S3 method. The default prints the object (using print) inside a section surrounded by three back ticks. See verbatim for details.
+There are methods implemented for tableby, modelsum, and freqlist, all of which use the summary function. There are also methods compatible with kable, xtable, and pander_return.write2.internal
+47
+Another option is to coerce an object using verbatim() to print out the results monospaced (as if they were in the terminal). To output multiple tables into a document, simply make a list of them and
+call the same function as before. Finally, to output code chunks to be evaluated, use code.chunk.
+For more information, see vignette("write2").
+
+#### Value
+
+object is returned invisibly, and file is written.
+Author(s)
+Ethan Heinzen, adapted from code from Krista Goergen
+See Also
+write2word, write2pdf, write2html, render, word_document, html_document, pdf_document,
+rtf_document, md_document, odt_document

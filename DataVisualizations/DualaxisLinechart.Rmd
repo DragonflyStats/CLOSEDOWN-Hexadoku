@@ -1,0 +1,47 @@
+  
+---
+title: "``DataVisualizations::DualaxisLinechart ``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+#### Description
+
+A line chart with dual axisSS
+
+#### Usage
+
+<pre><code>
+DualaxisLinechart(X, Y1, Y2, xlab = "X",
+y1lab = "Y1", y2lab = "Y2", main = "Dual Axis Line Chart",
+cols = c("black", "blue"), SaveIt = FALSE)
+</code></pre>
+
+#### Arguments
+X [1:n] vector, both lines require the same xvalues, e.g. the time of the time series,
+POSIXlt or POSIXct are accepted
+Y1 [1:n] vector of first line
+Y2 [1:n] vector of second line
+xlab Optional, string for xlabel
+y1lab Optional, string for first ylabel
+y2lab Optional, string for second ylabel
+main Optional, title of plot
+cols Optional, color of two lines
+SaveIt Optional, default FALSE; TRUE if you want to save plot as html in ``getwd()`` directory
+
+
+#### Details
+enables to visualize to lines in one plot overlaying them using ploty (e.g. two time series with two
+ranges of values)
+
+#### Value
+plotly object
+Author(s)
+Michael Thrun
+

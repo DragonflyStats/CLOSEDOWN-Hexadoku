@@ -1,0 +1,86 @@
+frames_graph Create frames of movement-environment interaction graphs for animation
+#### Description
+frames_graph creates a list of ggplot2 graphs displaying movement-environment interaction.
+Each object represents a single frame. Each frame can be viewed or modified individually. The returned list of frames can be animated using animate_frames.
+
+#### Usage
+<pre><code>
+frames_graph(m, r_list, r_times, r_type = "gradient",
+fade_raster = FALSE, return_data = FALSE, graph_type = "flow",
+path_size = 1, path_legend = TRUE, path_legend_title = "Names",
+val_min = NULL, val_max = NULL, val_by = 0.1, verbose = T)
+</code></pre>
+#### Arguments 
+m move or moveStack of uniform time scale and time lag, e.g. prepared with align_move (recommended). May contain a column named colour to control
+path colours (see details).
+r_list list of raster or rasterStack. Each list element referrs to the times given in r_times. Use single-layer raster objects for gradient or discrete data (see
+r_type). Use a rasterStack containing three bands for RGB imagery (in the order red, green, blue).
+r_times list of POSIXct times. Each list element represents the time of the corresponding element in r_list. Must be of same length as r_list.
+r_type character, either "gradient" or "discrete". Ignored, if r_list contains rasterStacks of three bands, which are treated as RGB.
+fade_raster logical, if TRUE, r_list is interpolated over time based on r_times. If FALSE,
+r_list elements are assigned to those frames closest to the equivalent times in
+r_times.
+frames_graph 23
+return_data logical, if TRUE, instead of a list of frames, a data.frame containing the values extracted from r_list per individual, location and time is returned. This
+data.frame can be used to create your own multi- or monotemporal ggplot2 movement-environemnt interaction graphs.
+graph_type character, defines the type of multi-temporal graph that should be drawn as
+frames. Currently supported graphs are:
+* "flow", a time flow graph with frame time on the x axis and values of the visited cell at x on the y axis per individual track
+* "hist", a cumulative histogram with cell values on the x axis and timecumulative
+counts of visits on the y axis per individual track.
+path_size numeric, size of each path.
+path_legend logical, wether to add a path legend from m or not. Legend tracks and colours will be ordered by the tracks’ temporal apperances, not by their order in m.
+path_legend_title
+character, path legend title. Default is "Names".
+val_min numeric, minimum value of the value axis. If undefined, the minimum is collected automatically.
+val_max numeric, maximum value of the value axis. If undefined, the maximum is collected automatically.
+val_by numeric, increment of the value axis sequence. Default is 0.1. If graph_type = "discrete", this value should be an integer of 1 or greater.
+verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+
+#### Details
+
+To later on side-by-side join spatial frames created using frames_spatial with frames created with frames_graph for animation, equal inputs must have been used for both function calls for each of
+the #### Arguments  m, r_list, r_times and fade_raster.
+Value
+List of ggplot2 objects, each representing a single frame. If return_data is TRUE, a data.frame is
+returned (see return_data).
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_spatial join_frames animate_frames
+24 frames_spatial
+#### Examples
+library(moveVis)
+library(move)
+library(ggplot2)
+data("move_data", "basemap_data")
+# align movement
+m <- align_move(move_data, res = 4, unit = "mins")
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+# use the same inputs to create a non-spatial graph, e.g. a flow graph:
+frames.gr <- frames_graph(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE, graph_type = "flow")
+# take a look
+frames.gr[[100]]
+# make a histogram graph:
+frames.gr <- frames_graph(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE, graph_type = "hist")
+# change the value interval:
+frames.gr <- frames_graph(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE, graph_type = "hist", val_by = 0.01)
+frames.gr[[100]]
+# manipulate the labels, since now they are very dense:
+# just replace the current scale
+frames.gr <- add_gg(frames.gr, expr(scale_x_continuous(breaks=seq(0,1,0.1),
+labels=seq(0,1,0.1), expand = c(0,0))))
+frames.gr[[100]]
+# the same can be done for discrete data, histogram will then be shown as bin plots
+# to make your own graphs, use frames_graph to return data instead of frames
+data.gr <- frames_graph(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE, return_data = TRUE)
+# animate the frames created with frames_graph;
+animate_frames(frames, out_file = tempfile(fileext = ".gif"))
+# see all add_ functions on how to customize your frames created with frames_spatial
+# or frames_graph
+# see ?animate_frames on how to animate your list of frames

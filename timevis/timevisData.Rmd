@@ -1,31 +1,25 @@
+---
+title: "``add_scalebar``: Add scalebar to frames"
+output: html_document
+---
 
-timevisData
-Timevis sample data
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timeVis)
+```
 
+timevisData Timevis sample data
 #### Description
-
-A dataset containing sample time schedule data for a community center that can be rendered by timevis.
-
-#### Usage
-<pre><code>
+A dataset containing sample time schedule data for a community center that can be rendered by
+timevis.
+### Usage
 timevisData
-</code></pre>
-
-#### Format
+Format
 A data frame with 11 rows and 6 variables.
-
-timevisDataGroups
-Timevis sample group data
-
-#### Description
-
+timevisDataGroups Timevis sample group data
+### ### Description
 A dataset containing groups data to be used with the timevisData data.
-
-#### Usage
-<pre><code>
-
-
+### Usage
 timevisDataGroups
-
-#### Format
+Format
 A data frame with 3 rows and 2 variables.

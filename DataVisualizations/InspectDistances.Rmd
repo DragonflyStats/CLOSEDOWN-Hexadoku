@@ -1,0 +1,52 @@
+---
+title: "``DataVisualizations::InspectDistances``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+InspectDistances Inspection of Distance-Distribution
+
+#### Description
+
+Visualizes the distances between objects in the data matrix
+
+#### Usage
+
+<pre><code>
+InspectDistances(DataOrDistances,method= "euclidean",sampleSize = 50000,...)
+</code></pre>
+
+#### Arguments
+DataOrDistances
+[1:n,1:d] data cases in rows, variables in columns, if not symmetric
+or
+[1:n,1:n] distance matrix, if symmetric
+method Optional, if Data[1:n,1:d] see parallelDist::parDist for distance method
+sampleSize double value defining the size of the sample for large distance matrizes, see
+InspectVariable
+... further arguments passed on to InspectVariable
+
+#### Details
+For an interpretation of the distribution analysis of the distance please read [Thrun, 2018, p. 27,
+185].
+Note
+uses InspectVariable
+Author(s)
+Michael Thrun
+
+#### References
+[Thrun, 2018] Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm
+Intelligence, doctoral dissertation 2017, Springer, ISBN: 978-3-658-20539-3, Heidelberg, 2018.
+
+#### Examples
+```{r}
+data("Lsun3D")
+Data=Lsun3D$Data
+InspectDistances(as.matrix(dist(Data)))
+```

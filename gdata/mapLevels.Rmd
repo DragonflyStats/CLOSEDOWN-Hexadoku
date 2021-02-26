@@ -1,0 +1,99 @@
+
+## ``mapLevels``
+Mapping levels
+
+#### Description
+
+mapLevels produces a map with information on levels and/or internal integer codes. As such can be conveniently used to store level mapping when one needs to work with internal codes of a factor
+and later transfrorm back to factor or when working with several factors that should have the same levels and therefore the same internal coding.
+
+#### Usage
+<pre><code>
+
+mapLevels(x, codes=TRUE, sort=TRUE, drop=FALSE, combine=FALSE, ...)
+mapLevels(x) <- value32
+mapLevels
+
+</code></pre>
+#### Arguments
+
+* x object whose levels will be mapped, look into details
+* codes boolean, create integer levelsMap (with internal codes) or character levelsMap
+(with level names)
+* sort boolean, sort levels of character x, look into details
+* drop boolean, drop unused levels
+* combine boolean, combine levels, look into details
+* ... additional arguments for sort
+* value levelsMap or listLevelsMap, output of mapLevels methods or constructed by user, look into details
+
+
+
+#### Examples
+```{r}
+
+## --- Integer levelsMap ---
+(f <- factor(sample(letters, size=20, replace=TRUE)))
+(mapInt <- mapLevels(f))
+## Integer to factor
+(int <- as.integer(f))
+(mapLevels(int) <- mapInt)
+all.equal(int, f)
+## Remap levels of a factor
+(fac <- factor(as.integer(f)))
+(mapLevels(fac) <- mapInt) # the same as levels(fac) <- mapInt
+all.equal(fac, f)
+## --- Character levelesMap ---
+f1 <- factor(letters[1:10])
+f2 <- factor(letters[5:14])
+## Internal codes are the same, but levels are not
+as.integer(f1)
+as.integer(f2)
+
+## Get character levelsMaps and combine them
+mapCha1 <- mapLevels(f1, codes=FALSE)
+mapCha2 <- mapLevels(f2, codes=FALSE)
+(mapCha <- c(mapCha1, mapCha2))
+## Remap factors
+mapLevels(f1) <- mapCha # the same as levels(f1) <- mapCha
+mapLevels(f2) <- mapCha # the same as levels(f2) <- mapCha
+## Internal codes are now "consistent" among factors
+as.integer(f1)
+as.integer(f2)
+## Remap characters to get factors
+f1 <- as.character(f1); f2 <- as.character(f2)
+mapLevels(f1) <- mapCha
+mapLevels(f2) <- mapCha
+## Internal codes are now "consistent" among factors
+as.integer(f1)
+as.integer(f2)
+```
+#### Value
+
+mapLevels() returns “levelsMap” or “listLevelsMap” objects as described in levelsMap and listLevelsMap
+section.
+Result of mapLevels<- is always a factor with remapped levels or a “list/data.frame” with remapped
+factors.
+mapLevels
+mapLevels function was written primarly for work with “factors”, but is generic and can also be used with “character”, “list” and “data.frame”, while “default” method produces error. Here the term levels is also used for unique character values.
+When codes=TRUE integer “levelsMap” with information on mapping internal codes with levels is produced. Output can be used to transform integer to factor or remap factor levels as described bellow. With codes=FALSE character “levelsMap” is produced. The later is usefull, when one would like to remap factors or combine factors with some overlap in levels as described in mapLevels<-
+section and shown in examples.
+sort argument provides possibility to sort levels of “character” x and has no effect when x is a “factor”.
+Argument combine has effect only in “list” and “data.frame” methods and when ``codes=FALSE`` i.e. with character “levelsMaps”. The later condition is necesarry as it is not possible to combine maps with different mapping of level names and integer codes. It is assumed that passed “list” and “data.frame” have all components for which methods exist. Otherwise error is produced.
+
+#### levelsMap and listLevelsMap
+Function mapLevels returns a map of levels. This map is of class “levelsMap”, which is actually a list of length equal to number of levels and with each component of length 1. Components need
+not be of length 1. There can be either integer or character “levelsMap”. Integer “levelsMap” (when ``codes=TRUE``) has names equal to levels and components equal to internal codes. Character
+“levelsMap” (when codes=FALSE) has names and components equal to levels. When mapLevels is applied to “list” or “``data.frame``”, result is of class “listLevelsMap”, which is a list of “levelsMap” components described previously. If combine=TRUE, result is a “levelsMap” with all levels in x components
+For ease of inspection, print methods unlists “levelsMap” with proper names. mapLevels<- meth-
+ods are fairly general and therefore additional convenience methods are implemented to ease the work with maps: is.levelsMap and is.listLevelsMap; as.levelsMap and as.listLevelsMap
+for coercion of user defined maps; generic "[" and c for both classes (argument recursive can be used in c to coerce “listLevelsMap” to “levelsMap”) and generic unique and sort (generic from R
+2.4) for “levelsMap”.
+mapLevels<-
+Workhorse under mapLevels<- methods is levels<-. mapLevels<- just control the assignment of
+“levelsMap” (integer or character) or “listLevelsMap” to x. The idea is that map values are changed to map names as indicated in levels examples. Integer “levelsMap” can be applied to “integer”
+or “factor”, while character “levelsMap” can be applied to “character” or “factor”. Methods for “list” and “data.frame” can work only on mentioned atomic components/columns and can accept
+either “levelsMap” or “listLevelsMap”. Recycling occurs, if length of value is not the same as number of components/columns of a “list/data.frame”.
+Author(s)
+Gregor Gorjanc
+See Also
+factor, levels and unclass

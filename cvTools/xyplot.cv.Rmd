@@ -1,0 +1,128 @@
+---
+title: "``xyplot.cv   ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(cvTools)
+```
+
+
+X-Y plots of cross-validation results
+
+#### Description 
+
+Plot the (average) results from (repeated) K-fold cross-validation on the y-axis against the respective
+models on the x-axis.
+
+#### Usage 
+<pre><code>
+
+## S3 method for class 'cv'
+xyplot(x, data, select = NULL,
+seFactor = NA, ...)
+## S3 method for class 'cvSelect'
+xyplot(x, data, subset = NULL,
+select = NULL, seFactor = x$seFactor, ...)
+## S3 method for class 'cvTuning'
+xyplot(x, data, subset = NULL,
+select = NULL, seFactor = x$seFactor, ...)
+
+</code></pre>
+
+#### Arguments 
+
+* x an object inheriting from class "cvSelect" that contains cross-validation results
+(note that this includes objects of class "cvTuning").
+data currently ignored.
+* subset a character, integer or logical vector indicating the subset of models for which to plot the cross-validation results.
+* select a character, integer or logical vector indicating the columns of cross-validation results to be plotted.
+* seFactor a numeric value giving the multiplication factor of the standard error for displaying error bars. Error bars can be suppressed by setting this to NA.
+* ... additional arguments  to be passed to the "formula" method of xyplot.
+
+#### Details 
+
+For objects with multiple columns of repeated cross-validation results, conditional plots are produced.
+In most situations, the default behavior is to represent the cross-validation results for each model by a vertical line segment (i.e., to call the default method of xyplot with type = "h"). However, the behavior is different for objects of class "cvTuning" with only one numeric tuning parameter.
+In that situation, the cross-validation results are plotted against the values of the tuning parameter as a connected line (i.e., by using type = "b").
+The default behavior can of course be overridden by supplying the type argument (a full list of accepted values can be found in the help file of panel.xyplot).
+
+
+#### Examples 
+```{r}
+
+library("robustbase")
+data("coleman")
+set.seed(1234) # set seed for reproducibility
+## set up folds for cross-validation
+folds <- cvFolds(nrow(coleman), K = 5, R = 10)
+
+## compare LS, MM and LTS regression
+# perform cross-validation for an LS regression model
+fitLm <- lm(Y ~ ., data = coleman)
+cvFitLm <- cvLm(fitLm, cost = rtmspe,
+folds = folds, trim = 0.1)
+```
+
+```{r}
+# perform cross-validation for an MM regression model
+fitLmrob <- lmrob(Y ~ ., data = coleman, k.max = 500)
+cvFitLmrob <- cvLmrob(fitLmrob, cost = rtmspe,
+folds = folds, trim = 0.1)
+# perform cross-validation for an LTS regression model
+fitLts <- ltsReg(Y ~ ., data = coleman)
+cvFitLts <- cvLts(fitLts, cost = rtmspe,
+folds = folds, trim = 0.1)
+```
+
+```{r}
+# combine and plot results
+cvFits <- cvSelect(LS = cvFitLm, MM = cvFitLmrob, LTS = cvFitLts)
+cvFits
+xyplot(cvFits)
+## compare raw and reweighted LTS estimators for
+## 50% and 75% subsets
+# 50% subsets
+fitLts50 <- ltsReg(Y ~ ., data = coleman, alpha = 0.5)
+cvFitLts50 <- cvLts(fitLts50, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+```
+
+```{r}
+# 75% subsets
+fitLts75 <- ltsReg(Y ~ ., data = coleman, alpha = 0.75)
+cvFitLts75 <- cvLts(fitLts75, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+```
+
+```{r}
+# combine and plot results
+cvFitsLts <- cvSelect("0.5" = cvFitLts50, "0.75" = cvFitLts75)
+cvFitsLts
+xyplot(cvFitsLts)
+## evaluate MM regression models tuned for
+## 80%, 85%, 90% and 95% efficiency
+tuning <- list(tuning.psi=c(3.14, 3.44, 3.88, 4.68))
+```
+
+```{r}
+# perform cross-validation
+cvFitsLmrob <- cvTuning(fitLmrob$call, data = coleman,
+y = coleman$Y, tuning = tuning, cost = rtmspe,
+folds = folds, costArgs = list(trim = 0.1))
+cvFitsLmrob
+
+# plot results
+xyplot(cvFitsLmrob)
+```
+
+
+#### Value
+An object of class "trellis" is returned invisibly. The update method can be used to update components
+of the object and the print method (usually called by default) will plot it on an appropriate
+plotting device.
+Author(s)
+Andreas Alfons
+See Also
+cvFit, cvSelect, cvTuning, plot, dotplot, bwplot, densityplot

@@ -1,0 +1,47 @@
+---
+title: "``arsenal::``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+as.data.frame.tableby as.data.frame.tableby
+
+#### Description
+
+Coerce a tableby object to a data.frame.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'tableby'
+as.data.frame(x, ..., labelTranslations = NULL,
+list.ok = FALSE)
+
+</code></pre>
+#### Arguments
+
+* ``x``:  A tableby object.
+... 
+</code></pre>
+#### Arguments
+ to pass to tableby.control.
+labelTranslations
+A named list (or vector) where the name is the label in the output to be replaced
+in the pretty rendering by the character string value for the named element of
+the list, e.g., list(age = "Age(Years)", meansd = "Mean(SD)").
+list.ok
+If the object has multiple by-variables, is it okay to return a list of data.frames
+instead of a single data.frame? If FALSE but there are multiple by-variables, a
+warning is issued.
+
+#### Value
+
+A data.frame.
+Author(s)
+Ethan Heinzen, based on code originally by Greg Dougherty
+See Also
+tableby, tableby8

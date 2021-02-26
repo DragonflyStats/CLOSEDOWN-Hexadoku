@@ -1,0 +1,97 @@
+add_gg Add ggplot2 function to frames
+#### Description
+This function adds ggplot2 functions (e.g. to add layers, change scales etc.) to the animation
+frames created with frames_spatial.
+Usage
+add_gg(frames, gg, data = NULL, ..., verbose = T)
+#### Arguments 
+frames list of ggplot2 objects, crated with frames_spatial.
+gg ggplot2 expressions (see details), either as
+6 add_gg
+* an expression of one or a list of ggplot2 functions to be added to every
+frame,
+* a list of such of the same length as frames to add different ggplot2 expressions
+per frame
+data optional data used by gg (see details), either
+* an object of any class, e.g. a data.frame, used by gg that will be added to
+all frames,
+* a list, e.g. of multiple data.frames, with length of frames to add different
+data to each frame.
+... additional (non-iterated) objects that should be visible to gg.
+verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+Details
+Agrument gg expects ggplot2 functions handed over as expressions (see expr) to avoid their evaluation
+before thex are called for the correct frame. Simply wrap your ggplot2 function into expr()
+and supply it to gg. To add multiple ggplot2 functions to be applied on every frame, supply an expression
+containing a list of ggplot2 functions (e.g. expr(list(geom_label(...), geom_text(...)))).
+This expression would be added to all frames. To add specific ggplot2 functions per frame, supply
+a list of expressions of the same length as frames. Each expression may contain a list of ggplot2
+functions, if you want to add multiple functions per frame.
+If data is used, the ggplot2 expressions supplied with gg can use the object by the name data
+for plotting. If data is a list, it must be of the same length as frames. The list will be iterated,
+so that functions in gg will have access to the individual objects within the list by the name data
+per each frame. If the data you want to display is does not change with frames and may only be a
+character vector or similiar, you may not need data, as you can supply the needed values within the
+expression supplied through gg.
+If you supply gg as a list of expressions for each frame and data as a list of objects (e.g. data.frames)
+for each frame, each frame will be manipulated with the corresponding ggplot2 function and the
+corresponding data.
+Value
+List of frames.
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_spatial frames_graph animate_frames
+add_gg 7
+#### Examples
+library(moveVis)
+library(move)
+library(ggplot2)
+data("move_data", "basemap_data")
+# align movement
+m <- align_move(move_data, res = 4, unit = "mins")
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor")
+frames[[100]] # take a look at one of the frames
+# let's draw a polygon on frames:
+data <- data.frame(x = c(8.917, 8.924, 8.924, 8.916, 8.917),
+y = c(47.7678, 47.7675, 47.764, 47.7646, 47.7678))
+frames = add_gg(frames, gg = expr(geom_path(aes(x = x, y = y), data = data,
+colour = "red", linetype = "dashed")), data = data)
+# add some text
+frames <- add_text(frames, "Static feature", x = 8.9205, y = 47.7633,
+colour = "black", size = 3)
+frames[[100]]
+# add_gg can also be used iteratively to manipulate each frame differently.
+# Let's create unique polygons per frame:
+# create data.frame containing corner coordinates
+data <- data.frame(x = c(8.96, 8.955, 8.959, 8.963, 8.968, 8.963, 8.96),
+y = c(47.725, 47.728, 47.729, 47.728, 47.725, 47.723, 47.725))
+# make a list from it by replicating it by the length of frames
+data <- rep(list(data), length.out = length(frames))
+# now alter the coordinates to make them shift
+data <- lapply(data, function(x){
+y <- rnorm(nrow(x)-1, mean = 0.00001, sd = 0.0001)
+x + c(y, y[1])
+})
+# draw each individual polygon to each frame
+frames = add_gg(frames, gg = expr(geom_path(aes(x = x, y = y), data = data,
+colour = "black")), data = data)
+# add a text label
+frames <- add_text(frames, "Dynamic feature", x = 8.959, y = 47.7305,
+colour = "black", size = 3)
+frames[[100]]
+# animate frames to see how the polygons "flip"
+animate_frames(frames, out_file = tempfile(fileext = ".mov"))
+8 add_labels
+# you can use add_gg on any list of ggplot2 objects,
+# also on frames made using frames_gr
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+frames.gr <- frames_graph(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE, graph_type = "hist", val_by = 0.01)
+frames.gr[[100]]
+# manipulate the labels, since they are very dense:
+# just replace the current scale
+frames.gr <- add_gg(frames.gr, expr(scale_x_continuous(breaks=seq(0,1,0.1),
+labels=seq(0,1,0.1), expand = c(0,0))))
+frames.gr[[100]]

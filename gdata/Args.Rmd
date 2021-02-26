@@ -1,0 +1,51 @@
+---
+title: "``gdata::Args``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+Args - 
+Describe Function 
+Arguments
+
+
+#### Description
+
+Display function argument names and corresponding default values, formatted in two columns for
+easy reading.
+
+#### Usage
+<pre><code>
+
+Args(name, sort=FALSE)
+
+</code></pre>
+#### Arguments
+
+* name a function or function name.
+* sort whether arguments should be sorted.
+
+#### Value
+
+A data frame with named rows and a single column called value, containing the default value of
+each argument.
+Note
+Primitive functions like sum and all have no formal arguments. See the formals help page.bindData
+5
+Author(s)
+Arni Magnusson
+See Also
+Args is a verbose alternative to args, based on formals.
+help also describes function arguments.
+
+#### Examples
+```{r}
+
+Args(glm)
+Args(scan)
+Args(legend, sort=TRUE)
+```
+

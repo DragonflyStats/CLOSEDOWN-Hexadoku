@@ -1,0 +1,106 @@
+---
+title: "Untitled"
+author: "Kevin O Brien"
+date: "28 August 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(cvTools)
+```
+
+densityplot.cv Kernel density plots of cross-validation results
+
+#### Description 
+
+Produce kernel density plots of results from repeated K-fold cross-validation.
+
+#### Usage 
+<pre><code>
+
+## S3 method for class 'cv'
+densityplot(x, data, select = NULL, ...)
+## S3 method for class 'cvSelect'
+densityplot(x, data, subset = NULL,
+select = NULL, ...)
+
+</code></pre>
+#### Arguments 
+
+* x an object inheriting from class "cv" or "cvSelect" that contains cross-validation results.
+* data currently ignored.
+* subset a character, integer or logical vector indicating the subset of models for which to plot the cross-validation results.
+* select a character, integer or logical vector indicating the columns of cross-validation results to be plotted.
+* ... additional  Arguments to be passed to the "formula" method of densityplot.
+
+#### Details 
+
+For objects with multiple columns of repeated cross-validation results, conditional kernel density
+plots are produced.
+
+#### Value
+An object of class "trellis" is returned invisibly. The update method can be used to update components
+of the object and the print method (usually called by default) will plot it on an appropriate
+plotting device.
+
+#### Author(s)
+Andreas Alfons
+densityplot.cv 27
+See Also
+cvFit, cvSelect, cvTuning, plot, bwplot, xyplot, dotplot
+
+#### Examples 
+```{r}
+
+library("robustbase")
+data("coleman")
+set.seed(1234) # set seed for reproducibility
+## set up folds for cross-validation
+folds <- cvFolds(nrow(coleman), K = 5, R = 50)
+```
+
+```{r}
+## compare LS, MM and LTS regression
+# perform cross-validation for an LS regression model
+fitLm <- lm(Y ~ ., data = coleman)
+cvFitLm <- cvLm(fitLm, cost = rtmspe,
+folds = folds, trim = 0.1)
+```
+
+```{r}
+# perform cross-validation for an MM regression model
+fitLmrob <- lmrob(Y ~ ., data = coleman, k.max = 500)
+cvFitLmrob <- cvLmrob(fitLmrob, cost = rtmspe,
+folds = folds, trim = 0.1)
+# perform cross-validation for an LTS regression model
+fitLts <- ltsReg(Y ~ ., data = coleman)
+cvFitLts <- cvLts(fitLts, cost = rtmspe,
+folds = folds, trim = 0.1)
+# combine results into one object
+cvFits <- cvSelect(LS = cvFitLm, MM = cvFitLmrob, LTS = cvFitLts)
+cvFits
+# plot results for the MM regression model
+densityplot(cvFitLmrob)
+# plot combined results
+densityplot(cvFits)
+```
+
+```{r}
+## compare raw and reweighted LTS estimators for
+## 50% and 75% subsets
+# 50% subsets
+fitLts50 <- ltsReg(Y ~ ., data = coleman, alpha = 0.5)
+cvFitLts50 <- cvLts(fitLts50, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+# 75% subsets
+fitLts75 <- ltsReg(Y ~ ., data = coleman, alpha = 0.75)
+cvFitLts75 <- cvLts(fitLts75, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+
+# combine and plot results
+cvFitsLts <- cvSelect("0.5" = cvFitLts50, "0.75" = cvFitLts75)
+cvFitsLts
+densityplot(cvFitsLts)
+```

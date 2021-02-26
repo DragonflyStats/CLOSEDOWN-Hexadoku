@@ -1,0 +1,50 @@
+---
+title: "timevis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+addItem
+Add a single item to a timeline
+
+#### Description
+
+Add a single item to a timeline
+
+#### Usage
+<pre><code>
+
+addItem(id, data)
+
+<code></pre>
+
+#### Arguments
+
+* id Timeline id or a timevis object (the output from timevis())
+* data A named list containing the item data to add.
+
+#### Examples
+```{r}
+
+timevis() %>%
+  addItem(list(start = Sys.Date(), content = "Today"))
+if (interactive()) {
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      timevisOutput("timeline"),
+      actionButton("btn", "Add item today")
+    ),
+    server = function(input, output) {
+      output$timeline <- renderTimevis(
+        timevis()
+      )
+      observeEvent(input$btn, {
+      )
+      }
+    }
+})
+  addItem("timeline", list(start = Sys.Date(), content = "Today"))
+```

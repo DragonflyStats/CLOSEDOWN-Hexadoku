@@ -1,0 +1,97 @@
+---
+title: "cvTools"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+* Package 'cvTools'
+* February 19, 2015
+* Type Package
+* Title Cross-validation tools for regression models
+* Version 0.3.2
+* Date 2012-05-11
+* Author Andreas Alfons
+* Maintainer Andreas Alfons <andreas.alfons@econ.kuleuven.be>
+* Depends R (>= 2.11.0), lattice, robustbase
+* Imports lattice, robustbase, stats
+
+#### Description 
+ Tools that allow developers to write functions for
+cross-validation with minimal programming effort and assist
+users with model selection.
+License GPL (>= 2)
+LazyLoad yes
+Collate 'accessors.R' 'aggregate.R' 'bwplot.R' 'cost.R' 'cvFit.R' 'cvFolds.R' 'cvReshape.R' 'cvSelect.R' 'cvTool.R' 'cvTuning.R'
+'densityplot.R' 'dotplot.R' 'plot.R' 'print.R' 'repCV.R' 'selectBest.R' 'subset.R' 'summary.R' 'utils.R' 'xyplot.R'
+Repository CRAN
+Date/Publication 2012-05-14 15:13:43
+NeedsCompilation no
+
+#### R topics documented:
+cvTools-package          . . 2
+accessors           . . 3
+aggregate.cv           . 5
+bwplot.cv           . . 7
+cost            . 9
+cvFit            . 11
+cvFolds           . . . 14
+cvReshape           . . 15
+1
+2 cvTools-package
+cvSelect           . . . 17
+cvTool            20
+cvTuning           . . 22
+densityplot.cv           26
+dotplot.cv           . . 28
+plot.cv            30
+repCV            32
+subset.cv           . . . 35
+summary.cv           . 36
+xyplot.cv           . . 38
+
+cvTools-package Cross-validation tools for regression models
+
+#### Description 
+
+Tools that allow developers to write functions for cross-validation with minimal programming effort
+and assist users with model selection.
+
+#### Details 
+
+Package: cvTools
+Type: Package
+Version: 0.3.2
+Date: 2012-05-11
+Depends: R (>= 2.11.0), lattice, robustbase
+Imports: lattice, robustbase, stats
+License: GPL (>= 2)
+LazyLoad: yes
+Index:
+accessors Access or set information on cross-validation
+results
+aggregate.cv Aggregate cross-validation results
+bwplot.cv Box-and-whisker plots of cross-validation
+results
+cost Prediction loss
+cvFit Cross-validation for model evaluation
+cvFolds Cross-validation folds
+cvReshape Reshape cross-validation results
+cvSelect Model selection based on cross-validation
+cvTool Low-level function for cross-validation
+cvTools-package Cross-validation tools for regression models
+cvTuning Cross-validation for tuning parameter selection
+densityplot.cv Kernel density plots of cross-validation
+results
+dotplot.cv Dot plots of cross-validation results
+plot.cv Plot cross-validation results
+repCV Cross-validation for linear models
+subset.cv Subsetting cross-validation results
+summary.cv Summarize cross-validation results
+xyplot.cv X-Y plots of cross-validation results
+
+#### Author(s)
+Andreas Alfons
+Maintainer: Andreas Alfons <andreas.alfons@econ.kuleuven.be>

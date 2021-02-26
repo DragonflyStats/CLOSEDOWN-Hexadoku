@@ -1,0 +1,48 @@
+---
+title: "``arsenal::mockstudy``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+
+
+Mock study data for examples
+
+#### Description
+
+Mock clinical study data for examples to test data manipulation and statistical functions. The function ``muck_up_mockstudy()`` is used in examples for ``compare.data.frame``.
+
+#### Usage
+<pre><code>
+
+mockstudy
+muck_up_mockstudy()
+</code></pre>
+
+#### Format
+A data frame with 1499 observations on the following 15 variables:
+case a numeric identifier-patient ID
+* age age in years
+* arm treatment arm divided into 3 groups, character string
+* sex a factor with levels Male Female
+* race self-reported race/ethnicity, character string
+* fu.time survival or censoring time in years
+* fu.stat censoring status; 1=censor, 2=death
+* ps integer, ECOG performance score
+* hgb numeric, hemoglobin count
+* bmi numeric, body mass index, kg/m^2
+* alk.phos numeric, alkaline phosphatase
+* ast numeric, aspartate transaminase
+* mdquality.s integer, LASA QOL 0=Clinically Deficient, 1=Not Clinically Deficient
+* age.ord an ordered factor split of age, with levels 10-19 < 20-29 < 30-39 < 40-49 < 50-59 <
+60-69 < 70-79 < 80-89
+
+#### Examples
+```{r}
+data(mockstudy)
+str(mockstudy)
+```

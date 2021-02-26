@@ -1,0 +1,85 @@
+
+---
+title: "``gdata::upperTriangle``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+
+#### Description
+
+Extract or replace the upper/lower triangular portion of a matrix
+
+#### Usage
+<pre><code>
+
+upperTriangle(x,
+upperTriangle(x,
+lowerTriangle(x,
+lowerTriangle(x,
+diag=FALSE,
+diag=FALSE,
+diag=FALSE,
+diag=FALSE,
+byrow=FALSE)
+byrow=FALSE) <- value
+byrow=FALSE)
+byrow=FALSE) <- value
+
+</code></pre>
+#### Arguments
+
+* ``x``: Matrix
+* ``diag``:  Logical. If TRUE, include the matrix diagonal.
+* ``byrow``:  Logical If FALSE, return/replace elements in column-wise order. If TRUE, return/replace elements in row-wise order.
+* ``value``: Either a single value or a vector of length equal to that of the current upper/lower triangular. Should be of a mode which can be coerced to that of x.
+
+#### Examples
+
+```{r}
+
+x <- matrix( 1:25, nrow=5, ncol=5)
+x
+upperTriangle(x)
+upperTriangle(x, diag=TRUE)
+upperTriangle(x, diag=TRUE, byrow=TRUE)
+lowerTriangle(x)
+lowerTriangle(x, diag=TRUE)
+lowerTriangle(x, diag=TRUE, byrow=TRUE)
+upperTriangle(x) <- NA
+x
+upperTriangle(x, diag=TRUE) <- 1:15
+x
+lowerTriangle(x) <- NA
+x
+lowerTriangle(x, diag=TRUE) <- 1:15
+x
+## Copy lower triangle into upper triangle to make
+## the matrix (diagonally) symmetric
+x <- matrix(LETTERS[1:25], nrow=5, ncol=5, byrow=TRUE)
+x
+lowerTriangle(x) = upperTriangle(x, byrow=TRUE)
+x
+```
+
+#### Value
+
+upperTriangle(x) and lowerTriangle(x) return the upper or lower triangle of matrix x, respectively. The assignment forms replace the upper or lower triangular area of the matrix with the
+provided value(s).
+
+Note
+By default, the elements are returned/replaced in R’s default column-wise order. Thus lowerTriangle(x) <- upperTriangle(x)
+will not yield a symmetric matrix. Instead use:
+lowerTriangle(x) <- upperTriangle(x, byrow=TRUE)
+or equivalently:
+lowerTriangle(x, byrow=TRUE) <- upperTriangle(x)
+
+#### Author(s)
+Gregory R. Warnes <greg@warnes.net>60
+wideByFactor
+See Also
+diag, lower.tri, upper.tri

@@ -1,0 +1,63 @@
+
+---
+title: "``gdata::trim``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+## ``trim``
+
+Remove leading and trailing spaces from character strings
+
+#### Description
+
+Remove leading and trailing spaces from character strings and other related objects.
+
+#### Usage
+<pre><code>
+
+trim(s, recode.factor=TRUE, ...)
+
+</code></pre>
+#### Arguments
+
+* ``s``: object to be processed
+recode.factor should levels of a factor be recoded, see below
+* ``...``: arguments passed to other methods, currently only to reorder.factor for factors
+
+#### Details
+
+trim is a generic function, where default method does nothing, while method for character s
+trims its elements and method for factor s trims levels. There are also methods for list and data.frame.
+Trimming character strings can change the sort order in some locales. For factors, this can affect the coding of levels. By default, factor levels are recoded to match the trimmed sort order, but this
+can be disabled by setting recode.factor=FALSE. Recoding is done with reorder.factor.
+Values with all leading and trailing spaces removed in its elements.
+
+#### Author(s)
+Gregory R. Warnes <greg@warnes.net> with contributions by Gregor GorjanctrimSum
+53
+See Also
+trimws, sub,gsub as well as argument strip.white in read.table and reorder.factor
+
+#### Examples
+```{r}
+
+s <- "
+trim(s)
+this is an example string
+f <- factor(c(s, s, " A", " B ", "
+levels(f)
+"
+C ", "D "))
+trim(f)
+levels(trim(f))
+trim(f, recode.factor=FALSE)
+levels(trim(f, recode.factor=FALSE))
+l <- list(s=rep(s, times=6), f=f, i=1:6)
+trim(l)
+df <- as.data.frame(l)
+trim(df)
+```

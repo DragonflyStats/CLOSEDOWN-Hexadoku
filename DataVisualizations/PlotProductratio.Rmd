@@ -1,0 +1,49 @@
+---
+title: "``DataVisualizations::``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+PlotProductratio Product-Ratio Plot
+#### Description
+The product-ratio plot as defined in [Tukey, 1977, p. 594].
+
+#### Usage
+<pre><code>
+PlotProductratio(x, y, na.rm = FALSE,
+                 main='Product Ratio Analysis',xlab = "Log of Ratio",ylab = "Root of Product", ...)
+</code></pre>
+#### Arguments
+x [1:n] positive numerical vector, negativ values are removed automatically
+y [1:n] positive numerical vector, negativ values are removed automatically
+na.rm Function may not work with non finite values. If these cases should be automatically
+removed, set parameter TRUE
+main see plot
+ylab see plot
+xlab see plot
+... further arguments passed on to plot
+
+#### Examples
+```{r}
+#Beware: The data does no fit ne requirements for this approach
+data('ITS')
+data(MTY)
+PlotProductratio(ITS,MTY)
+50 QQplot
+```
+
+#### Details
+In the case where there are many instances of very small values, but a small number of very large
+ones, this plot is usefull [Tukey, 1977, p. 615].
+Value
+matrix[1:n,2] with sqrt(x*y) and log(x/y) as the two columns
+Author(s)
+Michael Thrun
+References
+[Tukey, 1977] Tukey, J. W.: Exploratory data analysis, United States Addison-Wesley Publishing
+Company, ISBN: 0-201-07616-0, 1977.

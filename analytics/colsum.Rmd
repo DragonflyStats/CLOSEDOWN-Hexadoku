@@ -1,0 +1,51 @@
+---
+title: "``colsum ``: Give Row sums of a Matrix-like Object, Based on a Grouping Variable"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+## colsum Give Row sums of a Matrix-like Object, Based on a Grouping Variable
+
+#### Description
+Compute Row sums across columns of a numeric matrix-like object for each level of a grouping
+variable.
+
+#### Usage
+<pre><code>
+colsum(M, group = colnames(M), reord = FALSE, na_rm = FALSE, big = TRUE, ...)
+</code></pre>
+
+#### Arguments
+* M a matrix, data frame or vector of numeric data. Missing values are allowed. A numeric vector will be treated as a column vector.
+* group a vector or factor giving the grouping, with one element per row of M. Default: rownames of M.
+* reord if TRUE, then the result will be in order of sort(unique(group)), if FALSE (the default), it will be in the order that groups were encountered.
+* na_rm logical (TRUE or FALSE). Should NA (including NaN) values be discarded?
+* big is your object big and integer overflow is likely? If TRUE, then M is multiplied by 1.0 to ensure values are of type double (perhaps taking more RAM).
+* ... other arguments to be passed to or from methods.
+
+#### Examples
+
+<pre><code>
+A <- matrix(1:8, ncol = 4)
+colnames(A) <- c("A", "B", "A", "B")
+colsum(A)
+</code></pre>
+
+#### Details
+
+This function is a wrapper for base function rowsum and is its "column" version.
+
+#### Value
+
+A matrix-like object containing the sums by group. There will be one row per unique value of group.
+
+#### Author(s)
+
+Albert Dorador
+
+#### See Also
+rowsum

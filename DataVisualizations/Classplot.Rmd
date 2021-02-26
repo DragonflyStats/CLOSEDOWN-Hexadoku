@@ -1,0 +1,49 @@
+
+---
+title: "``DataVisualizations::Classplot``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+Classplot Classplot
+#### Description
+Allows to plot one time series or feauture with a classification as a labeled scatter plot with a line. The colors are the labels defined by the classification. Usefull to see if temporal clustering has time dependent variations and for Hidden Markov Models (see Mthrun/RHmm on GitHub).
+
+#### Usage
+<pre><code>
+Classplot(X, Y, Cls,
+xlab = "X", ylab = "Y",
+main = "Class Plot", Colors,
+LineColor = "grey", LineWidth = 1, LineType = NULL,
+Showgrid = TRUE, SaveIt = FALSE)
+</code></pre>
+
+#### Arguments
+
+* X [1:n] numeric vector or time
+* Y [1:n] numeric vector of feature
+* Cls [1:n] numeric vector of k classes
+* xlab Optional, string
+* ylab Optional, string
+* main Optional, string
+* Colors Optional, string
+* LineColor Optional, name of color
+* LineWidth Optional, number
+* LineType Optional, string
+* Showgrid Optional, boolean
+* SaveIt Optional, boolean
+
+#### Value
+plotly object
+
+#### Author(s)
+Michael Thrun
+
+See Also
+DualaxisClassplot

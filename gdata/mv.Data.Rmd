@@ -1,0 +1,51 @@
+---
+title: "gdata"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+### mv
+Rename an Object
+
+#### Description
+
+Rename an object.
+
+#### Usage
+<pre><code>
+
+mv(from, to, envir = parent.frame())
+
+</code></pre>
+#### Arguments
+
+* from Character scalar giving the source object name
+* to Character scalar giving the desination object name
+* envir Environment in which to do the rename
+
+#### Details
+
+This function renames an object by the value of object a to the name b, and removing a.
+
+#### Value
+
+Invisibly returns the value of the object.
+Author(s)
+Gregory R. Warnes <greg@warnes.net>38
+nobs
+See Also
+rm, assign
+
+#### Examples
+```{r}
+
+a <- 1:10
+a
+mv("a", "b")
+b
+exists("a")
+```

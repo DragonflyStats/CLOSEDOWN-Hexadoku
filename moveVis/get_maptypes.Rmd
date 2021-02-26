@@ -1,0 +1,26 @@
+get_maptypes Get all supported map types
+#### Description
+This function returns every supported map type that can be used as input to the map_type argument
+of frames_spatial.
+Usage
+get_maptypes(map_service = NULL)
+#### Arguments 
+map_service character, optional, either "osm", "carto" or "mapbox". Otherwise, a list of
+map types for both services is returned.
+Value
+A character vector of supported map types
+See Also
+frames_spatial
+#### Examples
+# for all services
+get_maptypes()
+# for osm only
+get_maptypes("osm")
+# or
+get_maptypes()$osm
+# for mapbox only
+30 join_frames
+get_maptypes("mapbox")
+# or
+get_maptypes()$mapbox
+# same for all other map services

@@ -1,0 +1,38 @@
+---
+title: "``DataVisualizations::Lsun3D ``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+Lsun3D Lsun3D inspired by FCPS
+#### Description
+clearly defined clusters, different variances
+
+#### Usage
+<pre><code>
+data("Lsun3D")
+
+</code></pre>
+
+#### Examples
+```{r}
+data(Lsun3D)
+str(Lsun3D)
+Cls=Lsun3D$Cls
+Data=Lsun3D$Data
+```
+
+#### Details
+Size n=404, Dimensions d=3
+Dataset defined discontinuites, where the clusters have different variances. Three main Clusters, and four Outliers (in Cluster 4), see [Thrun, 2018]
+
+#### References
+[Thrun, 2018] Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm
+Intelligence, doctoral dissertation 2017, Springer, ISBN: 978-3-658-20540-9, Heidelberg, 2018.
+MAplot 33

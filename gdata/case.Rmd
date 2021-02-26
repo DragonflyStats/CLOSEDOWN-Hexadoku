@@ -1,0 +1,53 @@
+---
+title: "``gdata::case```"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+Map elements of a vector according to the provided ’cases’
+
+#### Description
+
+Map elements of a vector according to the provided ’cases’. This function is useful for mapping
+discrete values to factor labels and is the vector equivalent to the switch function.
+
+#### Usage
+<pre><code>
+
+case(x, ..., default = NA)
+
+</code></pre>
+#### Arguments
+
+* x Vector to be converted
+* ... Map of alternatives, specified as "name"=value default value to be assigned to elements of x not matching any of the alternatives. Defaults to NA.
+
+
+#### Examples
+```{r}
+
+## default = NA
+case( c(1,1,4,3), "a"=1, "b"=2, "c"=3)
+## default = "foo"
+case( c(1,1,4,3), "a"=1, "b"=2, "c"=3, default="foo" )
+````
+#### Details
+
+This function is to switch what ifelse is to if, and is a convenience wrapper for factor.
+
+#### Value
+
+A factor variables with each element of x mapped into the corresponding level of specified in the
+mapping.
+Author(s)
+Gregory R. Warnes <greg@warnes.net>
+See Also
+factor, switch, ifelse
+
+
+
+

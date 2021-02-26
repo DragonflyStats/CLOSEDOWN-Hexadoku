@@ -1,0 +1,41 @@
+
+is.what
+Run Multiple is.* Tests on a Given Object
+
+#### Description
+
+Run multiple is.* tests on a given object: is.na, is.numeric, and many others.keep
+27
+
+#### Usage
+<pre><code>
+
+is.what(object, verbose=FALSE)
+
+</code></pre>
+#### Arguments
+
+object any R object.
+verbose whether negative tests should be included in output.
+
+#### Value
+
+A character vector containing positive tests, or when verbose is TRUE, a data frame showing all test
+results.
+Note
+The following procedure is used to look for valid tests:
+1. Find all objects named is.* in all loaded environments.
+2. Discard objects that are not functions.
+3. Include test result only if it is of class "logical", not an NA, and of length 1.
+Author(s)
+Arni Magnusson, inspired by demo(is.things).
+See Also
+is.na and is.numeric are commonly used tests.
+
+#### Examples
+```{r}
+
+is.what(pi)
+is.what(NA, verbose=TRUE)
+is.what(lm(1~1))
+is.what(is.what)

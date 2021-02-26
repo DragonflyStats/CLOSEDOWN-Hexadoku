@@ -1,0 +1,62 @@
+---
+title: "``gdata::ll``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ll
+Describe Objects or Elements
+
+#### Description
+
+Display name, class, size, and dimensions of each object in a given environment. Alternatively, if the main argument is a list-like object, its elements are listed and described.
+
+#### Usage
+<pre><code>
+
+ll(pos=1, unit="KB", digits=0, dim=FALSE, sort=FALSE, class=NULL, invert=FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+* ``pos``: environment position number, environment name, data frame, list, model, or any object that is.list.
+* ``unit``: unit for displaying object size: "bytes", "KB", "MB", or first letter.
+* ``digits``: number of decimals to display when rounding object size.
+* ``dim``: whether object dimensions should be returned.
+* ``sort``: whether elements should be sorted by name.
+* ``class``: character vector for limiting the output to specified classes.
+* ``invert``: whether to invert the class filter, so specified classes are excluded.
+* ``...``: passed to ls.
+
+#### Value
+
+A data frame with named rows and the following columns:
+* ``Class``: object class.
+KB object size (see note).
+Dim object dimensions (optional).
+Note
+The name of the object size column is the same as the unit used.
+
+#### Author(s)
+Arni Magnusson, with a contribution by Jim Rogers
+See Also
+ll is a verbose alternative to ls (objects in an environment) and names (elements in a list-like object).
+str and summary also describe elements in a list-like objects.
+env is a related function that describes all loaded environments.
+
+#### Examples
+```{r}
+
+ll()
+ll(all=TRUE)
+ll("package:base")
+ll("package:base", class="function", invert=TRUE)
+data(infert)
+ll(infert)
+model <- glm(case~spontaneous+induced, family=binomial, data=infert)
+ll(model, dim=TRUE)
+ll(model, sort=TRUE)
+ll(model$family)
+```

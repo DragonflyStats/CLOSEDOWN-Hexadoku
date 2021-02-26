@@ -1,0 +1,169 @@
+---
+title: "Social Network Analysis"
+author: "Kevin O Brien"
+date: "5 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(egonet)
+```
+
+* Package 'egonet'
+* February 19, 2015
+* Type Package
+* Title Tool for ego-centric measures in Social Network Analysis
+* Version 1.2
+* Date 2012-11-01
+* Author A. Sciandra, F. Gioachin, L. Finos
+* Maintainer L. Finos <livio@stat.unipd.it>
+* Depends sna
+
+Description A small tool for Social Network Analysis, dealing with
+ego-centric network measures, including Burt's effective size
+and aggregate constraint and an import code suitable for a
+large number of adjacency matrices. A free web application is
+also available on http://www.egonet.associazionerospo.org
+License GPL (>= 2)
+LazyLoad yes
+Repository CRAN
+Date/Publication 2012-11-11 16:30:56
+NeedsCompilation no
+R topics documented:
+egonet-package . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+index.egonet . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+read.egonet . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+
+## egonet-package 
+Tool for ego-centric measures in Social Network Analysis
+Description
+A small tool for Social Network Analysis, dealing with ego-centric network measures, including
+Burt's effective size and aggregate constraint and an import code suitable for a large number of
+adjacency matrices.
+The Egonet package is also available as free web application on http://www.egonet.associazionerospo.org
+(and an example of output can be seen here: http://www.egonet.associazionerospo.org/egonetdata/EgonetOutput.htm)
+Details
+Package: egonet
+Type: Package
+Version: 1.0
+Date: 2010-03-11
+License: GPL (>= 2)
+LazyLoad: yes
+Author(s)
+A. Sciandra, F. Gioachin, L. Finos
+Maintainer: <livio@stat.unipd.it>
+References
+Burt, R.S. (1992) "Structural Holes. The Social Structure of Competition", Cambridge (MA), Harvard
+University Press.
+Wasserman, S. and Faust, K. (1994) "Social Network Analysis. Method and Applications", Cambridge
+(MA), Cambridge University Press.
+See Also
+sna
+Examples
+```{r}
+## This is a list of file' names containing the ego-network
+ff <- c("q1.csv","q2.csv","q3.csv")
+files <- paste("http://www.egonet.associazionerospo.org/egonetdata/",ff,sep="")
+names(files) <- ff
+
+##if all your data are in a directory (eg. egonets, containing all files with the same extension),
+##you can easily get this list with the following commands
+# ff <- dir("./egonets",pattern=".csv")
+# files <- paste("./egonets/",ff,sep="")
+# names(files) <- ff
+# Here is a dataset with demographic informations and the names of files containing the ego-network
+#we now want to add network indeces to this data.frame
+data <- data.frame( gender=c("F","F","M"), age =(2:4)*10, filename=ff)
+data
+#import all the egonets
+mats <- lapply(files,read.egonet)
+#compute (default) indices on the first subject
+index.egonet(mats[[1]])
+#compute indices on all adjacency matrices
+idx <- sapply(mats,index.egonet)
+#reshape idx in a data.frame and add the file names
+idx <- as.data.frame(t(idx))
+idx <- cbind(idx,filename=rownames(idx))
+#now merge demographic informations with the indices
+data <- merge(data,idx,by="filename")
+data
+#Compute the \code{effsize} and \code{constraint} to the restricted network with "EGO" and nodes with "P" in the name idx <- sapply(mats,index.egonet, subset = "P",index = c("effsize","constraint"))
+rownames(idx) <- paste(rownames(idx),"P",sep=".")
+idx <- as.data.frame(t(idx))
+idx <- cbind(idx,filename=rownames(idx))
+#and merge them to the dataset
+data <- merge(data,idx,by="filename")
+data
+```
+
+index.egonet Compute Burt's indexes (effective size and aggregate constraint) and
+other measure from sna package
+Description
+Compute Burt's indexes (effective size and aggregate constraint) and other measure from sna package.
+It also allow to restrict the analysis to one social circle identified by the name of the alters.
+4 index.egonet
+Usage
+index.egonet(dat, index = list("effsize", "constraint", "outdegree", "indegree", "efficiency", "hierarchy", Arguments
+dat graph to be analyzed having row and column names in the same order.
+index is a list containing prespecified index functions. effsize and constraint
+are defined in as in Burt (1992) \ outdegree and indegree make a call of
+degree(dat, cmode="outdegree") and degree(dat, cmode="indegree")
+and take the element corresponding to ego.name\ ego.gden applies gden in a
+matrix without ego.name connections. \ Other indeces are call of the homonimous
+functions of package sna. \ If the generic element is.call(index[[h]])
+is TRUE, it will be evaluated in the global environment: eval(index[[h]],envir =.GlobalEnv)
+(see also example below)
+subset Restricts the analysis to the nodes with at least one among the elements of
+vector in the name. If vector = NULL - the default - all the nodes of the
+graph are comprised.
+ego.name column and row name given to the ego subject. The default is EGO
+Value
+The requested indices.
+Author(s)
+A. Sciandra, F. Gioachin, L. Finos <livio@stat.unipd.it>
+References
+Burt, R.S. (1992) "Structural Holes. The Social Structure of Competition", Cambridge (MA), Harvard
+University Press.
+Examples
+```{r}
+# make a toy dataset
+egomat <- matrix(c(0,1,1,1,0,0,1,0,0),3,3)
+colnames(egomat) <- rownames(egomat) <- c("EGO", "1P", "1A")
+index.egonet(egomat)
+# an example with self defined index
+my.outdegree <- function(dat) degree(dat,cmod="outdegree")[1]
+index.egonet(egomat,index=c("effsize","constraint","outdegree","indegree","efficiency", "centralization", "gden"))
+#Restricts the \code{outdegree} and \code{efficiency} to "EGO" and nodes with "P" in the name
+index.egonet(egomat,index=c("outdegree","efficiency"),subset="P")
+```
+
+
+read.egonet Reads ego-centric graph in table format and creates a matrix suitable
+for SNA.
+
+#### Description
+Reads text table and creates ego-centric graph from it, with the ego actor in the first row and column.
+The result is a square matrix with common input/output connection' names.
+
+#### Usage
+read.egonet(file, sep=",", dec=".", ego.name="EGO")
+
+#### Arguments
+* file the name of the file which the data are to be read from. It must be a square matrix, with node's names in the first row and column. See also file of read.table
+* sep as in read.table
+* dec as in read.table
+* ego.name column and row name given to the ego subject. The default is EGO
+
+#### Value
+A square matrix containing the ego-centric network of the data in the file.
+Author(s)
+F. Gioachin, A. Sciandra, L. Finos <livio@stat.unipd.it>
+See Also
+read.table
+Examples
+```{r}
+dat <- read.egonet("http://www.egonet.associazionerospo.org/egonetdata/q1.csv")
+dat
+```

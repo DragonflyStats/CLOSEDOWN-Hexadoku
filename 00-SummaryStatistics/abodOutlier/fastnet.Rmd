@@ -1,0 +1,1421 @@
+---
+title: "afastnet"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(fastnet)
+```
+
+
+Package 'fastnet'
+September 11, 2018
+Type Package
+Title Large-Scale Social Network Analysis
+Version 0.1.6
+Description We present an implementation of the algorithms required to simulate largescale
+social networks and retrieve their most relevant metrics.
+License GPL (>= 2)
+Imports doParallel (>= 1.0.0), foreach (>= 1.4.0), igraph (>= 1.2.0),
+tidygraph(>= 1.1.0)
+Depends R (>= 3.5.0)
+Encoding UTF-8
+LazyData true
+BugReports https://github.com/networkgroupR/fastnet/issues
+RoxygenNote 6.1.0
+NeedsCompilation no
+Author Nazrul Shaikh [aut, cre],
+Xu Dong [aut],
+Luis Castro [aut],
+Christian Llano [ctb]
+Maintainer Nazrul Shaikh <networkgroupr@gmail.com>
+Repository CRAN
+Date/Publication 2018-09-11 06:00:02 UTC
+R topics documented:
+degree.collect . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+degree.dist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+degree.hist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+draw.net . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+from.adjacency . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+from.edgelist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+1
+2 R topics documented:
+from.igraph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+from.statnet . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+metric.cluster.global . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+metric.cluster.mean . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+metric.cluster.median . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+metric.degree.effective . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+metric.degree.entropy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+metric.degree.max . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+metric.degree.max.efficient . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+metric.degree.mean . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+metric.degree.median . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+metric.degree.min . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+metric.degree.sd . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+metric.distance.apl . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+metric.distance.diameter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+metric.distance.effdia . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+metric.distance.meanecc . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+metric.distance.medianecc . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+metric.distance.mpl . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+metric.eigen.mean . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+metric.eigen.median . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+metric.eigen.value . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+metric.graph.density . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+neighbors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+net.barabasi.albert . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+net.caveman . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+net.complete . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+net.erdos.renyi.gnm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+net.erdos.renyi.gnp . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+net.holme.kim . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+net.random.plc . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+net.rewired.caveman . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+net.ring.lattice . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+net.watts.strogatz . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+preview.deg . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+preview.net . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+to.edgelist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+to.igraph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+to.tidygraph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+Index 42
+degree.collect 3
+degree.collect Degrees of nodes
+
+#### Description
+Collect the degrees for all nodes in a network.
+
+#### Usage
+<pre><code>
+
+degree.collect(net)
+
+</code></pre>
+#### Arguments
+net The input network.
+Details
+Obtain the degrees for all nodes.
+#### Value
+A vector.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x.deg <- degree.collect(x)
+summary(x.deg)
+## End(Not run)
+degree.dist Plot of the degree distribution of a network
+
+#### Description
+Plot the degree distribution of a network.
+
+#### Usage
+<pre><code>
+
+degree.dist(net, cumulative = TRUE, log = TRUE)
+4 degree.hist
+
+</code></pre>
+#### Arguments
+net The input network.
+cumulative A logical index asking whether a cumulative distribution should be returned.
+log A logical index asking whether a logarithm-scaled distribution should be returned.
+Details
+Plot the degree distribution of a network.
+#### Value
+A .gif plot.
+Author(s)
+Xu Dong
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+## Plot the standard degree distribution of x.
+degree.dist(x, cumulative = FALSE, log = FALSE)
+## Plot the degree distribution of x, with a logarithm scale.
+degree.dist(x, cumulative = FALSE, log = TRUE)
+## Plot the cumulative degree distribution of x.
+degree.dist(x, cumulative = TRUE, log = FALSE)
+## Plot the cumulative degree distribution of x, with a logarithm scale.
+degree.dist(x, cumulative = TRUE, log = TRUE)
+## End(Not run)
+degree.hist Histogram of the degree distribution of a network
+
+#### Description
+Plot the histogram of all degrees of a network.
+
+#### Usage
+<pre><code>
+
+degree.hist(g, breaks = 100)
+draw.net 5
+
+</code></pre>
+#### Arguments
+g The input network.
+breaks A single number giving the number of cells for the histogram.
+Details
+Plot the histogram of all degrees of a network.
+#### Value
+A .gif plot.
+Author(s)
+Xu Dong
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.05)
+degree.hist(x)
+## End(Not run)
+draw.net Plot of a small network
+
+#### Description
+Plot a small network.
+
+#### Usage
+<pre><code>
+
+draw.net(net)
+
+</code></pre>
+#### Arguments
+net The input network.
+Details
+Plot a small network.
+#### Value
+A .gif plot.
+6 from.adjacency
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.ring.lattice(12,4)
+draw.net(x)
+## End(Not run)
+from.adjacency Adjacency Matrix to fastnet
+
+#### Description
+Transform an adjacency matrix to an ego-centric list form used in fastnet.
+
+#### Usage
+<pre><code>
+
+from.adjacency(adj.mat)
+
+</code></pre>
+#### Arguments
+adj.mat The input adjacency matrix
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Christian Llano.
+#### Examples
+```{r}
+adj.mat <- matrix(c(0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0), nrow = 4, ncol = 4)
+g <- from.adjacency(adj.mat)
+from.edgelist 7
+from.edgelist Edgelist to fastnet
+
+#### Description
+Transform an edgelist to an ego-centric list form used in fastnet.
+
+#### Usage
+<pre><code>
+
+from.edgelist(edgelist)
+
+</code></pre>
+#### Arguments
+edgelist A 2-column data frame, in which the 1st column represents the start nodes, and
+the 2nd column represents the destination nodes.
+Details
+Most network data repositories choose to store the data in an edgelist form. This function helps user
+to load it in fastnet.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong
+#### Examples
+```{r}
+edgelist <- data.frame(from=c(1, 3, 2, 3, 3), to=c(4, 5, 6, 5, 7))
+g <- from.edgelist(edgelist)
+from.igraph Transform an igraph object to a fastnet object
+
+#### Description
+Transform an igraph object to an ego-centric list form used in fastnet.
+
+#### Usage
+<pre><code>
+
+from.igraph(net.igraph)
+8 from.statnet
+
+</code></pre>
+#### Arguments
+net.igraph The input igraph object.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong.
+#### Examples
+```{r}
+## Not run:
+library("igraph")
+net.igraph <- erdos.renyi.game(100,0.1)
+g <- from.igraph(net.igraph)
+## End(Not run)
+from.statnet statnet to fastnet
+
+#### Description
+Import a statnet object.
+
+#### Usage
+<pre><code>
+
+from.statnet(net.statnet, ncores = detectCores())
+
+</code></pre>
+#### Arguments
+net.statnet The input statnet object.
+ncores The number of cores to be used.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong
+metric.cluster.global 9
+#### Examples
+```{r}
+## Not run:
+library("ergm")
+library("doParallel")
+data("flo")
+nflo <- network(flo, loops = TRUE)
+fflo <- from.statnet(nflo)
+## End(Not run)
+metric.cluster.global Global Clustering Coefficient
+
+#### Description
+Calculate the global clustering coefficient of a graph.
+
+#### Usage
+<pre><code>
+
+metric.cluster.global(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The global clustering coefficient measures the ratio of (closed) triples versus the total number of all
+possible triples in network g. metric.cluster.global() calculates the global clustering coefficient
+of g.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Wasserman, Stanley, and Katherine Faust. Social network analysis: Methods and applications. Vol.
+8. Cambridge university press, 1994.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.cluster.global(x)
+## End(Not run)
+10 metric.cluster.mean
+metric.cluster.mean Mean Local Clustering Coefficient
+
+#### Description
+Calculate the average local clustering coefficient of a graph.
+
+#### Usage
+<pre><code>
+
+metric.cluster.mean(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The local clustering coefficient of a node is the ratio of the triangles connected to the node and the
+triples centered on the node.metric.cluster.mean() calculates the (estimated) average clustering
+coefficient for all nodes in graph g with a justified error.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Wasserman, Stanley, and Katherine Faust. Social network analysis: Methods and applications. Vol.
+8. Cambridge university press, 1994.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(n = 1000, ncores = 3, p = 0.06)
+metric.cluster.mean(x)
+## End(Not run)
+metric.cluster.median 11
+metric.cluster.median Median Local Clustering Coefficient
+
+#### Description
+Calculate the median local clustering coefficient of a graph.
+
+#### Usage
+<pre><code>
+
+metric.cluster.median(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The local clustering coefficient of a node is the ratio of the triangles connected to the node and
+the triples centered on the node.metric.cluster.median() calculates the (estimated) median
+clustering coefficient for all nodes in graph g with a justified error.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Wasserman, Stanley, and Katherine Faust. Social network analysis: Methods and applications. Vol.
+8. Cambridge university press, 1994.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.1)
+metric.cluster.median(x)
+## End(Not run)
+12 metric.degree.entropy
+metric.degree.effective
+Effective Degree
+
+#### Description
+Calculate the effective degree of a network.
+
+#### Usage
+<pre><code>
+
+metric.degree.effective(g, effective_rate = 0.9)
+
+</code></pre>
+#### Arguments
+g The input network.
+effective_rate The effective rate (0.9 is set by default).
+Details
+The effective degree
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+metric.degree.effective(x)
+## End(Not run)
+metric.degree.entropy Degree Entropy
+
+#### Description
+Calculate the degree entropy of a graph.
+
+#### Usage
+<pre><code>
+
+metric.degree.entropy(g)
+metric.degree.max 13
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+Calculates the degree entropy of graph g, i.e.
+Entropy(g) = ????
+Xn
+i=1
+i  log2(i)
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Anand, Kartik, and Ginestra Bianconi. "Entropy measures for networks: Toward an information
+theory of complex topologies." Physical Review E 80, no. 4 (2009): 045102.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.degree.entropy(x)
+## End(Not run)
+```
+
+metric.degree.max Maximal Degree
+
+#### Description
+Calculate the maximal degree of a graph.
+
+#### Usage
+<pre><code>
+
+metric.degree.max(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The maximal degree.
+
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+metric.degree.max(x)
+## End(Not run)
+metric.degree.max.efficient
+Efficient Maximal Degree
+
+#### Description
+Calculate the efficient maximal degree of a graph.
+
+#### Usage
+<pre><code>
+
+metric.degree.max.efficient(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The efficient maximal degree is the 90
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run: x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.degree.max.efficient(x)
+## End(Not run)
+metric.degree.mean 15
+metric.degree.mean Mean Degree
+
+#### Description
+Calculate the mean degree of a graph.
+
+#### Usage
+<pre><code>
+
+metric.degree.mean(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The mean degree is the average value of the degrees of all nodes in graph g.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.degree.mean(x)
+## End(Not run)
+metric.degree.median Median Degree
+
+#### Description
+Calculate the median degree of a graph.
+
+#### Usage
+<pre><code>
+
+metric.degree.median(g)
+16 metric.degree.min
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The median degree is the median value of the degrees of all nodes in graph g.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.degree.median(x)
+## End(Not run)
+metric.degree.min Minimal Degree
+
+#### Description
+Calculate the minimal degree of a network.
+
+#### Usage
+<pre><code>
+
+metric.degree.min(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The minimal degree.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+metric.degree.sd 17
+#### Examples
+```{r}
+## Not run:
+metric.degree.min(x)
+## End(Not run)
+metric.degree.sd Standard Deviation of Degree Distribution
+
+#### Description
+Calculate the standard deviation of all degrees of a network.
+
+#### Usage
+<pre><code>
+
+metric.degree.sd(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+The standard deviation of all degrees of a network.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+metric.degree.sd(x)
+## End(Not run)
+18 metric.distance.apl
+metric.distance.apl Average Path Length
+
+#### Description
+Calculate the average path length of a graph.
+
+#### Usage
+<pre><code>
+
+metric.distance.apl(Network, probability = 0.95, error = 0.03,
+Cores = detectCores(), full.apl = FALSE)
+
+</code></pre>
+#### Arguments
+Network The input network.
+probability The confidence level probability.
+error The sampling error.
+Cores Number of cores to use in the computations. By default uses parallel function
+detecCores().
+full.apl It will calculate the sampling version by default. If it is set to true, the population
+APL will be calculated and the rest of the parameters will be ignored.
+Details
+The average path length (APL) is the average shortest path lengths of all pairs of nodes in graph
+Network. metric.distance.apl calculates the population APL and estimated APL of graph g
+with a sampling error set by the user.
+The calculation uses a parallel load balancing approach, distributing jobs equally among the cores
+defined by the user.
+#### Value
+A real value.
+Author(s)
+Luis Castro, Nazrul Shaikh.
+References
+E. W. Dijkstra. 1959. A note on two problems in connexion with graphs. Numer. Math. 1, 1
+(December 1959), 269-271.
+Castro L, Shaikh N. Estimation of Average Path Lengths of Social Networks via Random Node Pair
+Sampling. Department of Industrial Engineering, University of Miami. 2016.
+metric.distance.diameter 19
+#### Examples
+```{r}
+## Not run:
+##Default function
+x <- net.erdos.renyi.gnp(1000,0.01)
+metric.distance.apl(x)
+##Population APL
+metric.distance.apl(x, full.apl=TRUE)
+##Sampling at 99% level with an error of 10% using 5 cores
+metric.distance.apl(Network = x, probability=0.99, error=0.1, Cores=5)
+## End(Not run)
+metric.distance.diameter
+Diameter
+
+#### Description
+Calculate the diameter of a graph.
+
+#### Usage
+<pre><code>
+
+metric.distance.diameter(Network, probability = 0.95, error = 0.03,
+Cores = detectCores(), full = TRUE)
+
+</code></pre>
+#### Arguments
+Network The input network.
+probability The confidence level probability
+error The sampling error
+Cores Number of cores to use in the computations. By default uses parallel function
+detecCores().
+full It will calculate the popular full version by default. If it is set to FALSE, the
+estimated diameter will be calculated.
+Details
+The diameter is the largest shortest path lengths of all pairs of nodes in graph Network.
+metric.distance.diameter calculates the (estimated) diameter of graph Network with a justified
+error.
+#### Value
+A real value.
+20 metric.distance.effdia
+Author(s)
+Luis Castro, Nazrul Shaikh.
+References
+E. W. Dijkstra. 1959. A note on two problems in connexion with graphs. Numer. Math. 1, 1
+(December 1959), 269-271.
+Castro L, Shaikh N. Estimation of Average Path Lengths of Social Networks via Random Node Pair
+Sampling. Department of Industrial Engineering, University of Miami. 2016.
+#### Examples
+```{r}
+## Not run:
+##Default function
+x <- net.erdos.renyi.gnp(1000,0.01)
+metric.distance.diameter(x)
+##Population APL
+metric.distance.diameter(x, full=TRUE)
+##Sampling at 99% level with an error of 10% using 5 cores
+metric.distance.diameter(Network = x, probability=0.99, error=0.1, Cores=5)
+## End(Not run)
+metric.distance.effdia
+Effective Diameter
+
+#### Description
+Calculate the effective diameter of a graph.
+
+#### Usage
+<pre><code>
+
+metric.distance.effdia(Network, probability = 0.95, error = 0.03,
+effective_rate = 0.9, Cores = detectCores(), full = TRUE)
+
+</code></pre>
+#### Arguments
+* network The input network.
+* probability The confidence level probability
+* error The sampling error
+* effective_rate The effective rate (by default it is set to be 0.9)
+* Cores Number of cores to use in the computations. By default uses parallel function detecCores().
+* full It will calculate the popular full version by default. If it is set to FALSE, the estimated diameter will be calculated.
+
+#### Details
+The diameter is the largest shortest path lengths of all pairs of nodes in graph Network.
+
+metric.distance.diameter
+calculates the (estimated) diameter of graph Network with a justified error.
+#### Value
+A real value.
+Author(s)
+Luis Castro, Nazrul Shaikh.
+References
+DijkstraEW. A note on two problems in connexion with graphs:(numerische mathematik, _1 (1959),
+p 269-271). 1959.
+Castro L, Shaikh N. Estimation of Average Path Lengths of Social Networks via Random Node Pair
+Sampling. Department of Industrial Engineering, University of Miami. 2016.
+#### Examples
+```{r}
+## Not run:
+##Default function
+x <- net.erdos.renyi.gnp(1000,0.01)
+metric.distance.effdia(x)
+##Population APL
+metric.distance.effdia(x, full=TRUE)
+##Sampling at 99% level with an error of 10% using 5 cores
+metric.distance.effdia(Network = x, probability=0.99, error=0.1, Cores=5)
+## End(Not run)
+```
+
+metric.distance.meanecc Mean Eccentricity
+
+#### Description
+Calculate the mean eccentricity of a graph.
+
+#### Usage
+<pre><code>
+
+metric.distance.meanecc(g, p)
+
+</code></pre>
+#### Arguments
+* ``g``: The input network.
+* ``p``: The sampling probability.
+
+#### Details
+The mean eccentricities of all nodes in graph g. Calculates the (estimated) mean eccentricity of
+graph g with a justified error.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+West, Douglas Brent. Introduction to graph theory. Vol. 2. Upper Saddle River: Prentice Hall,
+2001.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.distance.meanecc(x, 0.01)
+## End(Not run)
+metric.distance.medianecc
+Median Eccentricity
+
+#### Description
+Calculate the (estimated) median eccentricity of a graph.
+
+#### Usage
+<pre><code>
+
+metric.distance.medianecc(g, p)
+
+</code></pre>
+#### Arguments
+* g The input network.
+* p The sampling probability.
+
+#### Details
+Is the median eccentricities of all nodes in graph g. metric.distance.medianecc calculates the (estimated) median eccentricity of graph g with a justified error.
+
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+West, Douglas Brent. Introduction to graph theory. Vol. 2. Upper Saddle River: Prentice hall, 2001.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.distance.medianecc(x, 0.01)
+## End(Not run)
+metric.distance.mpl Median Path Length
+
+#### Description
+Calculate the median path length (MPL) of a network.
+
+#### Usage
+<pre><code>
+
+metric.distance.mpl(Network, probability = 0.95, error = 0.03,
+Cores = detectCores(), full = FALSE)
+
+</code></pre>
+#### Arguments
+* Network The input network.
+* probability The confidence level probability
+* error The sampling error
+* Cores Number of cores to use in the computations. By default detecCores() from
+parallel.
+* full It calculates the sampling version by default. If it is set to true, the population
+MPL will be calculated and the rest of the parameters will be ignored.
+
+#### Details
+The median path length (MPL) is the median shortest path lengths of all pairs of nodes in Network.
+metric.distance.mpl(g) calculates the population MPL OR estimated MPL of network g with a sampling
+error set by the user. The calculation uses a parallel load balancing approach, distributing jobs
+
+#### Value
+A real integer
+Author(s)
+Luis Castro, Nazrul Shaikh.
+References
+E. W. Dijkstra. 1959. A note on two problems in connexion with graphs. Numer. Math. 1, 1
+(December 1959), 269-271.
+Castro L, Shaikh N. Estimation of Average Path Lengths of Social Networks via Random Node Pair
+Sampling. Department of Industrial Engineering, University of Miami. 2016.
+#### Examples
+```{r}
+## Not run:
+##Default function
+x <- net.erdos.renyi.gnp(1000,0.01)
+metric.distance.mpl(x)
+##Population MPL
+metric.distance.mpl(x, full=TRUE)
+##Sampling at 99% level with an error of 10% using 5 cores
+metric.distance.mpl(Network = x, probability=0.99, error=0.1, Cores=5)
+## End(Not run)
+metric.eigen.mean Mean Eigenvalue Centrality
+
+#### Description
+Calculate the mean eigenvalue centrality of a graph.
+
+#### Usage
+<pre><code>
+
+metric.eigen.mean(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+metric.eigen.mean calculates the mean eigenvalue centrality score of graph g.
+metric.eigen.median 25
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Bonacich, Phillip, and Paulette Lloyd. "Eigenvector-like measures of centrality for asymmetric
+relations." Social networks 23, no. 3 (2001): 191-201.
+Borgatti, Stephen P. "Centrality and network flow." Social networks 27, no. 1 (2005): 55-71.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.eigen.mean(x)
+## End(Not run)
+metric.eigen.median Median Eigenvalue Centrality
+
+#### Description
+Calculate the median eigenvalue centrality of a graph.
+
+#### Usage
+<pre><code>
+
+metric.eigen.median(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+metric.eigen.median calculates the median eigenvalue centrality score of graph g.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+26 metric.eigen.#### Value
+References
+Bonacich, Phillip, and Paulette Lloyd. "Eigenvector-like measures of centrality for asymmetric
+relations." Social networks 23, no. 3 (2001): 191-201.
+Borgatti, Stephen P. "Centrality and network flow." Social networks 27, no. 1 (2005): 55-71.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.eigen.median(x)
+## End(Not run)
+metric.eigen.value Eigenvalue Score
+
+#### Description
+Calculate the eigenvalue centrality score of a graph.
+
+#### Usage
+<pre><code>
+
+metric.eigen.value(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+metric.eigen.value calculates the eigenvalue centrality score of graph g.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Bonacich, Phillip, and Paulette Lloyd. "Eigenvector-like measures of centrality for asymmetric
+relations." Social networks 23, no. 3 (2001): 191-201.
+Borgatti, Stephen P. "Centrality and network flow." Social networks 27, no. 1 (2005): 55-71.
+metric.graph.density 27
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.eigen.value(x)
+## End(Not run)
+metric.graph.density Graph Density
+
+#### Description
+Calculate the density of a graph.
+
+#### Usage
+<pre><code>
+
+metric.graph.density(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+Computes the ratio of the number of edges and the number of possible edges.
+#### Value
+A real constant.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+metric.graph.density(x)
+## End(Not run)
+28 net.barabasi.albert
+neighbors Neighbors of an agent in a network
+
+#### Description
+Presents all neighbors of a given node.
+
+#### Usage
+<pre><code>
+
+neighbors(net, NodeID)
+
+</code></pre>
+#### Arguments
+net The input network.
+NodeID The ID of the input node.
+Details
+Neighbors of a node are nodes that directly connects to this node.
+#### Value
+A vector.
+Author(s)
+Xu Dong
+#### Examples
+```{r}
+## Not run:
+x <- net.ring.lattice(12,4)
+neighbors(x,2)
+## End(Not run)
+net.barabasi.albert Barabasi-Albert Scale-free Graph
+
+#### Description
+Simulate a scale-free network using a preferential attachment mechanism (Barabasi and Albert,
+1999)
+
+#### Usage
+<pre><code>
+
+net.barabasi.albert(n, m, ncores = detectCores(), d = FALSE)
+net.caveman 29
+
+</code></pre>
+#### Arguments
+n Number of nodes of the network.
+m Number of nodes to which a new node connects at each iteration.
+ncores Number of cores, by default detectCores() from parallel.
+d A logical value determining whether the generated network is a directed or undirected
+(default) network.
+Details
+Starting with m nodes, the preferential attachment mechaism adds one node and m edges in each
+step. The edges will be placed with one end on the newly-added node and the other end on the
+existing nodes, according to probabilities that associate with their current degrees.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Luis Castro, Xu Dong, Nazrul Shaikh.
+References
+Barabasi, A.- L. and Albert R. 1999. Emergence of scaling in random networks. Science, 286
+509-512.
+#### Examples
+```{r}
+## Not run:
+x <- net.barabasi.albert(1000, 20) # using default ncores
+## End(Not run)
+net.caveman Caveman Network
+
+#### Description
+Simulate a (connected) caveman network of m cliques of size k.
+
+#### Usage
+<pre><code>
+
+net.caveman(m, k, ncores = detectCores())
+
+</code></pre>
+#### Arguments
+m Number of cliques (or caves) in the network.
+k Number of nodes per clique.
+ncores Number of cores, by default detectCores() from parallel.
+30 net.complete
+Details
+The (connected) caveman network is formed by connecting a set of isolated k - cliques (or "caves"),
+neighbor by neighbor and head to toe, using one edge that removed from each clique such that all
+m cliques form a single circle (Watts 1999). The total number of nodes, i.e. n, in this network is
+given by k  m.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+References
+Watts, D. J. Networks, Dynamics, and the Small-World Phenomenon. Amer. J. Soc. 105, 493-527,
+1999.
+#### Examples
+```{r}
+## Not run:
+x <- net.caveman(50, 20) #using ncores by default
+## End(Not run)
+net.complete Complete Network
+
+#### Description
+Simulate a complete (or full) network.
+
+#### Usage
+<pre><code>
+
+net.complete(n, ncores = detectCores())
+
+</code></pre>
+#### Arguments
+n Number of nodes of the network.
+ncores Number of cores, by default detectCores() from parallel.
+
+#### Details
+The n nodes in the network are fully connected.
+Note that the input n should not excess 10000, for the sake of memory overflow.
+net.erdos.renyi.gnm 31
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.complete(1000) #using ncores by default
+## End(Not run)
+net.erdos.renyi.gnm Directed / Undirected Erdos-Renyi G(n;m) network using a fix edge
+size.
+
+#### Description
+Simulate a random network with n nodes and m edges, according to Erdos and Renyi (1959).
+
+#### Usage
+<pre><code>
+
+net.erdos.renyi.gnm(n, m, ncores = detectCores(), d = TRUE)
+
+</code></pre>
+#### Arguments
+n Number of nodes of the network.
+m Number of edges of the network.
+ncores Number of cores, by default detectCores() from parallel.
+d A logical value determining whether is a network directed (default) or indirected.
+Details
+In this (simplest) random network, m edges are formed at random among n nodes. When d = TRUE
+is a directed network.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+32 net.erdos.renyi.gnp
+References
+Erdos, P. and Renyi, A., On random graphs, Publicationes Mathematicae 6, 290-297 (1959).
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnm(1000, 100)
+## End(Not run)
+net.erdos.renyi.gnp Directed / Undirected Erdos-Renyi G(n; p) network
+
+#### Description
+Simulate a random network with n nodes and a link connecting probability of p, according to Edos
+and Renyi (1959).
+
+#### Usage
+<pre><code>
+
+net.erdos.renyi.gnp(n, p, ncores = detectCores(), d = TRUE)
+
+</code></pre>
+#### Arguments
+n Number of nodes of the network.
+p Connecting probability.
+ncores Number of cores, by default detectCores() from parallel.
+d A logical value determining whether is a network directed (default) or indirected.
+Details
+In this (simplest) random network, each edge is formed at random with a constant probability. When
+d = TRUE is a directed network.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Luis Castro, Xu Dong, Nazrul Shaikh.
+References
+Erdos, P. and Renyi, A., On random graphs, Publicationes Mathematicae 6, 290-297 (1959).
+net.holme.kim 33
+#### Examples
+```{r}
+## Not run:
+x <- net.erdos.renyi.gnp(1000, 0.01)
+## End(Not run)
+net.holme.kim Holme-Kim Network
+
+#### Description
+Simulate a scale-free network with relatively high clustering, comparing to B-A networks (Holme
+and Kim, 1999).
+
+#### Usage
+<pre><code>
+
+net.holme.kim(n, m, pt)
+
+</code></pre>
+#### Arguments
+n Number of nodes of the network.
+m Number of nodes to which a new node connects at each iteration.
+pt Triad formation probability after each preferential attachment mechanism.
+Details
+The Holme-Kim network model is a simple extension of B-A model. It adds an additional step,
+called "Triad formation", with the probability pt that compensates the low clustering in B-A networks.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh
+References
+Holme, Petter, and Beom Jun Kim. "Growing scale-free networks with tunable clustering."Physical
+review E65, no. 2 (2002): 026107.
+#### Examples
+```{r}
+## Not run:
+x <- net.holme.kim (1000, 20, 0.1)
+## End(Not run)
+34 net.random.plc
+net.random.plc Random Network with a Power-law Degree Distribution that Has An
+Exponential Cutoff
+
+#### Description
+Simulate a random network with a power-law degree distribution that has an exponential cutoff,
+according to Newman et al. (2001).
+
+#### Usage
+<pre><code>
+
+net.random.plc(n, cutoff, exponent)
+
+</code></pre>
+#### Arguments
+n The number of the nodes in the network.
+cutoff Exponential cutoff of the degree distribution of the network.
+exponent Exponent of the degree distribution of the network.
+Details
+The generated random network has a power-law degree distribution with an exponential degree
+cutoff.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh
+References
+Newman, Mark EJ, Steven H. Strogatz, and Duncan J.Watts. "Random graphs with arbitrary degree
+distributions and their applications." Physical review E 64, no. 2 (2001): 026118.
+#### Examples
+```{r}
+## Not run:
+x <- net.random.plc(1000, 10, 2)
+## End(Not run)
+net.rewired.caveman 35
+net.rewired.caveman Rewired (Connected) Caveman Network
+
+#### Description
+Simulate a rewired caveman network of m cliques of size k, and with a link rewiring probability p.
+
+#### Usage
+<pre><code>
+
+net.rewired.caveman(nc, m, p)
+
+</code></pre>
+#### Arguments
+nc Number of cliques (or caves) in the network.
+m Number of nodes per clique.
+p Link rewiring probability.
+Details
+The rewired caveman network is built on the corresponding regular caveman network with m cliques
+of size k. Then the links in this caveman network are rewired with probability p.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh
+References
+Watts, D. J. Networks, Dynamics, and the Small-World Phenomenon. Amer. J. Soc. 105, 493-527,
+1999.
+#### Examples
+```{r}
+## Not run:
+x <- net.rewired.caveman(50, 20, 0.0005)
+## End(Not run)
+36 net.ring.lattice
+net.ring.lattice k - regular ring lattice
+
+#### Description
+Simulate a network with a k -regular ring lattice structure.
+
+#### Usage
+<pre><code>
+
+net.ring.lattice(n, k)
+
+</code></pre>
+#### Arguments
+n Number of nodes in the network.
+k Number of edges per node.
+Details
+The n nodes are placed on a circle and each node is connected to the nearest k neighbors.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh
+References
+Duncan JWatts and Steven H Strogatz: Collective dynamics of 'small world' networks, Nature 393,
+440-442, 1998.
+#### Examples
+```{r}
+## Not run:
+x <- net.ring.lattice(1000, 10)
+## End(Not run)
+net.watts.strogatz 37
+net.watts.strogatz Watts-Strogatz Small-world Network
+
+#### Description
+Simulate a small-world network according to the model of Watts and Strogatz (1998).
+
+#### Usage
+<pre><code>
+
+net.watts.strogatz(n, k, re)
+
+</code></pre>
+#### Arguments
+n The number of the nodes in the network (or lattice).
+k Number of edges per node.
+re Rewiring probability.
+Details
+The formation of Watts-Strogatz network starts with a ring lattice with n nodes and k edges per
+node, then each edge is rewired at random with probability re.
+#### Value
+A list containing the nodes of the network and their respective neighbors.
+Author(s)
+Xu Dong, Nazrul Shaikh
+References
+Duncan J. Watts and Steven H. Strogatz: Collective dynamics of 'small world' networks, Nature
+393, 440-442, 1998.
+#### Examples
+```{r}
+## Not run:
+x <- net.watts.strogatz(1000, 10, 0.05)
+## End(Not run)
+38 preview.net
+preview.deg Preview of the degree distribution of a network
+
+#### Description
+Present the first 10 degrees of a network.
+
+#### Usage
+<pre><code>
+
+preview.deg(g)
+
+</code></pre>
+#### Arguments
+g The input network.
+Details
+Present the first 10 degrees of a network.
+#### Value
+A vector.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.ring.lattice(12,4)
+preview.deg(x)
+## End(Not run)
+preview.net Preview of a network
+
+#### Description
+Present the first 10 ego-centric lists of a network.
+
+#### Usage
+<pre><code>
+
+preview.net(net)
+to.edgelist 39
+
+</code></pre>
+#### Arguments
+net The input network.
+Details
+the connection condition of the first 10 nodes in a network.
+#### Value
+A list.
+Author(s)
+Xu Dong, Nazrul Shaikh.
+#### Examples
+```{r}
+## Not run:
+x <- net.ring.lattice(12,4)
+preview.net(x)
+## End(Not run)
+to.edgelist fastnet to edgelist
+
+#### Description
+Coerce a fastnet object to edgelist.
+
+#### Usage
+<pre><code>
+
+to.edgelist(network, ncores)
+
+</code></pre>
+#### Arguments
+network A fastnet object.
+ncores The number of cores to be used.
+#### Value
+A 2-column list with each row representing an edge, from source to destination
+Author(s)
+Xu Dong
+40 to.tidygraph
+#### Examples
+```{r}
+## Not run:
+g <- net.erdos.renyi.gnp(100, 0.1)
+el <- to.edgelist(g)
+## End(Not run)
+to.igraph fastnet to igraph
+
+#### Description
+Coerce a fastnet object to an igraph object
+
+#### Usage
+<pre><code>
+
+to.igraph(g)
+
+</code></pre>
+#### Arguments
+g A fastnet object
+#### Value
+An igraph object
+Author(s)
+Xu Dong
+to.tidygraph fastnet to tidygraph
+
+#### Description
+Coerce a fastnet object to a tidygraph object.
+
+#### Usage
+<pre><code>
+
+to.tidygraph(g)
+
+</code></pre>
+#### Arguments
+g A fastnet object.
+#### Value
+A tidygraph object
+to.tidygraph 41
+Author(s)
+Xu Dong

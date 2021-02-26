@@ -1,0 +1,41 @@
+---
+title: "``Arsenal::as.data.frame.modelsum``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+#### Description
+
+Coerce a modelsum object to a data.frame.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'modelsum'
+as.data.frame(x, ..., labelTranslations = NULL,
+list.ok = FALSE)
+
+</code></pre>
+#### Arguments
+
+* ``x``: A modelsum object.
+* ``...``:  Arguments  to pass to modelsum.control.
+* ``labelTranslations`` : A named list (or vector) where the name is the label in the output to be replaced in the pretty rendering by the character string value for the named element of
+the list, e.g., ``list(age = "Age(Years)", meansd = "Mean(SD)")``.
+* ``list.ok``: if the object has multiple by-variables, is it okay to return a list of data.frames instead of a single data.frame? If FALSE but there are multiple by-variables, a
+warning is issued.
+
+#### Value
+
+A data.frame.
+Author(s)
+Ethan Heinzen, based on code originally by Greg Dougherty
+
+#### See Also
+modelsum, summary.modelsumas.data.frame.tableby
+

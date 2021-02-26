@@ -1,31 +1,22 @@
 ---
-title: "``timevis::setItems``"
-2output: html_document
+title: "``setItems``: Set the items of a timeline"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(timevis)
+library(timeVis)
 ```
-#### Description
 
+
+### ### Description
 Set the items of a timeline
-
-#### Usage
-
-<pre><code>
-
+### Usage
 setItems(id, data)
-
-<code></pre>
-#### Arguments
-
-* ``id``: Timeline id or a timevis object (the output from timevis())
-* ``data``: A dataframe containing the item data to use.
-
-#### Examples
-```{r}
-
+#### Arguments 
+id Timeline id or a timevis object (the output from timevis())
+data A dataframe containing the item data to use.
+Examples
 timevis(data.frame(start = Sys.Date(), content = "Today")) %>%
 setItems(data.frame(start = Sys.Date() - 1, content = "yesterday"))
 if (interactive()) {
@@ -46,4 +37,3 @@ data.frame(start = Sys.Date() - 1, content = "yesterday"))
 }
 )
 }
-```

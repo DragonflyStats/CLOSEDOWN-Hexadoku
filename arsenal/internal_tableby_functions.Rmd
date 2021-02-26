@@ -1,0 +1,39 @@
+---
+title: "``arsenal::``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+Internal tableby functions
+
+#### Description
+
+A collection of functions that may help users create custom functions that are formatted correctly.
+
+#### Usage
+<pre><code>
+
+as.tbstat(x, oldClass = NULL, sep = NULL, parens = NULL,
+sep2 = NULL, pct = NULL)
+as.countpct(x, ...)
+as.tbstat_multirow(x)
+
+</code></pre>
+#### Arguments
+
+x Usually a vector.
+oldClass class(es) to add to the resulting object.
+sep The separator between x[1] and the rest of the vector.
+parens A length-2 vector denoting parentheses to use around x[2] and x[3].
+sep2 The separator between x[2] and x[3].
+pct The symbol to use after percents.
+... arguments to pass to as.tbstat.write2
+45
+Details
+as.tbstat defines a tableby statistic with its appropriate formatting.
+as.countpct adds another class to as.tbstat to use different "digits" arguments. See tableby.control.
+as.tbstat_multirow marks an object (usually a list) for multiple-row printing.

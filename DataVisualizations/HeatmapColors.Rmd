@@ -1,0 +1,22 @@
+---
+title: "``DataVisualizations::HeatmapColors``"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+HeatmapColors Default color sequence for plots
+#### Description
+Defines the default color sequence for plots made with PixelMatrixPlot
+#### Usage
+<pre><code>
+data("HeatmapColors")
+</code></pre>
+
+#### Format
+
+A vector with different strings describing colors for this plot.

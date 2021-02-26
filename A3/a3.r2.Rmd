@@ -1,0 +1,34 @@
+---
+title: "``A3::a3.r2``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+
+## Cross-Validated $R^2$
+
+#### Description
+Applies cross validation to obtain the cross-validated $R^2$ for a model: the fraction of the squared error explained by the model compared to the null model (which is defined as the average response).
+A pseudo $R^2$ is implemented for classification.
+
+#### Usage 
+<pre><code>
+a3.r2(y, x, simulate.fn, cv.folds)
+</code></pre>
+
+#### Arguments 
+
+* ``y``: a vector or responses.
+* ``x``: a matrix of features.
+* ``simulate.fn``: a function object that creates a model and predicts y.
+* ``cv.folds``: the cross-validation folds.
+
+#### Value
+A list comprising of the following elements:
+
+* ``R2``: the cross-validated R2
+* ``predicted``: the predicted responses
+* ``observed``: the observed responses

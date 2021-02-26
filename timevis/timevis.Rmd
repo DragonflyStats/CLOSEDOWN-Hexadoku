@@ -1,29 +1,28 @@
-timevis
-15
-Create a timeline visualization
+---
+title: "``add_scalebar``: Add scalebar to frames"
+output: html_document
+---
 
-#### Description
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timeVis)
+```
 
+timevis Create a timeline visualization
+### ### Description
 timevis lets you create rich and fully interactive timeline visualizations. Timelines can be included
 in Shiny apps and R markdown documents, or viewed from the R console and RStudio Viewer.
 timevis Includes an extensive API to manipulate a timeline after creation, and supports getting
 data out of the visualization into R. Based on the ’vis.js’ Timeline module and the ’htmlwidgets’ R
 package.
 View a demo Shiny app or see the full README on GitHub.
-
-#### Usage
-<pre><code>
-
-
+### Usage
 timevis(data, groups, showZoom = TRUE, zoomFactor = 0.5, fit = TRUE,
 options, width = NULL, height = NULL, elementId = NULL,
 loadDependencies = TRUE)
-
-<code></pre>
-#### Arguments
-
-data A dataframe containing the timeline items. Each item on the timeline is repre-
-sented by a row in the dataframe. start and content are required for each item,
+#### Arguments 
+data A dataframe containing the timeline items. Each item on the timeline is represented
+by a row in the dataframe. start and content are required for each item,
 while several other variables are also supported. See the Data format section
 below for more details.
 groups A dataframe containing the groups data (optional). See the Groups section
@@ -34,20 +33,19 @@ zooming out the timeline will show 50 example, if the timeline currently shows
 20 days, then after zooming out with a zoomFactor of 0.5, the timeline will
 show 30 days, and zooming out again will show 45 days. Similarly, zooming
 out from 20 days with a zoomFactor of 1 will results in showing 40 days.
-fit If TRUE, then fit all the data on the timeline when the timeline initializes. Other-
-wise, the timeline will be set to show the current date.
-options A named list containing any extra configuration options to customize the time-
-line. All available options can be found in the official Timeline documentation.
+fit If TRUE, then fit all the data on the timeline when the timeline initializes. Otherwise,
+the timeline will be set to show the current date.
+options A named list containing any extra configuration options to customize the timeline.
+All available options can be found in the official Timeline documentation.
 Note that any options that define a JavaScript function must be wrapped in a call
-to htmlwidgets::JS(). See the examples section below to see example usage.
+to htmlwidgets::JS(). See the examples section below to see example ### Usage.
 width Fixed width for timeline (in css units). Ignored when used in a Shiny app –
 use the width parameter in timevisOutput. It is not recommended to use this
 parameter because the widget knows how to adjust its width automatically.
-height Fixed height for timeline (in css units). It is recommended to not use this pa-
-rameter since the widget knows how to adjust its height automatically.16
-timevis
-elementId
-Use an explicit element ID for the widget (rather than an automatically generated
+height Fixed height for timeline (in css units). It is recommended to not use this parameter
+since the widget knows how to adjust its height automatically.
+16 timevis
+elementId Use an explicit element ID for the widget (rather than an automatically generated
 one). Ignored when used in a Shiny app.
 loadDependencies
 Whether to load JQuery and bootstrap dependencies (you should only set to
@@ -82,8 +80,8 @@ Groups section below.
 start and content are the only required variables for each item, while the rest of the variables are
 optional. If you include a variable that is only used for some rows, you can use NA for the rows
 where it’s not used. The items data of a timeline can either be set by supplying the data argument
-to timevis, or by calling the setItems function.timevis
-17
+to timevis, or by calling the setItems function.
+timevis 17
 Groups
 The groups parameter must be provided if the data items have groups (if any of the items have
 a group variable). When using groups, all items with the same group are placed on one line. A
@@ -117,25 +115,22 @@ is updated every time an item is added or removed from the timeline.
 • input$mytime_selected - will return the IDs (a vector) of the selected items in the timeline.
 The input is updated every time an item is selected or unselected by the user. Note that this
 will not get updated if an item is selected programmatically using setSelection.
-• input$mytime_window - will return a 2-element vector containing the minimum and max-
-imum dates currently visible in the timeline. The input is updated every time the viewable
+• input$mytime_window - will return a 2-element vector containing the minimum and maximum
+dates currently visible in the timeline. The input is updated every time the viewable
 window of dates is updated (by zooming or moving the window).
-All four inputs will return a value upon initialization of the timeline and every time the correspond-
-ing value is updated.18
-timevis
+All four inputs will return a value upon initialization of the timeline and every time the corresponding
+value is updated.
+18 timevis
 Extending timevis
 If you need to perform any actions on the timeline object that are not supported by this package’s
-API, you may be able to do so by manipulating the timeline’s JavaScript object directly. The time-
-line object is available via document.getElementById(id).widget.timeline (replace id with
+API, you may be able to do so by manipulating the timeline’s JavaScript object directly. The timeline
+object is available via document.getElementById(id).widget.timeline (replace id with
 the timeline’s id).
-This timeline object is the direct widget that vis.js creates, and you can see the visjs documenta-
-tion to see what actions you can perform on that object.
+This timeline object is the direct widget that vis.js creates, and you can see the visjs documentation
+to see what actions you can perform on that object.
 See Also
 Demo Shiny app
-
-#### Examples
-```{r}
-
+Examples
 # For more examples, see http://daattali.com/shiny/timevis-demo/
 #----------------------- Most basic -----------------
 timevis()
@@ -166,14 +161,14 @@ setSelection("3") %>%
 fitWindow(list(animation = FALSE))
 #------- Items can be a single point or a range, and can contain HTML -------
 timevis(
-data.frame(id = 1:2,timevis
-)
-)
-19
+data.frame(id = 1:2,
+timevis 19
 content = c("one", "two<br><h3>HTML is supported</h3>"),
 start = c("2016-01-10", "2016-01-18"),
 end = c("2016-01-14", NA),
 style = c(NA, "color: red;")
+)
+)
 #----------------------- Alternative look for each item -----------------
 timevis(
 data.frame(id = 1:2,
@@ -212,13 +207,13 @@ end = c("2015-04-08", NA, NA),
 content = c("<h2>Vacation!!!</h2>", "Acupuncture", "Massage"),
 style = c("color: red;", NA, NA)
 )
-ui <- fluidPage(20
-timevis-shiny
-)
+ui <- fluidPage(
+20 timevis-shiny
 timevisOutput("appts"),
 div("Selected items:", textOutput("selected", inline = TRUE)),
 div("Visible window:", textOutput("window", inline = TRUE)),
 tableOutput("table")
+)
 server <- function(input, output) {
 output$appts <- renderTimevis(
 timevis(
@@ -238,4 +233,67 @@ input$appts_data
 }
 shinyApp(ui, server)
 }
-````
+timevis-shiny Shiny bindings for timevis
+### ### Description
+Output and render functions for using timevis within Shiny applications and interactive Rmd documents.
+### Usage
+timevisOutput(outputId, width = "100%", height = "auto")
+renderTimevis(expr, env = parent.frame(), quoted = FALSE)
+#### Arguments 
+outputId output variable to read from
+width, height Must be a valid CSS unit (like '100%', '400px', 'auto') or a number, which
+will be coerced to a string and have 'px' appended. height will probably not
+have an effect; instead, use the height parameter in timevis.
+timevis-shiny 21
+expr An expression that generates a timevis
+env The environment in which to evaluate expr.
+quoted Is expr a quoted expression (with quote())? This is useful if you want to save
+an expression in a variable.
+See Also
+timevis.
+Examples
+if (interactive()) {
+library(shiny)
+#----------------------- Most basic example -----------------
+shinyApp(
+ui = fluidPage(timevisOutput("timeline")),
+server = function(input, output) {
+output$timeline <- renderTimevis(
+timevis()
+)
+}
+)
+#----------------------- More advanced example -----------------
+data <- data.frame(
+id = 1:3,
+start = c("2015-04-04", "2015-04-05 11:00:00", "2015-04-06 15:00:00"),
+end = c("2015-04-08", NA, NA),
+content = c("<h2>Vacation!!!</h2>", "Acupuncture", "Massage"),
+style = c("color: red;", NA, NA)
+)
+ui <- fluidPage(
+timevisOutput("appts"),
+div("Selected items:", textOutput("selected", inline = TRUE)),
+div("Visible window:", textOutput("window", inline = TRUE)),
+tableOutput("table")
+)
+server <- function(input, output) {
+output$appts <- renderTimevis(
+timevis(
+data,
+options = list(editable = TRUE, multiselect = TRUE, align = "center")
+)
+)
+output$selected <- renderText(
+paste(input$appts_selected, collapse = " ")
+)
+22 timevisDataGroups
+output$window <- renderText(
+paste(input$appts_window[1], "to", input$appts_window[2])
+)
+output$table <- renderTable(
+input$appts_data
+)
+}
+shinyApp(ui, server)
+}

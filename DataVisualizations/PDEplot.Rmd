@@ -1,0 +1,66 @@
+---
+title: "``DataVisualizations::PDEplot``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+PDEplot PDE plot
+#### Description
+This function plots the Pareto probability density estimation (PDE), uses PDEstimationForGauss and ParetoRadius.
+#### Usage
+<pre><code>
+PDEplot(data, paretoRadius = 0, weight = 1, kernels = NULL,
+        LogPlot = F, PlotIt = TRUE, title =
+          "ParetoDensityEstimation(PDE)", color = "blue",
+        xpoints = FALSE, xlim, ylim, xlab = "Data", ylab =
+          "PDE", ggPlot = ggplot(), sampleSize = 2e+05, lwd = 2)
+</code></pre>
+#### Arguments
+data numeric vector, data to be plotted.
+paretoRadius numeric, the Pareto Radius. If omitted, calculate by paretoRad.
+weight numeric, Weight*ParetoDensity is plotted. 1 by default.
+kernels numeric vector of kernels. Optional
+LogPlot LogLog PDEplot if TRUE, xpoints has to be FALSE. Optional
+PlotIt logical, if plot. TRUE by default.
+title character vector, title of plot.
+color character vector, color of plot.
+xpoints logical, if TRUE only points are plotted. FALSE by default.
+xlim #### Arguments to be passed to the plot method.
+ylim #### Arguments to be passed to the plot method.
+xlab #### Arguments to be passed to the plot method.
+ylab #### Arguments to be passed to the plot method.
+ggPlot ggplot2 object to be plotted upon. Insert an exisiting plot to add a new PDEPlot
+to it. Default: empty plot
+sampleSize default(200000), sample size, if datavector is to big
+lwd linewidth, see plot
+
+
+#### Examples
+x <- rnorm(1000, mean = 0.5, sd = 0.5)
+y <- rnorm(750, mean = -0.5, sd = 0.75)
+plt <- PDEplot(x, color = "red")$ggPlot
+plt <- PDEplot(y, color = "blue", ggPlot = plt)$ggPlot
+# Second Example
+# ggplotObj=ggplot()
+# for(i in 1:length(Variables))
+# ggplotObj=PDEplot(Data[,i],ggPlot = ggplotObj)$ggPlot
+
+#### Value
+kernels numeric vector. The x points of the PDE function.
+paretoDensity numeric vector, the PDE(x).
+paretoRadius numeric value, the Pareto Radius used for the plot.
+ggPlot ggplot2 object. Can be used to further modify the plot or add other plots.
+Author(s)
+Michael Thrun
+References
+Ultsch, A.: Pareto Density Estimation: A Density Estimation for Knowledge Discovery, Baier D.,
+Wernecke K.D. (Eds), In Innovations in Classification, Data Science, and Information Systems -
+  Proceedings 27th Annual Conference of the German Classification Society (GfKL) 2003, Berlin,
+Heidelberg, Springer, pp, 91-100, 2005.
+42 PDEscatter

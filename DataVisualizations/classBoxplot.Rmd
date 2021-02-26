@@ -1,0 +1,49 @@
+---
+title: "``DataVisualizations::ClassBoxplot``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+ClassBoxplot Creates Boxplot plot for all classes
+#### Description
+Boxplot the data for all classes
+#### Usage
+<pre><code>
+ClassBoxplot(Data, Cls, ColorSequence = DataVisualizations::DefaultColorSequence,
+ClassNames = NULL, PlotLegend = TRUE,
+main = 'Boxplot per Class', xlab = 'Classes', ylab = 'Range of Data')
+</code></pre>
+
+#### Arguments
+
+* Data Vector of the data to be plotted
+* Cls Vector of class identifiers.
+* ColorSequence Optional: The sequence of colors used, Default: DefaultColorSequence()
+* ClassNames Optional: The names of the classes. Default: C1 - C(Number of Classes)
+* PlotLegend Optional: Add a legent to plot. Default: TRUE)
+* main Optional: Title of the plot. Default: "ClassBoxPlot""
+* xlab Optional: Title of the x axis. Default: "Classes"
+* ylab Optional: Title of the y axis. Default: "Data"
+
+#### Value
+A List of
+ClassData The DataFrame used to plot
+ggobject The ggplot2 plot object
+in mode invisible
+Author(s)
+Michael Thrun, Felix Pape
+
+#### Examples
+```{r}
+data(ITS)
+model=AdaptGauss::AdaptGauss(ITS)
+Classification=AdaptGauss::ClassifyByDecisionBoundaries(ITS,
+DecisionBoundaries = AdaptGauss::BayesDecisionBoundaries(model$Means,model$SDs,model$Weights))
+DataVisualizations::ClassBoxplot(ITS,Classification)$ggobject
+```

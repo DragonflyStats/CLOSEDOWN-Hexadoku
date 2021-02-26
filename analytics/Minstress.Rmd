@@ -1,0 +1,56 @@
+---
+title: "``Minstress``: Better Starting Configuration For Non-Metric MDS"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+
+
+#### Description
+Minstress is a heuristic to find better non-metric MDS solutions, by finding better starting configurations, instead of just using a random one.
+
+#### Usage
+<pre><code>
+Minstress(x, p, s, k, iter = 5, pb = F, m = "euclidean")
+</code></pre>
+
+#### Arguments
+
+* x a data frame containing numeric values only
+* p the size of the population of seeds (any positive integer)
+* s the number of seeds we sample (any positive integer)
+* k the number of dimensions wanted (any positive integer)
+* iter a positive integer specifying the number of iterations.
+* pb a Boolean variable declaring if one wants to display a pogress bar (default:False)
+* m a string specifying the distance method (default: ’euclidean’)
+
+#### Details
+This function performs several iterations, each using a different starting seed, and in turn each one of
+those iterations performs non-metric MDS many times (typically, thousands or more) in an attempt
+to find the best seed (which induces a particular initial configuration) of them all.
+
+#### Value
+A list informing about dimensionality, minimum STRESS level found, and best seed found. One
+can then use the best seed found to perform non-metric MDS with a better initial configuration
+(generally).
+
+#### Author(s)
+Albert Dorador
+
+#### Examples
+```{r}
+require(MASS)
+swiss.x <- as.data.frame(swiss[, -1])
+Minstress(swiss.x, 1e5, 50, 2, iter = 3)
+```
+
+```{r}
+# Comparing without using Minstress (for such a low value of s, difference is minimal)
+swiss.x <- as.matrix(swiss[, -1])
+swiss.dist <- dist(swiss.x)
+swiss.mds <- isoMDS(swiss.dist)
+```

@@ -1,0 +1,55 @@
+animate_frames Animate frames
+#### Description
+animate_frames creates an animation from a list of frames computed with frames_spatial.
+Usage
+animate_frames(frames, out_file, fps = 25, width = 700, height = 700,
+res = 100, display = TRUE, overwrite = FALSE, verbose = TRUE,
+...)
+#### Arguments 
+* ``frames``: list of ggplot2 objects, crated with frames_spatial.
+* `out_file``:  character, the output file path, e.g. "/dir/to/file.mov". The file extension must
+correspond to a file #### Format known by the available renderers of the running system.
+Use suggest_Formats to get a vector of suggested known file #### Formats.
+fps numeric, the number of frames to be displayed per second. Default is 2.
+width numeric, width of the output animation in pixels.
+height numeric, height of the output animation in pixels.
+res numeric, resolution of the output animation in ppi.
+display logical, whether the animation should be displayed after rendering or not.
+overwrite logical, wether to overwrite an existing file, if out_file is already present.
+verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+* ``...``: additional arguments  to be passed to the render function.
+#### Details
+An appropriate render function is selected depending on the file extension in out_file: For .gif
+files, gifski::save_gif is used, for any other (video) #### Format, av::av_capture_graphics is used.
+Value
+None or an R graphics window displaying the animation
+Author(s)
+Jakob Schwalb-Willmann
+basemap_data 19
+See Also
+frames_spatial frames_graph join_frames
+#### Examples
+```{r}
+library(moveVis)
+library(move)
+data("move_data", "basemap_data")
+# align movement
+m <- align_move(move_data, res = 4, unit = "mins")
+# create spatial frames with frames_spatial:
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE)
+# customize
+frames <- add_colourscale(frames, type = "gradient",
+colours = c("orange", "white", "darkgreen"), legend_title = "NDVI")
+frames <- add_northarrow(frames, position = "bottomleft")
+frames <- add_scalebar(frames, colour = "white", position = "bottomright")
+frames <- add_progress(frames)
+frames <- add_timestamps(frames, m, type = "label")
+# check available #### Formats
+suggest_Formats()
+# animate frames as GIF
+animate_frames(frames, out_file = tempfile(fileext = ".gif"))
+# animate frames as mov
+animate_frames(frames, out_file = tempfile(fileext = ".gif"))

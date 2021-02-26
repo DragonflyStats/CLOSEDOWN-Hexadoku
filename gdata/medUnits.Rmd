@@ -1,0 +1,60 @@
+---
+title: "gdata::MedUnits"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#### Description
+
+Table of conversions between Intertional Standard (SI) and US ’Conventional’ Units for common
+medical measurements.
+
+#### Usage
+<pre><code>
+
+data(MedUnits)
+</code></pre>
+
+#### Format
+A data frame with the following 5 variables.
+* Abbreviation Common Abbreviation (mostly missing)
+* Measurement Measurement Name
+* ConventionalUnit Conventional Unit
+* Conversion Conversion factor
+* SIUnit SI Unit
+
+#### Details
+
+Medical laboratories and practitioners in the United States use one set of units (the so-called ’Conventional’ units) for reporting the results of clinical laboratory measurements, while the rest of the
+world uses the International Standard (SI) units. It often becomes necessary to translate between these units when participating in international collaborations.
+This data set provides constants for converting between SI and US ’Conventional’ units.
+To perform the conversion from SI units to US ’Conventional’ units do:
+Measurement in ConventionalUnit = (Measurement in SIUnit) / Conversion
+To perform conversion from ’Conventional’ to SI units do:
+Measurement in SIUnit = (Measurement in ConventionalUnit) * Conversion
+
+#### Source
+http://www.globalrph.com/conv_si.htm
+See Also
+The function ConvertMedUnits automates the conversion task.mv
+37
+
+#### Examples
+```{r}
+
+data(MedUnits)
+# show available conversions
+MedUnits$Measurement
+# utility function
+matchUnits <- function(X) MedUnits[ grep(X, MedUnits$Measurement),]
+# Convert SI Glucose measurement to 'Conventional' units
+GlucoseSI = c(5, 5.4, 5, 5.1, 5.6, 5.1, 4.9, 5.2, 5.5) # in SI Units
+GlucoseUS = GlucoseSI / matchUnits("Glucose")$Conversion
+cbind(GlucoseSI,GlucoseUS)
+# also consider using ConvertMedUnits()
+ConvertMedUnits( GlucoseSI, "Glucose", to="US" )
+```

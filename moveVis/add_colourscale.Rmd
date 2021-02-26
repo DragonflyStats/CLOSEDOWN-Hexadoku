@@ -1,0 +1,72 @@
+---
+title: "``add_colourscale``:    Add scale to frames"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(moveVis)
+```
+
+
+
+#### Description
+This function adjusts the colour scales of the animation frames created with frames_spatial and
+custom map imagery.
+
+#### Usage
+add_colourscale(frames, type, colours, labels = waiver(),
+legend_title = NULL, verbose = TRUE)
+
+#### Arguments 
+* frames list of ggplot2 objects, crated with frames_spatial.
+type character, either "gradient" or "discrete". Must be equal to the defintion of argument r_type with which frames have been created (see frames_spatial).
+* colours character, a vector of colours. If type = "discrete", number of colours must
+be equal to the number of classes contained in the raster imagery with which frames have been created. Provide a named vector to associate map values with
+colours, e.g. c("1" = "red", "2" = "green", "3" = "black")
+labels character, a vector of labels with the same length as colours. Ignored, if
+type = "gradient".
+* legend_title character, a legend title.
+* verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+
+#### Examples
+
+```{r}
+library(moveVis)
+library(move)
+data("move_data", "basemap_data")
+# align movement
+m <- align_move(move_data, res = 4, unit = "mins")
+add_gg 5
+# create spatial frames with frames_spatial:
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE)
+frames[[100]] # take a look at one of the frames
+# default blue is boring, let's change the colour scale of all frames
+frames <- add_colourscale(frames, type = "gradient", colours = c("orange", "white", "darkgreen"),
+legend_title = "NDVI")
+frames[[100]]
+# let's make up some classification data with 10 classes
+r_list <- lapply(r_list, function(x){
+y <- raster::setValues(x, round(raster::getValues(x)*10))
+return(y)
+})
+# turn fade_raster to FALSE, since it makes no sense to temporally interpolate discrete classes
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "discrete",
+fade_raster = FALSE)
+frames[[100]]
+# now, let's assign a colour per class value to frames
+colFUN <- colorRampPalette(c("orange", "lightgreen", "darkgreen"))
+cols <- colFUN(10)
+frames <- add_colourscale(frames, type = "discrete", colours = cols, legend_title = "Classes")
+frames[[100]]
+```
+
+Value
+List of frames.
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_spatial frames_graph animate_frames

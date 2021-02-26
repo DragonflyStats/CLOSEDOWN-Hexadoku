@@ -1,0 +1,51 @@
+
+---
+title: "``gdata::trimSum``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+Trim a vector such that the last/first value represents the sum of trimmed values
+
+#### Description
+
+trimSum trims (shortens) a vector in such a way that the last or first value represents the sum of
+trimmed values. User needs to specify the desired length of a trimmed vector.
+
+#### Usage
+<pre><code>
+
+trimSum(x, n, right=TRUE, na.rm=FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: numeric, a vector of numeric values
+* ``n``: numeric, desired length of the output
+* ``right``:  logical, trim on the right/bottom or the left/top side
+* ``na.rm``:  logical, remove NA values when applying a function
+* ``...``: arguments passed to other methods - currently not used
+
+#### Value
+
+Trimmed vector with a last/first value representing the sum of trimmed values54
+unknownToNA
+Author(s)
+Gregor Gorjanc
+See Also
+trim
+
+#### Examples
+```{r}
+
+x <- 1:10
+trimSum(x, n=5)
+trimSum(x, n=5, right=FALSE)
+x[9] <- NA
+trimSum(x, n=5)
+trimSum(x, n=5, na.rm=TRUE)
+```

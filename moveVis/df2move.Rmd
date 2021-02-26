@@ -1,0 +1,36 @@
+df2move Convert a data.frame into a move or moveStack object
+#### Description
+This function is a simple wrapper that converts a data.frame into a move or moveStack object.
+Both can be used as inputs to frames_spatial or frames_graph.
+Usage
+df2move(df, proj, x, y, time, track_id = NULL, data = NULL, ...)
+#### Arguments 
+df data.frame, a data.frame with rows representing observations and columns representing
+x and y coordinates, time and optionally track IDs, if multiple tracks
+are contained.
+proj projection, character (proj4string) or CRS object, indicating the projection that
+the coordinates of df represent.
+x character, name of the column in df that represents x coordinates.
+y character, name of the column in df that represents y coordinates.
+time character, name of the column in df that represents timestamps. Timestamps
+need to be of class POSIXct.
+track_id character, optional, name of the column in df that represents track names or IDs.
+If set, a moveStack is returned, otherwise, a move object is returned.
+data data.frame, optional, to add additional data such as path colours (see move).
+Number of rows must equal number of rows of df.
+* ``...``: additional arguments  passed to move.
+Value
+A move or moveStack object.
+See Also
+frames_spatial frames_graph subset_move
+22 frames_graph
+#### Examples
+library(moveVis)
+library(move)
+# load the example data and convert them into a data.frame
+data("move_data")
+move_df <- methods::as(move_data, "data.frame")
+# use df2move to convert the data.frame into a moveStack
+df2move(move_df,
+proj = "+init=epsg:4326 +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
+x = "coords.x1", y = "coords.x2", time = "timestamps", track_id = "trackId")

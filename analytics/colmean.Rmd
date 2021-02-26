@@ -1,0 +1,54 @@
+---
+title: "``colmean``: Give Row Means of a Matrix-like Object, Based on a Grouping Variable"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+
+#### Description
+Compute Row (weighted) means across columns of a numeric matrix-like object for each level of a grouping variable.
+
+#### Usage
+<pre><code>
+colmean(M, group = colnames(M), w = FALSE, reord = FALSE,
+na_rm = FALSE, big = TRUE, ...)
+</code></pre>
+
+#### Arguments
+* ``M``: a matrix, data frame or vector of numeric data. Missing values are allowed. A numeric vector will be treated as a column vector.
+* ``group``: a vector or factor giving the grouping, with one element per row of M. Default: rownames of M.
+* ``w``: a vector giving the weights that must be applied to each of the stacked blocks of an original object
+* ``reord``: if TRUE, then the result will be in order of sort(unique(group)), if FALSE (the default), it will be in the order that groups were encountered.
+* ``na_rm``: logical (TRUE or FALSE). Should NA (including NaN) values be discarded?
+* ``big``: is your object big and integer overflow is likely? If TRUE, then M is multiplied by 1.0 to ensure values are of type double (perhaps taking more RAM).
+* ``...``: other arguments to be passed to or from methods.
+
+
+#### Examples
+```{r}
+A <- matrix(1:8, ncol = 4)
+colnames(A) <- c("A", "B", "A", "B")
+colmean(A)
+colmean(A, w = c(0.2,0.8))
+
+```
+#### Details
+
+This function is a wrapper for analytics function rowmean which allows one to compute the (weighted) mean instead of the sum, while handling integer overflow.
+Note: although data frames ara allowed, keep in mind that data frames do not allow duplicate row names. Hence if you have a dataframe with more than 1 group, you may want to use the function
+``as.matrix()`` to convert it to an object of class matrix To compute the mean over all the rows of a matrix (i.e. a single group) use colMeans, which should
+be even faster.
+
+#### Value
+A matrix-like object containing the means by group. There will be one row per unique value of group. If object supplied in fact (explicitly) had just one group, base function colMeans is called for maximum efficiency and a numeric vector containing the mean of each column is returned.
+
+
+#### Author(s)
+Albert Dorador
+
+#### See Also
+rowmean rowsum

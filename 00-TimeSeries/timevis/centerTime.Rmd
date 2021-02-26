@@ -1,0 +1,51 @@
+---
+title: "timevis::centerTime"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
+
+#### Description
+
+Move the window such that the given time is centered
+
+#### Usage
+<pre><code>
+centerTime(id, time, options)
+
+<code></pre>
+#### Arguments
+
+id Timeline id or a timevis object (the output from timevis())
+time The date/time to center around
+options Named list of options controlling the animation. Most common option is "animation" = TRUE/FALSE.
+For a full list of options, see the "moveTo" method in the official Timeline doc-
+umentation
+
+#### Examples
+```{r}
+
+timevis() %>%
+centerTime(Sys.Date() - 1)
+if (interactive()) {
+library(shiny)
+shinyApp(
+ui = fluidPage(
+timevisOutput("timeline"),
+actionButton("btn", "Center around 24 hours ago")
+),
+server = function(input, output) {
+output$timeline <- renderTimevis(
+timevis()
+)
+observeEvent(input$btn, {
+centerTime("timeline", Sys.Date() - 1)
+})
+}
+)
+}
+```
+

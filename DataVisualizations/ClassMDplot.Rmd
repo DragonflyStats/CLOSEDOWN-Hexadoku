@@ -1,0 +1,74 @@
+---
+title: "``DataVisualizations::``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+ClassMDplot Class MD-plot for Data w.r.t. all classes
+
+#### Description
+Creates PDE optimized Violin plot for all classes
+
+#### Usage
+
+<pre><code>
+ClassMDplot(Data, Cls, ColorSequence,
+  ClassNames = NULL,
+  PlotLegend = TRUE,
+  main = 'PDE Violin Plot for each Class',
+  xlab = 'Classes',
+  ylab = 'PDE of Data per Class',MinimalAmoutOfData=40)
+</code></pre>
+
+#### Arguments
+* Data [1:n] Vector of the data to be plotted
+* Cls [1:n] Vector of class identifiers of k clusters one number is the label of one
+cluster
+* ColorSequence Optional: [1:k] vector, The sequence of colors used, Default: DataVisualizations::
+DefaultColorSequence
+ClassNames Optional: [1:k] vector, The names of the classes. Default: C1 - C(Number of Classes)
+* PlotLegend Optional: Add a legent to plot. Default: TRUE)
+* main Optional: Title of the plot. Default: "ClassViolinPlot""
+* xlab Optional: Title of the x axis. Default: "Classes"
+* ylab Optional: Title of the y axis. Default: "Data"
+MinimalAmoutOfData
+Optional: numeric value defining a threshold. Below this threshold no density
+estimation is performed and a Jitter plot with a median line is drawn. Please see
+MDplot for details.
+
+#### Details
+The Cls vector is sorted from lowest to highest number. The ClassNames vector and ColorSequence
+vectors are matched by this ordering of Cls, i.e. the lowest number gets the first color or class name.
+
+#### Value
+A List of
+ClassData The DataFrame used to plot
+ggobject The ggplot2 plot object
+in mode invisible
+
+
+#### Examples
+```{r}
+data(ITS)
+model=AdaptGauss::AdaptGauss(ITS)
+Classification=AdaptGauss::ClassifyByDecisionBoundaries(ITS,
+DecisionBoundaries = AdaptGauss::BayesDecisionBoundaries(model$Means,model$SDs,model$Weights))
+DataVisualizations::ClassMDplot(ITS,Classification)
+```
+
+#### Author(s)
+Michael Thrun, Felix Pape
+
+#### References
+Thrun, M. C., Pape, F., & Ultsch, A. : Benchmarking Cluster Analysis Methods using PDEOptimized
+Violin Plots, Proc. European Conference on Data Analysis (ECDA), accepted, Paderborn,
+Germany, 2018.
+Thrun, M. C., Breuer, L., & Ultsch, A. : Knowledge discovery from low-frequency stream nitrate
+concentrations: hydrology and biology contributions, Proc. European Conference on Data Analysis
+(ECDA), accepted, Paderborn, Germany, 2018.
+14 ClassPDEplot

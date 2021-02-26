@@ -1,0 +1,64 @@
+---
+title: "``DataVisualizations::Fanplot``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+Fanplot The fan plot
+
+#### Description
+
+The better alternative to the pie chart represents amount of values given in data.
+
+#### Usage
+
+<pre><code>
+Fanplot(Datavector,Names,Labels,MaxNumberOfSlices,main='',col,
+MaxPercentage=FALSE,ShrinkPies=0.05,Rline=1.1)
+</code></pre>
+
+#### Arguments
+
+Datavector [1:n] a vector of n non unique values
+Names Optional, [1:k] names to search for in Datavector, if not set unique of Datavector is calculated.
+Labels Optional, [1:k] Labels if they are specially named, if not Names are used.
+MaxNumberOfSlices
+Default is k, integer value defining how many labels will be shown. Everything else will be summed up to Other.
+main Optional, title below the fan pie, see plot
+col Optional, default as other colors in this packages, else the same as in plot
+MaxPercentage default FALSE; if true the biggest slice is 100 percent instead of the biggest procentual count
+ShrinkPies Optional, distance between biggest and smallest slice of the pie
+Rline Optional, the distance between text and pie is defined here as the length of the line in numerical numbers
+
+
+#### Details
+A normal pie plot is dificult to interpret for a human observer, because humans are not trained well
+to observe angles [Gohil, 2015, p. 102]. Therefore, the fan plot is used. As proposed in [Gohil
+2015] the fan.plot() of the plotrix package is used to solve this problem. If Number of Slices
+is higher than MaxNumberOfSlices then ABCanalysis is applied (see [Ultsch/Lotsch, 2015]) and
+group A chosen. If Number of Slices in group A is higher than MaxNumberOfSlices, then the most
+important ones out of group A are chosen. If MaxNumberOfSlices is higher than Slices in group A,
+additional slices are shown depending on the percentage (from high to low).
+
+#### Value
+silent output by calling invisible of a list with
+Percentages [1:k] percent values visualized in fanplot
+Labels [1:k] see input Labels, only relevant ones
+Author(s)
+Michael Thrun
+References
+[Gohil, 2015] Gohil, Atmajitsinh. R data Visualization cookbook. Packt Publishing Ltd, 2015.
+[Ultsch/Lotsch, 2015] Ultsch. A ., Lotsch J.: Computed ABC Analysis for Rational Selection
+of Most Informative Variables in Multivariate Data, PloS one, Vol. 10(6), pp. e0129767. doi
+10.1371/journal.pone.0129767, 2015.
+
+#### Examples
+```{r}
+data(categoricalVariable)
+Fanplot(categoricalVariable)
+```

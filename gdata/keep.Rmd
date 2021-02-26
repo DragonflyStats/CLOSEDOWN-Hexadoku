@@ -1,0 +1,41 @@
+
+keep
+Remove All Objects, Except Those Specified
+
+#### Description
+
+Remove all objects from the user workspace, except those specified.
+
+#### Usage
+<pre><code>
+
+keep(..., list=character(0), all=FALSE, sure=FALSE)28
+left
+
+</code></pre>
+#### Arguments
+
+... objects to be kept, specified one by one, quoted or unquoted.
+list character vector of object names to be kept.
+all whether hidden objects (beginning with a .) should be removed, unless explicitly kept.
+sure whether to perform the removal, otherwise return names of objects that would have been removed.
+
+#### Details
+
+Implemented with safety caps: objects whose name starts with a . are not removed unless all=TRUE, and an explicit sure=TRUE is required to remove anything.
+
+#### Value
+
+A character vector containing object names, or NULL when sure is TRUE.
+Author(s)
+Arni Magnusson
+See Also
+keep is a convenient interface to rm when removing most objects from the user workspace.
+
+#### Examples
+```{r}
+
+data(women, cars)
+keep(cars)
+## To remove all objects except cars, run:
+## keep(cars, sure=TRUE)

@@ -1,0 +1,36 @@
+---
+title: "``arsenal::padjust``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+#### Description
+
+Adjust P-values for Multiple 
+#### Usage
+<pre><code>
+
+padjust(p, method, n, ...)
+## Default S3 method:
+padjust(p, method, n, ...)
+## S3 method for class 'tableby'
+padjust(p, method, n,
+suffix = " (adjusted for multiple comparisons)", ...)
+## S3 method for class 'summary.tableby'
+padjust(p, method, n,
+suffix = " (adjusted for multiple comparisons)", ...)
+
+</code></pre>
+#### Arguments
+* p An object.
+* method correction method. Can be abbreviated.
+* n number of comparisons, must be at least length(p); only set this (to non-default) when you know what you are doing!
+* ... Other arguments.
+* suffix A suffix to add to the footnotes indicating that the tests were adjusted.
+
+#### See Also
+p.adjust, modpval.tableby, tests.tableby

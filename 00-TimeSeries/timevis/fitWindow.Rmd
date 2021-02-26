@@ -1,0 +1,49 @@
+---
+title: "timevis::fitWindow "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
+
+Adjust the visible window such that it fits all items
+
+#### Description
+
+Adjust the visible window such that it fits all items
+
+#### Usage
+<pre><code>
+fitWindow(id, options)
+<code></pre>
+
+#### Arguments
+
+* id Timeline id or a timevis object (the output from timevis())
+* options Named list of options controlling the animation. Most common option is "animation" = TRUE/FALSE.
+For a full list of options, see the "fit" method in the official Timeline documentation
+
+#### Examples
+```{r}
+if (interactive()) {
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      timevisOutput("timeline"),
+      actionButton("btn", "Fit all items")
+    ),
+    server = function(input, output) {
+      output$timeline <- renderTimevis(
+        timevis(data.frame(
+          id = 1:2, start = c(Sys.Date(), Sys.Date() - 1), content = c("1", "2")
+        ))
+      )
+      observeEvent(input$btn, {
+        fitWindow("timeline", list(animation = FALSE))
+      })
+    }
+  )
+}
+```

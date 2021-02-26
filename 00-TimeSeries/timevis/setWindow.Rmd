@@ -1,0 +1,52 @@
+---
+title: "timevis::setWindow"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Set the current visible window
+
+#### Description
+
+Set the current visible window
+
+#### Usage
+<pre><code>
+
+setWindow(id, start, end, options)
+
+<code></pre>
+
+#### Arguments
+
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``start``: The start date/time to show in the timeline
+* ``end``: The end date/time to show in the timeline
+* ``options``: Named list of options controlling mainly the animation. Most common option is animation = TRUE/FALSE. For a full list of options, see the "setWindow" method in the official Timeline documentation
+
+#### Examples
+```{r}
+
+timevis() %>%
+setWindow(Sys.Date() - 1, Sys.Date() + 1)
+if (interactive()) {
+library(shiny)
+shinyApp(
+ui = fluidPage(
+timevisOutput("timeline"),
+actionButton("btn", "Set window to show between yesterday to tomorrow")
+),
+server = function(input, output) {
+output$timeline <- renderTimevis(
+timevis()
+)
+observeEvent(input$btn, {
+setWindow("timeline", Sys.Date() - 1, Sys.Date() + 1)
+})
+}
+)
+}timevis
+```

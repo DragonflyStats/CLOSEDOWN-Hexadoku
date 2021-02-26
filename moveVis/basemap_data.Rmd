@@ -1,0 +1,20 @@
+
+basemap_data Exemplary manipulated NDVI data
+#### Description
+This datasetd contains two lists of equal lenghts:
+* a list of ten single-layer raster objects, representing NDVI images covering the Lake of
+Constance area.
+* a list of made-up times that simulate acquisition times with a temporal resolution, remote
+sensing scientiest would dream of...
+20 deprecated
+Usage
+basemap_data
+#### Format
+List containing two lists of equal lengths: a list of raster objects and a list of POSIXct times.
+#### Details
+This object is used by some moveVis examples and unit tests.
+Note
+All data contained should only be used for testing moveVis and are not suitable to be used for
+analysis or interpretation.
+Source
+MODIS (MOD13Q1 NDVI)

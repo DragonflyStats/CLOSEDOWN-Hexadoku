@@ -1,0 +1,53 @@
+
+---
+title: "``arsenal::yaml``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+yaml
+Include a YAML header in write2
+
+#### Description
+
+Include a YAML header in write2
+
+#### Usage
+<pre><code>
+
+yaml(...)
+## S3 method for class 'yaml'
+print(x, ...)
+## S3 method for class 'yaml'
+c(..., recursive = FALSE)
+is.yaml(x)
+
+</code></pre>
+#### Arguments
+
+... For yaml(), arguments to be bundled into a list and passed to as.yaml. For
+print.yaml(), extra arguments. For c.yaml(), "yaml" objects to be concate-
+nated.
+* ``x``: An object of class "yaml".
+recursive Not in use at this time.
+
+#### Value
+
+A text string of class "yaml".
+Author(s)
+Ethan Heinzen, adapted from an idea by Brendan Broderick
+See Also
+as.yaml, write2
+
+#### Examples
+```{r}
+x <- yaml(title = "My cool title", author = "Ethan P Heinzen")
+x
+y <- yaml("header-includes" = list("\\usepackage[labelformat=empty]{caption}"))
+y
+c(x, y)%nin%
+51
+```

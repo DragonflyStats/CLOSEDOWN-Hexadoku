@@ -1,0 +1,43 @@
+---
+title: "``a3.lm``: A3 for Linear Regressions"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+
+
+#### Description
+This convenience function calculates the A3 results specifically for linear regressions. It uses R's glm function and so supports logistic regressions and other link functions using the family argument.
+For other forms of models you may use the more general a3 function.
+
+#### Usage 
+
+<pre><code>
+a3.lm(formula, data, family = gaussian, ...)
+</code></pre>
+
+#### Arguments 
+* ``formula``: the regression formula.
+* ``data``: a data frame containing the data to be used in the model fit.
+* ``family``: the regression family. Typically 'gaussian' for linear regressions.
+* ``...``: additional arguments  passed to a3.base.
+
+
+#### Examples 
+```{r}
+## Standard linear regression results:
+summary(lm(rating ~ ., attitude))
+## A3 linear regression results:
+# In practice, p.acc should be <= 0.01 in order
+# to obtain fine grained p values.
+a3.lm(rating ~ ., attitude, p.acc = 0.1)
+# This is equivalent both to:
+a3(rating ~ ., attitude, glm, model.args = list(family = gaussian), p.acc = 0.1)
+# and also to:
+a3(rating ~ ., attitude, lm, p.acc = 0.1)
+```
+#### Value
+S3 A3 object; see a3.base for details

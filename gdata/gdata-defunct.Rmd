@@ -1,0 +1,30 @@
+gdata-defunct
+Defunct Functions in Package ’gdata’
+
+#### Description
+
+The functions or variables listed here are no longer part of ’gdata’.
+
+#### Usage
+<pre><code>
+
+aggregate.table(x, by1, by2, FUN=mean, ...)
+
+</code></pre>
+#### Arguments
+
+x
+by1
+by2
+FUN
+...
+data to be summarized
+first grouping factor.
+second grouping factor.
+a scalar function to compute the summary statistics which can be applied to all
+data subsets. Defaults to mean.
+Optional arguments for FUN.
+
+#### Details
+
+aggregate.table(x, by1, by2, FUN=mean, ...) should be replacede by tapply(X=x, INDEX=list(by1, by2), FUN=F20

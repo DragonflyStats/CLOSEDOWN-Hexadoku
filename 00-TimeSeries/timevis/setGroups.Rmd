@@ -1,0 +1,65 @@
+---
+title: "``timevis::setGroups``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
+
+Set the groups of a timeline
+
+#### Description
+
+Set the groups of a timeline
+
+#### Usage
+
+<pre><code>
+setGroups(id, data)
+
+<code></pre>
+
+#### Arguments
+
+* ``id``: Timeline id or a timevis object (the output from timevis())
+* ``data``: A dataframe containing the groups data to use.
+
+#### Examples
+```{r}
+
+timevis(data = data.frame(
+  start = c(Sys.Date(), Sys.Date(), Sys.Date() + 1, Sys.Date() + 2),
+  content = c("one", "two", "three", "four"),
+  group = c(1, 2, 1, 2)),
+  groups = data.frame(id = 1:2, content = c("G1", "G2"))
+) %>%
+  setGroups(data.frame(id = 1:2, content = c("Group 1", "Group 2")))
+```
+
+
+```{r}
+if (interactive()) {
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      timevisOutput("timeline"),
+      actionButton("btn", "Change group names")
+    ),
+    server = function(input, output) {
+      output$timeline <- renderTimevis(
+        timevis(data = data.frame(
+          start = c(Sys.Date(), Sys.Date(), Sys.Date() + 1, Sys.Date() + 2),
+          content = c("one", "two", "three", "four"),
+          group = c(1, 2, 1, 2)),
+          groups = data.frame(id = 1:2, content = c("G1", "G2")))
+    }
+      )
+      observeEvent(input$btn, {
+        setGroups("timeline",
+                  data.frame(id = 1:2, content = c("Group 1", "Group 2")))
+      })
+  )
+}
+```

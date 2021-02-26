@@ -1,29 +1,27 @@
 ---
-title: "timevis::fitWindow "
+title: "``fitWindow``:  Adjust the visible window such that it fits all items"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(timevis)
+library(timeVis)
 ```
 
-Adjust the visible window such that it fits all items
 
 #### Description
 
 Adjust the visible window such that it fits all items
 
-#### Usage
+### Usage
+
 <pre><code>
 fitWindow(id, options)
-<code></pre>
+</code></pre>
 
-#### Arguments
-
+#### Arguments 
 * id Timeline id or a timevis object (the output from timevis())
-* options Named list of options controlling the animation. Most common option is "animation" = TRUE/FALSE.
-For a full list of options, see the "fit" method in the official Timeline documentation
+* options Named list of options controlling the animation. Most common option is "animation" = TRUE/FALSE. For a full list of options, see the "fit" method in the official Timeline documentation
 
 #### Examples
 ```{r}

@@ -1,0 +1,41 @@
+
+---
+title: "``arsenal::not.in - %nin% ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+Not in
+
+#### Description
+
+The not-in operator for R.
+
+#### Usage
+<pre><code>
+
+x %nin% table
+
+</code></pre>
+#### Arguments
+
+x vector or NULL: the values to be matched. Long vectors are supported.
+table vector or NULL: the values to be matched against. Long vectors are not supported.
+
+#### Value
+
+The negation of %nin%.
+Author(s)
+Raymond Moore
+See Also
+%in%
+
+#### Examples
+```{r}
+1 %nin% 2:10
+c("a", "b") %nin% c("a", "c", "d")
+```

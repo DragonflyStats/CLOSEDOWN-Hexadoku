@@ -1,0 +1,54 @@
+---
+title: "``cvFolds `` Cross-validation folds"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(cvTools)
+```
+
+
+
+#### Description 
+
+Split n observations into K groups to be used for (repeated) K-fold cross-validation. K should
+thereby be chosen such that all groups are of approximately equal size.
+
+#### Usage 
+
+<pre><code>
+cvFolds(n, K = 5, R = 1, type = c("random", "consecutive", "interleaved"))
+</code></pre>
+
+#### Arguments 
+
+* ``n``: an integer giving the number of observations to be split into groups.
+* ``K``: an integer giving the number of groups into which the observations should be split (the default is five). Setting K equal to n yields leave-one-out crossvalidation.
+* ``R``: an integer giving the number of replications for repeatedK-fold cross-validation.
+This is ignored for for leave-one-out cross-validation and other non-random splits of the data.
+* ``type``: a character string specifying the type of folds to be generated. Possible values are "random" (the default), "consecutive" or "interleaved".
+
+#### Value
+An object of class "cvFolds" with the following components:
+* n an integer giving the number of observations.
+* K an integer giving the number of folds.
+* R an integer giving the number of replications.
+* subsets an integer matrix in which each column contains a permutation of the indices.
+which an integer vector giving the fold for each permuted observation.
+
+
+#### Examples 
+```{r}
+
+set.seed(1234) # set seed for reproducibility
+cvFolds(20, K = 5, type = "random")
+cvFolds(20, K = 5, type = "consecutive")
+cvFolds(20, K = 5, type = "interleaved")
+cvFolds(20, K = 5, R = 10)
+```
+
+#### Author(s)
+Andreas Alfons
+See Also
+cvFit, cvSelect, cvTuning

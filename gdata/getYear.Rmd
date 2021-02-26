@@ -1,0 +1,62 @@
+---
+title: "``gdata::getYear``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+Get date/time parts from date and time objects
+
+#### Description
+
+get* functions provide an *experimental* approach for extracting the date/time parts from objects of a date/time class. They are designed to be intiutive and thus lowering the learning curve for work with date and time classes in R.
+
+#### Usage
+<pre><code>
+
+getYear(x, format, ...)
+getMonth(x, format, ...)
+getDay(x, format, ...)
+getHour(x, format, ...)
+getMin(x, format, ...)
+getSec(x, format, ...)
+
+</code></pre>
+#### Arguments
+
+x generic, date/time object
+format character, format
+... arguments pased to other methods
+
+#### Value
+
+Character
+Author(s)
+Gregor Gorjanc
+See Also
+Date, DateTimeClasses, strptime
+
+#### Examples
+```{r}
+
+## --- Date class ---
+tmp <- Sys.Date()
+tmp
+getYear(tmp)
+getMonth(tmp)humanReadable
+21
+getDay(tmp)
+## --- POSIXct class ---
+tmp <- as.POSIXct(tmp)
+getYear(tmp)
+getMonth(tmp)
+getDay(tmp)
+## --- POSIXlt class ---
+tmp <- as.POSIXlt(tmp)
+getYear(tmp)
+getMonth(tmp)
+getDay(tmp)
+```

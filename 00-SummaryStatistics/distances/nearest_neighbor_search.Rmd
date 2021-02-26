@@ -1,0 +1,36 @@
+---
+title: "``nearest_neighbor_search``: Nearest neighbor search"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(distances)
+```
+
+#### Description
+``nearest_neighbor_search`` searches for the k nearest neighbors of a set of query points.
+
+#### Usage
+<pre><code>
+nearest_neighbor_search(distances, k, query_indices = NULL,
+search_indices = NULL, radius = NULL)
+</code></pre>
+
+#### Arguments
+* ``distances``: A distances object.
+* ``k``: The number of neighbors to search for.
+* ``query_indices``: An integer vector with point indices to query. If NULL, all data points in distances are queried.
+* ``search_indices``: An integer vector with point indices to search among. If NULL, all data points in distances are searched over.
+* ``radius``: Restrict the search to a fixed radius around each query. If fewer than k search
+* ``points``: exist within this radius, no neighbors are reported (indicated by NA).
+
+
+
+```{r}
+nearest_neighbor_search(distances(iris[1:10,1:4]),3)
+```
+
+#### Value
+A matrix with point indices for the nearest neighbors. Columns in this matrix indicate queries, and
+rows are ordered by distances from the query.

@@ -1,0 +1,60 @@
+---
+title: "``DataVisualizations::MAplot``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+#### Description
+
+Bland-Altman plot [Altman/Bland, 1983].
+
+#### Usage
+<pre><code>
+MAplot(x,y,islog=TRUE,densityplot=FALSE,
+main='MA-plot',xlab,ylab,Cls)
+</code></pre>
+
+#### Arguments
+x [1:n] numerical vector of a feature/variable
+y [1:n] another numerical vector of a feature/variable
+islog TRUE: MAplot, FALSE: M=x-y versus a=0.5(x+y)
+densityplot FALSE: Scatterplot, TRUE: density scatter plot with PDE
+main see plot
+xlab see plot
+ylab see plot
+Cls prior Classification as a numeric vector.
+
+#### Examples
+```{r}
+#taken from [Thrun/Ultsch, 2018]
+data("ITS")
+data("MTY")
+MAlist=MAplot(ITS,MTY)
+```
+
+Details
+Bland-Altman plot [Altman/Bland, 1983] for visual representation of genomic data or in order to decorrelate data.
+
+#### Value
+
+MA [1:n,2] Matrix of Minus component of two features and Add component of two
+features
+ggplot see ggplot2 output, if densityplot=TRUE, else NULL
+Author(s)
+Michael Thrun
+34 MDplot
+
+#### References
+
+* [Altman/Bland, 1983] Altman D.G., Bland J.M.: Measurement in medicine: the analysis of method
+comparison studies, The Statistician, Vol. 32, p. 307-317, doi:10.2307/2987937, 1983.
+* [Ultsch, 2005] Ultsch, A.: Pareto Density Estimation: A Density Estimation for Knowledge Discovery,
+Baier D.,Wernecke K.D. (Eds), In Innovations in Classification, Data Science, and Information Systems - Proceedings 27th Annual Conference of the German Classification Society (GfKL) 2003,
+Berlin, Heidelberg, Springer, pp, 91-100, 2005.
+

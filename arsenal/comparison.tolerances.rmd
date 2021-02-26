@@ -1,0 +1,62 @@
+---
+title: "``Arsenal::comparison.tolerances``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+Comparison tolerances
+
+#### Description
+
+Internal functions defining tolerances for the comparison.control function. To create your own
+tolerance definitions, see the vignette.
+
+#### Usage
+<pre><code>
+
+tol.NA(x, y, idx)
+tol.num.absolute(x, y, tol)
+tol.num.percent(x, y, tol)
+tol.num.pct(x, y, tol)
+tol.factor.none(x, y)
+tol.factor.levels(x, y)
+tol.factor.labels(x, y)
+tol.char.both(x, y)
+tol.char.case(x, y)
+tol.char.trim(x, y)
+tol.char.none(x, y)
+tol.date.absolute(x, y, tol)
+tol.logical.none(x, y)
+tol.other.none(x, y)
+
+</code></pre>
+#### Arguments
+
+x, y
+idx
+tol
+vectors of the appropriate lengths and types.
+A logical vector of appropriate length.
+A numeric tolerance
+
+#### Details
+tol.NA takes as differences between two vectors any elements which are NA in one but not the
+other, or which are non-NA in both and TRUE in idx. It is useful for handling NAs in custom
+tolerance functions.
+
+#### Value
+
+A logical vector of length equal to that of x and y, where TRUE denotes a difference between x and
+y, and FALSE denotes no difference between x and y.
+
+#### Author(s)
+Ethan Heinzen12
+diffs
+
+#### See Also
+comparison.control, compare.data.frame

@@ -1,0 +1,181 @@
+
+frames_spatial Create frames of spatial movement maps for animation
+frames_spatial 25
+#### Description
+frames_spatial creates a list of ggplot2 maps displaying movement. Each object represents a
+single frame. Each frame can be viewed or modified individually. The returned list of frames can
+be animated using animate_frames.
+Usage
+frames_spatial(m, r_list = NULL, r_times = NULL, r_type = "gradient",
+fade_raster = FALSE, map_service = "osm", map_type = "streets",
+map_res = 1, map_token = NULL, map_dir = NULL,
+margin_factor = 1.1, equidistant = NULL, ext = NULL,
+tail_length = 19, tail_size = 1, path_size = 3,
+path_end = "round", path_join = "round", path_mitre = 10,
+path_arrow = NULL, path_colours = NA, path_legend = TRUE,
+path_legend_title = "Names", ..., verbose = TRUE)
+#### Arguments 
+m move or moveStack of uniform time scale and time lag, e.g. prepared with
+align_move (recommended). May contain a column named colour to control
+path colours (see #### Details).
+r_list list of raster or rasterStack. Each list element referrs to the times given
+in r_times. Use single-layer raster objects for gradient or discrete data (see
+r_type). Use a rasterStack containing three bands for RGB imagery (in the
+order red, green, blue).
+r_times list of POSIXct times. Each list element represents the time of the corresponding
+element in r_list. Must be of same length as r_list.
+r_type character, either "gradient" or "discrete". Ignored, if r_list contains rasterStacks
+of three bands, which are treated as RGB.
+fade_raster logical, if TRUE, r_list is interpolated over time based on r_times. If FALSE,
+r_list elements are assigned to those frames closest to the equivalent times in
+r_times.
+map_service character, either "osm", "carto" or "mapbox". Default is "osm".
+map_type character, a map type, e.g. "streets". For a full list of available map types, see
+get_maptypes.
+map_res numeric, resolution of base map in range from 0 to 1.
+map_token character, mapbox authentification token for mapbox basemaps. Register at
+https://www.mapbox.com/ to get a mapbox token. Mapbox is free of charge
+after registration for up to 50.000 map requests per month. Ignored, if map_service = "osm".
+map_dir character, directory where downloaded basemap tiles can be stored. By default,
+a temporary directory is used. If you use moveVis often for the same area it is
+recommended to set this argument to a directory persistent throughout sessions
+(e.g. in your user folder), so that baesmap tiles that had been already downloaded
+by moveVis do not have to be requested again.
+margin_factor numeric, factor relative to the extent of m by which the frame extent should be
+increased around the movement area. Ignored, if ext is set.
+26 frames_spatial
+equidistant logical, whether to make the map extent equidistant (squared) with y and x axis
+measuring equal distances or not. Especially in polar regions of the globe it
+might be necessaray to set equidistant to FALSE to avoid strong stretches. By
+default (equidistant = NULL), equidistant is set automatically to FALSE, if ext
+is set, otherwise TRUE. Read more in the #### Details.
+ext sf bbox or sp extent in same CRS as m, optional. If set, frames are cropped
+to this extent. If not set, a squared extent around m, optional with a margin set
+by margin_factor, is used (default).
+tail_length numeric, length of tail per movement path.
+tail_size numeric, size of the last tail element. Default is 1.
+path_size numeric, size of each path.
+path_end character, either "round", "butt" or "square", indicating the path end style.
+path_join character, either "round", "mitre" or "bevel", indicating the path join style.
+path_mitre numeric, path mitre limit (number greater than 1).
+path_arrow arrow, path arrow specification, as created by grid::arrow().
+path_colours character, a vector of colours. Must be of same length as number of individual
+tracks in m and refers to the order of tracks in m. If undefined (NA) and m contains
+a column named colour, colours provided within m are used (see #### Details).
+Othwersie, colours are selected randomly per individual track.
+path_legend logical, wether to add a path legend from m or not. Legend tracks and colours
+will be ordered by the tracks’ temporal apperances, not by their order in m.
+path_legend_title
+character, path legend title. Default is "Names".
+* ``...``: additional arguments  customizing the frame background, passed to RStoolbox::ggR
+or RStoolbox::ggRGB:
+* alpha, numeric, background transparency (0-1).
+* hue, numeric, hue value for color calculation (0-1). Change if you need
+anything else than greyscale. Only effective if sat > 0.
+* sat, numeric, saturation value for color calculation (0,1). Change if you
+need anything else than greyscale.
+* stretch, character, either ’none’, ’lin’, ’hist’, ’sqrt’ or ’log’ for no stretch,
+linear, histogram, square-root or logarithmic stretch.
+* quantiles, numeric vector with two elements, min and max quantiles to
+stretch to. Defaults to 2
+verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+#### Details
+If argument path_colours is not defined (set to NA), path colours can be defined by adding a
+character column named colour to m, containing a colour code or name per row (e.g. "red". This
+way, for example, column colour for all rows belonging to individual A can be set to "green",
+while column colour for all rows belonging to individual B can be set to "red". Colours could
+also be arranged to change through time or by behavioral segments, geographic locations, age,
+frames_spatial 27
+environmental or health parameters etc. If a column name colour in m is missing, colours will be
+selected automatically. Call colours() to see all available colours in R.
+Basemap colour scales can be changed/added using add_colourscale or by using ggplot2 commands
+(see #### Examples). For continous scales, use r_type = "gradient". For discrete scales, use
+r_type = "discrete".
+The projection of m is treated as target projection. Default base maps accessed through a map service
+will be reprojected into the projection of m. Thus, depending on the projection of m, it may happen
+that map labels are distorted. To get undistorted map labels, reproject m to the web mercator projection
+(the default projection of the base maps): spTransform(m, crs("+init=epsg:3857")).
+The ggplot2 coordinate system will be computed based on the projection of m using coord_sf. If
+argument equidistant is set, the map extent is calculated (thus enlarged into one axis direction) to
+represent equal surface distances on the x and y axis.
+Value
+List of ggplot2 objects, each representing a single frame.
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_graph join_frames animate_frames
+#### Examples
+library(moveVis)
+library(move)
+library(ggplot2)
+data("move_data")
+# align movement
+m <- align_move(move_data, res = 4, unit = "mins")
+# with osm watercolor base map
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor")
+# take a look at one of the frames, e.g. the 100th
+frames[[100]]
+# make base map a bit transparent
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor", alpha = 0.5)
+frames[[100]] # take a look
+# use a larger margin around extent
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor", alpha = 0.5,
+margin_factor = 1.8)
+# use a extent object as your AOI
+ext <- extent(m)
+28 frames_spatial
+ext@xmin <- ext@xmin - (ext@xmin*0.003)
+ext@xmax <- ext@xmax + (ext@xmax*0.003)
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor", alpha = 0.5,
+ext = ext)
+# alter path appearance (make it longer and bigger)
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor", alpha = 0.5,
+path_size = 4, tail_length = 29)
+# adjust path colours manually
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor", alpha = 0.5,
+path_colours = c("black", "blue", "purple"))
+# or do it directly within your moveStack, e.g. like:
+m.list <- split(m) # split m into list by individual
+m.list <- mapply(x = m.list, y = c("orange", "purple", "darkgreen"), function(x, y){
+x$colour <- y
+return(x)
+}) # add colour per individual
+m <- moveStack(m.list) # putting it back together into a moveStack
+frames <- frames_spatial(m, map_service = "osm", map_type = "watercolor", alpha = 0.5)
+# this way, you do not have to assign colours per individual track
+# instead, you could assign colours by segment, age, speed or other variables
+# get available map types
+get_maptypes()
+# use mapbox to get a satellite or other map types (register to on mapbox.com to get a token)
+frames <- frames_spatial(m, map_service = "mapbox",
+map_token = "your_token_from_your_mapbox_account",
+map_type = "satellite")
+# if you make a lot of calls to frames_spatial during mutliple sessions, use a map directory
+# to save all base maps offline so that you do not have to query the servers each time
+frames <- frames_spatial(m, map_service = "mapbox",
+map_token = "your_token_from_your_mapbox_account",
+map_type = "satellite",
+map_dir = "your/map_directory/")
+# use your own custom base maps
+data("basemap_data")
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+# using gradient data (e.g. NDVI)
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE)
+# using discrete data (e.g. classifications)
+# let's make up some classification data with 10 classes
+r_list <- lapply(r_list, function(x){
+y <- raster::setValues(x, round(raster::getValues(x)*10))
+return(y)
+get_maptypes 29
+})
+# turn fade_raster to FALSE, since it makes no sense to temporally interpolate discrete classes
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "discrete",
+fade_raster = FALSE)
+# animate the frames created with frames_spatial;
+animate_frames(frames, out_file = tempfile(fileext = ".gif"))
+# see ?add_colourscale to learn how to change colours of custom base maps
+# see all add_ functions on how to customize your frames created with frames_spatial
+# or frames_graph
+# see ?animate_frames on how to animate your list of frames

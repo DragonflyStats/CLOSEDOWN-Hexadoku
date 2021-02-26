@@ -1,0 +1,30 @@
+
+---
+title: "``arsenal::freqlist.internal``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(greg)
+```
+
+Helper functions for freqlist
+
+#### Description
+
+A set of helper functions for freqlist.
+
+#### Usage
+<pre><code>
+
+is.freqlist(x)
+is.summary.freqlist(x)
+
+</code></pre>
+#### Arguments
+
+x
+A freqlist object.
+See Also
+merge.freqlist, arsenal_table

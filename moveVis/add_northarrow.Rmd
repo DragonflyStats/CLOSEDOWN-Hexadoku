@@ -1,0 +1,62 @@
+---
+title: "``add_northarrow``:  Add north arrow to frames"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(moveVis)
+```
+
+#### Description
+This function adds a north arrow to the animation frames created with frames_spatial.
+
+#### Usage
+
+<pre><code>
+add_northarrow(frames, height = 0.05, position = "bottomright",
+x = NULL, y = NULL, colour = "black", size = 1,
+label_text = "N", label_margin = 0.4, label_size = 5,
+verbose = TRUE)
+</code></pre>
+
+#### Arguments 
+frames list of ggplot2 objects, crated with frames_spatial.
+height numeric, height of the north arrow in a range from 0 to 1 as the proportion of
+the overall height of the frame map. Default is 0.5.
+position character, position of the north arrow on the map. Either "bottomleft", "upperleft", "upperright", Ignored, if x and y are set.
+x numeric, position of the bottom left corner of the north arrow on the x axis. If not set, position is used to calculate the position of the north arrow.
+y numeric, position of the bottom left corner of the north arrow on the y axis. If not set, position is used to calculate the position of the north arrow.
+* colour character, colour. Default is "black".
+* size numeric, arrow size. Default is 1.
+* label_text character, text below the north arrow. Default is "North".
+* label_margin numeric, margin between label and north arrow as a proportion of the size of the north arrow. Default is 0.3.
+label_size numeric, label font size. Default is 4.
+* verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+
+#### Examples
+```{r}
+library(moveVis)
+library(move)
+data("move_data", "basemap_data")
+m <- align_move(move_data, res = 4, unit = "mins")
+# create spatial frames using a custom NDVI base layer
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE)
+# add a north arrow to frames:
+add_progress 11
+frames.a <- add_northarrow(frames)
+frames.a[[100]]
+# or in white at another position
+frames.b <- add_northarrow(frames, colour = "white", position = "bottomleft")
+frames.b[[100]]
+```
+
+Value
+List of frames.
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_spatial frames_graph animate_frames

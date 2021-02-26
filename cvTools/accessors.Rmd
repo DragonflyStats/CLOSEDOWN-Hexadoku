@@ -1,0 +1,88 @@
+---
+title: "``accessors``:  Access or set information on cross-validation results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(cvTools)
+```
+
+
+
+#### Description 
+
+Retrieve or set the names of cross-validation results, retrieve or set the identifiers of the models, orretrieve the number of cross-validation results or included models.
+
+#### Usage 
+<pre><code>
+cvNames(x)
+cvNames(x) <- value
+fits(x)
+fits(x) <- value
+ncv(x)
+nfits(x)
+</code></pre>
+#### Arguments 
+
+* x an object inheriting from class "cv" or "cvSelect" that contains cross-validation results.
+* value a vector of replacement values.
+
+#### Value
+* cvNames returns the names of the cross-validation results. The replacement function thereby returns
+them invisibly.
+* fits returns the identifiers of the models for objects inheriting from class "cvSelect" and NULL for
+objects inheriting from class "cv". The replacement function thereby returns those values invisibly.
+* ncv returns the number of cross-validation results.
+* nfits returns the number of models included in objects inheriting from class "cvSelect" and NULL for objects inheriting from class "cv".
+
+#### Author(s)
+Andreas Alfons
+
+#### See Also
+cvFit, cvSelect, cvTuning
+
+#### Examples 
+```{r}
+
+library("robustbase")
+data("coleman")
+set.seed(1234) # set seed for reproducibility
+## set up folds for cross-validation
+folds <- cvFolds(nrow(coleman), K = 5, R = 10)
+## compare raw and reweighted LTS estimators for
+## 50% and 75% subsets
+```
+```{r}
+# 50% subsets
+fitLts50 <- ltsReg(Y ~ ., data = coleman, alpha = 0.5)
+cvFitLts50 <- cvLts(fitLts50, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+```
+```{r}
+# 75% subsets
+fitLts75 <- ltsReg(Y ~ ., data = coleman, alpha = 0.75)
+cvFitLts75 <- cvLts(fitLts75, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+# combine results into one object
+cvFitsLts <- cvSelect("0.5" = cvFitLts50, "0.75" = cvFitLts75)
+cvFitsLts
+```
+```{r}
+# "cv" object
+ncv(cvFitLts50)
+nfits(cvFitLts50)
+cvNames(cvFitLts50)
+cvNames(cvFitLts50) <- c("improved", "initial")
+fits(cvFitLts50)
+aggregate.cv 5
+```
+```{r}
+# "cvSelect" object
+ncv(cvFitsLts)
+nfits(cvFitsLts)
+cvNames(cvFitsLts)
+cvNames(cvFitsLts) <- c("improved", "initial")
+fits(cvFitsLts)
+fits(cvFitsLts) <- 1:2
+cvFitsLts

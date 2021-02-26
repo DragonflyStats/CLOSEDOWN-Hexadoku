@@ -1,0 +1,217 @@
+Package ‘DataVisualizations’
+March 8, 2019
+Type Package
+Title Visualizations of High-Dimensional Data
+Version 1.1.6
+Date 2019-03-08
+Maintainer Michael Thrun <m.thrun@gmx.net>
+#### Description
+The flagship idea of 'DataVisualizations' is the mirrored density plot (MD-plot) which is a PDEoptimized
+violin plot for either classified or non-classified multivariate data. The MDplot
+is an alternative to the box-and-whisker diagram (box plot) and bean plot. Furthermore, a collection of various visualization methods for univariate data is provided.
+In the case of exploratory data analysis, 'DataVisualizations' makes it possible to inspect
+the distribution of each feature of a dataset visually through a combination of four methods.
+One of these methods is the Pareto density estimation (PDE) of the probability density function (pdf). Additionally, visualizations of the distribution of distances using PDE, the scatterdensity plot using PDE for two variables as well as the Shepard density plot and the Bland-Altman plot are presented here. Pertaining to classified high-dimensional data, a number of visualizations are described, such as f.ex. the heat map and silhouette plot. A political map of the world or Germany can be visualized with the additional information defined by a classification of countries or regions. By extending the political map further, an uncomplicated function for a Choropleth map can be used which is useful for measurements across a geographic
+area. For categorical features, the Pie charts, slope charts and fan plots, improved
+by the ABC analysis, become usable. More detailed explanations
+are found in the book by Thrun, M.C.: ``Projection-Based Clustering through Self-
+Organization and Swarm Intelligence'' (2018) <doi:10.1007/978-3-658-20540-9>.
+License GPL-3
+Imports Rcpp (>= 0.12.12), AdaptGauss, ggplot2, sp
+Suggests plyr, akima, ggmap, reshape2, plotrix, rworldmap, rgl,
+ABCanalysis, choroplethr, gplots, dplyr, R6, parallelDist,
+knitr (>= 1.12), rmarkdown (>= 0.9), vioplot, ggExtra, plotly,
+htmlwidgets, diptest, moments, signal, DatabionicSwarm, rowr
+LinkingTo Rcpp, RcppArmadillo
+Depends R (>= 2.10)
+SystemRequirements C++11
+1
+2 R topics documented:
+LazyLoad yes
+LazyData TRUE
+URL http://www.deepbionics.org
+VignetteBuilder knitr
+BugReports https://github.com/Mthrun/DataVisualizations/issues
+NeedsCompilation yes
+Author Michael Thrun [aut, cre, cph] (<https://orcid.org/0000-0001-9542-5543>),
+Felix Pape [aut, rev],
+Onno Hansen-Goos [ctr, ctb],
+Alfred Ultsch [dtc, ctb]
+Repository CRAN
+Date/Publication 2019-03-08 12:42:42 UTC
+R topics documented:
+DataVisualizations-package . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+categoricalVariable . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+Choroplethmap . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+ChoroplethPostalCodesAndAGS_Germany . . . . . . . . . . . . . . . . . . . . . . . . 10
+ClassBoxplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+ClassMDplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+ClassPDEplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+ClassPDEplotMaxLikeli . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+Classplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+Crosstable . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+DefaultColorSequence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+DualaxisClassplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+DualaxisLinechart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+Fanplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+GoogleMapsCoordinates . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+Heatmap . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+HeatmapColors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+inPSphere2D . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+InspectBoxplots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+InspectDistances . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+InspectScatterplots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+InspectStandardization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+InspectVariable . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+ITS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+Lsun3D . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+MAplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+MDplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+MDplot4multiplevectors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+MTY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+DataVisualizations-package 3
+PDEplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+PDEscatter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+Piechart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+Pixelmatrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 45
+Plot3D . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+PlotMissingvalues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+PlotProductratio . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+PmatrixColormap . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+QQplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+Sheparddiagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+ShepardPDEscatter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+SignedLog . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53
+Silhouetteplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+Slopechart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+StatPDEdensity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+stat_pde_density . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+Worldmap . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+world_country_polygons . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 61
+zplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148
+Index 149
+DataVisualizations-package
+Visualizations of High-Dimensional Data
+#### Description
+The flagship idea of ’DataVisualizations’ is the mirrored density plot (MD-plot) which is a PDEoptimized
+violin plot for either classified or non-classified multivariate data. The MD-plot is an
+alternative to the box-and-whisker diagram (box plot) and bean plot. Furthermore, a collection of
+various visualization methods for univariate data is provided. In the case of exploratory data analysis,
+’DataVisualizations’ makes it possible to inspect the distribution of each feature of a dataset
+visually through a combination of four methods. One of these methods is the Pareto density estimation
+(PDE) of the probability density function (pdf). Additionally, visualizations of the distribution
+of distances using PDE, the scatter-density plot using PDE for two variables as well as
+the Shepard density plot and the Bland-Altman plot are presented here. Pertaining to classified
+high-dimensional data, a number of visualizations are described, such as f.ex. the heat map and
+silhouette plot. A political map of the world or Germany can be visualized with the additional information
+defined by a classification of countries or regions. By extending the political map further,
+an uncomplicated function for a Choropleth map can be used which is useful for measurements
+across a geographic area. For categorical features, the Pie charts, slope charts and fan plots, improved
+by the ABC analysis, become usable. More detailed explanations are found in the book
+by Thrun, M.C.: "Projection-Based Clustering through Self-Organization and Swarm Intelligence"
+(2018) <doi:10.1007/978-3-658-20540-9>.
+4 DataVisualizations-package
+Details
+For a brief introduction to DataVisualizations please see the vignette A Quick Tour in Data Visualizations.
+Please see http://www.deepbionics.org/. Depending on the context please cite either [Thrun,
+2018] regarding visualizations in the context of clustering or [Thrun/Ultsch, 2018] for other visualizations.
+For the Mirrored Density Plot (PDE optimized violin plot) please cite [Thrun et al.,2018].
+Index of help topics:
+ChoroplethPostalCodesAndAGS_Germany
+Postal Codes and AGS of Germany for a
+Choropleth Map
+Choroplethmap Plot the Choropleth Map
+ClassBoxplot Creates Boxplot plot for all classes
+ClassMDplot Class MD-plot for Data w.r.t. all classes
+ClassPDEplot PDE Plot for all classes
+ClassPDEplotMaxLikeli Create PDE plot for all classes with maximum
+likelihood
+Classplot Classplot
+Crosstable Crosstable plot
+DataVisualizations-package
+Visualizations of High-Dimensional Data
+DefaultColorSequence Default color sequence for plots
+DualaxisClassplot Dualaxis Classplot
+DualaxisLinechart DualaxisLinechart
+Fanplot The fan plot
+GoogleMapsCoordinates Google Maps with marked coordinates
+Heatmap Heatmap for Clustering
+HeatmapColors Default color sequence for plots
+ITS Income Tax Share
+InspectBoxplots Enables to Insptecd the Boxplots for Multiple
+variables
+InspectDistances Inspection of Distance-Distribution
+InspectScatterplots Pairwise scatterplots and optimal histograms
+InspectStandardization
+QQplot of Data versus Normalized Data
+InspectVariable Visualization of Distribution of one variable
+Lsun3D Lsun3D inspired by FCPS
+MAplot Minus versus Add plot
+MDplot Mirrored Density plot (MD-plot)
+MDplot4multiplevectors
+Mirrored Density plot (MD-plot)for Multiple
+Vectors
+MTY Muncipal Income Tax Yield
+PDEplot PDE plot
+PDEscatter Scatter Density Plot
+Piechart The pie chart
+DataVisualizations-package 5
+Pixelmatrix Plot of a Pixel Matrix
+Plot3D 3D plot of points
+PlotMissingvalues Plot of the Amount Of Missing Values
+PlotProductratio Product-Ratio Plot
+PmatrixColormap P-Matrix colors
+QQplot QQplot with a Linear Fit
+ShepardPDEscatter Shepard PDE scatter
+Sheparddiagram Draws a Shepard Diagram
+SignedLog Signed Log
+Silhouetteplot Silhouette plot of classified data.
+Slopechart Slope Chart
+StatPDEdensity Pareto Density Estimation
+Worldmap plots a world map by country codes
+categoricalVariable A categorical Feature.
+inPSphere2D 2D data points in Pareto Sphere
+stat_pde_density Calculate Pareto density estimation for ggplot2
+plots
+world_country_polygons
+world_country_polygons
+zplot Plotting for 3 dimensional data
+Author(s)
+Michael Thrun, Felix Pape, Onno Hansen-Goos, Alfred Ultsch
+Maintainer: Michael Thrun <m.thrun@gmx.net>
+References
+[Thrun, 2018] Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm
+Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, https:
+//doi.org/10.1007/978-3-658-20540-9, 2018.
+[Thrun/Ultsch, 2018] Thrun, M. C., & Ultsch, A. : Effects of the payout system of income taxes
+to municipalities in Germany, in Papiez, M. & Smiech„ S. (eds.), Proc. 12th Professor Aleksander
+Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, pp.
+533-542, Cracow: Foundation of the Cracow University of Economics, Cracow, Poland, 2018.
+[Thrun et al.,2018] Thrun, M. C., Pape, F., & Ultsch, A. : Benchmarking Cluster Analysis Methods
+using PDE-Optimized Violin Plots, Proc. European Conference on Data Analysis (ECDA),
+Paderborn, Germany, 2018.
+Examples
+data("Lsun3D")
+Data=Lsun3D$Data
+Pixelmatrix(Data)
+6 categoricalVariable
+InspectDistances(as.matrix(dist(Data)))
+data("ITS")
+data("MTY")
+Inds=which(ITS<900&MTY<8000)
+plot(ITS[Inds],MTY[Inds],main='Bimodality is not visible in normal scatter plot')
+PDEscatter(ITS[Inds],MTY[Inds],xlab = 'ITS in EUR',
+ylab ='MTY in EUR' ,main='Pareto Density Estimation indicates Bimodality' )
+MAlist=MAplot(ITS,MTY)
+data("Lsun3D")
+Cls=Lsun3D$Cls
+Data=Lsun3D$Data
+#clear cluster structure
+plot(Data[,1:2],col=Cls)
+#However, the silhouette plot does not indicate a very good clustering in cluster 1 and 2
+Silhouetteplot(Data,Cls = Cls)
+Heatmap(as.matrix(dist(Data)),Cls = Cls)
+```
+
+
+

@@ -1,0 +1,44 @@
+---
+title: "``arsenal::keep.labels``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+Keep Labels
+
+#### Description
+
+Keep the 'label' attribute on an R object when subsetting.18
+labels
+
+#### Usage
+<pre><code>
+
+keep.labels(x, ...)
+## S3 method for class 'data.frame'
+keep.labels(x, ...)
+## Default S3 method:
+keep.labels(x, ...)
+## S3 method for class 'keep_labels'
+x[...]
+
+</code></pre>
+#### Arguments
+
+x An R object
+... Other arguments (not in use at this time).
+
+#### Value
+
+A copy of x with a "keep labels" class appended on.
+Author(s)
+Ethan Heinzen
+See Also
+labels
+labels
+
+

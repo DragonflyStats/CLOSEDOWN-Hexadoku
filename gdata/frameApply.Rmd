@@ -1,0 +1,66 @@
+frameApply
+Subset analysis on data frames
+
+#### Description
+
+Apply a function to row subsets of a data frame.18
+frameApply
+
+#### Usage
+<pre><code>
+
+frameApply(x, by=NULL, on=by[1], fun=function(xi) c(Count=nrow(xi)),
+subset=TRUE, simplify=TRUE, byvar.sep="\$\\@\$", ...)
+
+</code></pre>
+#### Arguments
+
+* x a data frame
+* by names of columns in x specifying the variables to use to form the subgroups. None of the by variables should have the name "sep" (you will get an error if one of them does; a bit of laziness in the code). Unused levels of the by variables
+will be dropped. Use by = NULL (the default) to indicate that all of the data is to be treated as a single (trivial) subgroup.
+* ``on``: names of columns in x specifying columns over which fun is to be applied.
+These can include columns specified in by, (as with the default) although that is not usually the case.
+* ``fun``: a function that can operate on data frames that are row subsets of x[on]. If simplify = TRUE, the return value of the function should always be either a
+try-error (see try), or a vector of fixed length (i.e. same length for every subset), preferably with named elements.
+* subset logical vector (can be specified in terms of variables in data). This row subset of x is taken before doing anything else.
+* ``simplify``: logical. If TRUE (the default), return value will be a data frame including the by columns and a column for each element of the return vector of fun. If FALSE,
+the return value will be a list, sometimes necessary for less structured output (see description of return value below).
+* ``byvar.sep``: character. This can be any character string not found anywhere in the values of the by variables. The by variables will be pasted together using this as the
+separator, and the result will be used as the index to form the subgroups.
+... additional arguments to fun.
+
+#### Details
+
+This function accomplishes something similar to by. The main difference is that frameApply is designed to return data frames and lists instead of objects of class ’by’. Also, frameApply works
+only on the unique combinations of the by that are actually present in the data, not on the entire cartesian product of the by variables. In some cases this results in great gains in efficiency, although
+frameApply is hardly an efficient function.
+
+#### Value
+
+a data frame if simplify = TRUE (the default), assuming there is sufficiently structured output from fun. If simplify = FALSE and by is not NULL, the return value will be a list with two elements.
+The first element, named "by", will be a data frame with the unique rows of x[by], and the second element, named "result" will be a list where the ith component gives the result for the ith row of the
+"by" element.gdata-defunct
+19
+Author(s)
+Jim Rogers <james.a.rogers@pfizer.com>
+
+#### Examples
+```{r}
+
+data(ELISA, package="gtools")
+# Default is slightly unintuitive, but commonly useful:
+frameApply(ELISA, by = c("PlateDay", "Read"))
+# Wouldn't actually recommend this model! Just a demo:
+frameApply(ELISA, on = c("Signal", "Concentration"), by = c("PlateDay", "Read"),
+fun = function(dat) coef(lm(Signal ~ Concentration, data =
+dat)))
+frameApply(ELISA, on = "Signal", by = "Concentration",
+fun = function(dat, ...) {
+x <- dat[[1]]
+out <- c(Mean = mean(x, ...),
+SD = sd(x, ...),
+N = sum(!is.na(x)))
+},
+na.rm = TRUE,
+subset = !is.na(Concentration))
+```

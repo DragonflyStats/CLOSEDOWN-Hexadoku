@@ -1,0 +1,54 @@
+---
+title: "``bigdatadist::rkhs``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(bigdatadist)
+```
+## RKHS Representation
+
+#### Description 
+
+This function allows you to fit discrete functional data (fdframe) as functions in RKHS solving a regularization problem as stated in Munoz (2010).
+
+#### Usage
+
+<pre><code>
+rkhs(fdframe, gamma=1, kerfunc='rbf',
+kerpar=list(sigma=1, bias=0, degree=2))
+</code></pre>
+
+#### Arguments 
+
+* ``fdframe``: functional data fdframe object.
+* ``gamma``: regularization parameter.
+* ``kerfunc``: kernel function rbf or poly to be used.
+* ``kerpar``: a list of kernel parameters where sigma is the scale with both kernels.
+
+#### Examples 
+
+```{r}
+data(merval); t <- as.Date(merval[1:100,1])
+t <- as.numeric(( t - min(t) ) / 154)
+raw.data <-fdframe(t = t, Y = merval[1:100,2:5])
+plot(raw.data, xlab='time', ylab='Merval raw data')
+f.data <- rkhs(raw.data, gamma = 0.001, kerpar = list(sigma = 8))
+print(f.data)
+plot(f.data, xlab='time', ylab='Merval data')
+```
+
+#### Value
+
+* ``fdframe``: raw data in an fdframe object.
+* ``f``: estimated functional data
+* ``alpha``: coefficients for the linear combination.
+* ``lambda.star``: reduced coefficients for the linear combination.
+
+#### Author(s)
+Hernandez and Martos
+
+#### References
+Munoz A. et al (2010). Representing functional data using support vector machines. Pattern recog-
+nition letters, 31(6).

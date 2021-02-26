@@ -1,0 +1,32 @@
+subset_move Subset a move or moveStack object by a given time span
+#### Description
+This function is a simple wrapper that subsets a move or moveStack by a given time span. A move
+or moveStack containing data only for the subset time span is returned.
+Usage
+subset_move(m, from, to, tz = "UTC")
+#### Arguments 
+m a move or moveStack object (see df2move to convert a data.frame to a move
+object).
+from character or POSIXct, representing the start time. If character, the #### Format "%m-%d-%y %H:%M:%S"
+must be used (see strptime).
+to character or POSIXct, representing the stop time. If character, the #### Format "%m-%d-%y %H:%M:%S"
+must be used (see strptime).
+tz character, time zone that should be used if from and/or to are of type character.
+Value
+A move or moveStack object.
+See Also
+df2move
+#### Examples
+library(moveVis)
+library(move)
+# load the example data
+data("move_data")
+# check min and max of move_data timestamps
+suggest_#### Formats 33
+min(timestamps(move_data))
+max(timestamps(move_data))
+# subset by character times
+m <- subset_move(move_data, from = "2018-05-15 07:00:00", to = "2018-05-15 18:00:00")
+# check min and max of result
+min(timestamps(m))
+max(timestamps(m))

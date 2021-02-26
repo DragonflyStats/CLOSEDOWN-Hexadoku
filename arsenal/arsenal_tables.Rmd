@@ -1,0 +1,56 @@
+arsenal_table
+
+#### Description
+
+arsenal tables with common structure
+
+#### Usage
+<pre><code>
+
+has_strata(x)
+## S3 method for class 'arsenal_table'
+x[i, j, ...]
+## S3 method for class 'arsenal_table'
+labels(object, ...)
+## S3 replacement method for class 'arsenal_table'
+labels(x) <- value
+## S3 method for class 'arsenal_table'
+print(x, ...)
+## S3 method for class 'arsenal_table'
+merge(x, y, all = FALSE, all.x = all,
+all.y = all, ...)
+## S3 method for class 'freqlist'
+merge(x, y, all = TRUE, ...)
+## S3 method for class
+print(x, ..., format =
+(!is.null(x$text) &&
+"markdown", escape =
+min.split = NULL)
+'summary.arsenal_table'
+if
+x$text %in% c("html", "latex")) x$text else
+x$text %nin% c("html", "latex"), width = NULL,as.data.frame.freqlist
+
+</code></pre>
+#### Arguments
+
+x, y, object An object of class "arsenal_table"
+i, j A vector to index x with: either names of variables, a numeric vector, or a
+logical vector of appropriate length. i indexes the x-variables, and j indexes the
+by-variables.
+... Other arguments (only used in print.summary.arsenal_table)
+value
+A list of new labels.
+all, all.x, all.y
+Logicals, denoting which terms to keep if not all are in common.
+format
+Passed to kable: the format for the table. The default here is "markdown".
+To use the default in kable, pass NULL. If x$text specifies LaTeX or HTML
+formatting, that format is used in the table.
+escape
+Passed to kable: should special characters be escaped when printed?
+width, min.split
+Passed to smart.split for formatting of the "term" column.
+See Also
+merge, labels
+

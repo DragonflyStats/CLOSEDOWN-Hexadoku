@@ -1,0 +1,38 @@
+
+freq.control
+Control settings for freqlist function
+
+#### Description
+
+Control test and summary settings for the freqlist function.
+
+#### Usage
+<pre><code>
+
+freq.control(sparse = FALSE, single = FALSE, dupLabels = FALSE,
+digits.count = 0L, digits.pct = 2L, ..., digits = NULL)
+
+</code></pre>
+#### Arguments
+
+sparse a logical value indicating whether to keep rows with counts of zero. The default
+is FALSE (drop zero-count rows).
+single logical, indicating whether to collapse results created using a strata variable into
+a single table for printing
+dupLabels logical: should labels which are the same as the row above be printed? The
+default (FALSE) more closely approximates PROC FREQ output from SAS, where
+a label carried down from the row above is left blank.
+digits.count Number of decimal places for count values.
+digits.pct Number of decimal places for percents.
+* ``... ``: additional arguments.
+digits A deprecated argumentfreqlist
+15
+
+#### Value
+
+A list with settings to be used within the freqlist function.
+Author(s)
+Ethan Heinzen
+See Also
+freqlist, summary.freqlist
+freqlist

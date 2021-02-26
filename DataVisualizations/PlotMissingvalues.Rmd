@@ -1,0 +1,50 @@
+---
+title: "``DataVisualizations::PlotMissingvalues ``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+## ``PlotMissingvalues``
+Plot of the Amount Of Missing Values
+#### Description
+Percentage of missing values per feature are visualized as a bar plot.
+#### Usage
+<pre><code>
+PlotMissingvalues(Data,Names,
+                  WhichDefineMissing=c('NA','DUMMY','.',' '),
+                  PlotIt=TRUE,xlab='Amount Of Missing Values in percent',...)
+</code></pre>
+#### Arguments
+* Data [1:n,1:d] data cases in rows, variables/features in columns
+* Names [1:d] optional vector of string describing the names of the features
+WhichDefineMissing
+[1:d] optional vector of string describing missing values, usefull for character
+features.
+PlotIt If FALES: Does not plot
+* xlab x label of bar plot
+* ... Further #### Arguments passed on to barplot, such as main for title
+
+
+
+#### Examples
+```{r}
+data("ITS")
+data("MTY")
+PlotMissingvalues(cbind(ITS,MTY),Names=c('ITS','MTY'))
+PlotProductratio 49
+```
+
+#### Value
+plots not finite and missing values as a bar plot for each feature d and returns with invisible the
+amount of missing values as a vector. Works even with character variables, but WhichDefineMissing
+cannot be changed at the current version. Please make a suggestion on GitHub how to improve
+this.
+Note
+Does not work with the tibble format, in such a case please call as.data.frame(as.matrix(Data))
+Author(s)
+Michael Thrun

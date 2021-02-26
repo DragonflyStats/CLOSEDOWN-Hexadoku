@@ -1,0 +1,46 @@
+
+duplicated2
+Determine Duplicate Elements
+
+#### Description
+
+duplicated2() determines which elements of a vector or data frame are duplicates, and returns a logical vector indicating which elements (rows) are duplicates.
+
+#### Usage
+<pre><code>
+
+duplicated2(x, bothWays=TRUE, ...)
+
+</code></pre>
+#### Arguments
+
+x a vector or a data frame or an array or NULL.
+bothWays if TRUE (the default), duplication should be considered from both sides. For more information see the argument fromLast to the function duplicated.
+... furt* ``...``: arguments passed down to duplicated() and its methods.
+
+#### Details
+
+The standard duplicated function (in package:base) only returns TRUE for the second and following copies of each duplicated value (second-to-last and earlier when fromLast=TRUE). This function returns all duplicated elementes, including the first (last) value.
+When bothWays is FALSE, duplicated2() defaults to a duplicated call. When bothWays is TRUE, the following call is being executed: duplicated(x, ...) | duplicated(x, fromLast=TRUE, ...)
+
+#### Value
+
+For a vector input, a logical vector of the same length as x. For a data frame, a logical vector with one element for each row. For a matrix or array, and when MARGIN = 0, a logical array with the
+same dimensions and dimnames.
+For more details see duplicated.
+Author(s)
+Liviu Andronic
+See Also
+duplicated, unique14
+elem
+
+#### Examples
+```{r}
+
+data(iris)
+iris[duplicated(iris), ]
+# 2nd duplicated value
+iris[duplicated(iris, fromLast=TRUE), ] # 1st duplicated value
+iris[duplicated2(iris), ]
+# both duplicated values
+```

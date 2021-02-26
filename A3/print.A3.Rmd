@@ -1,0 +1,30 @@
+---
+title: "A3"
+author: "Kevin O'Brien"
+date: "5 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+print.A3 Print Fit Results
+#### Description
+Prints an 'A3' object results table.
+#### Usage 
+<pre><code>
+## S3 method for class 'A3'
+print(x, ...)
+
+</code></pre>
+
+#### Arguments 
+x an A3 object.
+... additional arguments  passed to the print function.
+
+#### Examples 
+```{r}
+x <- a3.lm(rating ~ ., attitude, p.acc = NULL)
+print(x)
+```

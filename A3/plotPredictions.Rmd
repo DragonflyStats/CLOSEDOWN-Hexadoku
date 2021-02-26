@@ -1,0 +1,36 @@
+---
+title: "``plotPredictions`` Plot Predicted versus Observed"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+
+
+
+#### Description
+Plots an 'A3' object's values showing the predicted versus observed values for each observation.
+
+#### Usage 
+
+<pre><code>
+plotPredictions(x, show.equality = TRUE, xlab = "Observed Value",
+ylab = "Predicted Value", main = "Predicted vs Observed", ...)
+</code></pre>
+  
+#### Arguments 
+* x an A3 object,
+* show.equality if true plot a line at 45-degrees.
+* xlab the x-axis label.
+* ylab the y-axis label.
+* main the plot title.
+* ... additional options provided to the plot function.
+
+#### Examples 
+```{r}
+data(multifunctionality)
+x <- a3.lm(MUL ~ ., multifunctionality, p.acc = NULL, features = FALSE)
+plotPredictions(x)
+```

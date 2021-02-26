@@ -1,0 +1,28 @@
+---
+title: "timevis::runExample "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(timevis)
+```
+
+Run examples of using timevis in a Shiny app
+
+#### Description
+
+This example is also available online.
+
+#### Usage
+<pre><code>
+runExample()
+</code></pre>
+
+#### Examples
+```{r}
+
+if (interactive()) {
+runExample()
+}
+```

@@ -1,0 +1,16 @@
+
+move_data Exemplary simualted movement tracks
+#### Description
+This datasetd contains a Move object, representing cooridnates and acquisition times of three simulated
+movement tracks, covering a location nearby Lake of Constance, Germany. Individual names
+are made up for demonstration purposes.
+Usage
+move_data
+#### Format
+Move object, as used by the move package.
+32 subset_move
+#### Details
+This object is used by some moveVis #### Examples and unit tests.
+Note
+All data contained should only be used for testing moveVis and are not suitable to be used for
+analysis or interpretation.

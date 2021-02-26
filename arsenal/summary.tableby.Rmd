@@ -1,0 +1,71 @@
+---
+title: "``arsenal::summary.tableby``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The summary method for a tableby object
+
+#### Description
+
+The summary method for a tableby object, which is a pretty rendering of a tableby object into a publication-quality results table in R Markdown, and can render well in text-only.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'tableby'
+summary(object, ..., labelTranslations = NULL,
+text = FALSE, title = NULL, pfootnote = FALSE, term.name = "")
+## S3 method for class 'summary.tableby'
+as.data.frame(x, ..., text = x$text,
+pfootnote = x$pfootnote, term.name = x$term.name, width = NULL,
+min.split = NULL, list.ok = FALSE)
+
+</code></pre>
+#### Arguments
+
+object : An object of class "tableby", made by the tableby function.
+... : For summary.tableby, other arguments passed to as.data.frame.tableby.
+For printing the summary object, these are passed to both as.data.frame.summary.tableby
+and kable.
+labelTranslations : A named list (or vector) where the name is the label in the output to be replaced in the pretty rendering by the character string value for the named element of
+the list, e.g., list(age = "Age(Years)", meansd = "Mean(SD)").
+text An argument denoting how to print the summary to the screen. Default is FALSE (show markdown output). TRUE and NULL output a text-only version, with the latter avoiding all formatting. "html" uses the HTML tag <strong> instead of the markdown formatting, and "latex" uses the LaTeX command \textbf.
+title Title for the table, defaulting to NULL (no title)
+pfootnote Logical, denoting whether to put footnotes describing the tests used to generate the p-values.
+term.name A character vector denoting the column name for the "terms" column. It should be the same length as the number of tables or less (it will get recycled if needed).
+The special value TRUE will use the y-variable’s label for each table.
+x An object of class "summary.tableby".
+width Passed to smart.split for formatting of the "term" column.
+min.split Passed to smart.split for formatting of the "term" column.
+list.ok If the object has multiple by-variables, is it okay to return a list of data.frames instead of a single data.frame? If FALSE but there are multiple by-variables, a warning is issued.
+
+#### Value
+
+An object of class summary.tableby
+Author(s)
+Ethan Heinzen, based on code by Gregory Dougherty, Jason Sinnwell, Beth Atkinson, adapted from
+SAS Macros written by Paul Novotny and Ryan Lennon
+See Also
+tableby.control, tableby
+
+#### Examples
+```{r}
+set.seed(100)
+## make 3+ categories for response
+nsubj <- 90
+mdat <- data.frame(Response=sample(c(1,2,3),nsubj, replace=TRUE),36
+tableby
+Sex=sample(c("Male", "Female"), nsubj,replace=TRUE),
+Age=round(rnorm(nsubj,mean=40, sd=5)),
+HtIn=round(rnorm(nsubj,mean=65,sd=5)))
+## allow default summaries on RHS variables
+out <- tableby(Response ~ Sex + Age + HtIn, data=mdat)
+summary(out, text=TRUE)
+labels(out)
+labels(out) <- c(Age="Age (years)", HtIn="Height (inches)")
+summary(out, stats.labels=c(meansd="Mean-SD", q1q3 = "Q1-Q3"), text=TRUE)
+```

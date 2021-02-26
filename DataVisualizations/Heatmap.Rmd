@@ -1,0 +1,56 @@
+---
+title: "``DataVisualizations::Heatmap``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+Heatmap Heatmap for Clustering
+
+#### Description
+Heatmap of Distances of Data sorted by Cls
+
+#### Usage
+<pre><code>
+Heatmap(DataOrDistances,Cls,method='euclidean',LowLim=0,HiLim)
+</code></pre>
+
+#### Arguments
+* ``DataOrDistances``: [1:n,1:d] data cases in rows, variables in columns, if not symmetric or [1:n,1:n] distance matrix, if symmetric
+* ``Cls``: numeric vector, [1:n,1] classified data
+* ``method``: Optional, if Data[1:n,1:d] see dist for distance method
+* ``LowLim``: Optional: limits for the color axis
+* ``HiLim``: Optional: limits for the color axis
+
+
+#### Examples
+```{r}
+data("Lsun3D")
+Cls=Lsun3D$Cls
+Data=Lsun3D$Data
+Heatmap(as.matrix(dist(Data)),Cls = Cls)
+```
+
+#### Details
+Clustering algorithms provide a Classifcation of data, where the labels are defined as a numeric vector Cls
+Then, a typical cluster-respectively group structure is displayed by the HeatMap function. At the margin of the heatmap a dendrogram can be shown, if hierarchical cluster algorithms are used.
+Here the dendrogram has to be shown separately and only the heatmap itself is displayed [Wilkinson,2009].
+More details in [Thrun, 2018, p. 29]
+Value
+object of ggplot2
+
+#### Author(s)
+Michael Thrun
+
+#### References
+[Wilkinson,2009]Wilkinson, L., & Friendly, M.: The history of the cluster heat map, The American
+Statistician, Vol. 63(2), pp. 179-184. 2009.
+[Thrun, 2018] Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm
+Intelligence, doctoral dissertation 2017, Springer, ISBN: 978-3-658-20539-3, Heidelberg, 2018.
+26 inPSphere2D
+

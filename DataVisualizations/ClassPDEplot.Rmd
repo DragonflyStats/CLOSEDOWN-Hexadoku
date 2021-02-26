@@ -1,0 +1,49 @@
+---
+title: "``ClassPDEplot``:  PDE Plot for all classes"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+ClassPDEplot PDE Plot for all classes
+
+#### Description
+PDEplot the data for all classes, weights the pdf with priors
+
+#### Usage
+<pre><code>
+ClassPDEplot(Data, Cls, ColorSequence,
+ColorSymbSequence, PlotLegend = 1,
+SameKernelsAndRadius = 0, xlim, ylim, ...)
+</code></pre>
+#### Arguments
+* Data The Data to be plotted
+* Cls Vector of class identifiers. Can be integers or NaN’s, need not be consecutive
+nor positive
+* ColorSequence Optional: the sequence of colors used, Default: DefaultColorSequence
+* ColorSymbSequence
+Optional: the plot symbols used (theoretisch nicht notwendig, da erst wichtig,
+wenn mehr als 562 Cluster)
+PlotLegend Optional: add a legent to plot (default == 1)
+* SameKernelsAndRadius
+Optional: Use the same PDE kernels and radii for all distributions (default ==
+0)
+xlim Optional: range of the x axis
+ylim Optional: range of the y axis
+... further #### Arguments passed to plot
+ClassPDEplotMaxLikeli 15
+Value
+Kernels of the Pareto density estimation in mode invisible
+Author(s)
+Michael Thrun
+
+#### Examples
+data(ITS)
+model=AdaptGauss::AdaptGauss(ITS)
+Classification=AdaptGauss::ClassifyByDecisionBoundaries(ITS,
+DecisionBoundaries = AdaptGauss::BayesDecisionBoundaries(model$Means,model$SDs,model$Weights))
+DataVisualizations::ClassPDEplotMaxLikeli(ITS,Classification)$ggobject

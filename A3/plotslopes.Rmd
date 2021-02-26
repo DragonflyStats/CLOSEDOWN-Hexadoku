@@ -1,0 +1,34 @@
+---
+title: "``A3::plotslopes``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+library(randomForest)
+```
+
+###  Plot Distribution of Slopes
+
+#### Description
+Plots an 'A3' object's distribution of slopes for each feature and observation. Uses Kernel Density Estimation to create an estimate of the distribution of slopes for a feature.
+
+#### Usage 
+<pre><code>
+plotSlopes(x, ...)
+</code></pre>
+
+#### Arguments 
+* ``x``: an A3 object.
+* ``...``: additional options provided to the plot and density functions.
+
+#### Examples 
+
+```{r}
+require(randomForest)
+data(housing)
+x <- a3(MED.VALUE ~ NOX + PUPIL.TEACHER + ROOMS + AGE + HIGHWAY + 0,
+        housing, randomForest, p.acc = NULL, n.folds = 2)
+plotSlopes(x)
+```

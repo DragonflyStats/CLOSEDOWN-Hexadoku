@@ -1,0 +1,93 @@
+---
+title: "``gdata::object.size``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Report the Space Allocated for Objects
+
+#### Description
+
+Provides an estimate of the memory that is being used to store R objects.
+
+#### Usage
+<pre><code>
+  
+  object.size(...)
+## S3 method for class 'object_sizes'
+is(x)
+## S3 method for class 'object_sizes'
+as(x)
+## S3 method for class 'object_sizes'
+c(..., recursive=FALSE)
+## S3 method for class 'object_sizes'
+format(x, humanReadable=getOption("humanReadable"), standard="IEC", units,
+       digits=1, width=NULL, sep=" ", justify = c("right", "left"), ...)
+## S3 method for class 'object_sizes'
+print(x, quote=FALSE, humanReadable=getOption("humanReadable"),
+      standard="IEC", units, digits=1, width=NULL, sep=" ",
+      justify = c("right", "left"), ...)
+
+</code></pre>
+  #### Arguments
+  
+  * ... object.size: R objects; print and format: arguments to be passed to other methods.
+* x output from object.size
+* quote logical, indicating whether or not the result should be printed with surrounding quotes.
+* humanReadable logical, use the “human readable” format.
+* standard,units,digits,width,sep,justify
+See the man page for humanReadable.
+recursive
+See the man page for c.42
+object.size
+
+#### Details
+
+This is a modified copy of the man page for utils::object.size in R 2.2.1.
+Exactly which parts of the memory allocation should be attributed to which object is not clear-cut. This function merely provides a rough indication: it should be reasonably accurate for atomic
+vectors, but does not detect if elements of a list are shared, for example. (Sharing amongst elements of a character vector is taken into account, but not that between character vectors in a single object.)
+The calculation is of the size of the object, and excludes the space needed to store its name in the symbol table.
+Associated space (e.g., the environment of a function and what the pointer in a EXTPTRSXP points to) is not included in the calculation.
+Object sizes are larger on 64-bit builds than 32-bit ones, but will very likely be the same on different platforms with the same word length and pointer size.
+Changes
+Class of returned object is c("object_sizes", "numeric") with appropriate print and c methods.
+By default object.size outputs size in bytes, but human readable format similar to ls, df or du shell commands can be displayed by calling humanReadable directly, calling print with the
+argument humanReadable=TRUE, or by setting options(humanReadable=TRUE).
+
+#### Value
+
+A numeric vector class c("object_sizes", "numeric") containing estimated memory allocation
+attributable to the objects in bytes.
+See Also
+object.size in package ’utils’ for the standard version of this function, Memory-limits for the
+design limitations on object size, humanReadable for human readable format.
+
+#### Examples
+```{r}
+
+object.size(letters)
+object.size(ls)
+## find the 10 largest objects in the base package
+allObj <- sapply(ls("package:base"),
+                 function(x)
+                   object.size(get(x, envir = baseenv()))
+)
+( bigObj <- as.object_sizes(rev(sort(allObj))[1:10] ) )
+print(bigObj, humanReadable=TRUE)
+as.object_sizes(14567567)
+options(humanReadable=TRUE)read.xls
+(
+  43
+  z <- object.size(letters,
+                   c(letters, letters),
+                   rep(letters, 100),
+                   rep(letters, 10000)
+  )
+)
+is.object_sizes(z)
+as.object_sizes(14567567)
+```
+

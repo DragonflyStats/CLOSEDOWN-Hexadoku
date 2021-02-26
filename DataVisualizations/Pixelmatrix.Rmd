@@ -1,0 +1,39 @@
+---
+title: "``DataVisualizations::``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+Pixelmatrix Plot of a Pixel Matrix
+#### Description
+Plots Data matrix as a pixel coulour image.
+#### Usage
+<pre><code>
+Pixelmatrix(Data, XNames = NULL, LowLim, HiLim,
+            YNames = NULL, main = '',FillNotFiniteWithHighestValue=FALSE)
+</code></pre>
+#### Arguments
+Data [1:n,1:d] Data cases in rows (n), variables in columns (d)
+* LowLim Optional: limits for the color axis
+* HiLim Optional: limits for the color axis
+* XNames Optional: Vector - names for the X-ticks
+* YNames Optional: Vector - names for the Y-ticks
+main Optinal: String - Title of the plot
+* FillNotFiniteWithHighestValue
+Optinal, Default FALSE = Non finite values are shown in black, TRUE=non
+finite values are transformed to a value higher than the highest value and shown
+in this color
+Details
+Low values are shown in blue and green, middle values in yellow and high values in orange and red.
+Author(s)
+Michael Thrun, Felix Pape
+
+##### Examples
+data("Lsun3D")
+Data=Lsun3D$Data
+Pixelmatrix(Data)

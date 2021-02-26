@@ -1,0 +1,41 @@
+
+left
+Return the leftmost or rightmost columns of a matrix or dataframe
+
+#### Description
+
+Return the leftmost or rightmost or columns of a matrix or dataframe
+
+#### Usage
+<pre><code>
+
+right(x, n = 6)
+left(x, n=6)
+
+</code></pre>
+#### Arguments
+
+* ``x``: Matrix or dataframe
+n Number of columns to returnll
+29
+
+#### Value
+
+An object consisting of the leftmost or rightmost n columns of x.
+Author(s)
+Gregory R. Warnes <greg@warnes.net>
+See Also
+first, last, head, tail
+
+#### Examples
+```{r}
+
+m <- matrix( 1:100, ncol=10 )
+colnames(m) <- paste("Col",1:10, sep="_")
+left(m)
+right(m)
+d <- as.data.frame(m)
+left(d)
+right(d)
+
+```

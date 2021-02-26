@@ -1,0 +1,93 @@
+MDplot4multiplevectors
+Mirrored Density plot (MD-plot)for Multiple Vectors
+#### Description
+This function creates a MD-plot for multiple numerical vectors of various lenghts. The MD-plot is
+a visualization for a boxplot-like Shape of the PDF published in [Thrun/Ultsch, 2019]. It is an improvement
+of violin or so-called bean plots and posses advantages in comparison to the conventional
+well-known box plot [Thrun/Ultsch, 2019].
+#### Usage
+MDplot4multiplevectors(..., Names, Ordering='Default', Scaling="None",
+Fill='darkblue', RobustGaussian=TRUE, GaussianColor='magenta',
+Gaussian_lwd=1.5, BoxPlot=FALSE, BoxColor='darkred',
+MDscaling='width',Size=0.01, MinimalAmoutOfData=40,
+MinimalAmoutOfUniqueData=12,SampleSize=5e+05,OnlyPlotOutput=TRUE)
+38 MDplot4multiplevectors
+#### Arguments
+... Either d numerical vectors of different lengths or a list of length d where each
+element of the list is an vector of arbitrary length
+Names Optional: [1:d] Names of the the numerical vectors. If missing, the columnnames
+are mumbered.
+Ordering Optional: string, either Default, Columnwise, Alphabetical or Statistics.
+Please see details for explanation.
+Scaling Optional, Default is None, Percentalize, CompleteRobust, Robust or Log,
+Please see details for explanation.
+Fill Optional: string, color with which MDs are to be filled with.
+RobustGaussian Optional: If TRUE: each MDplot is overlayed with a roubustly estimated unimodal
+Gaussian distribution, if statistical testing does not yield a significant
+p.value. In this case the packages moments, diptest and signal are required.
+GaussianColor Optional: string, color of robustly estimated gaussian, only for RobustGaussian=TRUE.
+Gaussian_lwd Optional: numerical, line width of robustly estimated gaussian, only for RobustGaussian=TRUE.
+BoxPlot Optional: If TRUE: each MDplot is overlayed with a Box-Whisker Diagram.
+BoxColor Optional: string, color of Boxplot, only for BoxPlot=TRUE.
+MDscaling Optional: if "area", all violins have the same area (before trimming the tails).
+If "count", areas are scaled proportionally to the number of observations. If
+"width" (default), all MDs have the same maximum width.
+Size Optional: numerical, linewidth of black line around the MDs.
+MinimalAmoutOfData
+Optional: numeric value defining a threshold. Below this threshold no density
+estimation is performed and a Jitter plot with a median line is drawn. Only Data
+Science experts should change this value after they understand how the density
+is estimated (see [Ultsch, 2005]).
+MinimalAmoutOfUniqueData
+Optional: numeric value defining a threshold. Below this threshold no density
+estimation and statistical testing is performed and a Jitter plot with a median
+line is drawn. Only Data Science experts should change this value after they
+understand how the density is estimated (see [Ultsch, 2005]).
+SampleSize Optional: numeric value defining a threshold. Above this threshold uniform
+sampling of finite cases is performed in order to shorten computation time.If
+rowr is not installed, uniform sampling of all cases is performed. If required,
+SampleSize=n can be set to omit this procedure.
+OnlyPlotOutput Default TRUE only a ggplot object is given back, if FALSE: Additinally Scaled
+Data and ordering are the output of this function in a list.
+Details
+Please see MDplot for details.
+MDplot4multiplevectors 39
+
+
+
+#### Examples
+```{r}
+MDplot4multiplevectors(runif(20000, 1, 5),c(rnorm(20000,0,1),
+rnorm(20000,2.6,1)),c(rnorm(2000,2.5,1)),rpois(25000,5),
+Names=c('A','B','C','D'))
+V=list(runif(20000, 1, 5),c(rnorm(20000,0,1),
+rnorm(20000,2.6,1)),c(rnorm(2000,2.5,1)),rpois(25000,5))
+MDplot4multiplevectors(V,Names=c('A','B','C','D'))
+
+```
+
+#### Value
+
+In the default case of OnlyPlotOutput==TRUE: The ggplot object of the MD-plot.
+Otherwise for OnlyPlotOutput==FALSE: A list of
+ggplotObj The ggplot object of the MD-plot.
+Ordering The ordering of columns of data defined by Ordering.
+DataOrdered [1:n,1:d] matrix of ordered and scaled data defined by Ordering and Scaling.
+Note that the package ggExtra is not necessarily required but if given the feauture names are automatically
+rotated.
+Author(s)
+Michael Thrun.
+
+#### References
+
+[Ultsch, 2005] Ultsch, A.: Pareto density estimation: A density estimation for knowledge discovery,
+in Baier, D.; Werrnecke, K. D., (Eds), Innovations in classification, data science, and information
+systems, Proc Gfkl 2003, pp 91-100, Springer, Berlin, 2005.
+[Thrun/Ultsch, 2019] Thrun, M. C., & Ultsch, A. : Analyzing the Fine Structure of Distributions,
+Technical Report prior to submission, Philipps-University Marburg, Germany, 2019.
+[Thrun et al.,2018a] Thrun, M. C., Breuer, L., & Ultsch, A. : Knowledge discovery from lowfrequency
+stream nitrate concentrations: hydrology and biology contributions, Proc. European
+Conference on Data Analysis (ECDA), pp. 46-47, Paderborn, Germany, 2018.
+[Thrun et al.,2018b] Thrun, M. C., Pape, F., & Ultsch, A. : Benchmarking Cluster Analysis Methods
+using PDE-Optimized Violin Plots, Proc. European Conference on Data Analysis (ECDA), p. 26,
+Paderborn, Germany, 2018.

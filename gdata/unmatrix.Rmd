@@ -1,0 +1,52 @@
+
+---
+title: "``gdata::unmatrix``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+
+Convert a matrix into a vector, with appropriate names
+
+#### Description
+
+Convert a matrix into a vector, with element names constructed from the row and column names of the matrix.
+
+#### Usage
+<pre><code>
+
+unmatrix(x, byrow=FALSE)
+
+</code></pre>
+#### Arguments
+
+x matrix
+* ``byrow``:  Logical If FALSE, the elements within columns will be adjacent in the resulting vector, otherwise elements within rows will be adjacent.update.list
+57
+
+
+
+#### Examples
+```{r}
+
+# simple, useless example
+m <- matrix( letters[1:10], ncol=5)
+m
+unmatrix(m)
+# unroll model output
+x <- rnorm(100)
+y <- rnorm(100, mean=3+5*x, sd=0.25)
+m <- coef( summary(lm( y ~ x )) )
+unmatrix(m)
+```
+#### Value
+
+A vector with names constructed from the row and column names from the matrix. If the the row or column names are missing, (’r1’, ’r2’, ..,) or (’c1’, ’c2’, ..) will be used as appropriate.
+Author(s)
+Gregory R. Warnes <greg@warnes.net>
+See Also
+as.vector

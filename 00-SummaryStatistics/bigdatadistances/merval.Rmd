@@ -1,0 +1,25 @@
+---
+title: "``bigdatadist::merval``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(bigdatadist)
+```
+
+Merval Index
+
+
+#### Description 
+
+The data consist of an low and high values of the Merval Index stock market from Argentina; the data were gathered from Yahoo Finance.
+
+#### Usage
+merval
+
+#### Format
+A dataframe with 5269 observations with daily minimum, maximum, open and close index values.
+
+#### Source
+Yahoo Finance

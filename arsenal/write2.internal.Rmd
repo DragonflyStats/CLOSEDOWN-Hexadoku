@@ -1,0 +1,46 @@
+
+---
+title: "``arsenal::write2.internal``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+Helper functions for write2
+
+#### Description
+
+Helper functions for write2.48
+write2specific
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'verbatim'
+print(x, ...)
+verbatim(x)
+code.chunk(..., chunk.opts = "r")
+## S3 method for class 'code.chunk'
+print(x, ...)
+
+</code></pre>
+#### Arguments
+
+x An R object to coerce to class "verbatim" or such an object to print.
+... For print.verbatim, other arguments passed to print. For code.chunk, either
+expressions or single character strings to paste into the code chunk. Not used
+for print.code.chunk.
+chunk.opts A single character string giving the code chunk options. Make sure to specify
+the engine!
+Details
+The "verbatim" class is to tell write2 to print the object inside a section surrounded by three back
+ticks. The results will look like it would in the terminal (monospaced).
+code.chunk() is to write explicit code chunks in the .Rmd file; it captures the call and writes it to
+the file, to execute upon knitting.
+
+
+
+

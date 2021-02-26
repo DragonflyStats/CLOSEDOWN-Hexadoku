@@ -1,0 +1,52 @@
+view_spatial View movements on an interactive map
+#### Description
+view_spatial is a simple wrapper that displays movement tracks on an interactive mapview or
+leaflet map.
+Usage
+view_spatial(m, render_as = "mapview", time_labels = TRUE,
+stroke = TRUE, path_colours = NA, path_legend = TRUE,
+path_legend_title = "Names", verbose = TRUE)
+#### Arguments 
+m move or moveStack. May contain a column named colour to control path
+colours (see #### Details).
+render_as character, either 'mapview' to return a mapview map or 'leaflet' to return a
+leaflet map.
+time_labels logical, wether to display timestamps for each track fix when hovering it with
+the mouse cursor.
+stroke logical, whether to draw stroke around circles.
+path_colours character, a vector of colours. Must be of same length as number of individual
+tracks in m and refers to the order of tracks in m. If undefined (NA) and m contains
+a column named colour, colours provided within m are used (see #### Details).
+Othwersie, colours are selected randomly per individual track.
+path_legend logical, wether to add a path legend from m or not. Legend tracks and colours
+will be ordered by the tracks’ temporal apperances, not by their order in m.
+path_legend_title
+character, path legend title. Default is "Names".
+verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+#### Details
+If argument path_colours is not defined (set to NA), path colours can be defined by adding a
+character column named colour to m, containing a colour code or name per row (e.g. "red". This
+way, for example, column colour for all rows belonging to individual A can be set to "green",
+while column colour for all rows belonging to individual B can be set to "red". Colours could
+also be arranged to change through time or by behavioral segments, geographic locations, age,
+environmental or health parameters etc. If a column name colour in m is missing, colours will be
+selected automatically. Call colours() to see all available colours in R.
+Value
+An interatcive mapview or leaflet map.
+view_spatial 35
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_spatial
+#### Examples
+## Not run:
+library(moveVis)
+library(move)
+data("move_data")
+# return a mapview map (mapview must be installed)
+view_spatial(move_data)
+# return a leaflet map (leaflet must be installed)
+view_spatial(move_data, render_as = "leaflet")
+# turn off time labels and legend
+view_spatial(move_data, time_labels = FALSE, path_legend = FALSE)
+## End(Not run)

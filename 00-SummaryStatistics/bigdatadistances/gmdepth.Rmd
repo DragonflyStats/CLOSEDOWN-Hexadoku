@@ -1,0 +1,65 @@
+---
+title: "``bigdatadist::gmdepth``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(bigdatadist)
+```
+
+
+Generalized Mahalanobis Depth and Distance
+
+
+#### Description 
+
+
+This function allows you to compute the Generalized Kernel Mahalanobis depth measure as stated in Hernandez et al (2018, submitted) and the Generalized Mahalanobis distance in Martos et al (2014).
+
+#### Usage
+<pre><code>
+gmdepth(A,b,resol,k.neighbor)
+</code></pre>
+
+#### Arguments 
+* ``A``: data matrix where variables in columns, observations in rows.
+* ``b``: a new point in the support of the distribution to evaluate the depth. If omitted, the function compute the distances and depth between all points in the sample.
+* ``resol``:  resolution level, i.e. number of density level sets to consider.
+* ``k.neighbor``: number of local neighbours to estimate the support.
+
+#### Value
+* ``depth``: the generalized Mahalanobis depth measure.
+* ``distance``: the generalized Mahalanobis distance measure.
+
+#### Examples 
+```{r}
+require(MASS)
+set.seed(1)
+A=mvrnorm(450,c(0,0),Sigma=diag(2))
+b=mvrnorm(50,c(10,10),Sigma=diag(c(0.1,0.1)))
+C=rbind(A,b)
+plot(C, pch=20, col=c(rep('black',450),rep('red',50)),
+xlab='x1',ylab='x2')
+```
+
+
+```{r}
+gmd.fit = gmdepth(A=C)
+depth= gmd.fit$depth
+distance = gmd.fit$distance
+head(distance)
+```
+
+
+```{r}
+plot(depth,distance, pch=20,
+col=c(rep('black',450),rep('red',50)))
+gmdepth(A=A,b=mvrnorm(1,c(0,0),Sigma=diag(2)))
+```
+
+#### Author(s)
+Hernandez and Martos
+
+#### References
+Hernandez N. et al (2018). Generalized Mahalanobis depth functions (submitted). Martos, G. et al (2014). Generalizing the Mahalanobis distance via density kernels. Inteligent Data Anal.

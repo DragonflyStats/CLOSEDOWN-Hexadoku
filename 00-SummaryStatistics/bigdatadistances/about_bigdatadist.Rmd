@@ -1,0 +1,25 @@
+Package ‘bigdatadist’
+September 24, 2018
+Version 1.1
+Date 2018-09-23
+Title Distances for Machine Learning and Statistics in the Context of
+Big Data
+
+
+#### Description 
+
+ Functions to compute distances between probability measures or any other data ob-
+ject than can be posed in this way, entropy measures for samples of curves, dis-
+tances and depth measures for functional data, and the Generalized Mahalanobis Kernel dis-
+tance for high dimensional data. For further details about the metrics please refer to Mar-
+tos et al (2014) <doi:10.3233/IDA-140706>; Martos et al (2018) <doi:10.3390/e20010033>; Her-
+nandez et al (2018, submitted); Martos et al (2018, submitted).
+Author Gabriel Martos [aut, cre],
+Nicolas Hernandez [aut]
+Depends R (>= 3.4.0)
+Maintainer Gabriel Martos <gmartos@utdt.edu>
+License GPL (>= 3)
+Repository CRAN
+Imports MASS, FNN, rrcov, pdist
+NeedsCompilation yes
+Date/Publication 2018-09-24 13:30:03 UTC

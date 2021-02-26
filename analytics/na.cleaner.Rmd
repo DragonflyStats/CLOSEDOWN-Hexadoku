@@ -1,0 +1,74 @@
+---
+title: "``na.cleaner ``:  Missing Value Imputation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+#### Description
+
+Missing value imputation based on different methods. Can handle continuous and categorical variables.
+
+#### Usage
+
+<pre><code>
+na.cleaner(dataset, t1 = 0.5, t2 = 0.5, auto = TRUE, maxDel1 = 0.2,
+maxDel2 = 0.3, Mode = "mean", neigh = 3:7)
+</code></pre>
+
+#### Arguments
+* ``dataset``: a matrix or data frame. May have continuous and/or categorical variables.
+* ``t1``: the threshold value in interval 0-1 beyond which a record is deemed as having a high % of NAs. Default: 0.5.
+* t2 the threshold value in interval 0-1 beyond which a variable is deemed as having a high % of NAs. Default: 0.5.
+* auto If TRUE (the default), it will eliminate those records and/or variables deemed as having a high % of NAs. If FALSE, one handpicks which records/variables will
+be deleted.
+* ``maxDel1`` the proportion in interval 0-1 of records that can at most be deleted. Default: 0.2.
+* ``maxDel2`` the proportion in interval 0-1 of variables that can at most be deleted. Default: 0.3.
+* Mode a string specifying the imputation method to be used, among "mean" (default), "median", "mean&lm", "median&lm", "knn".
+* neigh the neighbours to be used in knn, both for continuous and categorical variables. Default: interval 3-7. For each value in neigh, knn is run, and then in the case of continuous variables, the outcome of those runs are averaged out. In the case of categorical variables, the imputed value is the most common imputed value across runs.
+
+
+
+#### Examples
+```{r}
+mtcars_mod <- mtcars
+set.seed(1)
+mtcars_mod <- as.data.frame(lapply(mtcars_mod, function(cc) cc[ sample(c(TRUE, NA),
+prob = c(0.6, 0.4), size = length(cc), replace = TRUE) ]))
+rownames(mtcars_mod) <- rownames(mtcars)
+```
+```{r}
+# Compare methods
+kNN_dt <- na.cleaner(dataset = mtcars_mod, Mode = "kNN")
+mean_lm_dt <- na.cleaner(dataset = mtcars_mod, Mode = "mean&lm")
+median_dt <- na.cleaner(dataset = mtcars_mod, Mode = "median")
+```
+```{r}
+all_dt <- na.cleaner(dataset = mtcars_mod, Mode = "all")
+dev_kNN <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(kNN_dt))
+dev_m_ml <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(mean_lm_dt))
+dev_md <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(median_dt))
+dev_all <- norm(as.matrix(mtcars[-c(4,6,8,13,18,20), -6])-as.matrix(all_dt))
+iris_mod <- iris
+```
+```{r}
+set.seed(5)
+iris_mod <- as.data.frame(lapply(iris_mod, function(cc) cc[ sample(c(TRUE, NA),
+prob = c(0.6, 0.4), size = length(cc), replace = TRUE) ]))
+rownames(iris_mod) <- rownames(iris)
+na.cleaner(dataset = iris_mod, neigh = 1, Mode = "all")
+```
+#### Details
+
+Each of the available methods in this function may be the best choice for a particular dataset, but since it is impossible to know which one it is in each particular case, Mode "all" might be a good,
+robust choice. For categorical variables, the only mode implemented is knn, so argument Mode really refers only to the continuous variables.
+
+####  Value
+the original dataset with imputed missing values.
+Author(s)
+Albert Dorador
+See Also
+kNN rowmean

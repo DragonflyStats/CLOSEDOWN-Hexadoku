@@ -1,0 +1,20 @@
+suggest_Formats Suggest known file formats
+#### Description
+This function returns a selection of suggested file #### Formats that can be used with out_file of
+animate_frames on your system.
+Usage
+suggest_Formats(suggested = c("gif", "mov", "mp4", "flv", "avi", "mpeg","3gp", "ogg"))
+#### Arguments 
+suggested character, a vector of suggested file #### Formats which are checked to be known by
+the available renderers on the running system. By default, these are c("gif", "mov", "mp4", "flv", "avi", Value
+A subset of suggested, containing only those file #### Formats which are known by the renderers on the
+running system.
+See Also
+animate_frames
+#### Examples
+# find out which #### Formats are available
+suggest_Formats()
+# check for a particular #### Format not listed in "suggested" that you want to use, e.g. m4v
+suggest_Formats("m4v")
+# if "m4v" is returned, you can use this #### Format with animate_frames
+34 view_spatial

@@ -1,0 +1,37 @@
+---
+title: "``gdata::xlsFormats``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+#### Description
+
+Check which file formats are supported by read.xls
+
+#### Usage
+<pre><code>
+
+xlsFormats(perl = "perl", verbose = FALSE)
+
+</code></pre>
+
+#### Arguments
+
+* ``perl``: Path to perl interpreter (optional).
+* ``verbose``: If TRUE, show additional messages during processing.
+
+#### Value
+
+Vector of supported formats, possible elements are ’XLS’ and ’XLSX’.
+See Also
+read.xls, xls2csv.
+
+#### Examples
+```{r}
+
+xlsFormats()
+```

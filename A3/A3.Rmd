@@ -1,0 +1,73 @@
+---
+title: "A3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(A3)
+```
+Package 'A3'
+August 16, 2015
+Type Package
+Title Accurate, Adaptable, and Accessible Error Metrics for Predictive
+Models
+Version 1.0.0
+Date 2015-08-15
+
+* Author Scott Fortmann-Roe
+* Maintainer Scott Fortmann-Roe <scottfr@berkeley.edu>
+
+#### Description 
+
+Supplies tools for tabulating and analyzing the results of predictive models. The methods employed are applicable to virtually any predictive model and make comparisons between different methodologies straightforward.
+
+* License GPL (>= 2)
+* Depends R (>= 2.15.0), xtable, pbapply
+* Suggests randomForest, e1071
+* NeedsCompilation no
+* Repository CRAN
+* Date/Publication 2015-08-16 23:05:52
+
+R topics documented:
+* A3-package 
+* a3 
+* a3.base
+* a3.gen.default 
+* a3.lm 
+* a3.r2 
+* housing
+* multifunctionality 
+* plot.A30
+* plotPredictions
+* plotSlopes 
+* print.A31
+* xtable.A3 
+
+Index 13
+
+A3-package A3 Error Metrics for Predictive Models
+#### Description
+A package for the generation of accurate, accessible, and adaptable error metrics for developing
+high quality predictions and inferences. The name A3 (pronounced "A-Cubed") comes from the
+combination of the first letters of these three primary adjectives.
+
+#### Details
+The overarching purpose of the outputs and tools in this package are to make the accurate assessment of model errors more accessible to a wider audience. Furthermore, a standardized set of reporting features are provided by this package which create consistent outputs for virtually any predictive model. This makes it straightforward to compare, for instance, a linear regression model to more exotic techniques such as Random forests or Support vector machines.
+The standard outputs for each model fit provided by the A3 package include:
+* Average Slope: Equivalent to a linear regression coefficient.
+* Cross Validated R2: Robust calculation of R2 (percent of squared error explained by the model compared to the null model) values adjusting for over-fitting.
+* p Values: Robust calculation of p-values requiring no parametric assumptions other than independence between observations (which may be violated if compensated for).
+
+The primary functions that will be used are a3 for arbitrary modeling functions and a3.lm for linear
+models. This package also includes print.A3 and plot.A3 for outputting the A3 results.
+
+#### Author(s)
+Scott Fortmann-Roe <scottfr@berkeley.edu> http://Scott.Fortmann-Roe.com
+
+
+
+
+
+
+

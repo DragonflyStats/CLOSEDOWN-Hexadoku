@@ -1,0 +1,50 @@
+cartogram_ncont Calculate Non-Contiguous Cartogram Boundaries
+
+#### Description
+Construct a non-contiguous area cartogram (Olson 1976).
+
+#### Usage
+<pre><code>
+cartogram_ncont(x, weight, k = 1, inplace = TRUE)
+## S3 method for class 'SpatialPolygonsDataFrame'
+cartogram_ncont(x, weight, k = 1,
+inplace = TRUE)
+## S3 method for class 'sf'
+cartogram_ncont(x, weight, k = 1, inplace = TRUE)
+</code></pre>
+
+#### Arguments
+* x SpatialPolygonDataFrame or an sf object
+* weight Name of the weighting variable in x
+* k Factor expansion for the unit with the greater value
+* inplace If TRUE, each polygon is modified in its original place, if FALSE multi-polygons are centered on their initial centroid
+
+
+#### Examples
+```
+library(maptools)
+library(cartogram)
+library(rgdal)
+data(wrld_simpl)
+# Remove uninhabited regions
+afr <- spTransform(wrld_simpl[wrld_simpl$REGION==2 & wrld_simpl$POP2005 > 0,],
+CRS("+init=epsg:3395"))
+# Create cartogram
+afr_nc <- cartogram_ncont(afr, "POP2005")
+# Plot
+plot(afr)
+plot(afr_nc, add = TRUE, col = 'red')
+# Same with sf objects
+library(sf)
+afr_sf = st_as_sf(afr)
+afr_sf_nc <- cartogram_ncont(afr_sf, "POP2005")
+plot(st_geometry(afr_sf))
+plot(st_geometry(afr_sf_nc), add = TRUE, col = 'red')
+```
+
+#### Value
+An object of the same class as x with resized polygon boundaries
+References
+Olson, J. M. (1976). Noncontiguous Area Cartograms. In The Professional Geographer, 28(4),
+371-380.
+6 cartogram_ncont

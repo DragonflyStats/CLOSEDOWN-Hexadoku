@@ -1,0 +1,62 @@
+---
+title: "``DataVisualizations::Piechart``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+Piechart The pie chart
+#### Description
+the pie chart represents amount of values given in data.
+#### Usage
+<pre><code>
+Piechart(Datavector,Names,Labels,MaxNumberOfSlices,
+         main='',col,Rline=1,...)
+</code></pre>
+#### Arguments
+* Datavector [1:n] a vector of n non unique values
+* Names Optional, [1:k] names to search for in Datavector, if not set unique of Datavector
+is calculated.
+* Labels Optional, [1:k] Labels if they are specially named, if not Names are used.
+* MaxNumberOfSlices
+Default is k, integer value defining how many labels will be shown. Everything
+else will be summed up to Other.
+* main Optional, title below the fan pie, see plot
+* col Optional, default as other colors in this packages, else the same as in plot
+* Rline Optional, the radius of the pie in numerical numbers
+* ... Optional, further #### Arguments passed on to plot
+
+
+#### Examples
+<pre><code>
+data(categoricalVariable)
+Piechart(categoricalVariable)
+</code></pre>
+
+#### Details
+If Number of Slices is higher than MaxNumberOfSlices then ABCanalysis is 
+applied (see [Ultsch/Lotsch,2015]) and group A chosen. If Number of Slices in group A is higher than MaxNumberOfSlices,
+then the most important ones out of group A are chosen. If MaxNumberOfSlices is higher than Slices in group A, additional slices are shown depending on the percentage (from high to low).
+
+Parameters of visualization a set as in [Schwabish, 2014] defined.
+
+#### Value
+silent output by calling invisible of a list with
+Percentages [1:k] percent values visualized in fanplot
+Labels [1:k] see input Labels, only relevant ones
+Note
+You see in the example below that a pie chart does not visualize such data well contrary to the
+fanPlot.
+Author(s)
+Michael Thrun
+
+#### References
+[Schwabish, 2014] Schwabish, Jonathan A. An Economist’s Guide to Visualizing Data. Journal of
+Economic Perspectives, 28 (1): 209-34. DOI: 10.1257/jep.28.1.209, 2014.
+[Ultsch/Lotsch, 2015] Ultsch. A ., Lotsch J.: Computed ABC Analysis for Rational Selection
+of Most Informative Variables in Multivariate Data, PloS one, Vol. 10(6), pp. e0129767. doi
+10.1371/journal.pone.0129767, 2015.

@@ -1,0 +1,63 @@
+---
+title: "``Wbiplot``:  Weighted Biplot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+
+
+#### Description
+Wbiplot produces a biplot with any weight distribution between Row and Column markers. 
+This way the full spectrum from perfect row resolution (Row-metric preserving biplot) to perfect column resolution (Column-metric preserving biplot) is available.
+
+#### Usage
+<pre><code>
+Wbiplot(df, numer1, denom1 = 1, numer2, denom2 = 1, cx = 0.5)
+</code><pre>
+
+#### Arguments
+* ``df``: a dataframe with numeric values only
+* ``numer1``: numerator of first exponent (can be a decimal*)
+* ``denom1``: denominator of first exponent (*default: 1*)
+* ``numer2``: numerator of second exponent (*can be a decimal*)
+* ``denom2``: denominator of second exponent (*default: 1*)
+* ``cx``: graphical magnification factor (*default: 0.5*)
+
+#### Examples
+```{r}
+require(graphics)
+# Exemple 1: Row metric preserving
+Wbiplot(USArrests, numer1 = 1, numer2 = 0, cx = 0.6)
+```
+```{r}
+# Exemple 2: Column metric preserving
+Wbiplot(USArrests, numer1 = 0, numer2 = 1, cx = 0.6)
+# Comparison with function biplot from package stats
+biplot(princomp(USArrests), cex = 0.6)
+```
+```{r}
+# Example 3: Custom, 50-50
+Wbiplot(USArrests, numer1 = 0.5, numer2 = 0.5)
+```
+```{r}
+# Example 4: Custom, 20-80
+Wbiplot(USArrests, numer1 = 0.2, numer2 = 0.8)
+weakly.stationary 13
+```
+
+
+#### Details
+This function makes use of function Matpow from package powerplus to be able to raise any valid matrix (see ``Matpow`` documentation) to any real power between 0 and 1 included.
+
+#### Value
+A biplot of a dataframe with the specified weights. Weights can either be supplied as two fractions, or as two decimal numbers.
+
+#### Author(s)
+Albert Dorador
+
+#### See Also
+Matpow

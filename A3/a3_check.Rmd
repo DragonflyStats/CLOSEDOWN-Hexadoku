@@ -1,0 +1,71 @@
+---
+title: "a3"
+author: "Kevin O'Brien"
+date: "25 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+a3 A3 Results for Arbitrary Model
+#### Description
+This function calculates the A3 results for an arbitrary model construction algorithm (e.g. Linear
+Regressions, Support Vector Machines or Random Forests). For linear regression models, you may
+use the a3.lm convenience function.
+#### Usage 
+<pre><code>
+a3(formula, data, model.fn, model.args = list(), ...)
+</code></pre>
+
+#### Arguments 
+formula the regression formula.
+data a data frame containing the data to be used in the model fit.
+model.fn the function to be used to build the model.
+model.args a list of arguments  passed to model.fn.
+... additional arguments  passed to a3.base.
+
+#### Value
+S3 A3 object; see a3.base for details
+#### References
+Scott Fortmann-Roe (2015). Consistent and Clear Reporting of Results from Diverse Modeling
+Techniques: The A3 Method. Journal of Statistical Software, 66(7), 1-23. <http://www.jstatsoft.org/v66/i07/>
+
+#### Examples 
+```{r}
+## Standard linear regression results:
+summary(lm(rating ~ ., attitude))
+## A3 Results for a Linear Regression model:
+# In practice, p.acc should be <= 0.01 in order
+# to obtain finer grained p values.
+a3(rating ~ ., attitude, lm, p.acc = 0.1)
+## A3 Results for a Random Forest model:
+# It is important to include the "+0" in the formula to eliminate the constant term.
+
+```
+
+
+```{r}
+require(randomForest)
+a3(rating ~ .+0, attitude, randomForest, p.acc = 0.1)
+# Set the ntrees argument of the randomForest function to 100
+a3(rating ~ .+0, attitude, randomForest, p.acc = 0.1, model.args = list(ntree = 100))
+# Speed up the calculation by doing 5-fold cross-validation.
+# This is faster and more conservative (i.e. it should over-estimate error)
+a3(rating ~ .+0, attitude, randomForest, n.folds = 5, p.acc = 0.1)
+# Use Leave One Out Cross Validation. The least biased approach but, for large data sets, potentially very slow.
+```
+
+
+```{r}
+a3(rating ~ .+0, attitude, randomForest, n.folds = 0, p.acc = 0.1)
+## Use a Support Vector Machine algorithm.
+# Just calculate the slopes and R^2 values, do not calculate p values.
+require(e1071)
+a3(rating ~ .+0, attitude, svm, p.acc = NULL)
+```
+
+
+
+
+

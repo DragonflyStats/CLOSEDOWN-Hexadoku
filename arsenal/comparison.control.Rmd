@@ -1,0 +1,73 @@
+comparison.control
+Control settings for ‘compare‘ function
+
+#### Description
+
+Control tolerance definitions for the compare.data.frame function.
+
+#### Usage
+<pre><code>
+
+comparison.control(tol.logical = "none", tol.num = c("absolute",
+"percent", "pct"), tol.num.val = sqrt(.Machine$double.eps),
+int.as.num = FALSE, tol.char = c("none", "trim", "case", "both"),
+tol.factor = c("none", "levels", "labels"), factor.as.char = FALSE,
+tol.date = "absolute", tol.date.val = 0, tol.other = "none",
+tol.vars = "none", ...)
+
+</code></pre>
+#### Arguments
+
+tol.logical, tol.num, tol.char, tol.factor, tol.date, tol.other
+A function or one of the shortcut character strings, denoting the tolerance func-
+tion to use for a given data type. See "details", below.
+tol.num.val Numeric; maximum value of differences allowed in numerics (fed to the function given in tol.num).
+int.as.num Logical; should integers be coerced to numeric before comparison? Default FALSE.
+factor.as.char Logical; should factors be coerced to character before comparison? Default FALSE.
+tol.date.val Numeric; maximum value of differences allowed in dates (fed to the function given in tol.date).
+tol.vars Either "none" (the default), denoting that variable names are to be matched as-is, or a character vector denoting equivalence classes for characters in the
+variable names. See "details", below.
+... Other arguments (not in use at this time).
+
+#### Details
+The following character strings are accepted:
+• tol.logical = "none": compare logicals exactly as they are.
+• tol.num = "absolute": compare absolute differences in numerics.
+• tol.num = "percent", tol.num = "pct" compare percent differences in numerics.
+• tol.char = "none": compare character strings exactly as they are.
+• tol.char = "trim": left-justify and trim all trailing white space.
+• tol.char = "case": allow differences in upper/lower case.
+• tol.char = "both": combine "trim" and "case".
+• tol.factor = "none": match both character labels and numeric levels.
+• tol.factor = "levels": match only the numeric levels.
+• tol.factor = "labels": match only the labels.
+• tol.date = "absolute": compare absolute differences in dates.
+• tol.other = "none": expect objects of other classes to be exactly identical.
+tol.vars: If not set to "none" (the default), the tol.vars argument is a character vector denoting
+equivalence classes for the characters in the variable names. A single character in this vector means
+to replace that character with "". All other strings in this vector are split by character and replaced
+by the first character in the string.
+E.g., a character vector c("._", "aA", " ") would denote that the dot and underscore are equiv-
+alent (to be translated to a dot), that "a" and "A" are equivalent (to be translated to "a"), and that
+spaces should be removed.
+The special character string "case" in this vector is the same as specifying paste0(letters, LETTERS).
+
+#### Value
+
+A list containing the necessary parameters for the compare.data.frame function.
+Author(s)
+Ethan Heinzen
+See Also
+compare.data.frame, comparison.tolerances
+
+#### Examples
+```{r}
+cntl <- comparison.control(
+ tol.num = "pct",
+ # calculate percent differences
+ tol.vars = c("case", # ignore case "._",
+ # set all underscores to dots. 
+ "e")
+ # remove all letter e's
+ )
+```

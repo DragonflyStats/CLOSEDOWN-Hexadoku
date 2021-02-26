@@ -1,0 +1,26 @@
+
+modelsum.family
+Family functions for modelsum
+
+#### Description
+
+A set of family functions for modelsum.
+
+#### Usage
+<pre><code>
+
+survival()
+ordinal(method = c("logistic", "probit", "loglog", "cloglog", "cauchit"))
+negbin(link = c("log", "identity", "sqrt"))
+
+</code></pre>
+#### Arguments
+
+method See MASS::polr.
+link See MASS::glm.nb.
+
+#### Value
+
+A list, in particular with element family.
+See Also
+family, coxph, polr

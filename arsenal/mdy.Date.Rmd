@@ -1,0 +1,56 @@
+---
+title: "``arsenal::``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+## ``mdy.Date``
+Convert numeric dates to Date object, and vice versa
+
+#### Description
+
+Convert numeric dates for month, day, and year to Date object, and vice versa.20
+mdy.Date
+
+#### Usage
+<pre><code>
+
+mdy.Date(month, day, year, yearcut = 120)
+Date.mdy(date)
+is.Date(x)
+
+</code></pre>
+
+#### Arguments
+
+* ``month`` integer, month (1-12).
+* ``day`` integer, day of the month (1-31, depending on the month).
+* ``year`` integer, either 2- or 4-digit year. If two-digit number, will add 1900 onto it, depending on range.
+* ``yearcut`` cutoff for method to know if to convert to 4-digit year.
+* ``date`` A date value.
+* ``x`` An object.
+
+
+#### Examples
+<pre><code>
+mdy.Date(9, 2, 2013)
+tmp <- mdy.Date(9, 2, 2013)
+Date.mdy(tmp)
+is.Date(tmp)
+</code></pre>
+
+#### Details
+Test if an object is a date.
+More work may need to be done with yearcut and 2-digit years. Best to give a full 4-digit year.
+
+#### Value
+
+mdy.Date returns a Date object, and Date.mdy returns a list with integer values for month, day, and
+year. is.Date returns a single logical value.
+
+#### See Also
+Date, DateTimeClasses

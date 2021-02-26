@@ -1,0 +1,60 @@
+---
+title: "``add_text``:   Add static or dynamic text to frames"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(moveVis)
+```
+
+
+#### Description
+This function adds static or dynamically changing text to the animation frames created with frames_spatial.
+
+#### Usage
+<pre><code>
+add_text(frames, labels, x, y, colour = "black", size = 3,
+type = "text", verbose = TRUE)
+</code></pre>
+
+#### Arguments 
+
+* frames list of ggplot2 objects, crated with frames_spatial.
+* labels character, text to be added to frames. Either a single character value or a character vector of same length as frames.
+* x numeric, position of text on the x scale. Either a single numeric value or a numeric vector of same length as frames.
+* y numeric, position of text on the y scale. Either a single numeric value or a numeric vector of same length as frames.
+colour character, the text colour(s). Either a single character value or a character vector
+of same length as frames.
+* size numeric, the text size(s). Either a single numeric value or a numeric vector of
+same length as frames.
+* type character, either "text" to draw text or "label" to draw text inside a box.
+* verbose logical, if TRUE, messages on the function’s progress are displayed (default).
+
+#### Value
+List of frames.
+Author(s)
+Jakob Schwalb-Willmann
+See Also
+frames_spatial frames_graph animate_frames
+#### Examples
+```{r}
+library(moveVis)
+library(move)
+data("move_data", "basemap_data")
+m <- align_move(move_data, res = 4, unit = "mins")
+# create spatial frames using a custom NDVI base layer
+r_list <- basemap_data[[1]]
+r_times <- basemap_data[[2]]
+frames <- frames_spatial(m, r_list = r_list, r_times = r_times, r_type = "gradient",
+fade_raster = TRUE)
+add_timestamps 15
+# add text somewhere to all frames:
+frames.a <- add_text(frames, "Water area", x = 8.959, y = 47.7305,
+colour = "white", size = 3)
+frames.a[[100]]
+# or use the ggplot2 "label" type:
+frames.b <- add_text(frames, "Water area", x = 8.959, y = 47.7305,
+colour = "black", size = 3, type = "label")
+frames.b[[100]]
+```

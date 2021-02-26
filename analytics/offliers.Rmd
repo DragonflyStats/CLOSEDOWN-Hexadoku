@@ -1,0 +1,66 @@
+---
+title: "``offliers``:  Takes Outliers Off"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(analytics)
+```
+
+
+#### Description
+
+offliers Finds the existing outliers after fitting a linear model, according to various criteria.
+
+#### Usage
+
+<pre><code>
+offliers(dataset, mod, CD = TRUE, DFB = FALSE, COVR = FALSE,
+pctg = 100, intersection = TRUE)
+</code></pre>
+
+#### Arguments
+* ``dataset``: an object containing the data used in the linear regression model, typically a data frame.
+* ``mod``: an object of class "lm" (the model fitted by the user).
+* ``CD``: a Boolean variable, indicating whether the Cook’s Distance criterion is to be used.
+* ``DFB``: a Boolean variable, indicating whether the DFBetas criterion is to be used.
+* ``COVR``: a Boolean variable, indicating whether the COVRATIO criterion is to be used.
+* ``pctg``: a real number between 0 and 100, indicating the maximum percentage of original observations to be removed.
+* ``intersection``: a Boolean variable, indicating whether the intersection or the union of the outliers detected must be considered (in case more than one criterion has been selected).
+
+
+#### Value
+a list containing, according to each criterion selected, which observations have been identified as
+outliers, how many they are, what percentage of the total number of observations they represent,
+and, if more than one criterion has been selected, the final outliers, quantity and percentage.
+
+#### Examples
+```{r}
+require(graphics)
+## Annette Dobson (1990) "An Introduction to Generalized Linear Models".
+## Page 9: Plant Weight Data.
+ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
+trt <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
+group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
+weight <- c(ctl, trt)
+lm.D9 <- lm(weight ~ group)
+db <- data.frame(weight, group)
+
+offliers(db,lm.D9)
+offliers(db,lm.D9, CD = FALSE, DFB = TRUE, COVR = TRUE)
+offliers(db,lm.D9, CD = TRUE, DFB = TRUE, COVR = TRUE, intersection = FALSE)
+offliers(db,lm.D9, CD = TRUE, DFB = TRUE, COVR = TRUE, pctg = 10, intersection = FALSE)
+```
+
+#### Details
+Criteria available: Cook’s Distance, DFBetas, and COVRATIO. DFFits has not been included because it is conceptually equivalent to Cook’s Distance; in fact there’s a closed-form formula to
+convert one value to the other. See references. The user can select any combination of those, and take off the outliers in the intersection (default) or union.
+
+
+#### Author(s)
+Albert Dorador
+
+#### References
+`* Cook & Weisberg 1982, "Residuals and Influence in Regression". http://conservancy.umn.edu/handle/11299/37076
+

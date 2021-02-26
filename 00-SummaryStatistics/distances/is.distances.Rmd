@@ -1,0 +1,24 @@
+---
+title: "``is.distances``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(distances)
+```
+
+#### Description
+
+``is.distances`` checks whether the provided object is a valid instance of the distances class.
+
+#### Usage
+<pre><code>
+is.distances(x)
+</code></pre>
+
+#### Arguments
+* ``x``: object to check.
+
+#### Value
+Returns TRUE if x is a valid distances object, otherwise FALSE.

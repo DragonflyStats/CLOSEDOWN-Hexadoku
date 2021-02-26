@@ -1,0 +1,63 @@
+---
+title: "``gdata::elem``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gdata)
+```
+
+Display Information about Elements in a Given Object
+
+#### Description
+
+This function is depreciated. Please use ll instead.
+Display name, class, size, and dimensions of each element in a given object.
+
+#### Usage
+<pre><code>
+
+elem(object=1, unit=c("KB","MB","bytes"), digits=0,
+dimensions=FALSE)
+
+</code></pre>
+#### Arguments
+
+* object object containing named elements, perhaps a model or data frame.
+* unit required unit for displaying element size: "KB", "MB", "bytes", or first letter.
+* digits number of decimals to display when rounding element size.
+* dimensions whether element dimensions should be returned.
+
+#### Details
+
+A verbose alternative to names().
+
+#### Value
+
+A data frame with named rows and the following columns:
+Class element class.
+KB element size (see notes).
+Dim element dimensions (optional).
+Note
+The name of the element size column is the same as the unit used.
+Elements of class classRepresentation, ClassUnionRepresentation, and grob do not have a
+defined size, so 0 bytes are assumed for those.env
+15
+Author(s)
+Arni Magnusson <arnima@u.washington.edu>
+See Also
+names, str, and summary display different information about object elements.
+ll and env are related to elem.
+
+#### Examples
+```{r}
+
+## Not run:
+data(infert)
+elem(infert)
+model <- glm(case~spontaneous+induced, family=binomial, data=infert)
+elem(model, dim=TRUE)
+elem(model$family)
+## End(Not run)
+```

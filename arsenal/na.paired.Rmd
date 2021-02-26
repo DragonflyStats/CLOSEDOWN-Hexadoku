@@ -1,0 +1,37 @@
+---
+title: "``arsenal::na.paired``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(arsenal)
+```
+
+Helper functions for paired
+
+#### Description
+
+A set of helper functions for paired.
+
+#### Usage
+<pre><code>
+
+na.paired(missings = c("in.both", "fill", "asis"))
+</code></pre>
+
+#### Arguments
+
+* missings A character string denoting which action to take. See "Details", below.
+* ... Other arguments, or a vector of indices for extracting.
+
+#### Details
+All methods subset out any NA time points or IDs. "in.both" (the default) subsets the data.frame
+to individuals who appear at both time points. "fill" adds explicit missings for the people missing
+second time points. "asis" does nothing to add or remove missings.
+
+#### Value
+
+na.paired returns a function used to subset data.frames in paired.
+See Also
+tableby.internal

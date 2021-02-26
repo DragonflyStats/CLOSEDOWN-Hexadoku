@@ -1,0 +1,50 @@
+---
+title: "``DataVisualizations::GoogleMapsCoordinates``"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+GoogleMapsCoordinates Google Maps with marked coordinates
+
+#### Description
+
+Google Maps with marked coordinates.
+
+#### Usage
+
+<pre><code>
+GoogleMapsCoordinates(Longitude,Latitude,
+    Cls=rep(1,length(Longitude)),
+    zoom=3,location= c(mean(Longitude),mean(Latitude)),
+    stroke=1.7,size=6,sequence)
+</code></pre>
+
+#### Arguments
+Longitude sphaerischer winkel der Kugeloberflaeche, coord 1
+Latitude sphaerischer winkel der Kugeloberflaeche, coord 2
+Cls Vorklassification/Clusterung
+zoom map zoom, an integer from 3 (continent) to 21 (building), default value 10 (city).
+openstreetmaps limits a zoom of 18, and the limit on stamen maps depends on the maptype. "auto" automatically determines the zoom for bounding box specifications, and is defaulted to 10 with center/zoom specifications. maps of the whole world currently not supported
+location Optional, default: c(mean(Longitude),mean(Latitude); an address, longitude/latitude pair (in that order), or left/bottom/right/top bounding box stroke Optional, plotting parameter, dicke der linien der coordiantensymbole
+size Optional, plotting parameter, groesse der koordinatensymbole
+sequence Optional, vector of length of number of clusers with numbers indicating the plotting symbols and colors to use
+
+#### Details
+This plot was used in [Thrun, 2018, p. 135].
+
+#### Value
+ggobject()
+Note
+requires an Internet connection, requires an API key of Google. See ?ggmap::register_google
+for details.
+
+#### Author(s)
+Michael Thrun
+References
+[Thrun, 2018] Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm
+Intelligence, doctoral dissertation 2017, Springer, ISBN: 978-3-658-20539-3, Heidelberg, 2018.
+

@@ -1,0 +1,8 @@
+PmatrixColormap P-Matrix colors
+#### Description
+Defines the default color sequence for plots made with PDEscatter
+#### Usage
+data("PmatrixColormap")
+Format
+Returns the vectors for a (heat) colormap.
+

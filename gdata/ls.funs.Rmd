@@ -1,0 +1,49 @@
+---
+title: '``gdata::ls.funs``'
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+List function objects
+
+#### Description
+
+Return a character vector giving the names of function objects in the specified environment.
+
+#### Usage
+<pre><code>
+
+ls.funs(...)
+</code></pre>
+#### Arguments
+
+...
+
+</code></pre>
+#### Arguments
+ passed to ls. See the help for ls for details.
+
+#### Details
+
+This function calls ls and then returns a character vector containing only the names of only function objects.
+
+#### Value
+
+character vector
+Author(s)
+Gregory R. Warnes <greg@warnes.net>
+See Also
+ls, is.function
+
+#### Examples
+```{r}
+
+## List functions defined in the global environment:
+ls.funs()
+## List functions available in the base package:
+ls.funs("package:base")
+```

@@ -1,0 +1,38 @@
+---
+title: "``DataVisualizations::InspectScatterplots ``"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DataVisualizations)
+```
+
+InspectScatterplots Pairwise scatterplots and optimal histograms
+#### Description
+Pairwise scatterplots and optimal histograms of all features stored as columns of data are plotted
+#### Usage
+InspectScatterplots(Data,Names=colnames(Data))
+#### Arguments
+Data [1:n,1:d] Data cases in rows (n), variables in columns (d)
+Names Optional: Names of the variables. If missing the columnnames of data are used.
+
+Examples
+Data=cbind(rnorm(100, mean = 2, sd = 3 ),rnorm(100,mean = 0, sd = 1),rnorm(100,mean = 6, sd = 0.5))
+#InspectScatterplots(Data)
+30 InspectStandardization
+
+
+Details
+For two features, PDEscatter function should be used to isnpect modalities [Thrun/Ultsch, 2018].
+For many features the function takes too lang. In such a case this function can be used. See
+[Thrun/Ultsch, 2018] for optimal histogram #### Description.
+Author(s)
+Michael Thrun
+References
+[Thrun/Ultsch, 2018] Thrun, M. C., & Ultsch, A.: Effects of the payout system of income taxes
+to municipalities in Germany, 12th Professor Aleksander Zelias International Conference on Modelling
+and Forecasting of Socio-Economic Phenomena, Vol. accepted, Foundation of the Cracow
+University of Economics, Zakopane, Poland, 2018.

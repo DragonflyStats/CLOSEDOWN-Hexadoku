@@ -1,0 +1,78 @@
+summary.cv Summarize cross-validation results
+
+#### Description 
+
+Produce a summary of results from (repeated) K-fold cross-validation.
+summary.cv 37
+
+#### Usage 
+<pre><code>
+
+## S3 method for class 'cv'
+summary(object, ...)
+## S3 method for class 'cvSelect'
+summary(object, ...)
+## S3 method for class 'cvTuning'
+summary(object, ...)
+
+</code></pre>
+#### Arguments 
+
+object an object inheriting from class "cv" or "cvSelect" that contains cross-validation
+results (note that the latter includes objects of class "cvTuning").
+... currently ignored.
+Value
+An object of class "summary.cv", "summary.cvSelect" or "summary.cvTuning", depending on
+the class of object.
+Author(s)
+Andreas Alfons
+See Also
+cvFit, cvSelect, cvTuning, summary
+
+#### Examples 
+```{r}
+
+library("robustbase")
+data("coleman")
+set.seed(1234) # set seed for reproducibility
+## set up folds for cross-validation
+folds <- cvFolds(nrow(coleman), K = 5, R = 10)
+## compare raw and reweighted LTS estimators for
+## 50% and 75% subsets
+# 50% subsets
+fitLts50 <- ltsReg(Y ~ ., data = coleman, alpha = 0.5)
+cvFitLts50 <- cvLts(fitLts50, cost = rtmspe, folds = folds,
+fit = "both", trim = 0.1)
+# 75% subsets
+fitLts75 <- ltsReg(Y ~ ., data = coleman, alpha = 0.75)
+cvFitLts75 <- cvLts(fitLts75, cost = rtmspe, folds = folds,
+38 xyplot.cv
+fit = "both", trim = 0.1)
+```
+
+```{r}
+# combine results into one object
+cvFitsLts <- cvSelect("0.5" = cvFitLts50, "0.75" = cvFitLts75)
+cvFitsLts
+# summary of the results with the 50% subsets
+summary(cvFitLts50)
+# summary of the combined results
+summary(cvFitsLts)
+```
+
+```{r}
+## evaluate MM regression models tuned for
+## 80%, 85%, 90% and 95% efficiency
+tuning <- list(tuning.psi=c(3.14, 3.44, 3.88, 4.68))
+# set up function call
+call <- call("lmrob", formula = Y ~ .)
+```
+
+```{r}
+# perform cross-validation
+cvFitsLmrob <- cvTuning(call, data = coleman,
+y = coleman$Y, tuning = tuning, cost = rtmspe,
+folds = folds, costArgs = list(trim = 0.1))
+cvFitsLmrob
+# summary of results
+summary(cvFitsLmrob)
